@@ -1,10 +1,15 @@
 <?php
 
+use App\Http\Controllers\CountryController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('countries', CountryController::class);
+Route::get('/country', [CountryController::class, 'index'])->name('root');
+
 
 Route::middleware([
     'auth:sanctum',

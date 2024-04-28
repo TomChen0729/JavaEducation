@@ -1,17 +1,30 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+use App\Http\Middleware\Authenticate;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class CountryController extends Controller
+class CountryController extends Controller implements HasMiddleware
+// class CountryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    public static function middleware(): array
+    {
+        return [
+            'auth' => Authenticate::class,
+        ];
+    }
+    public function __construct(){
+        //
+    }
     public function index()
     {
         //
+        return view('test.hello');
     }
 
     /**
