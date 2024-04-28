@@ -35,6 +35,7 @@
     
     <!--js-->
     <!-- <script src="{{ asset('js/app.js') }}"></script> -->
+    @yield('srcipt')
     <script>
         let menu = document.querySelector('#menu-icon');
         let navbar = document.querySelector('.navbar');
