@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JavaEducation - @yield('title')</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
 </head>
@@ -35,6 +34,7 @@
 
     
     <!--js-->
+    <!-- <script src="{{ asset('js/app.js') }}"></script> -->
     <script>
         let menu = document.querySelector('#menu-icon');
         let navbar = document.querySelector('.navbar');

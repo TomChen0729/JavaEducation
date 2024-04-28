@@ -24,7 +24,7 @@ class CountryController extends Controller implements HasMiddleware
     public function index()
     {
         //
-        return view('test.hello');
+        return view('front');
     }
 
     /**
