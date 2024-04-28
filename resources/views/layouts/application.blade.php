@@ -14,7 +14,7 @@
         
         <ul class="navbar">
             <li><a href="#" class="active">知識卡</a></li>
-            <li><a href="#">個人資料</a></li>
+            <li><a href="{{ route("profile.show") }}">個人資料</a></li>
             <li><a href="#">排行榜</a></li>
             <li><a href="#">最新消息</a></li>
             <li><a href="#">歷史答題記錄</a></li>
