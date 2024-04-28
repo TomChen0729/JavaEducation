@@ -20,3 +20,7 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::get('/front', function () {
+    return view('front');
+});
