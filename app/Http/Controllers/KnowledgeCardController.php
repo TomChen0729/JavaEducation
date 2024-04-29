@@ -1,35 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
-use App\Http\Middleware\Authenticate;
-use Illuminate\Routing\Controllers\HasMiddleware;
-use Illuminate\Routing\Controllers\Middleware;
 
-class CountryController extends Controller implements HasMiddleware
-// class CountryController extends Controller
+use Illuminate\Http\Request;
+
+class KnowledgeCardController extends Controller
 {
-    // 驗證登入
-    public function __construct()
-    {
-        // $this->auth
-    }
     /**
      * Display a listing of the resource.
      */
-    public static function middleware(): array
-    {
-        return [
-            'auth' => Authenticate::class,
-        ];
-    }
-    public function __construct(){
-        //
-    }
     public function index()
     {
-        //
-        return view('level');
+        // 抓資料顯示當前關卡的知識卡
+        // 帶參數國家id, 關卡id
+
+        return view('knowledge');
     }
 
     /**
@@ -38,7 +23,6 @@ class CountryController extends Controller implements HasMiddleware
     public function create()
     {
         //
-        
     }
 
     /**

@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Http\Middleware;
-
+// use App\Models\Auth;
+use App\Models\User;
 use Closure;
-use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-
-class Authenticate extends Middleware
+use Illuminate\Support\Facades\Auth;
+class Authenticate
 {
     /**
      * Handle an incoming request.
@@ -16,7 +16,10 @@ class Authenticate extends Middleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if (! Auth::check()){
+            return redirect('login');
+        }
         return $next($request);
+        
     }
-
 }
