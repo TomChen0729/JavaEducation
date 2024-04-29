@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Services\GameService;
 class GameController extends Controller
 {
+    protected $gameService;
     // 檢查登入狀態
-    public function __construct()
+    public function __construct(GameService $gameService)
     {
-        // $this->middleware('auth')->except(['index']);
+        $this->gameService = $gameService;
     }
 
     /**
