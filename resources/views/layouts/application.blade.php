@@ -7,12 +7,10 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         *{
-                padding: 0;
-                margin: 0;
                 box-sizing: border-box;
                 font-family: "Poppins", sans-serif;
-                text-decoration: none;
-                list-style: none;
+                text-decoration: none; /*底線去除*/
+                list-style: none; /*去除清單前面的符號*/
             }
 
             :root{
@@ -22,7 +20,6 @@
             }
 
             body{
-                min-height: 100vh;
                 background: var(--bg-color);
                 color: var(--text-color);
             }
@@ -39,6 +36,13 @@
                 background: transparent;
                 padding: 28px 12%;
                 transition: all .50s ease;
+            }
+
+            .container{
+                display: flex;
+                justify-content: center; /* 水平置中 */
+                align-items: center; /* 垂直置中 */
+                height: 80%; /* 這是可視窗口高度的百分比，確保容器填滿整個畫面 */
             }
 
             .logo{
@@ -205,9 +209,9 @@
         </div>
     </header>
 
-    <content>
+    <div class="container">
         @yield('content')
-    </content>
+    </div>
 
 
     <!--js-->
