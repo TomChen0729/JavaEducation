@@ -53,21 +53,45 @@
         <div class="card">
             <div class="card-content">
                 <h3>LV.1</h3>
-                <p>fjoahjdolfhoaujf</p>
+                <p>
+                    變數與資料型態
+                    <br>
+                    學習區總共分為四個部分來學習，連連看、重組、選擇、是非
+                    <br>
+                    題目為隨機配題
+                    <br>
+                    LV.1共會拿到5張知識卡
+                </p>
                 <a href="" class="btn">Start</a>
             </div>
         </div>
         <div class="card">
             <div class="card-content">
                 <h3>LV.2</h3>
-                <p>fjoahjdolfhoaujf</p>
+                <p>
+                    資料輸入與輸出
+                    <br>
+                    學習區總共分為四個部分來學習，連連看、重組、選擇、是非
+                    <br>
+                    題目為隨機配題
+                    <br>
+                    LV.2共會拿到11張知識卡
+                </p>
                 <a href="" class="btn">Start</a>
             </div>
         </div>
         <div class="card">
             <div class="card-content">
                 <h3>LV.3</h3>
-                <p>fjoahjdolfhoaujf</p>
+                <p>
+                    運算子
+                    <br>
+                    學習區總共分為四個部分來學習，連連看、重組、選擇、是非
+                    <br>
+                    題目為隨機配題
+                    <br>
+                    LV.3共會拿到5張知識卡
+                </p>
                 <a href="" class="btn">Start</a>
             </div>
         </div>
