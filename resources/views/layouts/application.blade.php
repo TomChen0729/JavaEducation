@@ -127,6 +127,7 @@
                     width: 270px;
                     height: 30px;
                     background: var(--bg-color);
+                    background-color: #222327;
                     display: flex;
                     flex-direction: column;
                     justify-content: flex-start;
@@ -155,6 +156,7 @@
                 }
             }
     </style>
+    @yield('style')
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
 </head>
@@ -182,7 +184,7 @@
     
     <!--js-->
     <!-- <script src="{{ asset('js/app.js') }}"></script> -->
-    @yield('srcipt')
+    @yield('script')
     <script>
         let menu = document.querySelector('#menu-icon');
         let navbar = document.querySelector('.navbar');
