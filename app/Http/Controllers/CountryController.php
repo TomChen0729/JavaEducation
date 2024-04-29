@@ -9,11 +9,6 @@ use Illuminate\Routing\Controllers\Middleware;
 class CountryController extends Controller implements HasMiddleware
 // class CountryController extends Controller
 {
-    // 驗證登入
-    public function __construct()
-    {
-        // $this->auth
-    }
     /**
      * Display a listing of the resource.
      */
@@ -23,8 +18,9 @@ class CountryController extends Controller implements HasMiddleware
             'auth' => Authenticate::class,
         ];
     }
-    public function __construct(){
-        //
+    public function __construct()
+    {
+        
     }
     public function index()
     {
