@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 
 class GameController extends Controller
 {
+    // 檢查登入狀態
+    public function __construct()
+    {
+        // $this->middleware('auth')->except(['index']);
+    }
+
     /**
      * Display a listing of the resource.
      */

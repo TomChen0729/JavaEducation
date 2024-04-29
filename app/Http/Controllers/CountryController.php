@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Auth;
 class CountryController extends Controller
 {
+    // 驗證登入
+    public function __construct()
+    {
+        // $this->auth
+    }
     /**
      * Display a listing of the resource.
      */
@@ -20,6 +25,7 @@ class CountryController extends Controller
     public function create()
     {
         //
+        
     }
 
     /**
