@@ -21,15 +21,28 @@ class CountryController extends Controller implements HasMiddleware
             'auth' => Authenticate::class,
         ];
     }
-    public function __construct(){
-        //
+    public function __construct()
+    {
+        
     }
     public function index()
     {
         //
-        return view('welcome');
+        return view('level');
     }
 
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+        
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
     //過去連連看畫面, 回傳資料
     public function GoMatchGame(Request $request, int $userID)
     {
