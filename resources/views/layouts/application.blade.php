@@ -163,25 +163,53 @@
 <body>
     <header class="header">
         <a href="#" class="logo"><span>綠野仙蹤</span></a>
-                        
-                        <ul class="navbar">
-                            <li><a href="#" class="active">知識卡</a></li>
-                            <li><a href="{{ route("profile.show") }}">個人資料</a></li>
-                            <li><a href="#">排行榜</a></li>
-                            <li><a href="#">最新消息</a></li>
-                            <li><a href="#">歷史答題記錄</a></li>
-                        </ul>
 
-                        <div class="main">
-                            <div class="bx bx-menu" id="menu-icon"></div>
-                        </div>
+        <ul class="navbar">
+            <li><a href="#" class="active">知識卡</a></li>
+            <li><a href="{{ route("profile.show") }}">個人資料</a></li>
+            <li><a href="#">排行榜</a></li>
+            <li><a href="#">最新消息</a></li>
+            <li><a href="#">歷史答題記錄</a></li>
+            <li>
+                                @if (Route::has('login'))
+                                    @auth
+                                        <a
+                                            href="{{ url('/dashboard') }}"
+                                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]"
+                                        >
+                                            Dashboard
+                                        </a>
+                                    @else
+                                        <a
+                                            href="{{ route('login') }}"
+                                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]"
+                                        >
+                                            Log in
+                                        </a>
+
+                                        @if (Route::has('register'))
+                                            <a
+                                                href="{{ route('register') }}"
+                                                class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]"
+                                            >
+                                    Register
+                            </a>
+                        @endif
+                    @endauth
+                @endif
+            </li>
+        </ul>
+
+        <div class="main">
+            <div class="bx bx-menu" id="menu-icon"></div>
+        </div>
     </header>
-    
+
     <content>
         @yield('content')
     </content>
 
-    
+
     <!--js-->
     <!-- <script src="{{ asset('js/app.js') }}"></script> -->
     @yield('script')
