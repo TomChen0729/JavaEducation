@@ -13,7 +13,7 @@ class KnowledgeCardController extends Controller
     {
         // 抓資料顯示當前關卡的知識卡
         // 帶參數國家id, 關卡id
-
+        
         return view('knowledge');
     }
 

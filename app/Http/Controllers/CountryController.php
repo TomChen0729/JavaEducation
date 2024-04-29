@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Middleware\Authenticate;
 use Illuminate\Routing\Controllers\HasMiddleware;
-use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Routing\Controller\Middleware;
+use Illuminate\Validation\ValidationException; // 驗證資料欄位
+use App\Services\GameService;
+use Exception;
 
 class CountryController extends Controller implements HasMiddleware
 // class CountryController extends Controller
@@ -27,49 +30,50 @@ class CountryController extends Controller implements HasMiddleware
         return view('welcome');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    //過去連連看畫面, 回傳資料
+    public function GoMatchGame(Request $request, int $userID)
     {
-        //
+        // 
+        try{
+            $method = $request->method();
+            if ($method == 'GET'){
+                $currentUser = auth()->user()->id;
+                // getUserRecord($currentUser);
+            }
+            return view('game.match', [""]);
+        }
+        catch(ValidationException $e){
+            return false;
+        }
+        catch(Exception $e){
+            return response()->json(['error' => 'An error occurred'], 500);
+        }
+        
+        
+        
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //
