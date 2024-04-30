@@ -217,7 +217,7 @@
     <!--js-->
     <!-- <script src="{{ asset('js/app.js') }}"></script> -->
     @yield('script')
-    <script>
+    <!-- <script>
         let menu = document.querySelector('#menu-icon');
         let navbar = document.querySelector('.navbar');
 
@@ -225,6 +225,6 @@
             menu.classList.toggle('bx-x');
             navbar.classList.toggle('open');
         }
-    </script>
+    </script> -->
 </body>
 </html>

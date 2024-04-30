@@ -28,7 +28,7 @@ class CountryController extends Controller implements HasMiddleware
     public function index()
     {
         //
-        return view('choose');
+        return view('game.choose');
     }
 
     /**
