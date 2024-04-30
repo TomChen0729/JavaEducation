@@ -97,6 +97,16 @@
 
 @section('script')
     <script>
+        
+        const quiz = document.getElementById('questionSection')
+        const answerEls = document.querySelectorAll('.answer')
+        const questionEl = document.getElementById('questions')// 這裡的 ID 是 'questions'
+        const a_text = document.getElementById('a-text')// 這裡的 ID 是 'a-text'
+        const b_text = document.getElementById('b-text')
+        const c_text = document.getElementById('c-text')
+        const d_text = document.getElementById('d-text')
+        const submitBtn = document.getElementById('sub')
+
         //題目
         const quizData = [
             {
@@ -133,14 +143,6 @@
             },
         ]
         
-        const quiz = document.getElementById('questionSection')
-        const answerEls = document.querySelectorAll('.answer')
-        const questionEl = document.getElementById('questions')// 這裡的 ID 是 'questions'
-        const a_text = document.getElementById('a-text')// 這裡的 ID 是 'a-text'
-        const b_text = document.getElementById('b-text')
-        const c_text = document.getElementById('c-text')
-        const d_text = document.getElementById('d-text')
-        const submitBtn = document.getElementById('sub')
 
         // 預設要顯示的第一道題目，按照陣列長度的index為零
         let currentQuiz = 0
