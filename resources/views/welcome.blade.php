@@ -6,7 +6,7 @@
     <title>JavaEducation - 首頁</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
-        *{
+            *{
                 box-sizing: border-box;
                 font-family: "Poppins", sans-serif;
                 text-decoration: none; /*底線去除*/
@@ -35,10 +35,12 @@
                 justify-content: space-between;
                 background: transparent;
                 padding: 28px 12%;
+                margin: 10px;
                 transition: all .50s ease;
             }
 
             .container{
+                margin: 30px 0 0 0;
                 display: flex;
                 justify-content: center; /* 水平置中 */
                 align-items: center; /* 垂直置中 */
@@ -51,12 +53,21 @@
                 letter-spacing: 15px; /* 字元間距 */
                 color: #0e3742;
                 text-transform: uppercase; /* 所有字母皆為大寫 */
-                width: 100%;
+                width: 200px;
                 text-align: center;
-                -webkit-box-reflect: below 1px linear-gradient(transparent, #0008); /* 鏡像效果：反射方向 反射距離 線性漸變 */
-                line-height: 0.7em; /* 設置行高 */
+                -webkit-box-reflect: below 1px linear-gradient(transparent, #0e3742); /* 鏡像效果：反射方向 反射距離 線性漸變 */
+                line-height: 0.1em; /* 設置行高 */
                 outline: none; /* 輪廓線 */
                 animation: animate 5s linear infinite;
+            }
+
+            @keyframes animate {
+                from {
+                    transform: translateX(0); /* 起始位置 */
+                }
+                to {
+                    transform: translateX(80px); /* 结束位置 */
+                }
             }
 
             .logo{
@@ -66,7 +77,7 @@
 
             .logo span{
                 color: var(--text-color);
-                font-size: 28px;
+                font-size: 24px;
                 font-weight: 600;
             }
 
@@ -170,7 +181,7 @@
 </head>
 <body>
     <header class="header">
-        <a href="#" class="logo"><span class = "light" contenteditable="ture">綠野仙蹤</span></a>
+        <div class="light"><a href="#" class="logo"><span contenteditable="true">綠野仙蹤</span></a></div>
 
         <ul class="navbar">
             <li><a href="#">知識卡</a></li>
@@ -207,6 +218,7 @@
     <div class="container">
 
     </div>
+
 
     <!--js-->
     <!-- <script src="{{ asset('js/app.js') }}"></script> -->
