@@ -45,6 +45,20 @@
                 height: 80%; /* 這是可視窗口高度的百分比，確保容器填滿整個畫面 */
             }
 
+            .light{
+                position: relative;
+                font-size: 6em;
+                letter-spacing: 15px; /* 字元間距 */
+                color: #0e3742;
+                text-transform: uppercase; /* 所有字母皆為大寫 */
+                width: 100%;
+                text-align: center;
+                -webkit-box-reflect: below 1px linear-gradient(transparent, #0008); /* 鏡像效果：反射方向 反射距離 線性漸變 */
+                line-height: 0.7em; /* 設置行高 */
+                outline: none; /* 輪廓線 */
+                animation: animate 5s linear infinite;
+            }
+
             .logo{
                 display: flex;
                 align-items: center;
@@ -52,7 +66,7 @@
 
             .logo span{
                 color: var(--text-color);
-                font-size: 20px;
+                font-size: 28px;
                 font-weight: 600;
             }
 
@@ -70,10 +84,6 @@
             }
 
             .navbar a:hover{
-                color: var(--main-color);
-            }
-
-            .navbar a.active{
                 color: var(--main-color);
             }
 
@@ -129,7 +139,6 @@
                     top: 100%;
                     right: -100%;
                     width: 270px;
-                    height: 30px;
                     background: var(--bg-color);
                     background-color: #222327;
                     display: flex;
@@ -151,10 +160,6 @@
                     transform: translateY(5px);
                 }
 
-                .navbar a.active{
-                    color: var(--text-color);
-                }
-
                 .navbar.open{
                     right: 2%;
                 }
@@ -166,38 +171,29 @@
 </head>
 <body>
     <header class="header">
-        <a href="#" class="logo"><span>綠野仙蹤</span></a>
+        <a href="#" class="logo"><span class = "light" contenteditable="ture">綠野仙蹤</span></a>
 
         <ul class="navbar">
-            <li><a href="#" class="active">知識卡</a></li>
+            <li><a href="#">知識卡</a></li>
             <li><a href="{{ route("profile.show") }}">個人資料</a></li>
             <li><a href="#">排行榜</a></li>
             <li><a href="#">最新消息</a></li>
             <li><a href="#">歷史答題記錄</a></li>
             <li>
-                                @if (Route::has('login'))
-                                    @auth
-                                        <a
-                                            href="{{ url('/dashboard') }}"
-                                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]"
-                                        >
-                                            Dashboard
-                                        </a>
-                                    @else
-                                        <a
-                                            href="{{ route('login') }}"
-                                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]"
-                                        >
-                                            Log in
-                                        </a>
-
-                                        @if (Route::has('register'))
-                                            <a
-                                                href="{{ route('register') }}"
-                                                class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]"
-                                            >
-                                    Register
+                @if (Route::has('login'))
+                    @auth
+                        <a href="{{ url('/dashboard') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                            Dashboard
+                        </a>
+                        @else
+                            <a href="{{ route('login') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                                Log in
                             </a>
+
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                                    Register
+                                </a>
                         @endif
                     @endauth
                 @endif

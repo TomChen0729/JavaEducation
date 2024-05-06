@@ -9,7 +9,17 @@
 @endsection
 
 @section('content')
-    
+    <div class="tof">
+        <div class="question">
+            <h2>Question Test</h2>
+        </div>
+        <div class="true">
+            
+        </div>
+        <div class="false">
+
+        </div>
+    </div>
 @endsection
 
 @section('script')

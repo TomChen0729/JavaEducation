@@ -5,8 +5,8 @@
 @section('style')
     <style>
         body{
-            margin: 0;
-            padding: 0;
+            /* margin: 0;
+            padding: 0; */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -15,6 +15,7 @@
         }
         
         .question{
+            margin: 1em;
             background-color: #bcdf49;
             border-radius: 10px;
             box-shadow: 0 0 10px rgb(100, 100, 100);
@@ -27,7 +28,8 @@
         }
 
         #questions{
-            font-size: 24px;
+            font-size: 28px;
+            font-weight: bold;
             padding: 1rem;
             text-align: center;
             margin: 0;
@@ -39,7 +41,7 @@
         }
 
         .quiz-header ul li{
-            font-size: 24px;
+            font-size: 20px;
             margin: 18px 0;
         }
 
@@ -71,23 +73,23 @@
 @section('content')
     <div class="question" id="questionSection">
         <div class="quiz-header">
-            <h2 id="questions">Question Test</h2>
+            <h2 id="questions"></h2>
             <ul>
                 <li>
                     <input type="radio" name="answer" id="a" class="answer">
-                    <label for="a" id="a-text">a</label>
+                    <label for="a" id="a-text"></label>
                 </li>
                 <li>
                     <input type="radio" name="answer" id="b" class="answer">
-                    <label for="b" id="b-text">b</label>
+                    <label for="b" id="b-text"></label>
                 </li>
                 <li>
                     <input type="radio" name="answer" id="c" class="answer">
-                    <label for="c" id="c-text">c</label>
+                    <label for="c" id="c-text"></label>
                 </li>
                 <li>
                     <input type="radio" name="answer" id="d" class="answer">
-                    <label for="d" id="d-text">d</label>
+                    <label for="d" id="d-text"></label>
                 </li>
             </ul>
         </div>
