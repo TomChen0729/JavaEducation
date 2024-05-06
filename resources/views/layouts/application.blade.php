@@ -6,13 +6,11 @@
     <title>JavaEducation - @yield('title')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
-        *{
-                padding: 0;
-                margin: 0;
+            *{
                 box-sizing: border-box;
                 font-family: "Poppins", sans-serif;
-                text-decoration: none;
-                list-style: none;
+                text-decoration: none; /*底線去除*/
+                list-style: none; /*去除清單前面的符號*/
             }
 
             :root{
@@ -22,7 +20,6 @@
             }
 
             body{
-                min-height: 100vh;
                 background: var(--bg-color);
                 color: var(--text-color);
             }
@@ -38,7 +35,39 @@
                 justify-content: space-between;
                 background: transparent;
                 padding: 28px 12%;
+                margin: 10px;
                 transition: all .50s ease;
+            }
+
+            .container{
+                margin: 30px 0 0 0;
+                display: flex;
+                justify-content: center; /* 水平置中 */
+                align-items: center; /* 垂直置中 */
+                height: 80%; /* 這是可視窗口高度的百分比，確保容器填滿整個畫面 */
+            }
+
+            .light{
+                position: relative;
+                font-size: 6em;
+                letter-spacing: 15px; /* 字元間距 */
+                color: #0e3742;
+                text-transform: uppercase; /* 所有字母皆為大寫 */
+                width: 200px;
+                text-align: center;
+                -webkit-box-reflect: below 1px linear-gradient(transparent, #0e3742); /* 鏡像效果：反射方向 反射距離 線性漸變 */
+                line-height: 0.1em; /* 設置行高 */
+                outline: none; /* 輪廓線 */
+                animation: animate 5s linear infinite;
+            }
+
+            @keyframes animate {
+                from {
+                    transform: translateX(0); /* 起始位置 */
+                }
+                to {
+                    transform: translateX(80px); /* 结束位置 */
+                }
             }
 
             .logo{
@@ -48,7 +77,7 @@
 
             .logo span{
                 color: var(--text-color);
-                font-size: 20px;
+                font-size: 24px;
                 font-weight: 600;
             }
 
@@ -66,10 +95,6 @@
             }
 
             .navbar a:hover{
-                color: var(--main-color);
-            }
-
-            .navbar a.active{
                 color: var(--main-color);
             }
 
@@ -125,7 +150,6 @@
                     top: 100%;
                     right: -100%;
                     width: 270px;
-                    height: 30px;
                     background: var(--bg-color);
                     background-color: #222327;
                     display: flex;
@@ -147,10 +171,6 @@
                     transform: translateY(5px);
                 }
 
-                .navbar a.active{
-                    color: var(--text-color);
-                }
-
                 .navbar.open{
                     right: 2%;
                 }
@@ -162,38 +182,29 @@
 </head>
 <body>
     <header class="header">
-        <a href="#" class="logo"><span>綠野仙蹤</span></a>
+        <div class="light"><a href="#" class="logo"><span contenteditable="true">綠野仙蹤</span></a></div>
 
         <ul class="navbar">
-            <li><a href="#" class="active">知識卡</a></li>
+            <li><a href="#">知識卡</a></li>
             <li><a href="{{ route("profile.show") }}">個人資料</a></li>
             <li><a href="#">排行榜</a></li>
             <li><a href="#">最新消息</a></li>
             <li><a href="#">歷史答題記錄</a></li>
             <li>
-                                @if (Route::has('login'))
-                                    @auth
-                                        <a
-                                            href="{{ url('/dashboard') }}"
-                                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]"
-                                        >
-                                            Dashboard
-                                        </a>
-                                    @else
-                                        <a
-                                            href="{{ route('login') }}"
-                                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]"
-                                        >
-                                            Log in
-                                        </a>
-
-                                        @if (Route::has('register'))
-                                            <a
-                                                href="{{ route('register') }}"
-                                                class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]"
-                                            >
-                                    Register
+                @if (Route::has('login'))
+                    @auth
+                        <a href="{{ url('/dashboard') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                            Dashboard
+                        </a>
+                        @else
+                            <a href="{{ route('login') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                                Log in
                             </a>
+
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                                    Register
+                                </a>
                         @endif
                     @endauth
                 @endif
@@ -205,9 +216,9 @@
         </div>
     </header>
 
-    <content>
+    <div class="container">
         @yield('content')
-    </content>
+    </div>
 
 
     <!--js-->

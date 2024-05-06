@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Middleware\Authenticate;
 use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controller\Middleware;
 use Illuminate\Validation\ValidationException; // 驗證資料欄位
 use App\Services\GameService;
 use Exception;
@@ -11,8 +12,6 @@ use Exception;
 class CountryController extends Controller implements HasMiddleware
 // class CountryController extends Controller
 {
-
-    protected $gameService;
     /**
      * Display a listing of the resource.
      */
@@ -22,14 +21,14 @@ class CountryController extends Controller implements HasMiddleware
             'auth' => Authenticate::class,
         ];
     }
-    public function __construct(GameService $gameService)
+    public function __construct()
     {
-        $this->gameService = $gameService;
+        
     }
     public function index()
     {
         //
-        return view('level');
+        return view('game.choose');
     }
 
     /**
@@ -51,9 +50,10 @@ class CountryController extends Controller implements HasMiddleware
         try{
             $method = $request->method();
             if ($method == 'GET'){
-                $current_user = $this->gameService->getUserRecord($userID);
+                $currentUser = auth()->user()->id;
+                // getUserRecord($currentUser);
             }
-            return view('game.match', ["current_user" => $current_user]);
+            return view('game.match', [""]);
         }
         catch(ValidationException $e){
             return false;
