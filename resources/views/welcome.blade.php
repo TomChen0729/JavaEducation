@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaEducation - @yield('title')</title>
+    <title>JavaEducation - 首頁</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         *{
@@ -165,7 +165,6 @@
                 }
             }
     </style>
-    @yield('style')
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
 </head>
@@ -206,13 +205,11 @@
     </header>
 
     <div class="container">
-        @yield('content')
-    </div>
 
+    </div>
 
     <!--js-->
     <!-- <script src="{{ asset('js/app.js') }}"></script> -->
-    @yield('script')
     <script>
         let menu = document.querySelector('#menu-icon');
         let navbar = document.querySelector('.navbar');

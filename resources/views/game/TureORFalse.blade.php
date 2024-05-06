@@ -4,7 +4,13 @@
 
 @section('style')
     <style>
-        
+        .bubbly-button:focus {
+            outline: 0; /* 移除輪廓線 */
+        }
+
+        .bubbly-button:before,.bubbly-button:after{
+            position: inherit;
+        }
     </style>
 @endsection
 
@@ -14,10 +20,10 @@
             <h2>Question Test</h2>
         </div>
         <div class="true">
-            
+            <button class="bubbly-button">True</button>
         </div>
         <div class="false">
-
+            <button class="bubbly-button">True</button>
         </div>
     </div>
 @endsection
