@@ -146,68 +146,60 @@
 
         // 預設要顯示的第一道題目，按照陣列長度的index為零
         let currentQuiz = 0
-        // 得分數初始為零
-        let score = 0
 
-        // 將每個input的狀態設回未選定(false)
-        function deselectAnswers() {
-        answerEls.forEach((answerEl) => (answerEl.checked = false))
+        // 封装常用的DOM操作函数
+        function clearSelections() {
+            answerEls.forEach(answerEl => answerEl.checked = false);
         }
 
-        function loadQuiz() {
-        deselectAnswers()
-        // 將quizData中的第一道題目，放進變數currentQuizData中，然後渲染到DOM.innerText裡面。
-        const currentQuizData = quizData[currentQuiz]
-        questionEl.innerText = currentQuizData.question
-        a_text.innerText = currentQuizData.a
-        b_text.innerText = currentQuizData.b
-        c_text.innerText = currentQuizData.c
-        d_text.innerText = currentQuizData.d
+        function renderQuestion(quizData, index) {
+            const currentQuizData = quizData[index];
+            questionEl.textContent = currentQuizData.question;
+            a_text.textContent = currentQuizData.a;
+            b_text.textContent = currentQuizData.b;
+            c_text.textContent = currentQuizData.c;
+            d_text.textContent = currentQuizData.d;
         }
 
-        // 產生答案，視被選定的input.id為何（a, b, c, d）
-        function getSelected() {
-        let answer
-
-        answerEls.forEach((answerEl) => {
-            if (answerEl.checked) {
-            answer = answerEl.id
+        function getNextQuestion() {
+            clearSelections();
+            currentQuiz++;
+            if (currentQuiz < quizData.length) {
+                renderQuestion(quizData, currentQuiz);
+            } else {
+                quiz.innerHTML = `<button onclick="location.reload()">重新开始</button>`;
             }
-        })
-
-        return answer
         }
 
+        function getSelectedAnswer() {
+            for (const answerEl of answerEls) {
+                if (answerEl.checked) {
+                    return answerEl.id;
+                }
+            }
+            return null; // 如果没有选择任何答案，则返回 null
+        }
 
         submitBtn.addEventListener('click', () => {
-        // 當submit被選中時，執行getSelected()，然後產生answer
-        const answer = getSelected()
-
-        if (answer) {
-        // 若answer等於種子資料中的correct，則score + 1
-            if (answer === quizData[currentQuiz].correct) {
-            score++
-            }
-            
-            // 被選定的題目序數 + 1
-            currentQuiz++
-
-            // 若被選定的題目序數小於題庫陣列長度，則再次渲染新的選擇題
-            if (currentQuiz < quizData.length) {
-            loadQuiz()
+            const selectedAnswer = getSelectedAnswer();
+            if (selectedAnswer !== null) {
+                // 检查用户是否选择了答案
+                if (selectedAnswer === quizData[currentQuiz].correct) {
+                    // 正确答案的处理逻辑
+                } else {
+                    // 错误答案的处理逻辑
+                }
+                getNextQuestion();
             } else {
-            // 否則帶入成績
-                quiz.innerHTML = `
-                    <h2>You answered ${score}/${quizData.length} questions correctly</h2>
-                    // 要重整畫面，一般會用onclick="location.reload()"，但在CodePen環境會失效，因此改為 onclick="history.go(0)"
-                    // 兩者差別在於，前者是重新向server送request，後者是讀取緩存。
-                    <button onclick="history.go(0);">Reload</button>
-                `
+                // 用户没有选择答案时的处理逻辑
+                alert("请选择一个答案！");
             }
-        }
-        
-        loadQuiz()
-        
-        })
+        });
+
+        // 页面加载时渲染第一题
+        window.onload = () => {
+            renderQuestion(quizData, currentQuiz);
+        };
+
     </script>
 @endsection
