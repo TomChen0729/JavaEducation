@@ -189,12 +189,11 @@
             <li><a href="{{ route("profile.show") }}">個人資料</a></li>
             <li><a href="#">排行榜</a></li>
             <li><a href="#">最新消息</a></li>
-            <li><a href="#">歷史答題記錄</a></li>
             <li>
                 @if (Route::has('login'))
                     @auth
                         <a href="{{ url('/dashboard') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
-                            Dashboard
+                            歷史答題記錄
                         </a>
                         @else
                             <a href="{{ route('login') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
