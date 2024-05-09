@@ -2,47 +2,31 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use App\Http\Middleware\Authenticate;
-use Illuminate\Routing\Controllers\HasMiddleware;
-use Illuminate\Routing\Controller\Middleware;
 use Illuminate\Validation\ValidationException; // 驗證資料欄位
 use App\Services\GameService;
 use Exception;
-
-class CountryController extends Controller implements HasMiddleware
-// class CountryController extends Controller
+use Illuminate\Support\Facades\Route;
+class CountryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public static function middleware(): array
+
+    private GameService $gameService;
+    public function __construct(GameService $gameService)
     {
-        return [
-            'auth' => Authenticate::class,
-        ];
+        $this->gameService = $gameService;
+        // $this->
     }
-    public function __construct()
-    {
-        
+    public function index(){
+        // 導向顯示五個國家的那個頁面
+        return view('');
     }
-    public function index()
+    // 導向是非題頁面，該遊戲資料，帶使用者資料，檢查玩家遊戲進度
+    public function TrueORFalse()
     {
         //
+        
         return view('game.TureORFalse');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-        
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     //過去連連看畫面, 回傳資料
     public function GoMatchGame(Request $request, int $userID)
     {
@@ -52,8 +36,10 @@ class CountryController extends Controller implements HasMiddleware
             if ($method == 'GET'){
                 $currentUser = auth()->user()->id;
                 // getUserRecord($currentUser);
+
             }
-            return view('game.match', [""]);
+            // return view('game.match', [""]);
+            return response()->json(['success'=> "True", 'currentUser' => $currentUser]);
         }
         catch(ValidationException $e){
             return false;

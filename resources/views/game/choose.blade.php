@@ -109,6 +109,7 @@
         const d_text = document.getElementById('d-text')
         const submitBtn = document.getElementById('sub')
 
+        // 接後端
         //題目
         const quizData = [
             {
