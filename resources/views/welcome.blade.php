@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JavaEducation - 首頁</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js', ])
     <style>
             *{
                 box-sizing: border-box;
@@ -214,8 +214,12 @@
         </div>
     </header>
 
-    <div class="container">
-
+    <div class="container" style="display: flex; justify-content: center; align-items: center;">
+        <button style="border: 1px solid white; padding: 20px; margin-top: 300px"><a href="#">國家一</a></button>
+        <button style="border: 1px solid white; padding: 20px; margin-left: 10px; margin-top: 300px"><a href="#">國家二</a></button>
+        <button style="border: 1px solid white; padding: 20px; margin-left: 10px; margin-top: 300px"><a href="#">國家三</a></button>
+        <button style="border: 1px solid white; padding: 20px; margin-left: 10px; margin-top: 300px"><a href="#">國家四</a></button>
+        <button style="border: 1px solid white; padding: 20px; margin-left: 10px; margin-top: 300px"><a href="#">國家五</a></button>
     </div>
 
 
