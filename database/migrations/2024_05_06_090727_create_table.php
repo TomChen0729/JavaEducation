@@ -15,9 +15,10 @@ return new class extends Migration
             $table->ipAddress('gender');
             $table->integer('birth_year');
             $table->foreignId('country_id');
+            $table->foreignId('pass_familiarity_id');
         });
 
-        Schema::create('countrys', function (Blueprint $table) {
+        Schema::create('countries', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->ipAddress('name');
             $table->timestamps();
@@ -31,9 +32,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('pass_familiaritys', function (Blueprint $table) {
+        Schema::create('pass_familiarities', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('user_id');
+            $table->foreignId('country_id');
             $table->integer('levels');
             $table->timestamps();
         });
@@ -116,9 +117,10 @@ return new class extends Migration
             $table->dropColumn('birth_year');
             $table->dropColumn('country_id');
         });
-        Schema::dropIfExists('countrys');
+
+        Schema::dropIfExists('countries');
         Schema::dropIfExists('main_lines');
-        Schema::dropIfExists('pass_familiaritys');
+        Schema::dropIfExists('pass_familiarities');
         Schema::dropIfExists('questions');
         Schema::dropIfExists('options');
         Schema::dropIfExists('rewriting_options');

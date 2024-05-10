@@ -16,4 +16,8 @@ class PassFamiliarity extends Model
     {
         return $this->hasMany(PassCourseGetCard::class);
     }
+    public function users(): HasMany
+    {
+        return $this->hasMany(User::class);
+    }
 }

@@ -1,8 +1,10 @@
 <?php
-
+use App\Http\Controllers\DataController;
 use App\Http\Controllers\CountryController;
 use Illuminate\Support\Facades\Route;
 
+//輸入資料
+Route::get('/data', [DataController::class, 'storeData']);
 
 Route::get('/', function(){
     return view('home');
