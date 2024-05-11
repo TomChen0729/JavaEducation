@@ -165,17 +165,17 @@
             d_text.textContent = currentQuizData.d;
         }
 
-        //獲取下一道題目
-        function getNextQuestion() {
-            clearSelections();//清除選項狀態
-            currentQuiz++;//當前題目索引加1
-            if (currentQuiz < quizData.length) {
-                renderQuestion(quizData, currentQuiz); //渲染下一道題目
-            } else {
-                //最後一道題目，重新開始
-                quiz.innerHTML = `<button onclick="location.reload()">重新开始</button>`;
-            }
-        }
+        // //獲取下一道題目
+        // function getNextQuestion() {
+        //     clearSelections();//清除選項狀態
+        //     currentQuiz++;//當前題目索引加1
+        //     if (currentQuiz < quizData.length) {
+        //         renderQuestion(quizData, currentQuiz); //渲染下一道題目
+        //     } else {
+        //         //最後一道題目，重新開始
+        //         quiz.innerHTML = `<button onclick="location.reload()">重新开始</button>`;
+        //     }
+        // }
 
         //獲取使用者選擇答案的函數
         function getSelectedAnswer() {
@@ -194,8 +194,11 @@
                 // 檢查是否選擇答案
                 if (selectedAnswer === quizData[currentQuiz].correct) {
                     // 正確
+                    window.location.replace("match");
                 } else {
                     // 錯誤
+                    clearSelections();
+                    alert("答錯了！");
                 }
                 getNextQuestion();
             } else {

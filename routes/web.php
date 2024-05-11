@@ -26,6 +26,15 @@ Route::middleware([
 });
 
 //測試用
+Route::get('TrueORFalse', function(){
+    return view('game.TrueORFalse');
+});
+Route::get('choose', function(){
+    return view('game.choose');
+});
+Route::get('match', function(){
+    return view('game.match');
+});
 Route::get('reorganization', function(){
     return view('game.reorganization');
 });
