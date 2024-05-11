@@ -23,6 +23,7 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+    Route::get('/country/{country_id}', [CountryController::class, 'TrueORFalse'])->name('country.TrueORFalse');
 });
 
 //測試用
