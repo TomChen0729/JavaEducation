@@ -24,3 +24,8 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+//測試用
+Route::get('reorganization', function(){
+    return view('game.reorganization');
+});

@@ -52,7 +52,6 @@
                 font-size: 6em;
                 letter-spacing: 15px; /* 字元間距 */
                 color: #0e3742;
-                text-transform: uppercase; /* 所有字母皆為大寫 */
                 width: 200px;
                 text-align: center;
                 -webkit-box-reflect: below 1px linear-gradient(transparent, #0e3742); /* 鏡像效果：反射方向 反射距離 線性漸變 */

@@ -100,14 +100,14 @@
 @section('script')
     <script>
         
-        const quiz = document.getElementById('questionSection')
-        const answerEls = document.querySelectorAll('.answer')
+        const quiz = document.getElementById('questionSection')//獲取題目容器
+        const answerEls = document.querySelectorAll('.answer')//獲取答案選項
         const questionEl = document.getElementById('questions')// 這裡的 ID 是 'questions'
         const a_text = document.getElementById('a-text')// 這裡的 ID 是 'a-text'
         const b_text = document.getElementById('b-text')
         const c_text = document.getElementById('c-text')
         const d_text = document.getElementById('d-text')
-        const submitBtn = document.getElementById('sub')
+        const submitBtn = document.getElementById('sub')//提交
 
         // 接後端
         //題目
@@ -150,11 +150,12 @@
         // 預設要顯示的第一道題目，按照陣列長度的index為零
         let currentQuiz = 0
 
-        // 封装常用的DOM操作函数
+        // 清除選項
         function clearSelections() {
             answerEls.forEach(answerEl => answerEl.checked = false);
         }
 
+        //渲染題目和選項
         function renderQuestion(quizData, index) {
             const currentQuizData = quizData[index];
             questionEl.textContent = currentQuizData.question;
@@ -164,42 +165,46 @@
             d_text.textContent = currentQuizData.d;
         }
 
+        //獲取下一道題目
         function getNextQuestion() {
-            clearSelections();
-            currentQuiz++;
+            clearSelections();//清除選項狀態
+            currentQuiz++;//當前題目索引加1
             if (currentQuiz < quizData.length) {
-                renderQuestion(quizData, currentQuiz);
+                renderQuestion(quizData, currentQuiz); //渲染下一道題目
             } else {
+                //最後一道題目，重新開始
                 quiz.innerHTML = `<button onclick="location.reload()">重新开始</button>`;
             }
         }
 
+        //獲取使用者選擇答案的函數
         function getSelectedAnswer() {
             for (const answerEl of answerEls) {
                 if (answerEl.checked) {
-                    return answerEl.id;
+                    return answerEl.id; //返回被選中的ID
                 }
             }
-            return null; // 如果没有选择任何答案，则返回 null
+            return null; // 無答案 = null
         }
 
+        //提交
         submitBtn.addEventListener('click', () => {
-            const selectedAnswer = getSelectedAnswer();
-            if (selectedAnswer !== null) {
-                // 检查用户是否选择了答案
+            const selectedAnswer = getSelectedAnswer(); //獲取用戶選擇答案
+            if (selectedAnswer !== null) { //如果用戶選擇了答案
+                // 檢查是否選擇答案
                 if (selectedAnswer === quizData[currentQuiz].correct) {
-                    // 正确答案的处理逻辑
+                    // 正確
                 } else {
-                    // 错误答案的处理逻辑
+                    // 錯誤
                 }
                 getNextQuestion();
             } else {
-                // 用户没有选择答案时的处理逻辑
-                alert("请选择一个答案！");
+                // 如果沒選擇答案就彈跳視窗
+                alert("請選擇一個答案！");
             }
         });
 
-        // 页面加载时渲染第一题
+        // 頁面加載時，渲染
         window.onload = () => {
             renderQuestion(quizData, currentQuiz);
         };
