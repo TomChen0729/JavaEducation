@@ -88,7 +88,7 @@
             <div class="details">
                 <p class="hint">說明： <span></span></p>
             </div>
-            <input type="text" placeholder="Enter a valid word">
+            <input type="text" placeholder="Enter">
             <div class="buttons">
                 <button class="refresh-word">刷新題目</button>
                 <button class="check-word">送出</button>
@@ -129,8 +129,11 @@
 
         const wordText = document.querySelector(".word");
         const hintText = document.querySelector(".hint span");
+        const inputField = document.querySelector("input");
         const refreshBtn = document.querySelector(".refresh-word");
         const checkBtn = document.querySelector(".check-word");
+
+        let correctWord;
 
         //隨機題目，切割題目
         const initGame = () => {
@@ -148,10 +151,25 @@
             wordText.innerText = wordArray.join("　　");
             //隨機題目的提示顯示至畫面
             hintText.innerText = randomObj.hint;
+            //將隨機的答案傳給正確答案，轉換字符為小寫
+            correctWord = randomObj.word.toLowerCase();
+            //設輸入框為空
+            inputField.value = "";
+            // //設指定輸入框中最多可以輸入的字符數目
+            // inputField.setAttribute("maxlength", correctWord.length);
             console.log(wordArray, randomObj.word);
         }
 
         initGame(); //呼叫initGame
+
+        const checkWord = () => {
+            let userWord = inputField.value.toLocaleLowerCase();
+            if(!userWord) return alert("請輸入答案!!"); //如果沒有輸入東西
+
+            if( userWord !== correctWord ) return alert("答錯了");
+
+            window.location.replace("welocme"); //正確答案
+        }
 
         refreshBtn.addEventListener("click", initGame); //刷新題目，重新呼叫initGame
         checkBtn.addEventListener("click", checkWord); //
