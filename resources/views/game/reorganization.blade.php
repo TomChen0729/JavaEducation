@@ -48,6 +48,7 @@
             height: 60px;
             outline: none;
             font-size: 18px;
+            color: #444444;
             padding: 0 16px;
             border-radius: 5px;
             border: 1px solid #aaa;
@@ -103,27 +104,27 @@
         const words = [
             {
                 word: "int years = 18;",
-                hint: "宣告年齡18歲"
+                hint: "宣告年齡18歲（以半形空白隔開）"
             },
             {
                 word: "String roads = '林森北七路';",
-                hint: "宣告路名「林森北七路」"
+                hint: "宣告路名「林森北七路」（以半形空白隔開）"
             },
             {
                 word: "float miles = 3 / 1.6;",
-                hint: "宣告公哩"
+                hint: "宣告公哩 = 3/1.6（以半形空白隔開）"
             },
             {
                 word: "boolean mine = False;",
-                hint: "宣告「我」是False"
+                hint: "宣告「我」是False（以半形空白隔開）"
             },
             {
                 word: "boolean yourself = True;",
-                hint: "宣告「你」是True"
+                hint: "宣告「你」是True（以半形空白隔開）"
             },
             {
                 word: "char K = '王';",
-                hint: "宣告「K」姓王"
+                hint: "宣告「K」姓王（以半形空白隔開）"
             }
         ];
 
@@ -162,17 +163,18 @@
 
         initGame(); //呼叫initGame
 
+        //確認答案是否正確
         const checkWord = () => {
             let userWord = inputField.value.toLocaleLowerCase();
             if(!userWord) return alert("請輸入答案!!"); //如果沒有輸入東西
 
-            if( userWord !== correctWord ) return alert("答錯了");
+            if( userWord !== correctWord ) return alert("答錯了"); //錯誤答案
 
-            window.location.replace("welocme"); //正確答案
+            window.location.replace("welcome"); //正確答案
         }
 
         refreshBtn.addEventListener("click", initGame); //刷新題目，重新呼叫initGame
-        checkBtn.addEventListener("click", checkWord); //
+        checkBtn.addEventListener("click", checkWord); //確認答案是否正確，呼叫checkWord
 
     </script>
 @endsection
