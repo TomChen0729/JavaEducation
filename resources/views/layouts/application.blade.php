@@ -181,7 +181,7 @@
 </head>
 <body>
     <header class="header">
-        <div class="light"><a href="#" class="logo"><span contenteditable="true">綠野仙蹤</span></a></div>
+        <div class="light"><a href="#" class="logo"><span>綠野仙蹤</span></a></div>
 
         <ul class="navbar">
             <li><a href="#">知識卡</a></li>
