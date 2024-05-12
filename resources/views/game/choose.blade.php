@@ -99,7 +99,7 @@
 
 @section('script')
     <script>
-        
+
         const quiz = document.getElementById('questionSection')//獲取題目容器
         const answerEls = document.querySelectorAll('.answer')//獲取答案選項
         const questionEl = document.getElementById('questions')// 這裡的 ID 是 'questions'
@@ -108,6 +108,7 @@
         const c_text = document.getElementById('c-text')
         const d_text = document.getElementById('d-text')
         const submitBtn = document.getElementById('sub')//提交
+        let randomQuiz; //聲明randomQuiz為全局變量
 
         // 接後端
         //題目
@@ -144,11 +145,21 @@
                 d:"char",
                 correct:"b",
             },
-        ]
-        
+        ];
 
-        // 預設要顯示的第一道題目，按照陣列長度的index為零
-        let currentQuiz = 0
+        //產生隨機數
+        function getRandomInt(min, max) {
+            // 彈性產生介於min、max之間，包括min，但不包括max的隨機整數
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+
+        // 選擇隨機題目
+        function selectRandomQuestion(quizData) {
+            return quizData[getRandomInt(0, quizData.length)];
+        }
+
+        // // 預設要顯示的第一道題目，按照陣列長度的index為零
+        // let currentQuiz = 0
 
         // 清除選項
         function clearSelections() {
@@ -156,13 +167,12 @@
         }
 
         //渲染題目和選項
-        function renderQuestion(quizData, index) {
-            const currentQuizData = quizData[index];
-            questionEl.textContent = currentQuizData.question;
-            a_text.textContent = currentQuizData.a;
-            b_text.textContent = currentQuizData.b;
-            c_text.textContent = currentQuizData.c;
-            d_text.textContent = currentQuizData.d;
+        function renderQuestion(quizData) {
+            questionEl.textContent = quizData.question;
+            a_text.textContent = quizData.a;
+            b_text.textContent = quizData.b;
+            c_text.textContent = quizData.c;
+            d_text.textContent = quizData.d;
         }
 
         // //獲取下一道題目
@@ -187,12 +197,18 @@
             return null; // 無答案 = null
         }
 
+        //頁面加載時隨機選染題目
+        window.onload = () => {
+            randomQuiz =selectRandomQuestion(quizData);
+            renderQuestion(randomQuiz);
+        };
+
         //提交
         submitBtn.addEventListener('click', () => {
             const selectedAnswer = getSelectedAnswer(); //獲取用戶選擇答案
             if (selectedAnswer !== null) { //如果用戶選擇了答案
                 // 檢查是否選擇答案
-                if (selectedAnswer === quizData[currentQuiz].correct) {
+                if (selectedAnswer === randomQuiz.correct) {
                     // 正確
                     window.location.replace("match");
                 } else {
@@ -206,11 +222,6 @@
                 alert("請選擇一個答案！");
             }
         });
-
-        // 頁面加載時，渲染
-        window.onload = () => {
-            renderQuestion(quizData, currentQuiz);
-        };
 
     </script>
 @endsection
