@@ -21,7 +21,7 @@ class CountryController extends Controller
     // 導向是非題頁面，該遊戲資料，帶使用者資料，檢查玩家遊戲進度
     public function index()
     {
-
+        
         //初始化玩家紀錄(檢查玩家的country_id 和 pass_familiarity_id)
         $this->gameService->initUserRecord();
         
