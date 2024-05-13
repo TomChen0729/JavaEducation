@@ -11,9 +11,6 @@ class PassFamiliarity extends Model
     use HasFactory;
 
     protected $guarded = [];
-    protected $fillable = [
-        'pass_familiarity_id'
-    ];
     public function pass_course_get_cards(): HasMany
     {
         return $this->hasMany(PassCourseGetCard::class);

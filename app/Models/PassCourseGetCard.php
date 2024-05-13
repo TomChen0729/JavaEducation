@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PassCourseGetCard extends Model
 {
+
     use HasFactory;
     protected $guarded = [];
 }

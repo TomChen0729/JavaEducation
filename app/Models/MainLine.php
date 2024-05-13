@@ -12,7 +12,6 @@ class MainLine extends Model
 {
     use HasFactory;
     protected $guarded = [];
-
     public function pass_course_need_cards(): HasMany
     {
         return $this->hasMany(PassCourseNeedCard::class);

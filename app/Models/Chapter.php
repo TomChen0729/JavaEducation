@@ -10,7 +10,6 @@ class Chapter extends Model
 {
     use HasFactory;
     protected $guarded = [];
-
     public function knowledge_cards(): HasMany
     {
         return $this->hasMany(KnowledgeCards::class);

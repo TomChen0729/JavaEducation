@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class RewritingOption extends Model
 {
     use HasFactory;
+
     protected $guarded = [];
 }
