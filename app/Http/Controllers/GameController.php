@@ -24,9 +24,33 @@ class GameController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function ChooseGame(Request $request, int $GameType_id)
     {
         //
+        
+        switch ($GameType_id) {
+            case 1:
+                // 如果GameType_id == 1
+                // 呼叫檢查使用者遊玩進度
+                // 呼叫亂數出題
+                return view('TrueORFalse');
+            case 2:
+                // 
+                break;
+            case 3:
+                // 
+                break;
+            case 4:
+                // 
+                break;
+            case 5:
+                // 
+                break;
+            // 
+            default:
+                // 
+                return response('error');
+        }
     }
 
     /**

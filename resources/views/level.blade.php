@@ -56,7 +56,7 @@
                 <p>
                     變數與資料型態
                 </p>
-                <a href="" class="btn">Start</a>
+                <a href="{{ route('',['pass_familiarty_id' => 1]) }}" class="btn">Start</a>
             </div>
         </div>
         <div class="card">
