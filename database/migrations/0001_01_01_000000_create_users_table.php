@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('gender', ['male', 'female', 'other'])->nullable()->change();
-            $table->integer('birth_year')->nullable()->change();
-            $table->foreignId('country_id')->nullable()->change();
-            $table->foreignId('pass_familiarity_id')->nullable()->change();
+            $table->enum('gender', ['male', 'female', 'other'])->nullable();
+            $table->integer('birth_year')->nullable();
+            $table->foreignId('country_id')->nullable();
+            $table->foreignId('pass_familiarity_id')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
