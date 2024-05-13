@@ -44,3 +44,6 @@ Route::get('match', function(){
 Route::get('reorganization', function(){
     return view('game.reorganization');
 });
+Route::get('Gameviews', function(){
+    return view('Gameviews');
+});
