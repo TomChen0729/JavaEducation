@@ -25,10 +25,12 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-    // 帶值進入第幾個國家，並顯示主副線，or gametype_id 1~4，分別對應四種遊戲方式，5，debug關
+    // 帶值進入第幾個國家的難度選取畫面
     Route::get('/country/{country_id}', [CountryController::class, 'index'])->name('country.index');
-    // 帶值判斷該導向哪個遊戲畫面，也要帶使用者資料跟該關卡遊戲資料，知識卡等
-    Route::get('/gametype/{gametype_id}/Level/{pass_familiarty_id}', [GameController::class, 'GameChoose']);
+    // 帶值進入遊戲類型選擇畫面1-4闖關，5主線
+    Route::get('/pass_familiarty_id/{pass_familiarty_id}', [GameController::class, 'index'])->name('game.index');
+    // 進入該遊戲畫面
+    Route::get('/GameType_id/{GameType_id}',[GameController::class, 'ChooseGame'])->name('game.gameTypeChoose');
 });
 
 //測試用

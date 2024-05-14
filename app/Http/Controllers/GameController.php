@@ -16,9 +16,12 @@ class GameController extends Controller
     /**
      * Display a listing of the resource.
      */
+    
+    //導向遊戲列表
     public function index()
     {
         //
+        return view('Gameviews');
     }
 
     /**
@@ -33,16 +36,16 @@ class GameController extends Controller
                 // 如果GameType_id == 1
                 // 呼叫檢查使用者遊玩進度
                 // 呼叫亂數出題
-                return view('TrueORFalse');
+                return view('game.TrueORFalse');
             case 2:
                 // 
-                break;
+                return view('game.choose');
             case 3:
                 // 
-                break;
+                return view('game.match');
             case 4:
                 // 
-                break;
+                return view('game.reorganization');
             case 5:
                 // 
                 break;

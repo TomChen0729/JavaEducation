@@ -210,7 +210,7 @@
                 // 檢查是否選擇答案
                 if (selectedAnswer === randomQuiz.correct) {
                     // 正確
-                    window.location.replace("match");
+                    window.location.href = "{{ route('game.gameTypeChoose', ['GameType_id' => 3]) }}/";
                 } else {
                     // 錯誤
                     clearSelections();

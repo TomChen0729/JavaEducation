@@ -34,11 +34,11 @@ class GameService{
     public function getGameData(){
 
     }
-    // 隨機出題，帶國家id，難度id查詢資料庫
+    // 隨機出題，帶國家id，難度id查詢資料庫，呼叫檢查當前用戶遊玩紀錄比對，篩選掉已經玩過的題目
     public function Random(int $Country_id, int $pass_familiarity_id){
 
     }
-    // 檢查遊玩次數
+    // 檢查遊玩次數(紀錄)
     public function CheckPlayedCount(){
 
     }
@@ -52,5 +52,4 @@ class GameService{
         return ;
     }
     
-
 }

@@ -95,10 +95,10 @@
     <div class="containers">
         <div class="learnarea">
             <h2>學習區</h2>
-            <button class="TF">是非</button>
-            <button class="CH">選擇</button>
-            <button class="MA">配對</button>
-            <button class="RE">重組</button>
+            <button class="TF"><a href="{{ route('game.gameTypeChoose', ['GameType_id' => 1]) }}">是非</a></button>
+            <button class="CH"><a href="{{ route('game.gameTypeChoose', ['GameType_id' => 2]) }}">選擇</a></button>
+            <button class="MA"><a href="{{ route('game.gameTypeChoose', ['GameType_id' => 3]) }}">配對</a></button>
+            <button class="RE"><a href="{{ route('game.gameTypeChoose', ['GameType_id' => 4]) }}">重組</a></button>
         </div>
         <hr>
         <div class="passarea">

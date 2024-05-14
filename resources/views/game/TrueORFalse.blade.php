@@ -121,8 +121,7 @@
         // 檢查答案是否正確
         function checkAnswer(userAnswer) { 
             if (userAnswer === correctAnswer) {
-                // 答案正確，跳轉下一遊戲
-                window.location.replace("choose");
+                window.location.href = "{{ route('game.gameTypeChoose', ['GameType_id' => 2]) }}/";
             } else {
                 // 答案錯誤
                 alert("答錯了！");
