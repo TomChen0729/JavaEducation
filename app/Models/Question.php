@@ -16,16 +16,16 @@ class Question extends Model
     {
         return $this->hasMany(Option::class);
     }
-    public function rewriting_options(): HasMany
+    public function reorganization_options(): HasMany
     {
-        return $this->hasMany(RewritingOption::class);
+        return $this->hasMany(ReorganizationOption::class);
     }
     public function match_options(): HasMany
     {
         return $this->hasMany(MatchOption::class);
     }
-    public function answers(): HasMany
+    public function user_records(): HasMany
     {
-        return $this->hasMany(Answer::class);
+        return $this->hasMany(UserRecord::class);
     }
 }

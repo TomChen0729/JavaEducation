@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('chapters', function (Blueprint $table) {
+        Schema::create('user_records', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->ipAddress('name')->nullable();
+            $table->foreignId('user_id')->nullable();
+            $table->foreignId('question_id')->nullable();
+            $table->integer('times')->nullable();
             $table->timestamps();
         });
     }
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('chapters');
+        Schema::dropIfExists('user_records');
     }
 };

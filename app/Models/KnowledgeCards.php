@@ -11,9 +11,13 @@ class KnowledgeCards extends Model
     use HasFactory;
     protected $table = 'knowledge_cards';
     protected $guarded = [];
-    public function main_lines(): HasMany
+    public function questions(): HasMany
     {
-        return $this->hasMany(MainLine::class);
+        return $this->hasMany(Question::class);
+    }
+    public function user_knowledge_cards(): HasMany
+    {
+        return $this->hasMany(UserKnowledgeCard::class);
     }
     public function pass_course_need_cards(): HasMany
     {

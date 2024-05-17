@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignId('country_id')->nullable();
-            $table->foreignId('pass_familiarity_id')->nullable();
+            $table->foreignId('knowledge_card_id')->nullable();
+            $table->char('describe')->nullable();
             $table->char('questions',length: 200)->nullable();
+            $table->char('answer',length:200)->nullable();
             $table->timestamps();
         }); 
     }

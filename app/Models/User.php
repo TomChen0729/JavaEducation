@@ -24,9 +24,13 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    public function main_lines(): HasMany
+    public function user_knowledge_cards(): HasMany
     {
-        return $this->hasMany(MainLine::class);
+        return $this->hasMany(UserKnowledgeCard::class);
+    }
+    public function user_records(): HasMany
+    {
+        return $this->hasMany(UserRecord::class);
     }
     protected $fillable = [
         'name',

@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pass_familiarities', function (Blueprint $table) {
+        Schema::create('user_knowledge_cards', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('country_id')->nullable();
-            $table->integer('levels')->nullable();
+            $table->foreignId('user_id')->nullable();
+            $table->foreignId('knowledge_card_id')->nullable();
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pass_familiarities');
+        Schema::dropIfExists('user_knowledge_cards');
     }
 };

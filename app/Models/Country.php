@@ -10,10 +10,6 @@ class Country extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    public function pass_familiarities(): HasMany
-    {
-        return $this->hasMany(PassFamiliarity::class);
-    }
     public function questions(): HasMany
     {
         return $this->hasMany(Question::class);

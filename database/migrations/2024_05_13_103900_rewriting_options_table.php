@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rewriting_options', function (Blueprint $table) {
+        Schema::create('reorganization_option', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignId('question_id')->nullable();
             $table->ipAddress('options')->nullable();
+            $table->integer('sort')->nullable();
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rewriting_options');
+        Schema::dropIfExists('reorganization_option');
     }
 };

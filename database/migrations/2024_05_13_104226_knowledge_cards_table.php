@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('knowledge_cards', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('chapter_id')->nullable();
+            $table->integer('parent_id')->nullalbe();
             $table->foreignId('country_id')->nullable();
-            $table->ipAddress('knowledge_cards_name')->nullable();
-            $table->ipAddress('knowledge_cards_content')->nullable();
+            $table->integer('levels')->nullable();
+            $table->ipAddress('name')->nullable();
+            $table->ipAddress('content')->nullable();
             $table->timestamps();
         });
     }
