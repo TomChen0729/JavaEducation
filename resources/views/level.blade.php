@@ -77,5 +77,18 @@
                 <a href="" class="btn">Start</a>
             </div>
         </div>
+
+        <!-- 改用迴圈 -->
+        <!-- @for($i = 0; $i <= 3; $i++ )
+        <div class="card">
+            <div class="card-content">
+                <h3>LV.{{-- $i --}}</h3>
+                <p>
+                    {{-- $country->card --}}
+                </p>
+                <a href="" class="btn">start</a>
+            </div>
+        </div>
+        @endfor -->
     </div>
 @endsection

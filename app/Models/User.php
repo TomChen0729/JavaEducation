@@ -38,7 +38,7 @@ class User extends Authenticatable
         'password',
         'gender',
         'country_id',
-        'pass_familiarity_id',
+        'levels',
     ];
 
     /**

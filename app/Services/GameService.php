@@ -20,7 +20,7 @@ class GameService{
             $user = User::find($Current_User_id);
             $user -> update([
                 'country_id' => 1,
-                'pass_familiarity_id' => 1,
+                'levels' => 1,
             ]);
         }
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException; // 驗證資料欄位
@@ -26,11 +27,19 @@ class CountryController extends Controller
     public function index(int $country_id)
     {
         
-        //初始化玩家紀錄(檢查玩家的country_id 和 pass_familiarity_id)
+        //初始化玩家紀錄(檢查玩家的country_id 和 levels)
         $this->gameService->initUserRecord();
-
         $Current_User_id = auth()->user()->id;
-        $current_country = $Current_User_id;
+        $User_country = auth()->user()->country_id;
+
+        // 如果玩家最新的國家id大於等於當前國家id
+        // 帶出當前國家資訊 LV1-3
+        if($User_country >= $country_id){
+            // 目前使用者ID
+            $Current_country = Country::find($country_id);
+            echo $Current_country;
+        }
+        
         
         return view('level');
     }
