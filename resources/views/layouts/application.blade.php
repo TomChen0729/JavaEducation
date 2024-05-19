@@ -39,14 +39,6 @@
                 transition: all .50s ease;
             }
 
-            .container{
-                margin: 30px 0 0 0;
-                display: flex;
-                justify-content: center; /* 水平置中 */
-                align-items: center; /* 垂直置中 */
-                height: 80%; /* 這是可視窗口高度的百分比，確保容器填滿整個畫面 */
-            }
-
             .light{
                 position: relative;
                 font-size: 6em;
@@ -214,7 +206,7 @@
         </div>
     </header>
 
-    <div class="container">
+    <div>
         @yield('content')
     </div>
 
