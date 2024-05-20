@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Country;
+use App\Models\KnowledgeCards;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException; // 驗證資料欄位
@@ -19,7 +20,6 @@ class CountryController extends Controller
     public function __construct(GameService $gameService)
     {
         $this -> gameService = $gameService;
-        // $this->
     }
 
 
@@ -29,19 +29,16 @@ class CountryController extends Controller
         
         //初始化玩家紀錄(檢查玩家的country_id 和 levels)
         $this->gameService->initUserRecord();
-        $Current_User_id = auth()->user()->id;
+        // $Current_User_id = auth()->user()->id;
         $User_country = auth()->user()->country_id;
 
         // 如果玩家最新的國家id大於等於當前國家id
         // 帶出當前國家資訊 LV1-3
         if($User_country >= $country_id){
-            // 目前使用者ID
-            $Current_country = Country::find($country_id);
-            echo $Current_country;
+            // 國家底下的第一層知識卡
+            $Parent_cards = KnowledgeCards::where('country_id', $country_id)->where('parent_id', 1, )->get();
         }
-        
-        
-        return view('level');
+        return view('level', ['parent_cards'=> $Parent_cards]);
     }
 
 }

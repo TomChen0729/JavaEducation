@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Question;
 use Illuminate\Http\Request;
 use App\Services\GameService;
 class GameController extends Controller
@@ -18,9 +19,10 @@ class GameController extends Controller
      */
     
     //導向遊戲列表
-    public function index()
+    public function index(int $levels)
     {
         //
+        $gameList = Question::class;
         return view('Gameviews');
     }
 

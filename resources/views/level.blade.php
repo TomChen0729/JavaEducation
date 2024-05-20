@@ -50,45 +50,17 @@
 
 @section('content')
     <div class="card-container">
+        <!-- 改用迴圈 -->     
+        @foreach( $parent_cards as $card)
         <div class="card">
             <div class="card-content">
-                <h3>LV.1</h3>
+                <h3>LV.{{ $card -> levels }}</h3>
                 <p>
-                    變數與資料型態
+                    {{ $card -> name }}
                 </p>
-                <a href="{{ route('game.index',['pass_familiarty_id' => 1]) }}" class="btn">Start</a>
+                <a href="{{ route('game.index',['levels' => $card -> levels]) }}" class="btn">start</a>
             </div>
         </div>
-        <div class="card">
-            <div class="card-content">
-                <h3>LV.2</h3>
-                <p>
-                    資料輸入與輸出
-                </p>
-                <a href="" class="btn">Start</a>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-content">
-                <h3>LV.3</h3>
-                <p>
-                    運算子
-                </p>
-                <a href="" class="btn">Start</a>
-            </div>
-        </div>
-
-        <!-- 改用迴圈 -->
-        <!-- @for($i = 0; $i <= 3; $i++ )
-        <div class="card">
-            <div class="card-content">
-                <h3>LV.{{-- $i --}}</h3>
-                <p>
-                    {{-- $country->card --}}
-                </p>
-                <a href="" class="btn">start</a>
-            </div>
-        </div>
-        @endfor -->
+        @endforeach
     </div>
 @endsection
