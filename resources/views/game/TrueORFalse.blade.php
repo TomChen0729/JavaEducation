@@ -38,7 +38,7 @@
             padding: 90px;  /*內部*/
         }
 
-        .flase{
+        .false{
             font-size: 20px;
             margin: 20px;
             background-color: #e06666;
@@ -55,11 +55,11 @@
 <div class="tof">
     <!-- 顯示題目容器 -->
     <div class="question">
-        <h2 id="questions">float資料型態是否能儲存小數值</h2>
+        <h2 id="questions">{{ $question -> questions }}</h2>
     </div>
     <div>
-        <button class="O" id="trueB">True</button>
-        <button class="X" id="falseB">False</button>
+        <button class="true" id="trueB">True</button>
+        <button class="false" id="falseB">False</button>
     </div>
 </div>
 @endsection
@@ -108,27 +108,27 @@
         // // 顯示隨機題目
         // getRandomQuestion();
 
-        // 點true按鈕執行
-        trueBtn.addEventListener('click', () => {
-            checkAnswer(true);
-        });
+        // // 點true按鈕執行
+        // trueBtn.addEventListener('click', () => {
+        //     checkAnswer(true);
+        // });
         
-        // 點false按鈕執行
-        falseBtn.addEventListener('click', () => {
-            checkAnswer(false);
-        });
+        // // 點false按鈕執行
+        // falseBtn.addEventListener('click', () => {
+        //     checkAnswer(false);
+        // });
 
-        // 檢查答案是否正確
-        function checkAnswer(userAnswer) { 
-            if (userAnswer === correctAnswer) {
-                window.location.href = "{{ route('game.gameTypeChoose', ['GameType_id' => 2]) }}/";
-            } else {
-                // 答案錯誤
-                alert("答錯了！");
-            }
-        }
+        // // 檢查答案是否正確
+        // function checkAnswer(userAnswer) { 
+        //     if (userAnswer === correctAnswer) {
+        //         window.location.href = "{{ route('game.gameTypeChoose', ['GameType_id' => 2]) }}/";
+        //     } else {
+        //         // 答案錯誤
+        //         alert("答錯了！");
+        //     }
+        // }
 
-        // 對答案api->街後端updateTrueORFalse(request, state)
+        // 對答案api->街後端updateTrueORFalse(request, st)
         fetch()
     </script>
 @endsection
