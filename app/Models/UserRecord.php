@@ -11,11 +11,11 @@ class UserRecord extends Model
     protected $guarded = [];
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasOne(User::class);
     }
 
     public function question()
     {
-        return $this->belongsTo(Question::class);
+        return $this->hasOne(Question::class);
     }
 }

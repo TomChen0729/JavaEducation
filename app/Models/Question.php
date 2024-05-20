@@ -30,6 +30,6 @@ class Question extends Model
     }
     public function knowledge_cards()
     {
-        return $this->belongsTo(KnowledgeCards::class);
+        return $this->hasOne(KnowledgeCards::class);
     }
 }
