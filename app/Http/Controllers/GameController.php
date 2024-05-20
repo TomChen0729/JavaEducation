@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\User;
+use App\Models\UserRecord;
+use App\Models\KnowledgeCards;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use App\Services\GameService;
+
 class GameController extends Controller
 {
     protected $gameService;
@@ -37,7 +40,25 @@ class GameController extends Controller
             case 1:
                 // 如果GameType_id == 1
                 // 呼叫檢查使用者遊玩進度
-                // 呼叫亂數出題
+                $user = auth()->user();
+                $country = $user->country_id;
+                $levels = $user->levels;
+                // 迴圈用來判斷題目是否符合當前user的country跟level
+                $match = false;
+                while(!$match){
+                    // 呼叫亂數出題
+                    $question = Question::where('gametype', '是非')->inRandomOrder()->first();
+                    $question_card = $question->knowledge_cards;
+                    $question_levels = $question_card->levels;
+                    if($country===$country->country_id && $levels===$question_levels){
+                        // 儲存當前隨機亂數的題目
+                        $userrecord = new UserRecord();
+                        $userrecord->user_id = $user->id;
+                        $userrecord->question_id = $question->id;
+                        $userrecord->save();
+                        $match = true;
+                    }
+                }
                 return view('game.TrueORFalse');
             case 2:
                 // 

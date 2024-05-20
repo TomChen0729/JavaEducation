@@ -28,4 +28,8 @@ class Question extends Model
     {
         return $this->hasMany(UserRecord::class);
     }
+    public function knowledge_cards()
+    {
+        return $this->belongsTo(KnowledgeCards::class);
+    }
 }
