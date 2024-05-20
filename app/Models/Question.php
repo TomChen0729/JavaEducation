@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Question extends Model
 {
@@ -30,6 +31,6 @@ class Question extends Model
     }
     public function knowledge_cards()
     {
-        return $this->hasOne(KnowledgeCards::class);
+        return $this->BelongsTo(KnowledgeCards::class ,'knowledge_card_id');
     }
 }

@@ -50,7 +50,7 @@ class GameController extends Controller
                     $question = Question::where('gametype', '是非')->inRandomOrder()->first();
                     $question_card = $question->knowledge_cards;
                     $question_levels = $question_card->levels;
-                    if($country===$country->country_id && $levels===$question_levels){
+                    if($country===$question->country_id && $levels===$question_levels){
                         // 儲存當前隨機亂數的題目
                         $userrecord = new UserRecord();
                         $userrecord->user_id = $user->id;
@@ -59,7 +59,7 @@ class GameController extends Controller
                         $match = true;
                     }
                 }
-                return view('game.TrueORFalse');
+                return view('game.TrueORFalse',['question' => $question]);
             case 2:
                 // 
                 return view('game.choose');

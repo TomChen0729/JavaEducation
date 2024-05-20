@@ -70,43 +70,43 @@
         const trueBtn = document.getElementById('trueB'); // true 按鈕
         const falseBtn = document.getElementById('falseB'); //False 按鈕
 
-        // 接後端
-        //題目
-        const quizData = [
-            {
-                question:"float資料型態是否能儲存小數值",
-                answer: true,
-            },
-            {
-                question:"float資料型態是否能儲存整數值",
-                answer: false,
-            },
-            {
-                question:"int資料型態是否能儲存小數值",
-                answer: false,
-            },
-            {
-                question:"double資料型態是否能儲存小數值",
-                answer: true,
-            },
-        ];
+        // // 接後端
+        // //題目
+        // const quizData = [
+        //     {
+        //         question:"float資料型態是否能儲存小數值",
+        //         answer: true,
+        //     },
+        //     {
+        //         question:"float資料型態是否能儲存整數值",
+        //         answer: false,
+        //     },
+        //     {
+        //         question:"int資料型態是否能儲存小數值",
+        //         answer: false,
+        //     },
+        //     {
+        //         question:"double資料型態是否能儲存小數值",
+        //         answer: true,
+        //     },
+        // ];
 
-        let correctAnswer; //用來儲存正確答案
+        // let correctAnswer; //用來儲存正確答案
 
-        // 隨機題目
-        function getRandomQuestion() {
-            // 生成隨機數
-            const randomIndex = Math.floor( Math.random() * quizData.length);
-            // 選擇隨機題目
-            const randomQuestion = quizData[randomIndex];
-            // 渲染到頁面上
-            questionEl.textContent = randomQuestion.question;
-            // 將正確答案保存，以便後續檢查答案
-            correctAnswer = randomQuestion.answer;
-        }
+        // // 隨機題目
+        // function getRandomQuestion() {
+        //     // 生成隨機數
+        //     const randomIndex = Math.floor( Math.random() * quizData.length);
+        //     // 選擇隨機題目
+        //     const randomQuestion = quizData[randomIndex];
+        //     // 渲染到頁面上
+        //     questionEl.textContent = randomQuestion.question;
+        //     // 將正確答案保存，以便後續檢查答案
+        //     correctAnswer = randomQuestion.answer;
+        // }
         
-        // 顯示隨機題目
-        getRandomQuestion();
+        // // 顯示隨機題目
+        // getRandomQuestion();
 
         // 點true按鈕執行
         trueBtn.addEventListener('click', () => {

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class UserRecord extends Model
 {
@@ -11,11 +12,11 @@ class UserRecord extends Model
     protected $guarded = [];
     public function user()
     {
-        return $this->hasOne(User::class);
+        return $this->BelongsTo(User::class,'user_id');
     }
 
     public function question()
     {
-        return $this->hasOne(Question::class);
+        return $this->BelongsTo(Question::class,'question_id');
     }
 }
