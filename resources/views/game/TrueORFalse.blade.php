@@ -58,8 +58,8 @@
         <h2 id="questions">float資料型態是否能儲存小數值</h2>
     </div>
     <div>
-        <button class="true" id="trueB">True</button>
-        <button class="flase" id="falseB">False</button>
+        <button class="O" id="trueB">True</button>
+        <button class="X" id="falseB">False</button>
     </div>
 </div>
 @endsection
@@ -128,5 +128,7 @@
             }
         }
 
+        // 對答案api->街後端updateTrueORFalse(request, state)
+        fetch()
     </script>
 @endsection

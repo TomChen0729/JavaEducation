@@ -79,4 +79,14 @@ class GameController extends Controller
         }
     }
 
+    public function updateTrueorFalse(Request $request, string $state){
+        $method = $request->method();
+        if ($method == 'get' && $state == 'True'){
+            // 記錄玩了哪一題
+            $Current_User = auth()->user()->id;
+
+            $user_records = 0;
+        }
+    }
+
 }
