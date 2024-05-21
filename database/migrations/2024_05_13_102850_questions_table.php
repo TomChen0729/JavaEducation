@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('country_id')->nullable();
             $table->foreignId('knowledge_card_id')->nullable();
             $table->char('gametype')->nullable();
+            $table->integer('levels')->nullable();
             $table->char('describe')->nullable();
             $table->char('questions',length: 200)->nullable();
             $table->char('answer',length:200)->nullable();

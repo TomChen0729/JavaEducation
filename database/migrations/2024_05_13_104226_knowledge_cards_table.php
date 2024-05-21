@@ -15,7 +15,6 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->integer('parent_id')->nullalbe();
             $table->foreignId('country_id')->nullable();
-            $table->integer('levels')->nullable();
             $table->ipAddress('name')->nullable();
             $table->ipAddress('content')->nullable();
             $table->timestamps();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\UserRecord;
 use App\Models\KnowledgeCards;
+use App\Models\Option;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use App\Services\GameService;
@@ -45,10 +46,21 @@ class GameController extends Controller
                     $country = $user->country_id;
                     $levels = $user->levels;
                     // 迴圈用來判斷題目是否符合當前user的country跟level
+                    // 呼叫亂數出題
+                    $question = Question::where('gametype', '是非')->where('country_id',$country)->where('levels',$levels)->inRandomOrder()->first();
+                    // 儲存當前隨機亂數的題目           
+                    return view('game.TrueORFalse',['question' => $question]);
+                
+                case 2:
+                    // 如果GameType_id == 2
+                    // 呼叫檢查使用者遊玩進度
+                    $user = auth()->user();
+                    $country = $user->country_id;
+                    $levels = $user->levels;
                     $match = false;
                     while(!$match){
-                        // 呼叫亂數出題
-                        $question = Question::where('gametype', '是非')->inRandomOrder()->first();
+                        $question = Question::where('gametype', '選擇')->inRandomOrder()->first();
+                        $options  = Option::where('question_id', $question -> id)->inRandomOrder()->get();
                         $question_card = $question->knowledge_cards;
                         $question_levels = $question_card->levels;
                         if($country===$question->country_id && $levels===$question_levels){
@@ -61,10 +73,7 @@ class GameController extends Controller
                             $match = true;
                         }
                     }
-                    return view('game.TrueORFalse',['question' => $question]);
-                case 2:
-                    // 
-                    return view('game.choose', []);
+                    return view('game.choose', ['question' => $question, 'options' => $options]);
                 case 3:
                     // 
                     return view('game.match');
@@ -83,11 +92,9 @@ class GameController extends Controller
     }
 
     public function updateTrueorFalse(Request $request, string $state){
-        $method = $request->method();
-        if ($method == 'get' && $state == 'True'){
+        if ($request->isMethod('get') && $state == 'True'){
             // 記錄玩了哪一題
             $Current_User = auth()->user()->id;
-
             $user_records = 0;
         }
     }

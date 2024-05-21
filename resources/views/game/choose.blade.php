@@ -73,13 +73,16 @@
 @section('content')
     <div class="question" id="questionSection">
         <div class="quiz-header">
-            <h2 id="questions"></h2>
+            <h2 id="questions">{{ $question -> questions }}</h2>
             <ul>
-                <li>
-                    <input type="radio" name="answer" id="a" class="answer">
-                    <label for="a" id="a-text"></label>
-                </li>
-                <li>
+                @foreach ($options as $option)
+                    <li>
+                        <input type="radio" name="answer" id="a" class="answer">
+                        <label for="a" id="a-text">{{ $option -> options}}</label>
+                    </li>
+                @endforeach
+                
+                <!-- <li>
                     <input type="radio" name="answer" id="b" class="answer">
                     <label for="b" id="b-text"></label>
                 </li>
@@ -90,7 +93,7 @@
                 <li>
                     <input type="radio" name="answer" id="d" class="answer">
                     <label for="d" id="d-text"></label>
-                </li>
+                </li> -->
             </ul>
         </div>
         <button id="sub">送出</button>
@@ -112,51 +115,51 @@
 
         // 接後端
         //題目
-        const quizData = [
-            {
-                question:"在 Java 中，下列哪個資料型態用於表示整數？",
-                a:"int",
-                b:"double",
-                c:"float",
-                d:"char",
-                correct:"a",
-            },
-            {
-                question:"下列哪個是正確的？",
-                a:"int x = 10;",
-                b:"int y;",
-                c:"double z;",
-                d:"char name = 'John';",
-                correct:"a",
-            },
-            {
-                question:"下列哪個資料型態用於表示字串？",
-                a:"int",
-                b:"double",
-                c:"char",
-                d:"String",
-                correct:"d",
-            },
-            {
-                question:"下列哪個資料型態用於表示雙精度浮點數？",
-                a:"int",
-                b:"double",
-                c:"boolean",
-                d:"char",
-                correct:"b",
-            },
-        ];
+        // const quizData = [
+        //     {
+        //         question:"在 Java 中，下列哪個資料型態用於表示整數？",
+        //         a:"int",
+        //         b:"double",
+        //         c:"float",
+        //         d:"char",
+        //         correct:"a",
+        //     },
+        //     {
+        //         question:"下列哪個是正確的？",
+        //         a:"int x = 10;",
+        //         b:"int y;",
+        //         c:"double z;",
+        //         d:"char name = 'John';",
+        //         correct:"a",
+        //     },
+        //     {
+        //         question:"下列哪個資料型態用於表示字串？",
+        //         a:"int",
+        //         b:"double",
+        //         c:"char",
+        //         d:"String",
+        //         correct:"d",
+        //     },
+        //     {
+        //         question:"下列哪個資料型態用於表示雙精度浮點數？",
+        //         a:"int",
+        //         b:"double",
+        //         c:"boolean",
+        //         d:"char",
+        //         correct:"b",
+        //     },
+        // ];
 
-        //產生隨機數
-        function getRandomInt(min, max) {
-            // 彈性產生介於min、max之間，包括min，但不包括max的隨機整數
-            return Math.floor(Math.random() * (max - min)) + min;
-        }
+        // //產生隨機數
+        // function getRandomInt(min, max) {
+        //     // 彈性產生介於min、max之間，包括min，但不包括max的隨機整數
+        //     return Math.floor(Math.random() * (max - min)) + min;
+        // }
 
-        // 選擇隨機題目
-        function selectRandomQuestion(quizData) {
-            return quizData[getRandomInt(0, quizData.length)];
-        }
+        // // 選擇隨機題目
+        // function selectRandomQuestion(quizData) {
+        //     return quizData[getRandomInt(0, quizData.length)];
+        // }
 
         // // 預設要顯示的第一道題目，按照陣列長度的index為零
         // let currentQuiz = 0
