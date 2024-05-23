@@ -30,7 +30,7 @@
             /* 設置網格項之間的間距為 15 像素 */
             gap: 15px;
         }
-        
+
         .container .box-container .box{
             box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
             border-radius: 5px;
@@ -82,11 +82,13 @@
     <div class="container">
         <div class="box-container">
             @foreach($knowledgecard as $knowledgecards)
-                <div class="box">
-                    <h3>{{ $knowledgecards -> name }}</h3>
-                    <p>{{ $knowledgecards -> content }}</p>
-                    <a href="#" class="btn">read more</a>
-                </div>
+                @if ($knowledgecards -> country_id == 1)
+                    <div class="box">
+                        <h3>{{ $knowledgecards -> name }}</h3>
+                        <p>{{ $knowledgecards -> content }}</p>
+                        <a href="#" class="btn">read more</a>
+                    </div>
+                @endif
             @endforeach
         </div>
     </div>
