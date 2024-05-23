@@ -82,12 +82,28 @@
     <div class="container">
         <div class="box-container">
             @foreach($knowledgecard as $knowledgecards)
-                <!-- 蠻金之國 -->
+                <!-- 蠻金之國 資料型態 -->
                 @if ($knowledgecards -> country_id == 1)
                     <div class="box">
                         <h3>{{ $knowledgecards -> name }}</h3>
                         <p>{{ $knowledgecards -> content }}</p>
-                        <a href="#" class="btn">read more</a>
+                        <a href="#" class="btn">資料型態</a>
+                    </div>
+                @endif
+                <!-- 蠻金之國 資料輸入輸出 -->
+                @if ($knowledgecards -> country_id == 2)
+                    <div class="box">
+                        <h3>{{ $knowledgecards -> name }}</h3>
+                        <p>{{ $knowledgecards -> content }}</p>
+                        <a href="#" class="btn">資料輸入輸出</a>
+                    </div>
+                @endif
+                <!-- 蠻金之國 運算子 -->
+                @if ($knowledgecards -> country_id == 3)
+                    <div class="box">
+                        <h3>{{ $knowledgecards -> name }}</h3>
+                        <p>{{ $knowledgecards -> content }}</p>
+                        <a href="#" class="btn">運算子</a>
                     </div>
                 @endif
             @endforeach
