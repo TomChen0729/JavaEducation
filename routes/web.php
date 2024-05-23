@@ -49,3 +49,6 @@ Route::get('Gameviews', function(){
 Route::get('level', function(){
     return view('level');
 });
+Route::get('knowledgecard', function(){
+    return view('knowledgecard');
+});
