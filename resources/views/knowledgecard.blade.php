@@ -35,7 +35,7 @@
             box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
             border-radius: 5px;
             background: #fff;
-            background: linear-gradient(45deg, blueviolet, lightgreen);
+            background: linear-gradient(45deg, #fad0c4, #ffd1ff);
             text-align: center;
             padding: 30px 20px;
         }
@@ -54,15 +54,18 @@
         .container .box-container .box .btn{
             margin-top: 10px;
             display: inline-block;
-            background: #333;
-            color: #fff;
-            font-size: 17px;
+            background-color: #ffb6c1;
+            color: white;
+            padding: 10px 20px;
             border-radius: 5px;
-            padding: 8px 25px;
+            cursor: pointer;
+            font-size: 17px;
+            font-weight: bolder;
         }
 
         .container .box-container .box .btn:hover{
             letter-spacing: 1px;
+            background-color: #ea9999;
         }
 
         .container .box-container .box:hover{

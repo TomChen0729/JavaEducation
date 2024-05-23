@@ -15,12 +15,14 @@
 
             :root{
                 --bg-color: #222327;
-                --text-color: #fff;
+                --text-color: #333333;
                 --main-color: #6875F5;
             }
 
             body{
-                background: var(--bg-color);
+                background: url('/images/background/backgroundnoroad.svg') no-repeat center center fixed;
+                background-size: cover;
+                /* background: var(--bg-color); */
                 color: var(--text-color);
             }
 
@@ -41,9 +43,10 @@
 
             .light{
                 position: relative;
-                font-size: 6em;
+                font-size: 7em;
                 letter-spacing: 15px; /* 字元間距 */
                 color: #0e3742;
+                text-transform: uppercase; /* 所有字母皆為大寫 */
                 width: 200px;
                 text-align: center;
                 -webkit-box-reflect: below 1px linear-gradient(transparent, #0e3742); /* 鏡像效果：反射方向 反射距離 線性漸變 */
@@ -57,7 +60,7 @@
                     transform: translateX(0); /* 起始位置 */
                 }
                 to {
-                    transform: translateX(80px); /* 结束位置 */
+                    transform: translateX(50px); /* 结束位置 */
                 }
             }
 
@@ -68,8 +71,8 @@
 
             .logo span{
                 color: var(--text-color);
-                font-size: 24px;
-                font-weight: 600;
+                font-size: 30px;
+                font-weight: bolder;
             }
 
             .navbar{
@@ -78,9 +81,12 @@
 
             .navbar a{
                 color: var(--text-color);
+                background: #fce5cd;
+                border: 2px solid #5b5b5b;
+                border-radius: 50px;
                 font-size: 20px;
-                font-weight: 500;
-                padding: 5px 0;
+                font-weight: bolder;
+                padding: 5px 15px;
                 margin: 0px 30px;
                 transition: all .50s ease;
             }
@@ -141,8 +147,9 @@
                     top: 100%;
                     right: -100%;
                     width: 270px;
-                    background: var(--bg-color);
-                    background-color: #222327;
+                    background: #fce5cd;
+                    font-style: none;
+                    border: 2px solid #5b5b5b;
                     display: flex;
                     flex-direction: column;
                     justify-content: flex-start;
@@ -151,6 +158,7 @@
                 }
 
                 .navbar a{
+                    border: none;
                     display: block;
                     margin: 12px 0;
                     padding: 0px 25px;
