@@ -80,13 +80,13 @@
 
 @section('content')
     <div class="container">
-        <div class="box-container">
-            <div class="box">
-                <h3>float</h3>
-                <p>單精浮點數</p>
-                <a href="#" class="btn">read more</a>
-            </div>
-
+    @foreach($knowledgecard as $knowledgecards)
+    <div class="box">
+        <h3>{{ $knowledgecards->name }}</h3>
+        <p>{{ $knowledgecards->content }}</p>
+        <a href="#" class="btn">read more</a>
+    </div>
+    @endforeach
             <div class="box">
                 <h3>double</h3>
                 <p>雙精浮點數</p>

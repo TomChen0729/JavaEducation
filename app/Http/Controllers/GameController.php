@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\UserRecord;
-use App\Models\KnowledgeCards;
+use App\Models\KnowledgeCard;
 use App\Models\Option;
 use App\Models\Question;
 use Illuminate\Http\Request;

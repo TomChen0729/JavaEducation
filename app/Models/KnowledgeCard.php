@@ -6,10 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class KnowledgeCards extends Model
+class KnowledgeCard extends Model
 {
     use HasFactory;
-    protected $table = 'knowledge_cards';
     protected $guarded = [];
     public function questions(): HasMany
     {

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Country;
-use App\Models\KnowledgeCards;
+use App\Models\KnowledgeCard;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException; // 驗證資料欄位
