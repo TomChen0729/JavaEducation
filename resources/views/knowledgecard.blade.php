@@ -30,7 +30,7 @@
             /* 設置網格項之間的間距為 15 像素 */
             gap: 15px;
         }
-
+        
         .container .box-container .box{
             box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
             border-radius: 5px;
@@ -80,36 +80,14 @@
 
 @section('content')
     <div class="container">
-    @foreach($knowledgecard as $knowledgecards)
-    <div class="box">
-        <h3>{{ $knowledgecards->name }}</h3>
-        <p>{{ $knowledgecards->content }}</p>
-        <a href="#" class="btn">read more</a>
-    </div>
-    @endforeach
-            <div class="box">
-                <h3>double</h3>
-                <p>雙精浮點數</p>
-                <a href="#" class="btn">read more</a>
-            </div>
-
-            <div class="box">
-                <h3>boolean</h3>
-                <p>布林值</p>
-                <a href="#" class="btn">read more</a>
-            </div>
-
-            <div class="box">
-                <h3>int</h3>
-                <p>整數</p>
-                <a href="#" class="btn">read more</a>
-            </div>
-
-            <div class="box">
-                <h3>char</h3>
-                <p>字元</p>
-                <a href="#" class="btn">read more</a>
-            </div>
+        <div class="box-container">
+            @foreach($knowledgecard as $knowledgecards)
+                <div class="box">
+                    <h3>{{ $knowledgecards -> name }}</h3>
+                    <p>{{ $knowledgecards -> content }}</p>
+                    <a href="#" class="btn">read more</a>
+                </div>
+            @endforeach
         </div>
     </div>
 @endsection
