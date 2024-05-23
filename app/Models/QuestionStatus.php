@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UserKnowledgeCard extends Model
+class QuestionStatus extends Model
 {
     use HasFactory;
     protected $guarded = [];
 
-    public function users(){
-        return $this->belongsTo(User::class, 'user_id');
+    public function userrecord(){
+        return $this->belongsTo(UserRecord::class, 'user_id', 'question_id');
     }
 }

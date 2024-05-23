@@ -19,4 +19,12 @@ class UserRecord extends Model
     {
         return $this->BelongsTo(Question::class,'question_id');
     }
+
+    public function userrecorddetails(){
+        return $this->hasMany(UserRecordDetail::class);
+    }
+
+    public function questionstatus(){
+        return $this->hasMany(QuestionStatus::class);
+    }
 }
