@@ -173,7 +173,7 @@
 </head>
 <body>
     <header class="header">
-        <div class="light"><a href="{{ route('welcome') }}" class="logo"><span>綠野仙蹤</span></a></div>
+        <div class="light"><a href="{{ route('welcome') }}" class="logo"><span>@yield('head')</span></a></div>
 
         <ul class="navbar">
             <li><a href="#">知識卡</a></li>
