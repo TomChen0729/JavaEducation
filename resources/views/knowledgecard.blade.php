@@ -2,6 +2,8 @@
 
 @section('title', '知識卡')
 
+@section('head', '綠野仙蹤')
+
 @section('style')
     <style>
         *{

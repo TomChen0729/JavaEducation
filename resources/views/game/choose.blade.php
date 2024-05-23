@@ -2,6 +2,8 @@
 
 @section('title', '學習區選擇')
 
+@section('head', '蠻金之國')
+
 @section('style')
     <style>
         body{
