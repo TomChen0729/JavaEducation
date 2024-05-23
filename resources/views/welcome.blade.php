@@ -20,7 +20,9 @@
             }
 
             body{
-                background: var(--bg-color);
+                background: url('/images/background/backgroundnoroad.svg') no-repeat center center fixed;
+                background-size: cover;
+                /* background: var(--bg-color); */
                 color: var(--text-color);
             }
 
