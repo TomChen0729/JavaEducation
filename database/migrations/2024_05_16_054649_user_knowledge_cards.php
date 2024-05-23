@@ -15,6 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->foreignId('user_id')->nullable();
             $table->foreignId('knowledge_card_id')->nullable();
+            $table->time('watchtime')->default('00:00:00');
             $table->timestamps();
         });
     }

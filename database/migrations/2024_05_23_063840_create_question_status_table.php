@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pass_course_get_cards', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->foreignId('levels')->nullable();
-            $table->foreignId('knowledge_card_id')->nullable();
+        Schema::create('question_status', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id');
+            $table->foreignId('question_id');
+            $table->boolean('status');
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pass_course_get_cards');
+        Schema::dropIfExists('question_status');
     }
 };

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('questions', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->foreignId('country_id')->nullable();
             $table->foreignId('knowledge_card_id')->nullable();
             $table->char('gametype')->nullable();

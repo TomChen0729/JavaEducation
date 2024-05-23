@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('password');
             $table->string('name');
             $table->enum('gender', ['male', 'female', 'other'])->nullable();
-            $table->integer('birth_year')->nullable();
             $table->foreignId('country_id')->nullable();
             $table->integer('levels')->nullable();
             $table->rememberToken();
