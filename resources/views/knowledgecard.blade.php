@@ -82,6 +82,7 @@
     <div class="container">
         <div class="box-container">
             @foreach($knowledgecard as $knowledgecards)
+                <!-- 蠻金之國 -->
                 @if ($knowledgecards -> country_id == 1)
                     <div class="box">
                         <h3>{{ $knowledgecards -> name }}</h3>
