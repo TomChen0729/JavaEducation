@@ -26,4 +26,8 @@ class KnowledgeCard extends Model
     {
         return $this->hasMany(PassCourseGetCard::class);
     }
+
+    public function cardtypes(){
+        return $this->belongsTo(CardType::class, 'card_type_id');
+    }
 }

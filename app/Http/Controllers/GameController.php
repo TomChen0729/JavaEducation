@@ -48,7 +48,8 @@ class GameController extends Controller
                     // 迴圈用來判斷題目是否符合當前user的country跟level
                     // 呼叫亂數出題
                     $question = Question::where('gametype', '是非')->where('country_id',$country)->where('levels',$levels)->inRandomOrder()->first();
-                    // 儲存當前隨機亂數的題目           
+                    // 儲存當前隨機亂數的題目
+                    // 還要帶該遊戲第二層知識卡，方便跳窗後點擊查詢卡片內容           
                     return view('game.TrueORFalse',['question' => $question]);
                 
                 case 2:

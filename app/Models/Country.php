@@ -18,10 +18,9 @@ class Country extends Model
     {
         return $this->hasMany(User::class);
     }
-    public function knowledge_cards(): HasMany
-    {
-        return $this->hasMany(KnowledgeCards::class);
-    }
 
+    public function cardtypes(){
+        return $this->hasMany(CardType::class);
+    }
     
 }

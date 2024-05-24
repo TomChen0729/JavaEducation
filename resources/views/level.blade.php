@@ -56,7 +56,7 @@
             <div class="card-content">
                 <h3>LV.{{ $card -> levels }}</h3>
                 <p>
-                    {{ $card -> name }}
+                    {{ $card -> card_type }}
                 </p>
                 <a href="{{ route('game.index',['levels' => $card -> levels]) }}" class="btn">start</a>
             </div>
