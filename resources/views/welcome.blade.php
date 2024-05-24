@@ -132,11 +132,11 @@
             display: none;
         }
 
-        .wrapper {
+        .container {
             margin-top: 80px;
             display: flex;
             width: 100%;
-            max-width: 1000px;
+            max-width: 1300px;
             height: 500px;
             align-items: center;
             justify-content: center;
@@ -144,57 +144,16 @@
             overflow: hidden;
         }
 
-        .button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            height: 36px;
-            width: 36px;
-            background-color: #343f4f;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 36px;
-            color: #fff;
-            font-size: 15px;
-            transition: all 0.3s linear;
-            z-index: 100;
-            cursor: pointer;
-        }
-
-        .button:active {
-            transform: scale(0.94) translateY(-50%);
-        }
-
-        #prev {
-            left: 25px;
-        }
-
-        #next {
-            right: 25px;
-        }
-
-        .image-container {
-            height: 100%;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .carousel {
+        .icon {
             display: flex;
             transition: transform 0.4s ease;
         }
 
-        .carousel a {
-            display: inline-block; /* 将链接元素设置为块级元素 */
-            padding: 0; /* 清除内边距 */
-            border: none; /* 清除边框 */
+        .icon a:hover {
+            transform: scale(1.03);
         }
 
-        .carousel img {
-            margin: 0 10px;
+        .icon img {
             height: 500px;
             width: 100%;
             object-fit: fill;
@@ -282,17 +241,13 @@
         </div>
     </header>
 
-    <section class="wrapper">
-        <i class="fas fa-arrow-left button" id="prev"></i>
-        <div class="image-container">
-            <div class="carousel">
+    <div class="container">
+        <div class="icon">
                 @foreach ($countries as $country)
                     <a href="{{ route('country.index', ['country_id' => $country -> id]) }}"><img src="/images/country/{{ $country -> imgPath }}" alt=""></a>
                 @endforeach
             </div>
-        </div>
-        <i class="fas fa-arrow-right button" id="next"></i>
-    </section>
+    </div>
 
 
     <!--js-->
@@ -305,36 +260,6 @@
             menu.classList.toggle('bx-x');
             navbar.classList.toggle('open');
         }
-
-        // 輪播圖
-        const wrapper = document.querySelector(".wrapper"),
-            carousel = document.querySelector(".carousel"),
-            images = document.querySelectorAll(".carousel img"),
-            buttons = document.querySelectorAll(".button");
-
-        let imageIndex = 0;
-
-        // 更新輪播圖顯示以顯示指定影像函數
-        const slideImage = () => {
-            // 計算更新後的圖片索引
-            if (imageIndex < 0) imageIndex = images.length - 1;
-            if (imageIndex >= images.length) imageIndex = 0;
-            // 更新輪播圖顯以顯示指定圖片
-            carousel.style.transform = `translateX(-${imageIndex * 100}%)`;
-        };
-
-        // 更新輪播圖已顯示下一張或上一張
-        const updateClick = (e) => {
-            // 根據點擊的按鈕計算更新後的圖片索引
-            imageIndex += e.target.id === "next" ? 1 : -1;
-            slideImage();
-        };
-
-        // 導向按鈕事件監聽
-        buttons.forEach(button => button.addEventListener("click", updateClick));
-
-        // 初始化顯示第一張圖片
-        slideImage();
     </script>
 </body>
 </html>
