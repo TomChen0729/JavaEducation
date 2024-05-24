@@ -52,4 +52,7 @@ Route::get('Gameviews', function(){
 Route::get('level', function(){
     return view('level');
 });
+Route::get('knowledge', function(){
+    return view('knowledge');
+});
 Route::get('knowledgecard', [KnowledgeCardController::class, 'index']);
