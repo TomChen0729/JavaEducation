@@ -135,7 +135,8 @@
         .wrapper {
             margin-top: 80px;
             display: flex;
-            width: 1000px;
+            width: 100%;
+            max-width: 1000px;
             height: 500px;
             align-items: center;
             justify-content: center;
@@ -149,12 +150,11 @@
             transform: translateY(-50%);
             height: 36px;
             width: 36px;
-            background-color: #fce5cd;
-            border: 2px solid #5b5b5b;
+            background-color: #343f4f;
             border-radius: 50%;
             text-align: center;
             line-height: 36px;
-            color: var(--text-color);
+            color: #fff;
             font-size: 15px;
             transition: all 0.3s linear;
             z-index: 100;
@@ -187,10 +187,16 @@
             transition: transform 0.4s ease;
         }
 
+        .carousel a {
+            display: inline-block; /* 将链接元素设置为块级元素 */
+            padding: 0; /* 清除内边距 */
+            border: none; /* 清除边框 */
+        }
+
         .carousel img {
             margin: 0 10px;
-            height: 100%;
-            width: 1300px;
+            height: 500px;
+            width: 100%;
             object-fit: fill;
         }
 
@@ -276,7 +282,26 @@
         </div>
     </header>
 
-    <div class="container" style="display: flex; justify-content: center; align-items: center;">
+    <section class="wrapper">
+        <i class="fas fa-arrow-left button" id="prev"></i>
+        <div class="image-container">
+            <div class="carousel">
+                <img src="/images/country/lv1.svg" alt="">
+                <img src="/images/country/lv2.svg" alt="">
+                <img src="/images/country/lv3.svg" alt="">
+                <img src="/images/country/lv4.svg" alt="">
+                <img src="/images/country/lv5.svg" alt="">
+                <!-- <a href="{{route('country.index', ['country_id' => 1]) }}" style="display: inline-block;"><img src="/images/country/lv1.svg" alt=""></a>
+                <a href="{{route('country.index', ['country_id' => 2]) }}" style="display: inline-block;"><img src="/images/country/lv2.svg" alt=""></a>
+                <a href="{{route('country.index', ['country_id' => 3]) }}" style="display: inline-block;"><img src="/images/country/lv3.svg" alt=""></a>
+                <a href="{{route('country.index', ['country_id' => 4]) }}" style="display: inline-block;"><img src="/images/country/lv4.svg" alt=""></a>
+                <a href="{{route('country.index', ['country_id' => 5]) }}" style="display: inline-block;"><img src="/images/country/lv5.svg" alt=""></a> -->
+            </div>
+        </div>
+        <i class="fas fa-arrow-right button" id="next"></i>
+    </section>
+
+    <!-- <div class="container" style="display: flex; justify-content: center; align-items: center;">
         @foreach ($countries as $country )
             @if ($country -> id == 1)
                 <button style="border: 1px solid white; padding: 20px; margin-top: 300px"><a href="{{route('country.index', ['country_id' => $country -> id]) }}">{{  $country -> name }}</a></button>
@@ -284,7 +309,15 @@
                 <button style="border: 1px solid white; padding: 20px; margin-left: 10px; margin-top: 300px"><a href="{{route('country.index', ['country_id' => $country -> id]) }}">{{  $country -> name }}</a></button>  
             @endif    
         @endforeach
-    </div>
+    </div> -->
+
+    <!-- <div class="container">
+        <a href="{{route('country.index', ['country_id' => 1]) }}">國家一</a>
+        <a href="{{route('country.index', ['country_id' => 2]) }}">國家二</a>
+        <a href="{{route('country.index', ['country_id' => 3]) }}">國家三</a>
+        <a href="{{route('country.index', ['country_id' => 4]) }}">國家四</a>
+        <a href="{{route('country.index', ['country_id' => 5]) }}">國家五</a>
+    </div> -->
 
 
     <!--js-->
