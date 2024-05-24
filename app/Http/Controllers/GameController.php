@@ -61,8 +61,13 @@ class GameController extends Controller
                     $options  = Option::where('question_id', $question -> id)->inRandomOrder()->get();
                     return view('game.choose', ['question' => $question, 'options' => $options]);
                 case 3:
-                    // 
-                    return view('game.match');
+                    //  
+                    $user = auth()->user();
+                    $country = $user->country_id;
+                    $levels = $user->levels;
+                    $question = Question::where('gametype','配對')->where('country_id',$country)->where('levels',$levels)->inRandomOrder()->first();
+                    $options = Option::with('question')->where('question_id',$question->id)->inRandomOrder()->get();
+                    return view('game.match',['question' => $question, 'options' => $options]);
                 case 4:
                     // 
                     return view('game.reorganization');
