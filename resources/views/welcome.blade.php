@@ -286,11 +286,14 @@
         <i class="fas fa-arrow-left button" id="prev"></i>
         <div class="image-container">
             <div class="carousel">
-                <img src="/images/country/lv1.svg" alt="">
+                @foreach ($countries as $country)
+                    <img src="/images/country/{{ $country -> imgPath }}" alt="">
+                @endforeach
+                <!-- <img src="/images/country/lv1.svg" alt="">
                 <img src="/images/country/lv2.svg" alt="">
                 <img src="/images/country/lv3.svg" alt="">
                 <img src="/images/country/lv4.svg" alt="">
-                <img src="/images/country/lv5.svg" alt="">
+                <img src="/images/country/lv5.svg" alt=""> -->
                 <!-- <a href="{{route('country.index', ['country_id' => 1]) }}" style="display: inline-block;"><img src="/images/country/lv1.svg" alt=""></a>
                 <a href="{{route('country.index', ['country_id' => 2]) }}" style="display: inline-block;"><img src="/images/country/lv2.svg" alt=""></a>
                 <a href="{{route('country.index', ['country_id' => 3]) }}" style="display: inline-block;"><img src="/images/country/lv3.svg" alt=""></a>
