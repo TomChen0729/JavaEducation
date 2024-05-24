@@ -29,7 +29,6 @@ class CountryController extends Controller
         
         //初始化玩家紀錄(檢查玩家的country_id 和 levels)
         $this->gameService->initUserRecord();
-        // $Current_User_id = auth()->user()->id;
         $User_country = auth()->user()->country_id;
 
         // 如果玩家最新的國家id大於等於當前國家id

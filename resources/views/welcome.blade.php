@@ -287,40 +287,12 @@
         <div class="image-container">
             <div class="carousel">
                 @foreach ($countries as $country)
-                    <img src="/images/country/{{ $country -> imgPath }}" alt="">
+                    <a href="{{ route('country.index', ['country_id' => $country -> id]) }}"><img src="/images/country/{{ $country -> imgPath }}" alt=""></a>
                 @endforeach
-                <!-- <img src="/images/country/lv1.svg" alt="">
-                <img src="/images/country/lv2.svg" alt="">
-                <img src="/images/country/lv3.svg" alt="">
-                <img src="/images/country/lv4.svg" alt="">
-                <img src="/images/country/lv5.svg" alt=""> -->
-                <!-- <a href="{{route('country.index', ['country_id' => 1]) }}" style="display: inline-block;"><img src="/images/country/lv1.svg" alt=""></a>
-                <a href="{{route('country.index', ['country_id' => 2]) }}" style="display: inline-block;"><img src="/images/country/lv2.svg" alt=""></a>
-                <a href="{{route('country.index', ['country_id' => 3]) }}" style="display: inline-block;"><img src="/images/country/lv3.svg" alt=""></a>
-                <a href="{{route('country.index', ['country_id' => 4]) }}" style="display: inline-block;"><img src="/images/country/lv4.svg" alt=""></a>
-                <a href="{{route('country.index', ['country_id' => 5]) }}" style="display: inline-block;"><img src="/images/country/lv5.svg" alt=""></a> -->
             </div>
         </div>
         <i class="fas fa-arrow-right button" id="next"></i>
     </section>
-
-    <!-- <div class="container" style="display: flex; justify-content: center; align-items: center;">
-        @foreach ($countries as $country )
-            @if ($country -> id == 1)
-                <button style="border: 1px solid white; padding: 20px; margin-top: 300px"><a href="{{route('country.index', ['country_id' => $country -> id]) }}">{{  $country -> name }}</a></button>
-            @else
-                <button style="border: 1px solid white; padding: 20px; margin-left: 10px; margin-top: 300px"><a href="{{route('country.index', ['country_id' => $country -> id]) }}">{{  $country -> name }}</a></button>  
-            @endif    
-        @endforeach
-    </div> -->
-
-    <!-- <div class="container">
-        <a href="{{route('country.index', ['country_id' => 1]) }}">國家一</a>
-        <a href="{{route('country.index', ['country_id' => 2]) }}">國家二</a>
-        <a href="{{route('country.index', ['country_id' => 3]) }}">國家三</a>
-        <a href="{{route('country.index', ['country_id' => 4]) }}">國家四</a>
-        <a href="{{route('country.index', ['country_id' => 5]) }}">國家五</a>
-    </div> -->
 
 
     <!--js-->
