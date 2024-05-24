@@ -31,6 +31,6 @@ class Question extends Model
     }
     public function knowledge_cards()
     {
-        return $this->BelongsTo(KnowledgeCards::class ,'knowledge_card_id');
+        return $this->BelongsTo(KnowledgeCard::class ,'knowledge_card_id');
     }
 }

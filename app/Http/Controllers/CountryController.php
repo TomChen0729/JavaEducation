@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Country;
-use App\Models\KnowledgeCards;
+use App\Models\KnowledgeCard;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException; // 驗證資料欄位
@@ -36,7 +36,7 @@ class CountryController extends Controller
         // 帶出當前國家資訊 LV1-3
         if($User_country >= $country_id){
             // 國家底下的第一層知識卡
-            $Parent_cards = KnowledgeCards::where('country_id', $country_id)->where('parent_id', 0)->get();
+            $Parent_cards = KnowledgeCard::where('country_id', $country_id)->where('parent_id', 0)->get();
         }
         return view('level', ['parent_cards'=> $Parent_cards]);
     }

@@ -35,7 +35,7 @@
             box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
             border-radius: 5px;
             background: #fff;
-            background: linear-gradient(45deg, blueviolet, lightgreen);
+            background: linear-gradient(45deg, #fad0c4, #ffd1ff);
             text-align: center;
             padding: 30px 20px;
         }
@@ -54,15 +54,18 @@
         .container .box-container .box .btn{
             margin-top: 10px;
             display: inline-block;
-            background: #333;
-            color: #fff;
-            font-size: 17px;
+            background-color: #ffb6c1;
+            color: white;
+            padding: 10px 20px;
             border-radius: 5px;
-            padding: 8px 25px;
+            cursor: pointer;
+            font-size: 17px;
+            font-weight: bolder;
         }
 
         .container .box-container .box .btn:hover{
             letter-spacing: 1px;
+            background-color: #ea9999;
         }
 
         .container .box-container .box:hover{
@@ -81,35 +84,32 @@
 @section('content')
     <div class="container">
         <div class="box-container">
-            <div class="box">
-                <h3>float</h3>
-                <p>單精浮點數</p>
-                <a href="#" class="btn">read more</a>
-            </div>
-
-            <div class="box">
-                <h3>double</h3>
-                <p>雙精浮點數</p>
-                <a href="#" class="btn">read more</a>
-            </div>
-
-            <div class="box">
-                <h3>boolean</h3>
-                <p>布林值</p>
-                <a href="#" class="btn">read more</a>
-            </div>
-
-            <div class="box">
-                <h3>int</h3>
-                <p>整數</p>
-                <a href="#" class="btn">read more</a>
-            </div>
-
-            <div class="box">
-                <h3>char</h3>
-                <p>字元</p>
-                <a href="#" class="btn">read more</a>
-            </div>
+            @foreach($knowledgecard as $knowledgecards)
+                <!-- 蠻金之國 資料型態 -->
+                @if ($knowledgecards -> country_id == 1)
+                    <div class="box">
+                        <h3>{{ $knowledgecards -> name }}</h3>
+                        <p>{{ $knowledgecards -> content }}</p>
+                        <a href="#" class="btn">資料型態</a>
+                    </div>
+                @endif
+                <!-- 蠻金之國 資料輸入輸出 -->
+                @if ($knowledgecards -> country_id == 2)
+                    <div class="box">
+                        <h3>{{ $knowledgecards -> name }}</h3>
+                        <p>{{ $knowledgecards -> content }}</p>
+                        <a href="#" class="btn">資料輸入輸出</a>
+                    </div>
+                @endif
+                <!-- 蠻金之國 運算子 -->
+                @if ($knowledgecards -> country_id == 3)
+                    <div class="box">
+                        <h3>{{ $knowledgecards -> name }}</h3>
+                        <p>{{ $knowledgecards -> content }}</p>
+                        <a href="#" class="btn">運算子</a>
+                    </div>
+                @endif
+            @endforeach
         </div>
     </div>
 @endsection

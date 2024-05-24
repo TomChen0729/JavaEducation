@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\UserRecord;
-use App\Models\KnowledgeCards;
+use App\Models\KnowledgeCard;
 use App\Models\Option;
 use App\Models\Question;
 use Illuminate\Http\Request;
@@ -57,26 +57,17 @@ class GameController extends Controller
                     $user = auth()->user();
                     $country = $user->country_id;
                     $levels = $user->levels;
-                    $match = false;
-                    while(!$match){
-                        $question = Question::where('gametype', '選擇')->inRandomOrder()->first();
-                        $options  = Option::where('question_id', $question -> id)->inRandomOrder()->get();
-                        $question_card = $question->knowledge_cards;
-                        $question_levels = $question_card->levels;
-                        if($country===$question->country_id && $levels===$question_levels){
-                            // 儲存當前隨機亂數的題目
-                            $userrecord = new UserRecord();
-                            $userrecord->user_id = $user->id;
-                            $userrecord->question_id = $question->id;
-                            $userrecord->times = 0;
-                            $userrecord->save();
-                            $match = true;
-                        }
-                    }
+                    $question = Question::where('gametype', '選擇')->where('country_id',$country)->where('levels',$levels)->inRandomOrder()->first();
+                    $options  = Option::where('question_id', $question -> id)->inRandomOrder()->get();
                     return view('game.choose', ['question' => $question, 'options' => $options]);
                 case 3:
-                    // 
-                    return view('game.match');
+                    //  
+                    $user = auth()->user();
+                    $country = $user->country_id;
+                    $levels = $user->levels;
+                    $question = Question::where('gametype','配對')->where('country_id',$country)->where('levels',$levels)->inRandomOrder()->first();
+                    $options = Option::with('question')->where('question_id',$question->id)->inRandomOrder()->get();
+                    return view('game.match',['question' => $question, 'options' => $options]);
                 case 4:
                     // 
                     return view('game.reorganization');

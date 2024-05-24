@@ -15,12 +15,14 @@
 
             :root{
                 --bg-color: #222327;
-                --text-color: #fff;
+                --text-color: #333333;
                 --main-color: #6875F5;
             }
 
             body{
-                background: var(--bg-color);
+                background: url('/images/background/backgroundnoroad.svg') no-repeat center center fixed;
+                background-size: cover;
+                /* background: var(--bg-color); */
                 color: var(--text-color);
             }
 
@@ -49,7 +51,7 @@
 
             .light{
                 position: relative;
-                font-size: 6em;
+                font-size: 7em;
                 letter-spacing: 15px; /* 字元間距 */
                 color: #0e3742;
                 text-transform: uppercase; /* 所有字母皆為大寫 */
@@ -66,7 +68,7 @@
                     transform: translateX(0); /* 起始位置 */
                 }
                 to {
-                    transform: translateX(80px); /* 结束位置 */
+                    transform: translateX(50px); /* 结束位置 */
                 }
             }
 
@@ -77,8 +79,8 @@
 
             .logo span{
                 color: var(--text-color);
-                font-size: 24px;
-                font-weight: 600;
+                font-size: 30px;
+                font-weight: bolder;
             }
 
             .navbar{
@@ -87,9 +89,12 @@
 
             .navbar a{
                 color: var(--text-color);
+                background: #fce5cd;
+                border: 2px solid #5b5b5b;
+                border-radius: 50px;
                 font-size: 20px;
-                font-weight: 500;
-                padding: 5px 0;
+                font-weight: bolder;
+                padding: 5px 15px;
                 margin: 0px 30px;
                 transition: all .50s ease;
             }
@@ -150,12 +155,11 @@
                     top: 100%;
                     right: -100%;
                     width: 270px;
-                    background: var(--bg-color);
-                    background-color: #222327;
+                    /* background: var(--bg-color); */
                     display: flex;
                     flex-direction: column;
                     justify-content: flex-start;
-                    border-radius: 10px;
+                    /* border-radius: 10px; */
                     transition: all .50s ease;
                 }
 

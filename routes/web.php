@@ -3,6 +3,7 @@ use App\Http\Controllers\DataController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\GameController;
 use App\Models\Country;
+use App\Http\Controllers\KnowledgeCardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function(){
@@ -51,6 +52,4 @@ Route::get('Gameviews', function(){
 Route::get('level', function(){
     return view('level');
 });
-Route::get('knowledgecard', function(){
-    return view('knowledgecard');
-});
+Route::get('knowledgecard', [KnowledgeCardController::class, 'index']);
