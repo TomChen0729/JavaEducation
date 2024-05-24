@@ -1,8 +1,13 @@
+<style>
+    *{
+        background: url('/images/background/backgroundnoroad2.svg') no-repeat center center fixed;
+        background-size: cover;
+        color: #333333;
+    }
+</style>
+
 <x-guest-layout>
     <x-authentication-card>
-        <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
 
         <x-validation-errors class="mb-4" />
 
@@ -22,27 +27,27 @@
 
             <div class="mt-4">
                 <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
+                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" style="border: 2px solid #5b5b5b;" />
             </div>
 
             <div class="block mt-4">
                 <label for="remember_me" class="flex items-center">
-                    <x-checkbox id="remember_me" name="remember" />
-                    <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                    <x-checkbox id="remember_me" name="remember" style="border: 2px solid #5b5b5b;" />
+                    <span class="ms-2 text-sm text-gray-600" style="color: #333333;">{{ __('Remember me') }}</span>
                 </label>
             </div>
 
             <div class="flex items-center justify-end mt-4">
                 @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"  style="margin-right: 20px" href="{{ route('password.request') }}">
+                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"  style="margin-right: 20px; color: #333333;" href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}
                     </a>
                 @endif
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('register') }}">
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" style="color: #333333;" href="{{ route('register') }}">
                         {{ __('Go to Register Page!') }}
                 </a>
 
-                <x-button class="ms-4">
+                <x-button class="ms-4" style="background: #fce5cd; color: #333333; border: 2px solid #5b5b5b;">
                     {{ __('Log in') }}
                 </x-button>
             </div>
