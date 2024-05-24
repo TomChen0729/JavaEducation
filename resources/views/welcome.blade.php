@@ -23,7 +23,10 @@
         }
 
         body{
-            background: url('/images/background/backgroundnoroad2.svg') no-repeat center center fixed;
+            background-image: url('/images/background/backgroundnoroad2.svg');
+            background-repeat: no-repeat;
+            background-position: top;
+            background-attachment: scroll;
             background-size: cover;
             color: var(--text-color);
             min-height: 100vh;

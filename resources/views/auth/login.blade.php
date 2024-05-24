@@ -1,6 +1,9 @@
 <style>
     *{
-        background: url('/images/background/backgroundnoroad2.svg') no-repeat center center fixed;
+        background: url('/images/start/startnoword.svg');
+        background-repeat: no-repeat;
+        background-position: top;
+        background-attachment: fixed;
         background-size: cover;
         color: #333333;
     }

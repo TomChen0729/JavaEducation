@@ -6,26 +6,25 @@
     <title>開始遊戲</title>
     <style>
         body{
-            background-color: black;
+            background: url('/images/start/start.svg');
+            background-repeat: no-repeat;
+            background-position: top;
+            background-attachment: fixed;
+            background-size: cover;
         }
         .container {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-        }
-        .beginGame {
-            font-size: large;
-            font-family: "標楷體";
-        }
-        .beginGame a{
-            text-decoration: none;
+            height: 50vh; 
+            margin-top: 250px;
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <button class="beginGame"><a href="{{ url('/welcome') }}">開始遊戲</a></button>
+    <button><a href="{{ url('/welcome') }}">開始遊戲</a></button>
+    <!-- <a href="{{ url('/welcome') }}"><img src="/images/start/startbtn.svg" alt=""></a> -->
 </div>
 </body>
 </html>
