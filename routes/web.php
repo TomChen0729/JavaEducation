@@ -2,6 +2,7 @@
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\GameController;
+use App\Models\Country;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function(){
@@ -17,7 +18,8 @@ Route::middleware([
 ])->group(function () {
     // 顯示五個國家icon頁面
     Route::get('/welcome', function () {
-        return view('welcome');
+        $countries = Country::all();
+        return view('welcome', ['countries' => $countries]);
     })->name('welcome');
     Route::get('/dashboard', function () {
         return view('dashboard');

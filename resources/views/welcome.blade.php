@@ -215,11 +215,13 @@
     </header>
 
     <div class="container" style="display: flex; justify-content: center; align-items: center;">
-        <button style="border: 1px solid white; padding: 20px; margin-top: 300px"><a href="{{route('country.index', ['country_id' => 1]) }}">國家一</a></button>
-        <button style="border: 1px solid white; padding: 20px; margin-left: 10px; margin-top: 300px"><a href="{{route('country.index', ['country_id' => 2]) }}">國家二</a></button>
-        <button style="border: 1px solid white; padding: 20px; margin-left: 10px; margin-top: 300px"><a href="{{route('country.index', ['country_id' => 3]) }}">國家三</a></button>
-        <button style="border: 1px solid white; padding: 20px; margin-left: 10px; margin-top: 300px"><a href="{{route('country.index', ['country_id' => 4]) }}">國家四</a></button>
-        <button style="border: 1px solid white; padding: 20px; margin-left: 10px; margin-top: 300px"><a href="{{route('country.index', ['country_id' => 5]) }}">國家五</a></button>
+        @foreach ($countries as $country )
+            @if ($country -> id == 1)
+                <button style="border: 1px solid white; padding: 20px; margin-top: 300px"><a href="{{route('country.index', ['country_id' => $country -> id]) }}">{{  $country -> name }}</a></button>
+            @else
+                <button style="border: 1px solid white; padding: 20px; margin-left: 10px; margin-top: 300px"><a href="{{route('country.index', ['country_id' => $country -> id]) }}">{{  $country -> name }}</a></button>  
+            @endif    
+        @endforeach
     </div>
 
 
