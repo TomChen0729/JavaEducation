@@ -31,6 +31,8 @@ Route::middleware([
     Route::get('/levels/{levels}', [GameController::class, 'index'])->name('game.index');
     // 進入該遊戲畫面
     Route::get('/GameType_id/{GameType_id}',[GameController::class, 'ChooseGame'])->name('game.gameTypeChoose');
+    // 顯示知識卡所有分類
+    Route::get('/knowledgecardtype', [KnowledgeCardController::class, 'index'])->name('showallcardtypes');
 });
 
 //測試用
