@@ -7,6 +7,8 @@ use App\Http\Controllers\KnowledgeCardController;
 use Illuminate\Routing\RouteUri;
 use Illuminate\Support\Facades\Route;
 
+
+
 Route::get('/', function(){
     return view('home');
 });
@@ -62,3 +64,4 @@ Route::get('level', function(){
 Route::get('knowledge', function(){
     return view('knowledge');
 });
+

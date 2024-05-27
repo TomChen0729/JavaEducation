@@ -2,8 +2,6 @@
 
 @section('title', '學習區是非')
 
-@section('head', '蠻金之國')
-
 @section('style')
     <style>
         body{
@@ -57,7 +55,7 @@
 <div class="tof">
     <!-- 顯示題目容器 -->
     <div class="question">
-        <h2 id="questions">{{ $question -> questions }}</h2>
+        <h2 id="questions">{{ $question->questions}}</h2>
     </div>
     <div>
         <button class="true" id="trueB">True</button>

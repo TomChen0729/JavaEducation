@@ -7,6 +7,7 @@ use App\Models\KnowledgeCard;
 use App\Models\Option;
 use App\Models\MatchOption;
 use App\Models\Question;
+use App\Models\ReorganizationOption;
 use Illuminate\Http\Request;
 use App\Services\GameService;
 
@@ -76,8 +77,12 @@ class GameController extends Controller
 
                     return view('game.match', ['questions' => $questions, 'options' => $options]);
                 case 4:
-                    // 
-                    return view('game.reorganization');
+                    $user = auth()->user();
+                    $country = $user->country_id; 
+                    $levels = $user->levels;
+                    $question = Question::where('gametype', '重組')->where('country_id',$country)->where('levels',$levels)->inRandomOrder()->first();
+                    $options  = ReorganizationOption::where('question_id', $question -> id)->inRandomOrder()->get();
+                    return view('game.reorganization', ['question' => $question, 'options' => $options]);
                 case 5:
                     // 
                     break;
@@ -94,9 +99,27 @@ class GameController extends Controller
     // 對答案API
     public function correctANS(Request $request, string $game_type){
         if($request -> isMethod('get')){
-            
+            if($game_type==4)
+                {
+                $questionId = $request->input('question_id');
+                $usersort = $request->input('usersort');
+                $sort = ReorganizationOption::where('question_id',$questionId)->orderBy('sort','asc')->pluck('sort')->toArray();
+                if ($usersort == $sort)
+                    return response()->json(['message'=>'答案正確']);
+                else
+                    return response()->json(['message'=>'答案錯誤']);
+                }
+            else
+                {
+                $questionId = $request->input('question_id');
+                $useranswer = $request->input('useranswer');
+                $answer = Question::where('question_id',$questionId)->pluck('answer')->first();
+                if($useranswer==$answer)
+                    return response()->json(['message'=>'答案正確']);
+                else
+                    return response()->json(['message'=>'答案錯誤']);
+                }
         }
-        return response()->json();
     }
 
 }
