@@ -22,6 +22,27 @@
             padding-bottom: 100px;
         }
 
+        .container h1 {
+            /* 字體設置 */
+            font-family: 'Arial', sans-serif; /* 可以選擇適合的字體 */
+            font-size: 60px; /* 調整字體大小 */
+            font-weight: bold; /* 調整字體粗細 */
+
+            text-shadow: -1px 0 #FBB03B, 0 1px #FBB03B, 5px 0 #FBB03B, 0 -1px #FBB03B;
+
+            /* 顏色設置 */
+            color: #FFFF33; /* 字體顏色 */
+            
+            /* 間距設置 */
+            text-align: center;
+            margin-top: 20px; /* 上邊距 */
+            margin-bottom: 20px; /* 下邊距 */
+            padding: 10px; /* 內邊距 */
+            
+            /* 其他樣式 */
+            letter-spacing: 5px; /* 字母間距 */
+        }
+
         .container .box-container{
             /* 網格結構，組織子元素 */
             display: grid;
@@ -83,11 +104,14 @@
 
 @section('content')
     <div class="container">
+        <div>
+            <h1>蠻金之國</h1>
+        </div>
         <div class="box-container">
             @foreach($all_cards as $all_card)
                 <div class="box">
                     <h3>{{ $all_card -> name }}</h3>
-                    <a href="{{ route('showcardcontent', ['card_id' => $all_card -> id]) }}" class="btn">GO</a>
+                    <a href="{{ route('showcardcontent', ['card_id' => $all_card -> id]) }}" class="btn">Read More</a>
                 </div>
             @endforeach
         </div>
