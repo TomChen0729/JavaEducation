@@ -12,7 +12,7 @@
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
-            <x-authentication-card-logo />
+            <img src="/images/title/register.svg" alt="">
         </x-slot>
 
         <div class="mb-4 text-sm text-gray-600" style="font-size: 15px; color: #333333;">
@@ -29,6 +29,8 @@
 
         <form method="POST" action="{{ route('password.email') }}">
             @csrf
+
+            <img src="{{ asset('images/title/forgetpwd.svg') }}" alt="Logo" class="mb-4">
 
             <div class="block">
                 <x-label for="email" value="{{ __('Email') }}" />

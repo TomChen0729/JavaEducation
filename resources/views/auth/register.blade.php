@@ -20,6 +20,8 @@
         <form method="POST" action="{{ route('register') }}">
             @csrf
 
+            <img src="{{ asset('images/title/register.svg') }}" alt="Logo" class="mb-4">
+
             <div>
                 <x-label for="name" value="{{ __('Name') }}" />
                 <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" style="background: #fff; border: 2px solid #5b5b5b;" />
@@ -66,7 +68,7 @@
             @endif
 
             <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}" style="color: #333333;">
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}" style="font-weight: bold; color: #333333;">
                     {{ __('Already registered?') }}
                 </a>
 
