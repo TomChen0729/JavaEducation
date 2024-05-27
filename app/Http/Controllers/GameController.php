@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Models\UserRecord;
 use App\Models\KnowledgeCard;
 use App\Models\Option;
+use App\Models\MatchOption;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use App\Services\GameService;
@@ -66,9 +67,14 @@ class GameController extends Controller
                     $user = auth()->user();
                     $country = $user->country_id;
                     $levels = $user->levels;
-                    $question = Question::where('gametype','配對')->where('country_id',$country)->where('levels',$levels)->inRandomOrder()->first();
-                    $options = Option::with('question')->where('question_id',$question->id)->inRandomOrder()->get();
-                    return view('game.match',['question' => $question, 'options' => $options]);
+                    //隨機抓取六道題目
+                    $questions = Question::where('gametype', '配對')->where('country_id', $country)->where('levels', $levels)->inRandomOrder()->take(6)->get();
+            
+                    //根據題目id去抓選項並將選項隨機
+                    //whereIn能將options集合的元素視為單個條件值去跟question_id比對，$questions->pluck('id')會把$questions集合的每個問題的id抓出來
+                    $options = MatchOption::whereIn('question_id', $questions->pluck('id'))->get()->shuffle();
+
+                    return view('game.match', ['questions' => $questions, 'options' => $options]);
                 case 4:
                     // 
                     return view('game.reorganization');

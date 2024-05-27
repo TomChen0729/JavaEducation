@@ -104,6 +104,14 @@
     <div class="container">
         <!-- 動態生成問題和答案 -->
         <div id="pair-container"></div>
+        <!--題目隨機出題-->
+        @foreach ($questions as $question)
+            {{ $question->questions }}
+        @endforeach
+        <!--選項隨機排序-->
+        @foreach ($options as $option)
+            {{ $option->options }}
+        @endforeach
     </div>
 @endsection
 
