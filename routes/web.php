@@ -4,6 +4,7 @@ use App\Http\Controllers\CountryController;
 use App\Http\Controllers\GameController;
 use App\Models\Country;
 use App\Http\Controllers\KnowledgeCardController;
+use Illuminate\Routing\RouteUri;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function(){
@@ -32,7 +33,9 @@ Route::middleware([
     // 進入該遊戲畫面
     Route::get('/GameType_id/{GameType_id}',[GameController::class, 'ChooseGame'])->name('game.gameTypeChoose');
     // 顯示知識卡所有分類
-    Route::get('/knowledgecardtype', [KnowledgeCardController::class, 'index'])->name('showallcardtypes');
+    Route::get('/knowledgecardtypes', [KnowledgeCardController::class, 'index'])->name('showallcardtypes');
+    // 顯示目標分類底下所有知識卡
+    Route::get('/knowledgecardtype/{card_type_id}', [KnowledgeCardController::class, 'showallcards'])->name('showallcards');
 });
 
 //測試用
@@ -57,4 +60,3 @@ Route::get('level', function(){
 Route::get('knowledge', function(){
     return view('knowledge');
 });
-Route::get('knowledgecard', [KnowledgeCardController::class, 'index']);

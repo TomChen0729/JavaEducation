@@ -88,7 +88,7 @@
                 <div class="box">
                     <h3>{{ $card_type -> card_type }}</h3>
                     <!-- <p>{{-- $knowledgecards -> content --}}</p> -->
-                    <a href="{{ route('knowledge') }}" class="btn">GO</a>
+                    <a href="{{ route('showallcards', ['card_type_id' => $card_type -> id]) }}" class="btn">GO</a>
                 </div>
             @endforeach
         </div>

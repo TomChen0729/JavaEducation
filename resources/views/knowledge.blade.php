@@ -84,14 +84,11 @@
 @section('content')
     <div class="container">
         <div class="box-container">
-            @foreach($knowledgecard as $knowledgecards)
-                <!-- 資料型態 -->
-                @if ($knowledgecards -> country_id == 1)
-                    <div class="box">
-                        <h3>{{ $knowledgecards -> name }}</h3>
-                        <p>{{ $knowledgecards -> content }}</p>
-                    </div>
-                @endif
+            @foreach($all_cards as $all_card)
+                <div class="box">
+                    <h3>{{ $all_card -> name }}</h3>
+                    <p>{{ $all_card -> content }}</p>
+                </div>
             @endforeach
         </div>
     </div>

@@ -22,7 +22,8 @@ class KnowledgeCardController extends Controller
 
     // 顯示該分類底下所有的片
     public function showallcards(int $card_type_id){
-
+        $all_cards = KnowledgeCard::where('card_type_id', $card_type_id)->get();
+        return view('knowledge', ['all_cards' => $all_cards]);
     }
 
 
