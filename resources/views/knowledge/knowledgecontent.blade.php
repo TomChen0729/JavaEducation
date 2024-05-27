@@ -84,12 +84,16 @@
 @section('content')
     <div class="container">
         <div class="box-container">
-            @foreach($all_cards as $all_card)
+            <div class="box">
+                <h3>int</h3>
+                <p>content</p>
+            </div>
+            <!-- @foreach($all_cards as $all_card)
                 <div class="box">
                     <h3>{{ $all_card -> name }}</h3>
                     <p>{{ $all_card -> content }}</p>
                 </div>
-            @endforeach
+            @endforeach -->
         </div>
     </div>
 @endsection

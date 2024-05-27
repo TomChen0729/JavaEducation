@@ -84,10 +84,10 @@
 @section('content')
     <div class="container">
         <div class="box-container">
-            @foreach($card_types as $card_type)
+            @foreach($all_cards as $all_card)
                 <div class="box">
-                    <h3>{{ $card_type -> card_type }}</h3>
-                    <!-- <p>{{-- $knowledgecards -> content --}}</p> -->
+                    <h3>{{ $all_card -> name }}</h3>
+                    <!-- <p>{{ $all_card -> content }}</p> -->
                     <a href="{{ route('showallcards', ['card_type_id' => $card_type -> id]) }}" class="btn">GO</a>
                 </div>
             @endforeach
