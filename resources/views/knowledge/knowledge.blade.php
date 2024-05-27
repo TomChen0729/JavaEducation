@@ -87,8 +87,7 @@
             @foreach($all_cards as $all_card)
                 <div class="box">
                     <h3>{{ $all_card -> name }}</h3>
-                    <!-- <p>{{ $all_card -> content }}</p> -->
-                    <a href="{{ route('showallcards', ['card_type_id' => $card_type -> id]) }}" class="btn">GO</a>
+                    <a href="{{ route('showcardcontent', ['card_id' => $all_card -> id]) }}" class="btn">GO</a>
                 </div>
             @endforeach
         </div>

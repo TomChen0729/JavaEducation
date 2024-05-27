@@ -17,19 +17,19 @@ class KnowledgeCardController extends Controller
         // 抓出該知識卡分類上層的國家
         // 每個國家第一層分類
         $card_types = CardType::all();
-        return view('knowledgecard', ['card_types' => $card_types]);
+        return view('knowledge.knowledgecard_type', ['card_types' => $card_types]);
     }
 
     // 顯示該分類底下所有的片
     public function showallcards(int $card_type_id){
         $all_cards = KnowledgeCard::where('card_type_id', $card_type_id)->get();
-        return view('knowledge', ['all_cards' => $all_cards]);
+        return view('knowledge.knowledge', ['all_cards' => $all_cards]);
     }
 
 
     public function showcardcontent(int $card_id){
-        $current_card = KnowledgeCard::find('id', $card_id);
-        return view('cardcontent', ['current_card' => $current_card]);
+        $current_card = KnowledgeCard::find($card_id);
+        return view('knowledge.knowledgecontent', ['current_card' => $current_card]);
     }
 
     // 遊戲畫面中的知識卡功能

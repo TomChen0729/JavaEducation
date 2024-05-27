@@ -28,7 +28,7 @@ Route::middleware([
     })->name('dashboard');
     // 帶值進入第幾個國家的難度選取畫面
     Route::get('/country/{country_id}', [CountryController::class, 'index'])->name('country.index');
-    // 帶值進入遊戲類型選擇畫面1-4闖關，5主線
+    // 帶值(等級)進入遊戲類型選擇畫面1-4闖關，5主線
     Route::get('/levels/{levels}', [GameController::class, 'index'])->name('game.index');
     // 進入該遊戲畫面
     Route::get('/GameType_id/{GameType_id}',[GameController::class, 'ChooseGame'])->name('game.gameTypeChoose');
@@ -36,6 +36,8 @@ Route::middleware([
     Route::get('/knowledgecardtypes', [KnowledgeCardController::class, 'index'])->name('showallcardtypes');
     // 顯示目標分類底下所有知識卡
     Route::get('/knowledgecardtype/{card_type_id}', [KnowledgeCardController::class, 'showallcards'])->name('showallcards');
+    // 顯示知識卡詳細內容
+    Route::get('/knowledgecard/{card_id}', [KnowledgeCardController::class, 'showcardcontent'])->name('showcardcontent');
 });
 
 //測試用
