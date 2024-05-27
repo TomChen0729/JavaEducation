@@ -20,7 +20,7 @@
             }
 
             body{
-                background: url('/images/background/backgroundnoroad2.svg') no-repeat center center fixed;
+                background: url('/images/background/backgroundnoroad2.svg') no-repeat top center fixed;
                 background-size: cover;
                 /* background: var(--bg-color); */
                 color: var(--text-color);

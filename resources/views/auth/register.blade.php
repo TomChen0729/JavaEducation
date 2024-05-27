@@ -1,3 +1,14 @@
+<style>
+    *{
+        background: url('/images/start/startnoword.svg');
+        background-repeat: no-repeat;
+        background-position: top;
+        background-attachment: fixed;
+        background-size: cover;
+        color: #333333;
+    }
+</style>
+
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
@@ -11,27 +22,27 @@
 
             <div>
                 <x-label for="name" value="{{ __('Name') }}" />
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" style="background: #fff; border: 2px solid #5b5b5b;" />
             </div>
 
             <div class="mt-4">
                 <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
+                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" style="background: #fff; border: 2px solid #5b5b5b;" />
             </div>
 
             <div class="mt-4">
                 <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
+                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" style="background: #fff; border: 2px solid #5b5b5b;" />
             </div>
 
             <div class="mt-4">
                 <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
+                <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" style="background: #fff; border: 2px solid #5b5b5b;" />
             </div>
 
             <div class="mt-4">
                 <x-label for="gender" value="{{ __('Gender') }}" />
-                <select id="gender" name="gender" class="block mt-1 w-full">
+                <select id="gender" name="gender" class="block mt-1 w-full" style="background: #fff; border: 2px solid #5b5b5b; border-radius: 6px;" >
                     <option value="male">男生</option>
                     <option value="female">女生</option>
                     <option value="other">其他</option>
@@ -55,11 +66,11 @@
             @endif
 
             <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}" style="color: #333333;">
                     {{ __('Already registered?') }}
                 </a>
 
-                <x-button class="ms-4">
+                <x-button class="ms-4" style="background: #333333; color: #fff; box-shadow: 0 0 10px rgb(100, 100, 100);">
                     {{ __('Register') }}
                 </x-button>
             </div>

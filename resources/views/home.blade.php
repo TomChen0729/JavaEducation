@@ -19,12 +19,20 @@
             height: 50vh; 
             margin-top: 250px;
         }
+
+        a{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            width: 250px;
+        }
     </style>
 </head>
 <body>
 <div class="container">
-    <button><a href="{{ url('/welcome') }}">開始遊戲</a></button>
-    <!-- <a href="{{ url('/welcome') }}"><img src="/images/start/startbtn.svg" alt=""></a> -->
+    <!-- <button><a href="{{ url('/welcome') }}">開始遊戲</a></button> -->
+    <a href="{{ url('/welcome') }}"><img src="/images/start/startbtn.svg" alt=""></a>
 </div>
 </body>
 </html>
