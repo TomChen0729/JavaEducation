@@ -58,8 +58,8 @@
         <h2 id="questions">{{ $question->questions}}</h2>
     </div>
     <div>
-        <button class="true" id="trueB">True</button>
-        <button class="false" id="falseB">False</button>
+        <button class="true" id="trueB" value="O">True</button>
+        <button class="false" id="falseB" value="X">False</button>
     </div>
 </div>
 @endsection
@@ -70,65 +70,43 @@
         const trueBtn = document.getElementById('trueB'); // true 按鈕
         const falseBtn = document.getElementById('falseB'); //False 按鈕
 
-        // // 接後端
-        // //題目
-        // const quizData = [
-        //     {
-        //         question:"float資料型態是否能儲存小數值",
-        //         answer: true,
-        //     },
-        //     {
-        //         question:"float資料型態是否能儲存整數值",
-        //         answer: false,
-        //     },
-        //     {
-        //         question:"int資料型態是否能儲存小數值",
-        //         answer: false,
-        //     },
-        //     {
-        //         question:"double資料型態是否能儲存小數值",
-        //         answer: true,
-        //     },
-        // ];
-
-        // let correctAnswer; //用來儲存正確答案
-
-        // // 隨機題目
-        // function getRandomQuestion() {
-        //     // 生成隨機數
-        //     const randomIndex = Math.floor( Math.random() * quizData.length);
-        //     // 選擇隨機題目
-        //     const randomQuestion = quizData[randomIndex];
-        //     // 渲染到頁面上
-        //     questionEl.textContent = randomQuestion.question;
-        //     // 將正確答案保存，以便後續檢查答案
-        //     correctAnswer = randomQuestion.answer;
-        // }
-        
-        // // 顯示隨機題目
-        // getRandomQuestion();
-
-        // // 點true按鈕執行
-        // trueBtn.addEventListener('click', () => {
-        //     checkAnswer(true);
-        // });
-        
-        // // 點false按鈕執行
-        // falseBtn.addEventListener('click', () => {
-        //     checkAnswer(false);
-        // });
-
-        // // 檢查答案是否正確
-        // function checkAnswer(userAnswer) { 
-        //     if (userAnswer === correctAnswer) {
-        //         window.location.href = "{{ route('game.gameTypeChoose', ['GameType_id' => 2]) }}/";
-        //     } else {
-        //         // 答案錯誤
-        //         alert("答錯了！");
-        //     }
-        // }
-
-        // 對答案api->街後端updateTrueORFalse(request, st)
-        fetch()
+        document.querySelectorAll('button.true, button.false').forEach(button => {
+        button.addEventListener('click', function() {
+        var answerValue = this.value;
+        var game_type = '是非';
+        var question = document.getElementById('questions').textContent;
+        console.log(answerValue);  // 測試用
+        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        console.log(csrfToken); // 測試用
+        fetch('/api/correct_User_ANS?user_answer=' + answerValue + '&question=' + question + '&game_type=' + game_type, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken
+            },
+            // body: JSON.stringify({
+            //     user_answer: answerValue,
+            //     question:  question,
+            //     game_type: '是非'
+            // })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if (data.message == '答案正確'){
+                alert('答對');
+            }
+            else{
+                alert('答錯');
+                setTimeout(function() {
+                    window.location.reload();
+                }, 2000);
+            }
+        })
+        // .catch(error => {
+        //     console.error('Error:', error);
+        //         });
+            });
+        });
     </script>
 @endsection

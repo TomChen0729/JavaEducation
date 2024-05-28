@@ -10,7 +10,7 @@ use App\Models\Question;
 use App\Models\ReorganizationOption;
 use Illuminate\Http\Request;
 use App\Services\GameService;
-
+use Illuminate\Support\Facades\Log;
 class GameController extends Controller
 {
     protected $gameService;
@@ -97,28 +97,37 @@ class GameController extends Controller
 
     // 根據不同類型進行答案檢查
     // 對答案API
-    public function correctANS(Request $request, string $game_type){
+    public function correctANS(Request $request){
         if($request -> isMethod('get')){
-            if($game_type==4)
-                {
-                $questionId = $request->input('question_id');
-                $usersort = $request->input('usersort');
-                $sort = ReorganizationOption::where('question_id',$questionId)->orderBy('sort','asc')->pluck('sort')->toArray();
-                if ($usersort == $sort)
-                    return response()->json(['message'=>'答案正確']);
-                else
-                    return response()->json(['message'=>'答案錯誤']);
+            $game_type = $request->query('game_type');
+            // if($game_type=='重組')
+            // {
+            //     $questionId = $request->input('question_id');
+            //     $usersort = $request->input('usersort');
+            //     $sort = ReorganizationOption::where('question_id',$questionId)->orderBy('sort','asc')->pluck('sort')->toArray();
+            //     if ($usersort == $sort)
+            //         return response()->json(['message'=>'答案正確']);
+            //     else
+            //         return response()->json(['message'=>'答案錯誤']);
+            // }
+            if($game_type != null)
+            {
+                $question = $request->query('question');
+                $useranswer = $request->query('user_answer');
+                dd($game_type, $question, $useranswer);
+                $ANS = Question::where('question', $question)->pluck('answer')->first();
+                if($useranswer == $ANS){
+                    // 接續處理使用者紀錄(未完成)
+                    return response()->json(['message' => '答案正確']);
+
                 }
-            else
-                {
-                $questionId = $request->input('question_id');
-                $useranswer = $request->input('useranswer');
-                $answer = Question::where('question_id',$questionId)->pluck('answer')->first();
-                if($useranswer==$answer)
-                    return response()->json(['message'=>'答案正確']);
-                else
-                    return response()->json(['message'=>'答案錯誤']);
+                else{
+                    // 接續處理使用者紀錄(未完成)
+                    return response()->json(['message' => '答案錯誤']);
+
                 }
+                
+            }
         }
     }
 
