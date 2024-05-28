@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\UserRecord;
+use App\Models\QuestionStatus;
 use App\Models\KnowledgeCard;
 use App\Models\Option;
 use App\Models\MatchOption;
@@ -100,6 +101,7 @@ class GameController extends Controller
     public function correctANS(Request $request){
         if($request -> isMethod('get')){
             $game_type = $request->query('game_type');
+            $user = auth()->user();
             // if($game_type=='重組')
             // {
             //     $questionId = $request->input('question_id');
@@ -116,17 +118,31 @@ class GameController extends Controller
                 $useranswer = $request->query('user_answer');
                 dd($game_type, $question, $useranswer);
                 $ANS = Question::where('question', $question)->pluck('answer')->first();
+                $question_id =Question::where('question',$question)->value('id');
                 if($useranswer == $ANS){
                     // 接續處理使用者紀錄(未完成)
+                    UserRecord::create([
+                        'user_id' => $user->id,
+                        'question_id'=>$question_id,
+                        'result'=> '回答正確',
+                    ]);
+                    QuestionStatus::create([
+                        'user_id'=>$user->id,
+                        'question_id'=>$question_id,
+                        'status'=>'通關'
+                    ]);
                     return response()->json(['message' => '答案正確']);
-
+                    
                 }
                 else{
                     // 接續處理使用者紀錄(未完成)
+                    UserRecord::create([
+                        'user_id' => $user->id,
+                        'question_id'=>$question_id,
+                        'result'=> '回答錯誤',
+                    ]);
                     return response()->json(['message' => '答案錯誤']);
-
                 }
-                
             }
         }
     }
