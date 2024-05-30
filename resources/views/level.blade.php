@@ -6,15 +6,16 @@
     <style>
         .card-container{
             display: flex;
+            align-items: center;
             justify-content: center;
             flex-wrap: wrap;
-            margin-top: 100px;
+            margin-top: 250px;
         }
 
         .card{
             color: #000;
             width: 325px;
-            background-color: #f0f0f0;
+            background: linear-gradient(45deg, #cfd9df, #e2ebf0);
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
@@ -41,9 +42,16 @@
             display: inline-block;
             padding: 8px 16px;
             background-color: #333;
+            border: 2px solid #333;
             text-decoration: none;
             border-radius: 4px;
             margin-top: 16px;
+        }
+
+        .card-content .btn:hover{
+            color: #333;
+            background-color: #fff;
+            border: 2px solid #333;
         }
     </style>
 @endsection

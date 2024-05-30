@@ -214,10 +214,8 @@
         <div class="light"><a href="{{ route('welcome') }}" class="logo"><span>綠野仙蹤</span></a></div>
 
         <ul class="navbar">
-            <li><a href="{{ route('showallcardtypes') }}">知識卡</a></li>
+            <!-- <li><a href="{{ route('showallcardtypes') }}">知識卡</a></li> -->
             <li><a href="{{ route('profile.show') }}">個人資料</a></li>
-            <li><a href="#">排行榜</a></li>
-            <li><a href="#">最新消息</a></li>
             <li>
                 @if (Route::has('login'))
                     @auth
@@ -237,6 +235,8 @@
                     @endauth
                 @endif
             </li>
+            <li><a href="#">排行榜</a></li>
+            <li><a href="#">最新消息</a></li>
         </ul>
 
         <div class="main">
