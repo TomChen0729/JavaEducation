@@ -1,6 +1,6 @@
 @extends('layouts.application')
 
-@section('title', '知識卡')
+@section('title', '知識卡內容')
 
 @section('head', '綠野仙蹤')
 
@@ -17,7 +17,7 @@
         }
 
         .container{
-            margin-top: 100px;
+            margin-top: 150px;
             padding: 15px 9%;
             padding-bottom: 100px;
         }
@@ -35,7 +35,7 @@
             box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
             border-radius: 5px;
             background: #fff;
-            background: linear-gradient(45deg, #fad0c4, #ffd1ff);
+            background: #fbed96;
             text-align: center;
             padding: 30px 20px;
         }
@@ -68,10 +68,10 @@
             background-color: #ea9999;
         }
 
-        .container .box-container .box:hover{
+        /* .container .box-container .box:hover{
             box-shadow: 0 10px 15px rgba(0,0,0,.3);
             transform: scale(1.03);
-        }
+        } */
 
         @media (max-width: 768px) {
             .container{

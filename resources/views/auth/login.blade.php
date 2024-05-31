@@ -2,7 +2,7 @@
     *{
         background: url('/images/start/startnoword.svg');
         background-repeat: no-repeat;
-        background-position: top;
+        background-position: center;
         background-attachment: fixed;
         background-size: cover;
         color: #333333;
@@ -47,15 +47,15 @@
 
             <div class="flex items-center justify-end mt-4">
                 @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"  style="margin-top: 45px; margin-right: 20px; color: #333333; font-weight: bold;" href="{{ route('password.request') }}">
+                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"  style="margin-right: 20px; color: #333333; font-weight: bold;" href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}
                     </a>
                 @endif
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" style="margin-top: 45px; color: #333333; font-weight: bold;" href="{{ route('register') }}">
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" style="color: #333333; font-weight: bold;" href="{{ route('register') }}">
                         {{ __('Go to Register Page!') }}
                 </a>
 
-                <x-button class="ms-4" style="margin-top: 45px; background: #333333; color: #fff; box-shadow: 0 0 10px rgb(100, 100, 100);">
+                <x-button class="ms-4" style="background: #333333; color: #fff; box-shadow: 0 0 10px rgb(100, 100, 100);">
                     {{ __('Log in') }}
                 </x-button>
             </div>
