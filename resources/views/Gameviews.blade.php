@@ -1,7 +1,7 @@
 @extends('layouts.application')
 
 @section('title', '學習區是非')
-
+@section('head', '蠻金之國')
 @section('style')
     <style>
         body{

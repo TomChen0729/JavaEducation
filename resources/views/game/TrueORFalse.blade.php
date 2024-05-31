@@ -55,6 +55,7 @@
 <div class="tof">
     <!-- 顯示題目容器 -->
     <div class="question">
+        <p id="q-id" style="display: none;">{{ $question -> id }}</p>
         <h2 id="questions">{{ $question->questions}}</h2>
     </div>
     <div>
@@ -70,15 +71,18 @@
         const trueBtn = document.getElementById('trueB'); // true 按鈕
         const falseBtn = document.getElementById('falseB'); //False 按鈕
 
+        // 對答案 api
         document.querySelectorAll('button.true, button.false').forEach(button => {
         button.addEventListener('click', function() {
         var answerValue = this.value;
         var game_type = '是非';
-        var question = document.getElementById('questions').textContent;
-        console.log(answerValue);  // 測試用
+        var question_id = document.getElementById('q-id').textContent;
+        // console.log(question_id);
+        // var question = document.getElementById('questions').textContent;
+        // console.log(answerValue);  // 測試用
         var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        console.log(csrfToken); // 測試用
-        fetch('/api/correct_User_ANS?user_answer=' + answerValue + '&question=' + question + '&game_type=' + game_type, {
+        // console.log(csrfToken); // 測試用
+        fetch('/api/correct_User_ANS?user_answer=' + encodeURIComponent(answerValue) + '&question_id=' + question_id + '&game_type=' + encodeURIComponent(game_type), {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -93,14 +97,14 @@
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            if (data.message == '答案正確'){
+            if (data.message == 'correct'){
                 alert('答對');
             }
             else{
                 alert('答錯');
                 setTimeout(function() {
                     window.location.reload();
-                }, 2000);
+                }, 10000);
             }
         })
         // .catch(error => {

@@ -58,7 +58,7 @@
                 <p>
                     {{ $card -> card_type }}
                 </p>
-                <a href="{{ route('game.index',['levels' => $card -> levels]) }}" class="btn">start</a>
+                <a href="{{ route('game.index',['levels' => $card -> levels, 'country_id' => $card -> country_id]) }}" class="btn">start</a>
             </div>
         </div>
         @endforeach
