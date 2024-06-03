@@ -88,7 +88,7 @@
         // var question = document.getElementById('questions').textContent;
         console.log(answerValue);  // 測試用
         var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        // console.log(csrfToken); // 測試用
+        console.log(csrfToken); // 測試用
         fetch('/api/correct_User_ANS?user_answer=' + encodeURIComponent(answerValue) + '&question_id=' + question_id , {
             method: 'GET',
             headers: {
