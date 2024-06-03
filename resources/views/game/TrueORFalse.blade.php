@@ -1,4 +1,4 @@
-@extends('layouts.application')
+@extends('layouts.game')
 
 @section('title', '學習區是非')
 
@@ -13,16 +13,23 @@
             height: 100vh;
             overflow: hidden; /*自動隱藏超出的文字或圖片*/
         }
+
+        .tof{
+            background-color: gray;
+            padding: 10px;
+            border-radius: 10px;
+            border: 10px solid green;
+        }
         
         .question{
             background-color: #f1c232;
             border-radius: 10px;
             box-shadow: 0 0 10px rgb(100, 100, 100);
-            width: 645px;
+            width: 1040px;
             overflow: hidden;
             padding: 90px;  /*內部*/
             margin: 20px;
-            font-size: 28px;
+            font-size: 30px;
             font-weight: bold;
             text-align: center;
         }
@@ -33,9 +40,9 @@
             background-color: #93c47d;
             border-radius: 10px;
             box-shadow: 0 0 10px rgb(100, 100, 100);
-            width: 300px;
+            width: 500px;
             overflow: hidden;
-            padding: 90px;  /*內部*/
+            padding: 50px;  /*內部*/
         }
 
         .false{
@@ -44,9 +51,9 @@
             background-color: #e06666;
             border-radius: 10px;
             box-shadow: 0 0 10px rgb(100, 100, 100);
-            width: 300px;
+            width: 500px;
             overflow: hidden;
-            padding: 90px;  /*內部*/
+            padding: 50px;  /*內部*/
         }
     </style>
 @endsection

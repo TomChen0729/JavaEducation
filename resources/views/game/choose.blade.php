@@ -1,4 +1,4 @@
-@extends('layouts.application')
+@extends('layouts.game')
 
 @section('title', '學習區選擇')
 
