@@ -77,12 +77,12 @@
         var answerValue = this.value;
         var game_type = '是非';
         var question_id = document.getElementById('q-id').textContent;
-        // console.log(question_id);
+        console.log(question_id);
         // var question = document.getElementById('questions').textContent;
-        // console.log(answerValue);  // 測試用
+        console.log(answerValue);  // 測試用
         var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         // console.log(csrfToken); // 測試用
-        fetch('/api/correct_User_ANS?user_answer=' + encodeURIComponent(answerValue) + '&question_id=' + question_id + '&game_type=' + encodeURIComponent(game_type), {
+        fetch('/api/correct_User_ANS?user_answer=' + encodeURIComponent(answerValue) + '&question_id=' + question_id , {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -100,11 +100,17 @@
             if (data.message == 'correct'){
                 alert('答對');
             }
-            else{
+            else if(data.message == 'wrongAnswer'){
                 alert('答錯');
                 setTimeout(function() {
                     window.location.reload();
-                }, 10000);
+                }, 1000);
+            }
+            else{
+                alert('伺服器錯誤');
+                setTimeout(function() {
+                    window.location.reload();
+                }, 1000);
             }
         })
         // .catch(error => {

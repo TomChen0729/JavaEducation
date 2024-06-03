@@ -10,6 +10,7 @@ use App\Models\ReorganizationOption;
 use App\Models\User;
 use App\Models\UserRecord;
 use App\Services\GameService;
+use Exception;
 use Illuminate\Http\Request;
 
 class GameController extends Controller
@@ -81,7 +82,7 @@ class GameController extends Controller
                 case 5:
                     //
                     break;
-                //
+                    //
                 default:
                     //
                     return response('error');
@@ -93,103 +94,38 @@ class GameController extends Controller
     // 對答案API
     public function correctANS(Request $request)
     {
-        if ($request->isMethod('GET')) {
-            $game_type = $request->query('game_type');
-            $user = auth()->user();
-            if ($game_type == '重組') {
-                $questionId = $request->input('question_id');
-                $usersort = $request->input('usersort');
-                $sort = ReorganizationOption::where('question_id', $questionId)->orderBy('sort', 'asc')->pluck('sort')->toArray();
-                if ($usersort == $sort) {
-                    return response()->json(['message' => '答案正確']);
-                } else {
-                    return response()->json(['message' => '答案錯誤']);
-                }
+        if($request -> isMethod('GET')){
+            $user_ANS = $request->query('user_answer');
+            $q_id = $request->query('question_id');
 
-            } else if ($game_type != null) {
-                $question_id = $request->query('question_id');
-                $useranswer = $request->query('user_answer');
-                // dd($game_type, $question, $useranswer);
-                $ANS = Question::where('id', $question_id)->pluck('answer')->first();
-                // $question_id =Question::where('question',$question)->value('id');
-                if ($useranswer == $ANS) {
-                    // 接續處理使用者紀錄(未完成)
-                    $current_uid = auth()->user()->id;
-                    // 如果該使用者該題目沒有紀錄的話
-                    if (UserRecord::where('user_id', $current_uid)->where($question_id) == null) {
-                        UserRecord::create([
-                            'user_id' => $user->id,
-                            'question_id' => $question_id,
-                        ]);
-                        QuestionStatus::create([
-                            'user_id' => $user->id,
-                            'question_id' => $question_id,
-                            'status' => '通關',
-                        ]);
-                        return response()->json(['message' => 'correct']);
-                    }
-                    //答題過但沒通過
-                    else if (UserRecord::where('user_id', $current_uid)->where($question_id) == '未過關') {
-                        QuestionStatus::where($question_id)->update([
-                            'status' => '通關',
-                        ]);
-                        return response()->json(['message' => 'correct']);
-                    }
-                    //已經通關，更新時間
-                    else {
-                        QuestionStatus::where($question_id)->update([
-                            'updated_at' => now(),
-                        ]);
-                        return response()->json(['message' => 'correct']);
-                    }
-                    
+            $ANS = Question::where('id', $q_id)->pluck('answer')->first();
+            if($user_ANS == $ANS){ // 答對的時候
+                if(){ // 沒紀錄
 
-                } else if ($useranswer != $ANS) {
-                    $current_uid = auth()->user()->id;
-                    // 如果該使用者該題目沒有紀錄的話
-                    if (UserRecord::where('user_id', $current_uid)->where($question_id) == null) {
-                        UserRecord::create([
-                            'user_id' => $user->id,
-                            'question_id' => $question_id,
-                        ]);
-                        QuestionStatus::create([
-                            'user_id' => $user->id,
-                            'question_id' => $question_id,
-                            'status' => '未通關',
-                        ]);
-                        return response()->json(['message'=>'wrongAnswer']);
-                    }
-                    //通關過但後來答錯
-                    else if (UserRecord::where('user_id', $current_uid)->where($question_id) == '過關') {
-                        QuestionStatus::where($question_id)->update([
-                            'status' => '未通關',
-                        ]);
-                        return response()->json(['message'=>'wrongAnswer']);
-                    }
-                    //再次未通關，更新時間
-                    else {
-                        QuestionStatus::where($question_id)->update([
-                            'updated_at' => now(),
-                        ]);
-                        return response()->json(['message'=>'wrongAnswer']);
-                    }
-                } else {
-                    // 接續處理使用者紀錄(未完成)
-                    // UserRecord::create([
-                    //     'user_id' => $user->id,
-                    //     'question_id'=>$question_id,
-                    //     'result'=> '回答錯誤',
-                    // ]);
-                    return response()->json(['message' => 'wrongAnswer']);
                 }
-            } else {
-                return response()->json(['message' => 'GameType is not a null value']);
+                elseif(){ // 原本對現在錯
+
+                }
+                else{ // 原本錯現在錯
+
+                }
+                return response()->json(['message' => 'correct']);
             }
+            else{ // 錯誤的時候
+                if(){ // 沒紀錄
 
-        } else {
-            return response()->json(['message' => 'Method must be GET']);
+                }
+                elseif(){ // 原本對現在錯
+
+                }
+                else{ // 原本錯現在錯
+                    
+                }
+                return response()->json(['message' => 'wrongAnswer']);
+            }
         }
-
+        else{
+            return response()->json(['message' => 'http method must be get']);
+        }
     }
-
 }
