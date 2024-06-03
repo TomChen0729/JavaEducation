@@ -32,6 +32,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserRecord::class);
     }
+    public function question_status(): HasMany
+    {
+        return $this->hasMany(QuestionStatus::class);
+    }
     protected $fillable = [
         'name',
         'email',

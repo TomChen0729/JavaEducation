@@ -44,7 +44,6 @@ class GameController extends Controller
                     // $user = auth()->user();
                     $country = auth()->user()->country_id;
                     $levels = auth()->user()->levels;
-
                     // 呼叫亂數出題
                     $question = Question::where('gametype', '是非')->where('country_id', $country)->where('levels', $levels)->inRandomOrder()->first();
                     // 還要帶該遊戲第二層知識卡，方便跳窗後點擊查詢卡片內容
@@ -94,33 +93,39 @@ class GameController extends Controller
     // 對答案API
     public function correctANS(Request $request)
     {
+        
         if($request -> isMethod('GET')){
             $user_ANS = $request->query('user_answer');
             $q_id = $request->query('question_id');
-
             $ANS = Question::where('id', $q_id)->pluck('answer')->first();
             if($user_ANS == $ANS){ // 答對的時候
-                // if(){ // 沒紀錄
+                if(!QuestionStatus::where('question_id', $q_id)->exists()){ // 沒紀錄
+                    QuestionStatus::create([
+                        'question_id' => $q_id,
+                        'status' => 1,
+                    ]);
+                }
+                elseif(QuestionStatus::where('question_id', $q_id) == 0){ // 原本錯現在對
 
-                // }
-                // elseif(){ // 原本對現在錯
-
-                // }
-                // else{ // 原本錯現在錯
+                }
+                else{ // 原本對現在對
 
                 // }
                 return response()->json(['message' => 'correct']);
             }
-            else{ // 錯誤的時候
-                // if(){ // 沒紀錄
+            else{  // 錯誤的時候
+                if(!QuestionStatus::where('question_id', $q_id)->exists()){ // 沒紀錄
+                    QuestionStatus::create([
+                        'question_id' => $q_id,
+                        'status' => 0,
+                    ]);
+                }
+                 elseif(QuestionStatus::where('question_id', $q_id) == 1){ // 原本對現在錯
 
-                // }
-                // elseif(){ // 原本對現在錯
-
-                // }
-                // else{ // 原本錯現在錯
+                 }
+                 else{ // 原本錯現在錯
                     
-                // }
+                 }
                 return response()->json(['message' => 'wrongAnswer']);
             }
         }
