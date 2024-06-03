@@ -22,11 +22,11 @@ class GameController extends Controller
     }
     
     //導向遊戲列表
-    public function index(int $levels)
+    public function index(int $levels, int $country_id)
     {
         //
-        $gameList = Question::class;
-        return view('Gameviews');
+        $Question_list = Question::where('levels', $levels)->where('country_id', $country_id)->get();
+        return view('Gameviews', ['Question_list' => $Question_list]);
     }
 
 
