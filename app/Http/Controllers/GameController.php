@@ -110,7 +110,7 @@ class GameController extends Controller
                 }
                 else{ // 原本對現在對
 
-                // }
+                }
                 return response()->json(['message' => 'correct']);
             }
             else{  // 錯誤的時候
