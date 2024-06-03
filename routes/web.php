@@ -31,7 +31,7 @@ Route::middleware([
     // 帶值進入第幾個國家的難度選取畫面
     Route::get('/country/{country_id}', [CountryController::class, 'index'])->name('country.index');
     // 帶值(等級)進入遊戲類型選擇畫面1-4闖關，5主線
-    Route::get('/levels/{levels}', [GameController::class, 'index'])->name('game.index');
+    Route::get('/levels/{levels}/country_id/{country_id}', [GameController::class, 'index'])->name('game.index');
     // 進入該遊戲畫面
     Route::get('/GameType_id/{GameType_id}',[GameController::class, 'ChooseGame'])->name('game.gameTypeChoose');
     // 顯示知識卡所有分類
