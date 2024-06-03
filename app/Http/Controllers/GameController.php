@@ -116,7 +116,7 @@ class GameController extends Controller
                     // 接續處理使用者紀錄(未完成)
                     $current_uid = auth()->user()->id;
                     // 如果該使用者該題目沒有紀錄的話
-                    if (UserRecord::where('user_id', $current_uid)->where($question_id) == null) {
+                    if (QuestionStatus::where('user_id', $current_uid)->where('question_id',$question_id)->value('status') == null) {
                         UserRecord::create([
                             'user_id' => $user->id,
                             'question_id' => $question_id,
@@ -129,7 +129,7 @@ class GameController extends Controller
                         return response()->json(['message' => 'correct']);
                     }
                     //答題過但沒通過
-                    else if (UserRecord::where('user_id', $current_uid)->where($question_id) == '未過關') {
+                    else if (QuestionStatus::where('user_id', $current_uid)->where('question_id',$question_id) == '未過關') {
                         QuestionStatus::where($question_id)->update([
                             'status' => '通關',
                         ]);
