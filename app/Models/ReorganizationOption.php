@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class ReorganizationOption extends Model
 {
     use HasFactory;
+
+    protected $table = 'reorganization_option';
 }
