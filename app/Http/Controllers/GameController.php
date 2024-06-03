@@ -100,27 +100,27 @@ class GameController extends Controller
 
             $ANS = Question::where('id', $q_id)->pluck('answer')->first();
             if($user_ANS == $ANS){ // 答對的時候
-                if(){ // 沒紀錄
+                // if(){ // 沒紀錄
 
-                }
-                elseif(){ // 原本對現在錯
+                // }
+                // elseif(){ // 原本對現在錯
 
-                }
-                else{ // 原本錯現在錯
+                // }
+                // else{ // 原本錯現在錯
 
-                }
+                // }
                 return response()->json(['message' => 'correct']);
             }
             else{ // 錯誤的時候
-                if(){ // 沒紀錄
+                // if(){ // 沒紀錄
 
-                }
-                elseif(){ // 原本對現在錯
+                // }
+                // elseif(){ // 原本對現在錯
 
-                }
-                else{ // 原本錯現在錯
+                // }
+                // else{ // 原本錯現在錯
                     
-                }
+                // }
                 return response()->json(['message' => 'wrongAnswer']);
             }
         }

@@ -302,6 +302,14 @@
             setInterval(updateTimer, 1000);
         }
 
+        function stopTimer() {
+            clearInterval(timer);
+            const timerElement = document.getElementById('timer');
+            const timeParts = timerElement.textContent.split(':');
+            const elapsedTimeInSeconds = parseInt(timeParts[0]) * 60 + parseInt(timeParts[1]);
+            return elapsedTimeInSeconds;
+        }
+
         window.onload = startTimer;
 
         function togglePopup() {
