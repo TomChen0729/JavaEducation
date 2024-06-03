@@ -26,6 +26,56 @@
             color: var(--text-color);
         }
 
+        .popup .overlay{
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+            display: none;
+        }
+
+        .popup .content{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: #fff;
+            width: 450px;
+            height: 220px;
+            z-index: 2;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .popup .close-btn{
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            width: 30px;
+            height: 30px;
+            background-color: #222;
+            color: #fff;
+            font-size: 25px;
+            font-weight: 600;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 50%;
+        }
+
+        .popup.active .overlay{
+            display: block;
+        }
+
+        .popup.active .content{
+            transition: all 300ms ease-in-out;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
         header {
             position: fixed;
             width: 100%;
@@ -36,7 +86,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 28px 12%;
-            background: rgba(255, 255, 255, 0.8); /* 透明背景 */
+            background: rgba(72, 170, 193, 0.8); /* 透明背景 */
             transition: all 0.50s ease;
         }
 
@@ -69,7 +119,7 @@
         }
 
         .logo span {
-            color: var(--text-color);
+            color: #fff;
             font-size: 30px;
             font-weight: bolder;
         }
@@ -80,27 +130,30 @@
         }
 
         .navbar .time {
-            color: var(--text-color);
-            background: #fce5cd;
+            color: #fff;
             font-size: 20px;
             font-weight: bolder;
+            letter-spacing: 5px;
             padding: 5px 15px;
             margin: 0px 30px;
             transition: all 0.50s ease;
         }
 
         .navbar a {
-            color: var(--text-color);
-            background: #fce5cd;
+            color: #fff;
             font-size: 20px;
             font-weight: bolder;
+            text-align: center;
+            border: 2px solid #fff;
             padding: 5px 15px;
             margin: 0px 30px;
             transition: all 0.50s ease;
         }
 
         .navbar a:hover {
-            color: var(--main-color);
+            color: #999999;
+            border: 2px solid #999999;
+            background: #fff;
         }
 
         .main {
@@ -189,13 +242,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
 </head>
 <body>
+
+    <div class="popup" id="popup-1">
+        <div class="overlay"></div>
+        <div class="content">
+            <div class="close-btn" onclick="togglePopup()">&times;</div>
+            <h1>Title</h1>
+            <p>123456789</p>
+        </div>
+    </div>
+
     <header class="header">
         <div class="light"><a href="{{ route('welcome') }}" class="logo"><span>綠野仙蹤</span></a></div>
 
         <ul class="navbar">
-            <li><a href="#">知識卡</a></li>
+            <li><a href="#" onclick="togglePopup()"> 知識卡</a></li>
+            <li><a href="{{ route('showallcardtypes') }}"> 回上一頁</a></li>
             <li class="time" id="timer">00:00</li>
-            <li><a href="{{ route('showallcardtypes') }}">回上一頁</a></li>
         </ul>
 
         <div class="main">
@@ -240,6 +303,10 @@
         }
 
         window.onload = startTimer;
+
+        function togglePopup() {
+            document.getElementById("popup-1").classList.toggle("active");
+        }
     </script>
 </body>
 </html>
