@@ -12,6 +12,7 @@ use App\Models\UserRecord;
 use App\Services\GameService;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GameController extends Controller
 {
@@ -26,7 +27,7 @@ class GameController extends Controller
     public function index(int $levels, int $country_id)
     {
         //
-        $Question_list = Question::where('levels', $levels)->where('country_id', $country_id)->get();
+        $Question_list = Question::select('game_type')->distinct()->get();
         return view('Gameviews', ['Question_list' => $Question_list]);
     }
 
@@ -93,43 +94,55 @@ class GameController extends Controller
     // 對答案API
     public function correctANS(Request $request)
     {
-        
-        if($request -> isMethod('GET')){
-            $user_ANS = $request->query('user_answer');
-            $q_id = $request->query('question_id');
-            $ANS = Question::where('id', $q_id)->pluck('answer')->first();
-            if($user_ANS == $ANS){ // 答對的時候
-                if(!QuestionStatus::where('question_id', $q_id)->exists()){ // 沒紀錄
+
+        if ($request->isMethod('GET')) {
+            $current_user_id = auth()->user()->id;
+            $watch_time = $request->query('watch_time'); // 前端計時器的時間
+            $user_ANS = $request->query('user_answer'); // 使用者的答案
+            $q_id = $request->query('question_id'); // 這題的id，要查標準答案用
+            $ANS = Question::where('id', $q_id)->pluck('answer')->first(); // 查答案
+            $user_records = DB::table('user_records') // 串查，兩張表的兩個id都要相等的
+                ->join('question_status', function ($join) {
+                    $join -> on('user_records.user_id', 'question_status.user_id')
+                    ->where('user_records.question_id', 'question_status.question_id');
+                })
+                ->select('question_status.status')
+                ->where('user_records.question_id', $q_id) // 問題id要是當前問題id
+                ->get();
+            if ($user_ANS == $ANS) { // 答對的時候
+                if (!$user_records->exists()) { // 沒紀錄
+                    UserRecord::create([
+                        'user_id' => $current_user_id,
+                        'question_id' => $q_id,
+                        'watch_time' => $watch_time,
+                    ]);
                     QuestionStatus::create([
+                        'user_id' => $current_user_id,
                         'question_id' => $q_id,
                         'status' => 1,
                     ]);
-                }
-                elseif(QuestionStatus::where('question_id', $q_id) == 0){ // 原本錯現在對
-
-                }
-                else{ // 原本對現在對
+                } elseif (QuestionStatus::where('question_id', $q_id)->where('status', 0)->exists()) { // 原本錯現在對
+                    // QuestionStatus::update([
+                    //     '' => '',
+                    // ]);
+                } else { // 原本對現在對
 
                 }
                 return response()->json(['message' => 'correct']);
-            }
-            else{  // 錯誤的時候
-                if(!QuestionStatus::where('question_id', $q_id)->exists()){ // 沒紀錄
+            } else {  // 錯誤的時候
+                if (!QuestionStatus::where('question_id', $q_id)->exists()) { // 沒紀錄
                     QuestionStatus::create([
                         'question_id' => $q_id,
                         'status' => 0,
                     ]);
-                }
-                 elseif(QuestionStatus::where('question_id', $q_id) == 1){ // 原本對現在錯
+                } elseif (QuestionStatus::where('question_id', $q_id) == 1) { // 原本對現在錯
 
-                 }
-                 else{ // 原本錯現在錯
-                    
-                 }
+                } else { // 原本錯現在錯
+
+                }
                 return response()->json(['message' => 'wrongAnswer']);
             }
-        }
-        else{
+        } else {
             return response()->json(['message' => 'http method must be get']);
         }
     }
