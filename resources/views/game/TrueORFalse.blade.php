@@ -66,6 +66,7 @@
 <div class="tof">
     <!-- 顯示題目容器 -->
     <div class="question">
+        <h1 id="cid">{{ $current_uid }}</h1>
         <p id="q-id" style="display: none;">{{ $question -> id }}</p>
         <h2 id="questions">{{ $question->questions}}</h2>
     </div>
@@ -85,58 +86,52 @@
     // 對答案 api
     document.querySelectorAll('button.true, button.false').forEach(button => {
         button.addEventListener('click', function() {
-            var answerValue = this.value;
-            var game_type = '是非';
-            var question_id = document.getElementById('q-id').textContent;
-            // console.log(question_id);
-            // var question = document.getElementById('questions').textContent;
-            // console.log(answerValue);  // 測試用
-            var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            // console.log(csrfToken); // 測試用
-            var timer = stopTimer();
-            let min, sec;
-            if (timer >= 60) {
-                min = Math.floor(timer / 60); // 分鐘等於秒數整除60
-                sec = timer % 60; // 秒數等於秒數餘除60
-            } else {
-                min = 0; // 當 timer 小於 60 秒時，分鐘設為 0
-                sec = timer; // 秒數設為 timer 的值
+        var answerValue = this.value;
+        var game_type = '是非';
+        var question_id = document.getElementById('q-id').textContent;
+        var cid = document.getElementById('cid').textContent;
+        // console.log(question_id);
+        // var question = document.getElementById('questions').textContent;
+        // console.log(answerValue);  // 測試用
+        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        // console.log(csrfToken); // 測試用
+        var timer = stopTimer();
+        console.log(timer);
+        fetch('/api/correct_User_ANS?user_answer=' + encodeURIComponent(answerValue) + '&question_id=' + question_id + '&cid=' + cid , {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken
+            },
+            // body: JSON.stringify({
+            //     user_answer: answerValue,
+            //     question:  question,
+            //     game_type: '是非'
+            // })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if (data.message == 'correct'){
+                alert('答對');
             }
-
-            console.log(String(min) + ':' + String(sec));
-            fetch('/api/correct_User_ANS?user_answer=' + encodeURIComponent(answerValue) + '&question_id=' + question_id, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrfToken
-                    },
-                    // body: JSON.stringify({
-                    //     user_answer: answerValue,
-                    //     question:  question,
-                    //     game_type: '是非'
-                    // })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    if (data.message == 'correct') {
-                        alert('答對');
-                    } else if (data.message == 'wrongAnswer') {
-                        alert('答錯');
-                        setTimeout(function() {
-                            window.location.reload();
-                        }, 1000);
-                    } else {
-                        alert('伺服器錯誤');
-                        setTimeout(function() {
-                            window.location.reload();
-                        }, 1000);
-                    }
-                })
-            // .catch(error => {
-            //     console.error('Error:', error);
-            //         });
+            else if(data.message == 'wrongAnswer'){
+                alert('答錯');
+                setTimeout(function() {
+                    window.location.reload();
+                }, 1000);
+            }
+            else{
+                alert('伺服器錯誤');
+                setTimeout(function() {
+                    window.location.reload();
+                }, 1000);
+            }
+        })
+        // .catch(error => {
+        //     console.error('Error:', error);
+        //         });
+            });
         });
-    });
-</script>
+    </script>
 @endsection

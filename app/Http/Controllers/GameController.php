@@ -45,10 +45,11 @@ class GameController extends Controller
                     // $user = auth()->user();
                     $country = auth()->user()->country_id;
                     $levels = auth()->user()->levels;
+                    $current_uid = auth()->user()->id;
                     // 呼叫亂數出題
                     $question = Question::where('gametype', '是非')->where('country_id', $country)->where('levels', $levels)->inRandomOrder()->first();
                     // 還要帶該遊戲第二層知識卡，方便跳窗後點擊查詢卡片內容
-                    return view('game.TrueORFalse', ['question' => $question]);
+                    return view('game.TrueORFalse', ['question' => $question, 'current_uid' => $current_uid]);
 
                 case 2:
                     // 如果GameType_id == 2
@@ -94,52 +95,44 @@ class GameController extends Controller
     // 對答案API
     public function correctANS(Request $request)
     {
-
-        if ($request->isMethod('GET')) {
-            $current_user_id = auth()->user()->id;
-            $watch_time = $request->query('watch_time'); // 前端計時器的時間
-            $user_ANS = $request->query('user_answer'); // 使用者的答案
-            $q_id = $request->query('question_id'); // 這題的id，要查標準答案用
-            $ANS = Question::where('id', $q_id)->pluck('answer')->first(); // 查答案
-            $user_records = DB::table('user_records') // 串查，兩張表的兩個id都要相等的
-                ->join('question_status', function ($join) {
-                    $join -> on('user_records.user_id', 'question_status.user_id')
-                    ->where('user_records.question_id', 'question_status.question_id');
-                })
-                ->select('question_status.status')
-                ->where('user_records.question_id', $q_id) // 問題id要是當前問題id
-                ->get();
-            if ($user_ANS == $ANS) { // 答對的時候
-                if (!$user_records->exists()) { // 沒紀錄
+        
+        if($request -> isMethod('GET')){
+            $user_ANS = $request->query('user_answer');
+            $q_id = $request->query('question_id');
+            $ANS = Question::where('id', $q_id)->pluck('answer')->first();
+            $user_id = $request -> query('cid');
+            // $current_uid = auth()->user()->id;   
+            //只剩下user_id的問題
+            if($user_ANS == $ANS){ // 答對的時候
+                if(!UserRecord::where('question_id', $q_id)->where('user_id', $user_id)->exists()){ // 沒紀錄 
                     UserRecord::create([
-                        'user_id' => $current_user_id,
-                        'question_id' => $q_id,
-                        'watch_time' => $watch_time,
-                    ]);
-                    QuestionStatus::create([
-                        'user_id' => $current_user_id,
+                        'user_id' => $user_id,
                         'question_id' => $q_id,
                         'status' => 1,
+                        
                     ]);
-                } elseif (QuestionStatus::where('question_id', $q_id)->where('status', 0)->exists()) { // 原本錯現在對
-                    // QuestionStatus::update([
-                    //     '' => '',
-                    // ]);
-                } else { // 原本對現在對
-
+                }
+                elseif(UserRecord::where('question_id', $q_id)->value('status')  == 0){ // 原本錯現在對
+                    UserRecord::where('question_id',$q_id)->update(['status'=> 1]);
+                }
+                else{ // 原本對現在對
+                    UserRecord::where('question_id',$q_id)->update(['updated_at'=> now()]);
                 }
                 return response()->json(['message' => 'correct']);
-            } else {  // 錯誤的時候
-                if (!QuestionStatus::where('question_id', $q_id)->exists()) { // 沒紀錄
-                    QuestionStatus::create([
+            }
+            else{  // 錯誤的時候
+                if(!UserRecord::where('question_id', $q_id)->exists()){ // 沒紀錄
+                    UserRecord::create([
                         'question_id' => $q_id,
                         'status' => 0,
                     ]);
-                } elseif (QuestionStatus::where('question_id', $q_id) == 1) { // 原本對現在錯
-
-                } else { // 原本錯現在錯
-
                 }
+                elseif(UserRecord::where('question_id', $q_id)->value('status') == 1){ // 原本對現在錯
+                    UserRecord::where('question_id',$q_id)->update(['status'=> 0]);
+                 }
+                else{ // 原本錯現在錯
+                    UserRecord::where('question_id',$q_id)->update(['updated_at' => now()]);
+                 }
                 return response()->json(['message' => 'wrongAnswer']);
             }
         } else {
