@@ -3,59 +3,63 @@
 @section('title', '學習區是非')
 
 @section('style')
-    <style>
-        body{
-            /* margin: 0;
+<style>
+    body {
+        /* margin: 0;
             padding: 0; */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden; /*自動隱藏超出的文字或圖片*/
-        }
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+        /*自動隱藏超出的文字或圖片*/
+    }
 
-        .tof{
-            background-color: gray;
-            padding: 10px;
-            border-radius: 10px;
-            border: 10px solid green;
-        }
-        
-        .question{
-            background-color: #f1c232;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgb(100, 100, 100);
-            width: 1040px;
-            overflow: hidden;
-            padding: 90px;  /*內部*/
-            margin: 20px;
-            font-size: 30px;
-            font-weight: bold;
-            text-align: center;
-        }
+    .tof {
+        background-color: gray;
+        padding: 10px;
+        border-radius: 10px;
+        border: 10px solid green;
+    }
 
-        .true{
-            font-size: 20px;
-            margin: 20px;
-            background-color: #93c47d;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgb(100, 100, 100);
-            width: 500px;
-            overflow: hidden;
-            padding: 50px;  /*內部*/
-        }
+    .question {
+        background-color: #f1c232;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgb(100, 100, 100);
+        width: 1040px;
+        overflow: hidden;
+        padding: 90px;
+        /*內部*/
+        margin: 20px;
+        font-size: 30px;
+        font-weight: bold;
+        text-align: center;
+    }
 
-        .false{
-            font-size: 20px;
-            margin: 20px;
-            background-color: #e06666;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgb(100, 100, 100);
-            width: 500px;
-            overflow: hidden;
-            padding: 50px;  /*內部*/
-        }
-    </style>
+    .true {
+        font-size: 20px;
+        margin: 20px;
+        background-color: #93c47d;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgb(100, 100, 100);
+        width: 500px;
+        overflow: hidden;
+        padding: 50px;
+        /*內部*/
+    }
+
+    .false {
+        font-size: 20px;
+        margin: 20px;
+        background-color: #e06666;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgb(100, 100, 100);
+        width: 500px;
+        overflow: hidden;
+        padding: 50px;
+        /*內部*/
+    }
+</style>
 @endsection
 
 @section('content')
@@ -74,13 +78,13 @@
 @endsection
 
 @section('script')
-    <script>
-        const questionEl = document.getElementById('questions'); // 題目
-        const trueBtn = document.getElementById('trueB'); // true 按鈕
-        const falseBtn = document.getElementById('falseB'); //False 按鈕
+<script>
+    const questionEl = document.getElementById('questions'); // 題目
+    const trueBtn = document.getElementById('trueB'); // true 按鈕
+    const falseBtn = document.getElementById('falseB'); //False 按鈕
 
-        // 對答案 api
-        document.querySelectorAll('button.true, button.false').forEach(button => {
+    // 對答案 api
+    document.querySelectorAll('button.true, button.false').forEach(button => {
         button.addEventListener('click', function() {
         var answerValue = this.value;
         var game_type = '是非';
