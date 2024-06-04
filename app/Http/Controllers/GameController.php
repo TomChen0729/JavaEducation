@@ -44,10 +44,11 @@ class GameController extends Controller
                     // $user = auth()->user();
                     $country = auth()->user()->country_id;
                     $levels = auth()->user()->levels;
+                    $current_uid = auth()->user()->id;
                     // 呼叫亂數出題
                     $question = Question::where('gametype', '是非')->where('country_id', $country)->where('levels', $levels)->inRandomOrder()->first();
                     // 還要帶該遊戲第二層知識卡，方便跳窗後點擊查詢卡片內容
-                    return view('game.TrueORFalse', ['question' => $question]);
+                    return view('game.TrueORFalse', ['question' => $question, 'current_uid' => $current_uid]);
 
                 case 2:
                     // 如果GameType_id == 2
@@ -98,33 +99,38 @@ class GameController extends Controller
             $user_ANS = $request->query('user_answer');
             $q_id = $request->query('question_id');
             $ANS = Question::where('id', $q_id)->pluck('answer')->first();
+            $user_id = $request -> query('cid');
+            // $current_uid = auth()->user()->id;   
+            //只剩下user_id的問題
             if($user_ANS == $ANS){ // 答對的時候
-                if(!QuestionStatus::where('question_id', $q_id)->exists()){ // 沒紀錄
-                    QuestionStatus::create([
+                if(!UserRecord::where('question_id', $q_id)->where('user_id', $user_id)->exists()){ // 沒紀錄 
+                    UserRecord::create([
+                        'user_id' => $user_id,
                         'question_id' => $q_id,
                         'status' => 1,
+                        
                     ]);
                 }
-                elseif(QuestionStatus::where('question_id', $q_id) == 0){ // 原本錯現在對
-
+                elseif(UserRecord::where('question_id', $q_id)->value('status')  == 0){ // 原本錯現在對
+                    UserRecord::where('question_id',$q_id)->update(['status'=> 1]);
                 }
                 else{ // 原本對現在對
-
+                    UserRecord::where('question_id',$q_id)->update(['updated_at'=> now()]);
                 }
                 return response()->json(['message' => 'correct']);
             }
             else{  // 錯誤的時候
-                if(!QuestionStatus::where('question_id', $q_id)->exists()){ // 沒紀錄
-                    QuestionStatus::create([
+                if(!UserRecord::where('question_id', $q_id)->exists()){ // 沒紀錄
+                    UserRecord::create([
                         'question_id' => $q_id,
                         'status' => 0,
                     ]);
                 }
-                 elseif(QuestionStatus::where('question_id', $q_id) == 1){ // 原本對現在錯
-
+                elseif(UserRecord::where('question_id', $q_id)->value('status') == 1){ // 原本對現在錯
+                    UserRecord::where('question_id',$q_id)->update(['status'=> 0]);
                  }
-                 else{ // 原本錯現在錯
-                    
+                else{ // 原本錯現在錯
+                    UserRecord::where('question_id',$q_id)->update(['updated_at' => now()]);
                  }
                 return response()->json(['message' => 'wrongAnswer']);
             }

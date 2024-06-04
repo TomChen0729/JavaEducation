@@ -62,6 +62,7 @@
 <div class="tof">
     <!-- 顯示題目容器 -->
     <div class="question">
+        <h1 id="cid">{{ $current_uid }}</h1>
         <p id="q-id" style="display: none;">{{ $question -> id }}</p>
         <h2 id="questions">{{ $question->questions}}</h2>
     </div>
@@ -84,6 +85,7 @@
         var answerValue = this.value;
         var game_type = '是非';
         var question_id = document.getElementById('q-id').textContent;
+        var cid = document.getElementById('cid').textContent;
         // console.log(question_id);
         // var question = document.getElementById('questions').textContent;
         // console.log(answerValue);  // 測試用
@@ -91,7 +93,7 @@
         // console.log(csrfToken); // 測試用
         var timer = stopTimer();
         console.log(timer);
-        fetch('/api/correct_User_ANS?user_answer=' + encodeURIComponent(answerValue) + '&question_id=' + question_id , {
+        fetch('/api/correct_User_ANS?user_answer=' + encodeURIComponent(answerValue) + '&question_id=' + question_id + '&cid=' + cid , {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
