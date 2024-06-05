@@ -90,8 +90,8 @@
         var game_type = '是非';
         var question_id = document.getElementById('q-id').textContent;
         var cid = document.getElementById('cid').textContent;
+        console.log(cid);
         // console.log(question_id);
-        // var question = document.getElementById('questions').textContent;
         // console.log(answerValue);  // 測試用
         var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         // console.log(csrfToken); // 測試用
