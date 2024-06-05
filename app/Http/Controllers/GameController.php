@@ -27,7 +27,7 @@ class GameController extends Controller
     public function index(int $levels, int $country_id)
     {
         //
-        $Question_list = Question::select('game_type')->distinct()->get();
+        $Question_list = Question::select('gametype')->distinct()->get();
         return view('Gameviews', ['Question_list' => $Question_list]);
     }
 
@@ -36,7 +36,6 @@ class GameController extends Controller
     public function ChooseGame(Request $request, int $GameType_id)
     {
         //
-
         if ($request->isMethod('get')) {
             switch ($GameType_id) {
                 case 1:
@@ -46,8 +45,19 @@ class GameController extends Controller
                     $country = auth()->user()->country_id;
                     $levels = auth()->user()->levels;
                     $current_uid = auth()->user()->id;
-                    // 呼叫亂數出題
-                    $question = Question::where('gametype', '是非')->where('country_id', $country)->where('levels', $levels)->inRandomOrder()->first();
+                    $current_count = UserRecord::where('user_id', $current_uid)
+                    ->whereIn('question_id', function ($query) {$query->select('id')->from('questions')->where('gametype', '是非');})->count();                    
+                    $trueorfalse_count=Question::where('gametype','是非')->count();
+                    if($current_count < $trueorfalse_count){
+                        // 呼叫亂數出題
+                        $question = Question::where('gametype', '是非')->where('country_id', $country)->where('levels', $levels)
+                        ->whereNotIn('id', function($query) use ($current_uid) {$query->select('question_id')->from('user_records')->where('user_id', $current_uid);})->inRandomOrder()->first();
+                        $current_count+=1;
+                    }
+                    else
+                        {
+                            $question = Question::where('gametype', '是非')->where('country_id', $country)->where('levels', $levels)->inRandomOrder()->first();
+                        }
                     // 還要帶該遊戲第二層知識卡，方便跳窗後點擊查詢卡片內容
                     return view('game.TrueORFalse', ['question' => $question, 'current_uid' => $current_uid]);
 
@@ -111,6 +121,7 @@ class GameController extends Controller
                         'status' => 1,
                         
                     ]);
+                    
                 }
                 elseif(UserRecord::where('question_id', $q_id)->value('status')  == 0){ // 原本錯現在對
                     UserRecord::where('question_id',$q_id)->update(['status'=> 1]);
@@ -123,6 +134,7 @@ class GameController extends Controller
             else{  // 錯誤的時候
                 if(!UserRecord::where('question_id', $q_id)->exists()){ // 沒紀錄
                     UserRecord::create([
+                        'user_id' => $user_id,
                         'question_id' => $q_id,
                         'status' => 0,
                     ]);
