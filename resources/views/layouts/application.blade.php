@@ -76,8 +76,10 @@
                 font-weight: bolder;
             }
 
-            .navbar{
+            .navbar {
                 display: flex;
+                align-items: center; /* 確保垂直方向對齊 */
+                margin-left: auto; /* 讓 navbar 靠右對齊 */
             }
 
             .navbar a {
