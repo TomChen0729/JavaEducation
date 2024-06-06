@@ -66,7 +66,7 @@
 <div class="tof">
     <!-- 顯示題目容器 -->
     <div class="question">
-        <h1 id="cid">{{ $current_uid }}</h1>
+        <h1 id="cid">{{ auth()->user()->id }}</h1>
         <p id="q-id" style="display: none;">{{ $question -> id }}</p>
         <h2 id="questions">{{ $question->questions}}</h2>
     </div>
