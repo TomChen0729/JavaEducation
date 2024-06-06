@@ -109,15 +109,6 @@
             animation: animate 5s linear infinite;
         }
 
-        @keyframes animate {
-            from {
-                transform: translateX(0); /* 起始位置 */
-            }
-            to {
-                transform: translateX(50px); /* 結束位置 */
-            }
-        }
-
         .logo {
             display: flex;
             align-items: center;

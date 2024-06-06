@@ -59,6 +59,23 @@
             box-sizing: border-box;
         }
 
+        .popup .pop{
+            margin: 30px;
+            padding: 30px 0;
+            border-radius: 50px;
+            border: 5px solid #333333;
+        }
+
+        .popup .pop h1{
+            font-size: 20px;
+            font-weight: bolder;
+            margin-bottom: 5px;
+        }
+
+        .popup .pop p{
+            font-size: 16px;
+        }
+
         .popup .close-btn{
             cursor: pointer;
             position: absolute;
@@ -296,8 +313,10 @@
         <div class="overlay"></div>
         <div class="content">
             <div class="close-btn" onclick="togglePopup()">&times;</div>
-            <h1>Title</h1>
-            <p>123456789</p>
+            <div class="pop">
+                <h1>Int</h1>
+                <p>整數</p>
+            </div>
         </div>
     </div>
 

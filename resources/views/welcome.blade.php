@@ -35,7 +35,7 @@
             justify-content: center;
         }
 
-        header{
+        header {
             position: fixed;
             width: 100%;
             top: 0;
@@ -44,13 +44,14 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: transparent;
-            padding: 28px 12%;
-            margin: 10px;
-            transition: all .50s ease;
+            padding: 28px 10%;
+            background: rgba(22,83,126, 0.8); /* 透明背景 */
+            transition: all 0.50s ease;
         }
 
-        .light{
+        
+
+        .light {
             position: relative;
             font-size: 7em;
             letter-spacing: 15px; /* 字元間距 */
@@ -64,70 +65,74 @@
             animation: animate 5s linear infinite;
         }
 
-        @keyframes animate {
-            from {
-                transform: translateX(0); /* 起始位置 */
+            @keyframes animate {
+                from {
+                    transform: translateX(0); /* 起始位置 */
+                }
+                to {
+                    transform: translateX(50px); /* 结束位置 */
+                }
             }
-            to {
-                transform: translateX(50px); /* 结束位置 */
-            }
-        }
 
-        .logo{
+        .logo {
             display: flex;
             align-items: center;
         }
 
-        .logo span{
-            color: var(--text-color);
+        .logo span {
+            color: #fff;
             font-size: 30px;
             font-weight: bolder;
         }
 
-        .navbar{
+        .navbar {
             display: flex;
+            align-items: center; /* 確保垂直方向對齊 */
         }
 
-        .navbar a{
-            color: var(--text-color);
-            background: #fce5cd;
-            border: 2px solid #5b5b5b;
-            border-radius: 50px;
-            font-size: 20px;
+        .navbar a {
+            color: #fff;
+            font-size: 18px;
+            letter-spacing: 2px; /* 字元間距 */
             font-weight: bolder;
+            text-align: center;
+            border: 2px solid #fff;
+            border-radius: 5px;
             padding: 5px 15px;
             margin: 0px 30px;
-            transition: all .50s ease;
+            transition: all 0.50s ease;
         }
 
-        .navbar a:hover{
-            color: var(--main-color);
+        .navbar a:hover {
+            color: #999999;
+            border: 2px solid #999999;
+            background: #fff;
         }
 
-        .main{
+        .main {
             display: flex;
             align-items: center;
         }
 
-        .main a{
+        .main a {
             margin-right: 25px;
             margin-left: 10px;
             color: var(--text-color);
             font-size: 20px;
             font-weight: 500;
-            transition: all .50s ease;
+            transition: all 0.50s ease;
         }
 
-        .user{
+        .user {
             display: flex;
             align-items: center;
         }
 
-        .main a:hover{
+        .main a:hover {
             color: var(--main-color);
         }
 
-        #menu-icon{
+        #menu-icon {
             font-size: 35px;
             color: var(--text-color);
             cursor: pointer;
@@ -214,16 +219,16 @@
         <div class="light"><a href="{{ route('welcome') }}" class="logo"><span>綠野仙蹤</span></a></div>
 
         <ul class="navbar">
-            <!-- <li><a href="{{ route('showallcardtypes') }}">知識卡</a></li> -->
+            <li><a href="{{ route('showallcardtypes') }}">知識卡</a></li>
             <li><a href="{{ route('profile.show') }}">個人資料</a></li>
             <li>
                 @if (Route::has('login'))
                     @auth
-                        <a href="{{ url('/dashboard') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                        <a href="{{ url('/dashboard') }}" class="px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
                             歷史答題記錄
                         </a>
                         @else
-                            <a href="{{ route('login') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                            <a href="{{ route('login') }}" class="px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
                                 Log in
                             </a>
 

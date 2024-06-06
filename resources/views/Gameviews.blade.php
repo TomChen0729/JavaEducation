@@ -1,7 +1,9 @@
 @extends('layouts.application')
 
 @section('title', '選擇遊戲')
+
 @section('head', '蠻金之國')
+
 @section('style')
     <style>
         body{
@@ -14,13 +16,24 @@
             overflow: hidden; /*自動隱藏超出的文字或圖片*/
         }
 
+        .containers{
+            background: rgba(255,255,255, 0.8); /* 透明背景 */
+            border: 5px solid #333333;
+            border-radius: 50px;
+        }
+
         h2{
             font-size: 28px;
             font-weight: bold;
+            color: #333333;
             padding: 1rem;
             text-align: center;
             margin: 0;
             padding-top: 50px;
+        }
+
+        hr{
+            border: 2px solid #333333;
         }
 
         .TF{
@@ -31,8 +44,12 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgb(100, 100, 100);
             width: 150px;
-            overflow: hidden;
             padding: 30px;  /*內部*/
+        }
+
+        .TF:hover{
+            box-shadow: 0 0 10px rgb(100, 100, 100);
+            transform: scale(1.03);
         }
 
         .CH{
@@ -43,8 +60,12 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgb(100, 100, 100);
             width: 150px;
-            overflow: hidden;
             padding: 30px;  /*內部*/
+        }
+
+        .CH:hover{
+            box-shadow: 0 0 10px rgb(100, 100, 100);
+            transform: scale(1.03);
         }
 
         .MA{
@@ -59,6 +80,11 @@
             padding: 30px;  /*內部*/
         }
 
+        .MA:hover{
+            box-shadow: 0 0 10px rgb(100, 100, 100);
+            transform: scale(1.03);
+        }
+
         .RE{
             font-size: 24px;
             font-weight: bold;
@@ -69,6 +95,11 @@
             width: 150px;
             overflow: hidden;
             padding: 30px;  /*內部*/
+        }
+
+        .RE:hover{
+            box-shadow: 0 0 10px rgb(100, 100, 100);
+            transform: scale(1.03);
         }
 
         .PASS{
@@ -86,6 +117,11 @@
         .pass-buttons {
             display: flex;
             justify-content: center;
+        }
+
+        .PASS:hover{
+            box-shadow: 0 0 10px rgb(100, 100, 100);
+            transform: scale(1.03);
         }
 
     </style>

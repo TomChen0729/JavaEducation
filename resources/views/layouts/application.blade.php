@@ -16,7 +16,7 @@
 
             :root{
                 --bg-color: #222327;
-                --text-color: #333333;
+                --text-color: #fff;
                 --main-color: #6875F5;
             }
 
@@ -37,8 +37,8 @@
                 align-items: center;
                 justify-content: space-between;
                 background: transparent;
-                padding: 28px 12%;
-                margin: 10px;
+                padding: 28px 10%;
+                background: rgba(22,83,126, 0.8); /* 透明背景 */
                 transition: all .50s ease;
             }
 
@@ -80,20 +80,23 @@
                 display: flex;
             }
 
-            .navbar a{
-                color: var(--text-color);
-                background: #fce5cd;
-                border: 2px solid #5b5b5b;
-                border-radius: 50px;
-                font-size: 20px;
+            .navbar a {
+                color: #fff;
+                font-size: 18px;
+                letter-spacing: 2px; /* 字元間距 */
                 font-weight: bolder;
+                text-align: center;
+                border: 2px solid #fff;
+                border-radius: 5px;
                 padding: 5px 15px;
                 margin: 0px 30px;
-                transition: all .50s ease;
+                transition: all 0.50s ease;
             }
 
-            .navbar a:hover{
-                color: var(--main-color);
+            .navbar a:hover {
+                color: #999999;
+                border: 2px solid #999999;
+                background: #fff;
             }
 
             .main{
@@ -215,7 +218,7 @@
         </div>
     </header>
 
-    <div>
+    <div style="margin-top: 80px;">
         @yield('content')
     </div>
     
