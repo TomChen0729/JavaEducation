@@ -4,6 +4,7 @@ namespace App\Services;
 use App\Models\User;
 use GuzzleHttp\Psr7\Request;
 use App\Models\Answer;
+use App\Models\CardType;
 use App\Models\Country;
 use App\Models\Question;
 use App\Models\UserRecord;
@@ -31,12 +32,14 @@ class GameService{
     public function updateUserRecord(int $country_id, int $levels){
         $current_user_id = auth()->user()->id;
         // 查詢該國家該等級應該有的不重複玩法形成集合
-        $gametype_set = Question::select('game_type')
+        $gametype_set = Question::select('gametype')
         ->where('country_id', $country_id)
         ->where('levels', $levels)->distinct()->get();
-        // 調取目前玩家有的當前國家當前等級不重複玩法集合(未完成)
-        $user_gametype_set = UserRecord::all();
-        // 如果兩者相等的話，等級加一
+        // 調取目前玩家有的當前國家當前等級不重複玩法集合
+        // users_records->questions->distinct gametype欄位
+        $user_gametype_set = Question::join('user_records', 'user_records.question_id', '=', 'questions.id')
+        ->distinct()->pluck('questions.gametype');
+        // 如果兩者長度相等的話，等級加一
         if(count($gametype_set) == count($user_gametype_set)){
             $current_user_levels = auth()->user()->levels;
             $current_user_levels ++;
@@ -44,14 +47,15 @@ class GameService{
             $current_user->update([
                 'levels' => $current_user_levels
             ]);
-            // 查詢當前玩家在該國家的等級是否是最高，如果是，levels變成1，country_id ++(未完成)
-            $current_country = 0;
-            if(auth()->user()->levels){
+            // 查詢當前玩家在該國家的等級是否是最高，如果是，levels變成1，country_id ++
+            $current_country = CardType::where('country_id', $country_id)->max('levels');
+            if(auth()->user()->levels == $current_country){
                 $current_user_country = auth()->user()->country_id;
                 $current_user_country ++;
                 $current_user = User::find($current_user_id);
                 $current_user->update([
-                    'country_id' => $current_user_country
+                    'country_id' => $current_user_country,
+                    'levels' => 1
                 ]);
             }
         }

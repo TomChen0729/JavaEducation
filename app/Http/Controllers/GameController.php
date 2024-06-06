@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 class GameController extends Controller
 {
     protected $gameService;
-    // 檢查登入狀態
+    // gameservice 注入
     public function __construct(GameService $gameService)
     {
         $this->gameService = $gameService;
@@ -27,6 +27,7 @@ class GameController extends Controller
     public function index(int $levels, int $country_id)
     {
         //
+        $this->gameService->updateUserRecord($country_id, $levels);
         $Question_list = Question::select('gametype')->distinct()->get();
         return view('Gameviews', ['Question_list' => $Question_list]);
     }
@@ -45,17 +46,27 @@ class GameController extends Controller
                     $levels = auth()->user()->levels;
                     $current_uid = auth()->user()->id;
                     $current_count = UserRecord::where('user_id', $current_uid)
-                    ->whereIn('question_id', function ($query) {$query->select('id')->from('questions')->where('gametype', '是非');})->count();                    
+                    ->whereIn('question_id', function ($query) {
+                        $query->select('id')->from('questions')->where('gametype', '是非');
+                    })->count();        
                     $trueorfalse_count=Question::where('gametype','是非')->count();
                     if($current_count < $trueorfalse_count){
                         // 呼叫亂數出題
-                        $question = Question::where('gametype', '是非')->where('country_id', $country)->where('levels', $levels)
-                        ->whereNotIn('id', function($query) use ($current_uid) {$query->select('question_id')->from('user_records')->where('user_id', $current_uid);})->inRandomOrder()->first();
+                        $question = Question::where('gametype', '是非')
+                        ->where('country_id', $country)
+                        ->where('levels', $levels)
+                        ->whereNotIn('id', function($query) use ($current_uid) {
+                            $query->select('question_id')->from('user_records')
+                            ->where('user_id', $current_uid);
+                        })->inRandomOrder()->first();
                         $current_count+=1;
                     }
                     else
                         {
-                            $question = Question::where('gametype', '是非')->where('country_id', $country)->where('levels', $levels)->inRandomOrder()->first();
+                            $question = Question::where('gametype', '是非')
+                            ->where('country_id', $country)
+                            ->where('levels', $levels)
+                            ->inRandomOrder()->first();
                         }
                     // 還要帶該遊戲第二層知識卡，方便跳窗後點擊查詢卡片內容
                     return view('game.TrueORFalse', ['question' => $question, 'current_uid' => $current_uid]);
@@ -66,7 +77,10 @@ class GameController extends Controller
                     $user = auth()->user();
                     $country = $user->country_id;
                     $levels = $user->levels;
-                    $question = Question::where('gametype', '選擇')->where('country_id', $country)->where('levels', $levels)->inRandomOrder()->first();
+                    $question = Question::where('gametype', '選擇')
+                    ->where('country_id', $country)
+                    ->where('levels', $levels)
+                    ->inRandomOrder()->first();
                     $options = Option::where('question_id', $question->id)->inRandomOrder()->get();
                     return view('game.choose', ['question' => $question, 'options' => $options]);
                 case 3:
@@ -75,7 +89,9 @@ class GameController extends Controller
                     $country = $user->country_id;
                     $levels = $user->levels;
                     //隨機抓取六道題目
-                    $questions = Question::where('gametype', '配對')->where('country_id', $country)->where('levels', $levels)->inRandomOrder()->take(6)->get();
+                    $questions = Question::where('gametype', '配對')
+                    ->where('country_id', $country)
+                    ->where('levels', $levels)->inRandomOrder()->take(6)->get();
 
                     //根據題目id去抓選項並將選項隨機
                     //whereIn能將options集合的元素視為單個條件值去跟question_id比對，$questions->pluck('id')會把$questions集合的每個問題的id抓出來
@@ -86,7 +102,9 @@ class GameController extends Controller
                     $user = auth()->user();
                     $country = $user->country_id;
                     $levels = $user->levels;
-                    $question = Question::where('gametype', '重組')->where('country_id', $country)->where('levels', $levels)->inRandomOrder()->first();
+                    $question = Question::where('gametype', '重組')
+                    ->where('country_id', $country)
+                    ->where('levels', $levels)->inRandomOrder()->first();
                     $options = ReorganizationOption::where('question_id', $question->id)->inRandomOrder()->get();
                     return view('game.reorganization', ['question' => $question, 'options' => $options]);
                 case 5:
