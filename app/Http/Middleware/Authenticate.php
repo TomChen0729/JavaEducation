@@ -17,7 +17,7 @@ class Authenticate
         if (! Auth::check()){
             return redirect('login');
         }
-        return $next($request);
+        return $next($request->auth()->user()->json());
         
     }
 }

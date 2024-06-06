@@ -321,7 +321,7 @@
     <div class="tof">
         <!-- 顯示題目容器 -->
         <div class="question">
-            <h1 id="cid">{{ $current_uid }}</h1>
+            <h1 id="cid" style="display: none;">{{ $current_uid }}</h1>
             <p id="q-id" style="display: none;">{{ $question -> id }}</p>
             <h2 id="questions">{{ $question->questions}}</h2>
         </div>
@@ -412,6 +412,9 @@
                 console.log(data);
                 if (data.message == 'correct'){
                     alert('答對');
+                    setTimeout(function() {
+                        // window.location.reload();
+                    }, 1000);
                 }
                 else if(data.message == 'wrongAnswer'){
                     alert('答錯');

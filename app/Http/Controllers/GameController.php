@@ -109,40 +109,39 @@ class GameController extends Controller
             $user_ANS = $request->query('user_answer');
             $q_id = $request->query('question_id');
             $ANS = Question::where('id', $q_id)->pluck('answer')->first();
-            $user_id = $request -> query('cid');
-            // $current_uid = auth()->user()->id;   
+            $current_uid = $request -> query('cid');
+            // $current_uid = auth()->user()->id;
             //只剩下user_id的問題，還要儲存時間(tomchen還沒傳到後端)
             if($user_ANS == $ANS){ // 答對的時候
-                if(!UserRecord::where('question_id', $q_id)->where('user_id', $user_id)->exists()){ // 沒紀錄 
+                if(!UserRecord::where('question_id', $q_id)->where('user_id', $current_uid)->exists()){ // 沒紀錄 
                     UserRecord::create([
-                        'user_id' => $user_id,
+                        'user_id' => $current_uid,
                         'question_id' => $q_id,
                         'status' => 1,
-                        
                     ]);
                     
                 }
-                elseif(UserRecord::where('question_id', $q_id)->where('user_id', $user_id)->value('status')  == 0){ // 原本錯現在對
-                    UserRecord::where('question_id',$q_id)->where('user_id', $user_id)->update(['status'=> 1]);
+                elseif(UserRecord::where('question_id', $q_id)->where('user_id', $current_uid)->value('status')  == 0){ // 原本錯現在對
+                    UserRecord::where('question_id',$q_id)->where('user_id', $current_uid)->update(['status'=> 1]);
                 }
                 else{ // 原本對現在對
-                    UserRecord::where('question_id',$q_id)->where('user_id', $user_id)->update(['updated_at'=> now()]);
+                    UserRecord::where('question_id',$q_id)->where('user_id', $current_uid)->update(['updated_at'=> now()]);
                 }
                 return response()->json(['message' => 'correct']);
             }
             else{  // 錯誤的時候
-                if(!UserRecord::where('question_id', $q_id)->where('user_id', $user_id)->exists()){ // 沒紀錄
+                if(!UserRecord::where('question_id', $q_id)->where('user_id', $current_uid)->exists()){ // 沒紀錄
                     UserRecord::create([
-                        'user_id' => $user_id,
+                        'user_id' => $current_uid,
                         'question_id' => $q_id,
                         'status' => 0,
                     ]);
                 }
-                elseif(UserRecord::where('question_id', $q_id)->where('user_id', $user_id)->value('status') == 1){ // 原本對現在錯
-                    UserRecord::where('question_id',$q_id)->where('user_id', $user_id)->update(['status'=> 0]);
+                elseif(UserRecord::where('question_id', $q_id)->where('user_id', $current_uid)->value('status') == 1){ // 原本對現在錯
+                    UserRecord::where('question_id',$q_id)->where('user_id', $current_uid)->update(['status'=> 0]);
                  }
                 else{ // 原本錯現在錯
-                    UserRecord::where('question_id',$q_id)->where('user_id', $user_id)->update(['updated_at' => now()]);
+                    UserRecord::where('question_id',$q_id)->where('user_id', $current_uid)->update(['updated_at' => now()]);
                  }
                 return response()->json(['message' => 'wrongAnswer']);
             }
