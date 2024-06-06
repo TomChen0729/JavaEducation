@@ -1,6 +1,6 @@
 @extends('layouts.application')
 
-@section('title', '學習區難度')
+@section('title', '遊戲難度')
 
 @section('style')
     <style>
