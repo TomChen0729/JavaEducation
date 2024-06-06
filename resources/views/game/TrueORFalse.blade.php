@@ -223,7 +223,7 @@
             background-color: #f1c232;
             border-radius: 10px;
             box-shadow: 0 0 10px rgb(100, 100, 100);
-            width: 600px;
+            width: 800px;
             overflow: hidden;
             padding: 100px;
             margin: 10px;
@@ -237,11 +237,15 @@
             margin: 10px;
             background-color: #93c47d;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgb(0,0,0);
-            width: 290px;
+            box-shadow: 0 0 10px rgb(50,50,50);
+            width: 390px;
             overflow: hidden;
             padding: 20px;
             /*內部*/
+        }
+
+        .true:hover{
+            transform: scale(1.03);
         }
 
         .false {
@@ -249,11 +253,15 @@
             margin: 10px;
             background-color: #e06666;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgb(0,0,0);
-            width: 290px;
+            box-shadow: 0 0 10px rgb(50,50,50);
+            width: 390px;
             overflow: hidden;
             padding: 20px;
             /*內部*/
+        }
+
+        .false:hover{
+            transform: scale(1.03);
         }
 
         @media (max-width: 1280px) {
