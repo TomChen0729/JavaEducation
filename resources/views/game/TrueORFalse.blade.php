@@ -152,9 +152,11 @@
         .navbar {
             display: flex;
             align-items: center; /* 確保垂直方向對齊 */
+            margin-left: auto; /* 讓 navbar 靠右對齊 */
         }
 
         .navbar .time {
+            display: none;
             color: #fff;
             font-size: 20px;
             font-weight: bolder;
@@ -213,7 +215,7 @@
         }
 
         .tof {
-            margin: 80px;
+            margin-top: 80px;
             padding: 10px;
         }
 
@@ -223,7 +225,7 @@
             box-shadow: 0 0 10px rgb(100, 100, 100);
             width: 600px;
             overflow: hidden;
-            padding: 50px;
+            padding: 100px;
             margin: 10px;
             font-size: 26px;
             font-weight: bold;
@@ -235,7 +237,7 @@
             margin: 10px;
             background-color: #93c47d;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgb(100, 100, 100);
+            box-shadow: 0 0 10px rgb(0,0,0);
             width: 290px;
             overflow: hidden;
             padding: 20px;
@@ -247,7 +249,7 @@
             margin: 10px;
             background-color: #e06666;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgb(100, 100, 100);
+            box-shadow: 0 0 10px rgb(0,0,0);
             width: 290px;
             overflow: hidden;
             padding: 20px;
