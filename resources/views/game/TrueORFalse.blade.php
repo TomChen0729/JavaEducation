@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaEducation - @yield('title')</title>
+    <title>JavaEducation - 是非</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         * {
@@ -21,7 +21,7 @@
         }
 
         body {
-            background: url('/images/background/backgroundnoroad2.svg') no-repeat top center fixed;
+            background: url('/images/learn/lv1-1.svg') no-repeat center center fixed;
             background-size: cover;
             color: var(--text-color);
             /* margin: 0;
@@ -112,14 +112,14 @@
             animation: animate 5s linear infinite;
         }
 
-        @keyframes animate {
+        /*@keyframes animate {
             from {
-                transform: translateX(0); /* 起始位置 */
+                transform: translateX(0); 起始位置
             }
             to {
-                transform: translateX(50px); /* 結束位置 */
+                transform: translateX(50px); 結束位置
             }
-        }
+        }*/
 
         .logo {
             display: flex;
@@ -196,47 +196,44 @@
         }
 
         .tof {
-            background-color: gray;
+            margin: 80px;
             padding: 10px;
-            border-radius: 10px;
-            border: 10px solid green;
         }
 
         .question {
             background-color: #f1c232;
             border-radius: 10px;
             box-shadow: 0 0 10px rgb(100, 100, 100);
-            width: 1040px;
+            width: 600px;
             overflow: hidden;
-            padding: 90px;
-            /*內部*/
-            margin: 20px;
-            font-size: 30px;
+            padding: 50px;
+            margin: 10px;
+            font-size: 26px;
             font-weight: bold;
             text-align: center;
         }
 
         .true {
             font-size: 20px;
-            margin: 20px;
+            margin: 10px;
             background-color: #93c47d;
             border-radius: 10px;
             box-shadow: 0 0 10px rgb(100, 100, 100);
-            width: 500px;
+            width: 290px;
             overflow: hidden;
-            padding: 50px;
+            padding: 20px;
             /*內部*/
         }
 
         .false {
             font-size: 20px;
-            margin: 20px;
+            margin: 10px;
             background-color: #e06666;
             border-radius: 10px;
             box-shadow: 0 0 10px rgb(100, 100, 100);
-            width: 500px;
+            width: 290px;
             overflow: hidden;
-            padding: 50px;
+            padding: 20px;
             /*內部*/
         }
 
@@ -325,7 +322,7 @@
             <p id="q-id" style="display: none;">{{ $question -> id }}</p>
             <h2 id="questions">{{ $question->questions}}</h2>
         </div>
-        <div>
+        <div class="answer">
             <button class="true" id="trueB" value="O">True</button>
             <button class="false" id="falseB" value="X">False</button>
         </div>
