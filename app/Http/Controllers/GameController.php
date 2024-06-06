@@ -110,12 +110,13 @@ class GameController extends Controller
             $q_id = $request->query('question_id');
             $ANS = Question::where('id', $q_id)->pluck('answer')->first();
             $current_uid = $request -> query('cid');
+            $spent_time = $request -> query('timer');
             // $current_uid = auth()->user()->id;
-            //只剩下user_id的問題，還要儲存時間(tomchen還沒傳到後端)
             if($user_ANS == $ANS){ // 答對的時候
                 if(!UserRecord::where('question_id', $q_id)->where('user_id', $current_uid)->exists()){ // 沒紀錄 
                     UserRecord::create([
                         'user_id' => $current_uid,
+                        'watchtime' => $spent_time,
                         'question_id' => $q_id,
                         'status' => 1,
                     ]);
@@ -134,6 +135,7 @@ class GameController extends Controller
                     UserRecord::create([
                         'user_id' => $current_uid,
                         'question_id' => $q_id,
+                        'watchtime' => $spent_time,
                         'status' => 0,
                     ]);
                 }

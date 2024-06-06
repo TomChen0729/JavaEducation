@@ -307,7 +307,7 @@
         <ul class="navbar">
             <li><a href="#" onclick="togglePopup()"> 知識卡</a></li>
             <li><a href="{{ route('showallcardtypes') }}"> 回上一頁</a></li>
-            <li class="time" id="timer">00:00</li>
+            <li class="time" id="timer">00:00:00</li>
         </ul>
 
         <div class="main">
@@ -343,18 +343,23 @@
         function startTimer() {
             let minutes = 0;
             let seconds = 0;
+            let hours = 0;
             const timerElement = document.getElementById('timer');
 
             function updateTimer() {
                 seconds++;
                 if (seconds === 60) {
                     seconds = 0;
-                    minutes++;
+                    minutes ++;
+                    if(minutes === 60){
+                        minutes = 0;
+                        hours ++;
+                    }
                 }
-
+                const formattedHours = String(hours).padStart(2,'0');
                 const formattedMinutes = String(minutes).padStart(2, '0');
                 const formattedSeconds = String(seconds).padStart(2, '0');
-                timerElement.textContent = `${formattedMinutes}:${formattedSeconds}`;
+                timerElement.textContent = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
             }
 
             setInterval(updateTimer, 1000);
@@ -362,10 +367,8 @@
 
         function stopTimer() {
             clearInterval(timer);
-            const timerElement = document.getElementById('timer');
-            const timeParts = timerElement.textContent.split(':');
-            const elapsedTimeInSeconds = parseInt(timeParts[0]) * 60 + parseInt(timeParts[1]);
-            return elapsedTimeInSeconds;
+            const timerElement = document.getElementById('timer').textContent;
+            return timerElement;
         }
 
         window.onload = startTimer;
@@ -392,7 +395,7 @@
             // console.log(csrfToken); // 測試用
             var timer = stopTimer();
             console.log(timer);
-            fetch('/api/correct_User_ANS?user_answer=' + encodeURIComponent(answerValue) + '&question_id=' + question_id + '&cid=' + cid , {
+            fetch('/api/correct_User_ANS?user_answer=' + encodeURIComponent(answerValue) + '&question_id=' + question_id + '&cid=' + cid + '&timer=' + timer, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
