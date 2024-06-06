@@ -91,7 +91,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 28px 12%;
-            background: rgba(167,170,184, 0.8); /* 透明背景 */
+            background: rgba(180,153,119, 0.8); /* 透明背景 */
             transition: all 0.50s ease;
         }
 
