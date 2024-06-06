@@ -41,7 +41,6 @@ class GameController extends Controller
                 case 1:
                     // 如果GameType_id == 1
                     // 呼叫檢查使用者遊玩進度
-                    // $user = auth()->user();
                     $country = auth()->user()->country_id;
                     $levels = auth()->user()->levels;
                     $current_uid = auth()->user()->id;
