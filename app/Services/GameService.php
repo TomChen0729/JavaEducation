@@ -44,7 +44,7 @@ class GameService{
             $current_user->update([
                 'levels' => $current_user_levels
             ]);
-            // 查詢當前玩家在該國家的等級是否是最高，如果是，levels變成1，country_id ++
+            // 查詢當前玩家在該國家的等級是否是最高，如果是，levels變成1，country_id ++(未完成)
             $current_country = 0;
             if(auth()->user()->levels){
                 $current_user_country = auth()->user()->country_id;
