@@ -131,10 +131,18 @@
     <div class="containers">
         <div class="learnarea">
             <h2>學習區</h2>
-            <button class="TF"><a href="{{ route('game.gameTypeChoose', ['GameType_id' => 1]) }}">是非</a></button>
-            <button class="CH"><a href="{{ route('game.gameTypeChoose', ['GameType_id' => 2]) }}">選擇</a></button>
-            <button class="MA"><a href="{{ route('game.gameTypeChoose', ['GameType_id' => 3]) }}">配對</a></button>
-            <button class="RE"><a href="{{ route('game.gameTypeChoose', ['GameType_id' => 4]) }}">重組</a></button>
+            @foreach($Question_list as $item)
+                @if($item -> gametype == '是非')
+                    <button class="TF"><a href="{{ route('game.gameTypeChoose', ['GameType' => $item -> gametype, 'country_id' => $item -> country_id, 'levels' => $item -> levels]) }}">{{ $item -> gametype }}</a></button>
+                @elseif($item -> gametype == '選擇')
+                    <button class="CH"><a href="{{ route('game.gameTypeChoose', ['GameType' => $item -> gametype, 'country_id' => $item -> country_id, 'levels' => $item -> levels]) }}">{{ $item -> gametype }}</a></button>
+                @elseif($item -> gametype == '配對')
+                    <button class="MA"><a href="{{ route('game.gameTypeChoose', ['GameType' => $item -> gametype, 'country_id' => $item -> country_id, 'levels' => $item -> levels]) }}">{{ $item -> gametype }}</a></button>
+                @else
+                    <button class="RE"><a href="{{ route('game.gameTypeChoose', ['GameType' => $item -> gametype, 'country_id' => $item -> country_id, 'levels' => $item -> levels]) }}) }}">{{ $item -> gametype }}</a></button>
+                @endif
+            @endforeach
+            
         </div>
         <hr>
         <div class="passarea">
@@ -144,7 +152,7 @@
             </div>
         </div>
     </div>
-    
+
 @endsection
 
 @section('script')

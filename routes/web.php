@@ -22,7 +22,8 @@ Route::middleware([
 ])->group(function () {
     // 顯示五個國家icon頁面
     Route::get('/welcome', function () {
-        $countries = Country::all();
+        $current_user_country = auth()->user()->country_id;
+        $countries = Country::where('id', '<=', $current_user_country)->get();
         return view('welcome', ['countries' => $countries]);
     })->name('welcome');
     Route::get('/dashboard', function () {
@@ -33,7 +34,7 @@ Route::middleware([
     // 帶值(等級)進入遊戲類型選擇畫面1-4闖關，5主線
     Route::get('/levels/{levels}/country_id/{country_id}', [GameController::class, 'index'])->name('game.index');
     // 進入該遊戲畫面
-    Route::get('/GameType_id/{GameType_id}',[GameController::class, 'ChooseGame'])->name('game.gameTypeChoose');
+    Route::get('/GameType/{GameType}/country_id/{country_id}/levels/{levels}',[GameController::class, 'ChooseGame'])->name('game.gameTypeChoose');
     // 顯示知識卡所有分類
     Route::get('/knowledgecardtypes', [KnowledgeCardController::class, 'index'])->name('showallcardtypes');
     // 顯示目標分類底下所有知識卡

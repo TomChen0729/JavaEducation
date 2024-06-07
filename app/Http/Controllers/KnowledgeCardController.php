@@ -16,7 +16,9 @@ class KnowledgeCardController extends Controller
     {
         // 抓出該知識卡分類上層的國家
         // 每個國家第一層分類
-        $card_types = CardType::all();
+        $current_user_country = auth()->user()->country_id;
+        $card_types = CardType::select('*')
+        ->where('country_id', '<=', $current_user_country)->get();
         return view('knowledge.knowledgecard_type', ['card_types' => $card_types]);
     }
 

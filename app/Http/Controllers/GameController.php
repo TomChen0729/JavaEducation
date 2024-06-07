@@ -26,34 +26,38 @@ class GameController extends Controller
     //導向遊戲列表
     public function index(int $levels, int $country_id)
     {
-        //
+        //呼叫更新使用者紀錄
         $this->gameService->updateUserRecord($country_id, $levels);
-        $Question_list = Question::select('gametype')->distinct()->get();
+        // 查詢進入當前國家當前等級的遊戲種類有哪些
+        $Question_list = Question::select('gametype', 'country_id', 'levels')
+            ->where('levels', $levels)
+            ->where('country_id', $country_id)
+            ->groupBy('gametype', 'country_id', 'levels')
+            ->get();
+
         return view('Gameviews', ['Question_list' => $Question_list]);
     }
 
     // 依照遊戲類別 選擇導向遊戲畫面
     // 送至前端的東西：通關所需知識卡，題目資訊，
-    public function ChooseGame(Request $request, int $GameType_id)
+    public function ChooseGame(Request $request, string $GameType, int $country_id, int $levels)
     {
         //
         if ($request->isMethod('get')) {
-            switch ($GameType_id) {
-                case 1:
+            switch ($GameType) {
+                case '是非':
                     // 如果GameType_id == 1
                     // 呼叫檢查使用者遊玩進度
-                    $country = auth()->user()->country_id;
-                    $levels = auth()->user()->levels;
                     $current_uid = auth()->user()->id;
                     $current_count = UserRecord::where('user_id', $current_uid)
                     ->whereIn('question_id', function ($query) {
                         $query->select('id')->from('questions')->where('gametype', '是非');
                     })->count();        
-                    $trueorfalse_count=Question::where('gametype','是非')->count();
+                    $trueorfalse_count = Question::where('gametype','是非')->count();
                     if($current_count < $trueorfalse_count){
                         // 呼叫亂數出題
                         $question = Question::where('gametype', '是非')
-                        ->where('country_id', $country)
+                        ->where('country_id', $country_id)
                         ->where('levels', $levels)
                         ->whereNotIn('id', function($query) use ($current_uid) {
                             $query->select('question_id')->from('user_records')
@@ -64,33 +68,29 @@ class GameController extends Controller
                     else
                         {
                             $question = Question::where('gametype', '是非')
-                            ->where('country_id', $country)
+                            ->where('country_id', $country_id)
                             ->where('levels', $levels)
                             ->inRandomOrder()->first();
                         }
                     // 還要帶該遊戲第二層知識卡，方便跳窗後點擊查詢卡片內容
-                    return view('game.TrueORFalse', ['question' => $question, 'current_uid' => $current_uid]);
+                    return view('game.TrueORFalse', ['question' => $question]);
 
-                case 2:
+                case '選擇':
                     // 如果GameType_id == 2
                     // 呼叫檢查使用者遊玩進度
                     $user = auth()->user();
-                    $country = $user->country_id;
-                    $levels = $user->levels;
                     $question = Question::where('gametype', '選擇')
-                    ->where('country_id', $country)
+                    ->where('country_id', $country_id)
                     ->where('levels', $levels)
                     ->inRandomOrder()->first();
                     $options = Option::where('question_id', $question->id)->inRandomOrder()->get();
                     return view('game.choose', ['question' => $question, 'options' => $options]);
-                case 3:
+                case '配對':
                     //
                     $user = auth()->user();
-                    $country = $user->country_id;
-                    $levels = $user->levels;
                     //隨機抓取六道題目
                     $questions = Question::where('gametype', '配對')
-                    ->where('country_id', $country)
+                    ->where('country_id', $country_id)
                     ->where('levels', $levels)->inRandomOrder()->take(6)->get();
 
                     //根據題目id去抓選項並將選項隨機
@@ -98,12 +98,10 @@ class GameController extends Controller
                     $options = MatchOption::whereIn('question_id', $questions->pluck('id'))->get()->shuffle();
 
                     return view('game.match', ['questions' => $questions, 'options' => $options]);
-                case 4:
+                case '重組':
                     $user = auth()->user();
-                    $country = $user->country_id;
-                    $levels = $user->levels;
                     $question = Question::where('gametype', '重組')
-                    ->where('country_id', $country)
+                    ->where('country_id', $country_id)
                     ->where('levels', $levels)->inRandomOrder()->first();
                     $options = ReorganizationOption::where('question_id', $question->id)->inRandomOrder()->get();
                     return view('game.reorganization', ['question' => $question, 'options' => $options]);
