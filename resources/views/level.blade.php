@@ -14,6 +14,7 @@
 
         .container {
             max-width: 1000px;
+            height: 600px;
             margin: 80px auto 0;
             padding: 10px;
             text-align: center;
@@ -85,19 +86,19 @@
         }
 
         .card-content .btn {
-            color: #333;
+            color: #fff;
             display: inline-block;
             padding: 10px 20px;
-            background-color: #fff;
-            border: 2px solid #333;
+            background-color: #333;
             text-decoration: none;
             border-radius: 4px;
             transition: background-color 0.3s, transform 0.3s;
         }
 
         .card-content .btn:hover {
-            background-color: #333;
-            color: #fff;
+            background-color: #fff;
+            color: #333;
+            border: 2px solid #333;
             transform: translateY(-2px);
         }
 
