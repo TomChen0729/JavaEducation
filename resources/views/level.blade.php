@@ -36,12 +36,12 @@
             font-size: 36px;
             font-weight: bold;
             margin: 10px;
-            color: #007bff;
+            color: #274e13;
         }
 
         .headers p {
             font-size: 18px;
-            color: #666;
+            color: #783f04;
             margin-bottom: 10px;
         }
 
