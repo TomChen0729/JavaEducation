@@ -97,7 +97,6 @@
 
             .navbar a:hover {
                 color: #999999;
-                border: 2px solid #999999;
                 background: #fff;
             }
 
@@ -132,51 +131,51 @@
                 display: none;
             }
 
-            @media (max-width: 1280px){
-                header{
+            @media (max-width: 1280px) {
+                header {
                     padding: 14px 2%;
-                    transition: .2s;
+                    transition: 0.2s;
                 }
-                .navbar a{
+                .navbar a {
                     padding: 5px 0;
                     margin: 0px 20px;
                 }
             }
 
-            @media (max-width: 1090px){
-                #menu-icon{
+            @media (max-width: 1090px) {
+                #menu-icon {
                     display: block;
                 }
 
-                .navbar{
+                .navbar {
                     position: absolute;
                     top: 100%;
                     right: -100%;
                     width: 270px;
-                    background: #fce5cd;
+                    background: #16537e;
                     font-style: none;
-                    border: 2px solid #5b5b5b;
                     display: flex;
                     flex-direction: column;
                     justify-content: flex-start;
                     border-radius: 10px;
-                    transition: all .50s ease;
+                    transition: all 0.50s ease;
                 }
 
-                .navbar a{
+                .navbar a {
                     border: none;
                     display: block;
                     margin: 12px 0;
                     padding: 0px 25px;
-                    transition: all .50s ease;
+                    transition: all 0.50s ease;
                 }
 
-                .navbar a:hover{
+                .navbar a:hover {
+                    border: none;
                     color: var(--text-color);
                     transform: translateY(5px);
                 }
 
-                .navbar.open{
+                .navbar.open {
                     right: 2%;
                 }
             }
