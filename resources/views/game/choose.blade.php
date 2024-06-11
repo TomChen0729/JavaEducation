@@ -204,6 +204,7 @@
         
         .question{
             margin: 1em;
+            margin-top: 80px;
             background-color: #bcdf49;
             border-radius: 10px;
             box-shadow: 0 0 10px rgb(100, 100, 100);
@@ -216,7 +217,7 @@
         }
 
         #questions{
-            font-size: 28px;
+            font-size: 24px;
             font-weight: bold;
             padding: 1rem;
             text-align: center;
