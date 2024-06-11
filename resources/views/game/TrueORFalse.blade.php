@@ -346,8 +346,8 @@
 
     <div class="tof">
         <!-- 顯示題目容器 -->
-        <div class="question">
-            <h1 id="cid" style="display: none;">{{ auth()->user()->id }}</h1>
+        <h1 id="cid" style="display: none;">{{ auth()->user()->id }}</h1>
+        <div class="question">        
             <p id="q-id" style="display: none;">{{ $question -> id }}</p>
             <h2 id="questions">{{ $question->questions}}</h2>
         </div>

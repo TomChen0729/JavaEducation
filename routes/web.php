@@ -3,17 +3,16 @@ use App\Http\Controllers\DataController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\GameController;
 use App\Models\Country;
+use App\Models\User;
 use App\Http\Controllers\KnowledgeCardController;
 use Illuminate\Routing\RouteUri;
 use Illuminate\Support\Facades\Route;
-
+use App\Services\GameService;
 
 
 Route::get('/', function(){
     return view('home');
 });
-Route::resource('countries', CountryController::class);
-Route::get('/country', [CountryController::class, 'index'])->name('root');
 
 Route::middleware([
     'auth:sanctum',
@@ -22,8 +21,23 @@ Route::middleware([
 ])->group(function () {
     // 顯示五個國家icon頁面
     Route::get('/welcome', function () {
-        $current_user_country = auth()->user()->country_id;
-        $countries = Country::where('id', '<=', $current_user_country)->get();
+
+        //檢查玩家進度，如果國家id等於0和等級id等於0，就都給1進去。
+        $Current_User_Country = auth()->user()->country_id;
+        $Current_User_Country_Level = auth()->user()->levels;
+        $Current_User_id=auth()->user()->id;
+        if ($Current_User_Country == null && $Current_User_Country_Level == null) {
+            $user = User::find($Current_User_id);
+            $user->update([
+                'country_id' => 1,
+                'levels' => 1,
+            ]);
+            $countries = Country::where('id', 1)->get();
+        }
+        else{
+            $countries = Country::where('id', '<=', $Current_User_Country)->get();
+        }
+
         return view('welcome', ['countries' => $countries]);
     })->name('welcome');
     Route::get('/dashboard', function () {

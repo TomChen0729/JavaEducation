@@ -319,7 +319,7 @@
         <ul class="navbar">
             <li><a href="#" onclick="togglePopup()"> 知識卡</a></li>
             <li><a href="{{ route('showallcardtypes') }}"> 回上一頁</a></li>
-            <li class="time" id="timer">00:00</li>
+            <li class="time" id="timer">00:00:00</li>
         </ul>
 
         <div class="main">
@@ -328,28 +328,17 @@
     </header>
 
     <div class="question" id="questionSection">
+        <h1 id="cid" style="display: none;">{{ auth()->user()->id }}</h1>
         <div class="quiz-header">
+            <p id="q-id" style="display: none;">{{ $question -> id }}</p>
             <h2 id="questions">{{ $question -> questions }}</h2>
             <ul>
                 @foreach ($options as $option)
                     <li>
-                        <input type="radio" name="answer" id="a" class="answer">
-                        <label for="a" id="a-text">{{ $option -> options}}</label>
+                        <input type="radio" name="answer" id="ans" class="answer" value="{{ $option -> options}}">
+                        <label for="ans" id="ans-text">{{ $option -> options}}</label>
                     </li>
                 @endforeach
-                
-                <!-- <li>
-                    <input type="radio" name="answer" id="b" class="answer">
-                    <label for="b" id="b-text"></label>
-                </li>
-                <li>
-                    <input type="radio" name="answer" id="c" class="answer">
-                    <label for="c" id="c-text"></label>
-                </li>
-                <li>
-                    <input type="radio" name="answer" id="d" class="answer">
-                    <label for="d" id="d-text"></label>
-                </li> -->
             </ul>
         </div>
         <button id="sub">送出</button>
@@ -372,21 +361,32 @@
         function startTimer() {
             let minutes = 0;
             let seconds = 0;
+            let hours = 0;
             const timerElement = document.getElementById('timer');
 
             function updateTimer() {
                 seconds++;
                 if (seconds === 60) {
                     seconds = 0;
-                    minutes++;
+                    minutes ++;
+                    if(minutes === 60){
+                        minutes = 0;
+                        hours ++;
+                    }
                 }
-
+                const formattedHours = String(hours).padStart(2,'0');
                 const formattedMinutes = String(minutes).padStart(2, '0');
                 const formattedSeconds = String(seconds).padStart(2, '0');
-                timerElement.textContent = `${formattedMinutes}:${formattedSeconds}`;
+                timerElement.textContent = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
             }
 
             setInterval(updateTimer, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timer);
+            const timerElement = document.getElementById('timer').textContent;
+            return timerElement;
         }
 
         window.onload = startTimer;
@@ -396,129 +396,70 @@
             document.getElementById("popup-1").classList.toggle("active");
         }
 
-        // 遊戲
-        const quiz = document.getElementById('questionSection')//獲取題目容器
-        const answerEls = document.querySelectorAll('.answer')//獲取答案選項
-        const questionEl = document.getElementById('questions')// 這裡的 ID 是 'questions'
-        const a_text = document.getElementById('a-text')// 這裡的 ID 是 'a-text'
-        const b_text = document.getElementById('b-text')
-        const c_text = document.getElementById('c-text')
-        const d_text = document.getElementById('d-text')
-        const submitBtn = document.getElementById('sub')//提交
-        let randomQuiz; //聲明randomQuiz為全局變量
-
         // 接後端
-        //題目
-        // const quizData = [
-        //     {
-        //         question:"在 Java 中，下列哪個資料型態用於表示整數？",
-        //         a:"int",
-        //         b:"double",
-        //         c:"float",
-        //         d:"char",
-        //         correct:"a",
-        //     },
-        //     {
-        //         question:"下列哪個是正確的？",
-        //         a:"int x = 10;",
-        //         b:"int y;",
-        //         c:"double z;",
-        //         d:"char name = 'John';",
-        //         correct:"a",
-        //     },
-        //     {
-        //         question:"下列哪個資料型態用於表示字串？",
-        //         a:"int",
-        //         b:"double",
-        //         c:"char",
-        //         d:"String",
-        //         correct:"d",
-        //     },
-        //     {
-        //         question:"下列哪個資料型態用於表示雙精度浮點數？",
-        //         a:"int",
-        //         b:"double",
-        //         c:"boolean",
-        //         d:"char",
-        //         correct:"b",
-        //     },
-        // ];
-
-        // //產生隨機數
-        // function getRandomInt(min, max) {
-        //     // 彈性產生介於min、max之間，包括min，但不包括max的隨機整數
-        //     return Math.floor(Math.random() * (max - min)) + min;
-        // }
-
-        // // 選擇隨機題目
-        // function selectRandomQuestion(quizData) {
-        //     return quizData[getRandomInt(0, quizData.length)];
-        // }
-
-        // // 預設要顯示的第一道題目，按照陣列長度的index為零
-        // let currentQuiz = 0
-
-        // 清除選項
-        function clearSelections() {
-            answerEls.forEach(answerEl => answerEl.checked = false);
-        }
-
-        //渲染題目和選項
-        function renderQuestion(quizData) {
-            questionEl.textContent = quizData.question;
-            a_text.textContent = quizData.a;
-            b_text.textContent = quizData.b;
-            c_text.textContent = quizData.c;
-            d_text.textContent = quizData.d;
-        }
-
-        // //獲取下一道題目
-        // function getNextQuestion() {
-        //     clearSelections();//清除選項狀態
-        //     currentQuiz++;//當前題目索引加1
-        //     if (currentQuiz < quizData.length) {
-        //         renderQuestion(quizData, currentQuiz); //渲染下一道題目
-        //     } else {
-        //         //最後一道題目，重新開始
-        //         quiz.innerHTML = `<button onclick="location.reload()">重新开始</button>`;
-        //     }
-        // }
-
-        //獲取使用者選擇答案的函數
-        function getSelectedAnswer() {
-            for (const answerEl of answerEls) {
-                if (answerEl.checked) {
-                    return answerEl.id; //返回被選中的ID
-                }
+        // 對答案 api
+        document.getElementById('sub').addEventListener('click', function() {
+        const answers = document.querySelectorAll('.answer');
+        var question_id = question_id = document.getElementById('q-id').textContent;
+        console.log(question_id);
+        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        var cid = document.getElementById('cid').textContent;
+        var timer = stopTimer();
+        // console.log(answers);
+        let selectedOption; // 用一個變數存我選取的選項(USER_ANS)
+        // 用迴圈跑那些選項
+        for (const answer of answers) {
+            // 如果選項被選擇了，存進去，並且離開
+            if (answer.checked) {
+                selectedOption = answer.value;
+                break;
             }
-            return null; // 無答案 = null
         }
 
-        //頁面加載時隨機選染題目
-        window.onload = () => {
-            randomQuiz =selectRandomQuestion(quizData);
-            renderQuestion(randomQuiz);
-        };
-
-        //提交
-        submitBtn.addEventListener('click', () => {
-            const selectedAnswer = getSelectedAnswer(); //獲取用戶選擇答案
-            if (selectedAnswer !== null) { //如果用戶選擇了答案
-                // 檢查是否選擇答案
-                if (selectedAnswer === randomQuiz.correct) {
-                    // 正確
-                    window.location.href = "{{ route('game.gameTypeChoose', ['GameType_id' => 3]) }}/";
-                } else {
-                    // 錯誤
-                    clearSelections();
-                    alert("答錯了！");
+        if (selectedOption) {
+            alert('您選擇的答案是: ' + selectedOption);
+            fetch('/api/correct_User_ANS?user_answer=' + encodeURIComponent(selectedOption) + '&question_id=' + question_id + '&cid=' + cid + '&timer=' + timer, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if (data.message == 'correct'){
+                    alert('答對');
+                    setTimeout(function() {
+                        // window.location.reload();
+                    }, 1000);
                 }
-                getNextQuestion();
-            } else {
-                // 如果沒選擇答案就彈跳視窗
-                alert("請選擇一個答案！");
-            }
-        });
+                else if(data.message == 'wrongAnswer'){
+                    alert('答錯');
+                    setTimeout(function() {
+                        window.location.reload();
+                    }, 1000);
+                }
+                else{
+                    alert('伺服器錯誤');
+                    setTimeout(function() {
+                        window.location.reload();
+                    }, 1000);
+                }
+            });
+
+
+
+
+        } 
+        else {
+            alert('請選擇一個答案');
+        }
+    });
+
+
+
+
 
     </script>
 </body>

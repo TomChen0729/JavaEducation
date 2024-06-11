@@ -4,8 +4,10 @@ namespace App\Services;
 
 use App\Models\CardType;
 use App\Models\Country;
+use App\Models\KnowledgeCard;
 use App\Models\Question;
 use App\Models\User;
+use App\Models\UserKnowledgeCard;
 
 class GameService
 {
@@ -41,35 +43,45 @@ class GameService
         $user_gametype_set = Question::join('user_records', 'user_records.question_id', '=', 'questions.id')
         ->where('user_id', $current_user_id)
         ->distinct()->pluck('questions.gametype');
-        // 如果兩者長度相等的話，等級加一(他會無限增加)
+        // 如果兩者長度相等的話，等級加一
         if(count($gametype_set) == count($user_gametype_set)){
-            $current_user_levels = auth()->user()->levels;
-            $current_user_levels ++;
-            $current_user = User::find($current_user_id);
-            $current_user->update([
-                'levels' => $current_user_levels
-            ]);
-            // 查詢當前玩家在該國家的等級是否是最高，如果是，levels變成1，country_id ++
-            $current_country = CardType::where('country_id', $country_id)->max('levels');
-            if(auth()->user()->levels == $current_country){
-                $current_user_country = auth()->user()->country_id;
-                $current_user_country ++;
+            if(!User::where('id', $current_user_id)->where('country_id', $country_id)->where('levels', $levels + 1)->exists()){
+                $current_user_levels = auth()->user()->levels;
+                $current_user_levels ++;
                 $current_user = User::find($current_user_id);
                 $current_user->update([
-                    'country_id' => $current_user_country,
-                    'levels' => 1
+                    'levels' => $current_user_levels
                 ]);
-            }
+                // 抓當前國家id & levels，找出他的cardtype有哪些(之後可能會有一個levels對很多個type的問題，到時候改迴圈)
+                $all_cardtypes_in_current_lv = CardType::where('country_id', $country_id)->where('levels', $levels)->pluck('id');
+                // 利用找到的card_type_id，去資料庫拉相關的所有知識卡
+                $all_cards_in_current_lv = KnowledgeCard::where('card_type_id', $all_cardtypes_in_current_lv)->get();
+                // 新增一個當前使用者的UserKnowledgeCard物件
+                $current_user_card = new UserKnowledgeCard();
+                if((count($all_cards_in_current_lv) != 0) && !$current_user_card->exists()){
+                    foreach($all_cards_in_current_lv as $item){
+                        $current_user_card->create([
+                            'user_id' => $current_user_id,
+                            'knowledge_card_id' => $item->id,
+                            'watchtime' => '00:00:00'
+                        ]);
+                    }
+                }
+                // 查詢當前玩家在該國家的等級是否是最高，如果是，levels變成1，country_id ++
+                $current_country = CardType::where('country_id', $country_id)->max('levels');
+                if(auth()->user()->levels == $current_country){
+                    $current_user_country = auth()->user()->country_id;
+                    $current_user_country ++;
+                    $current_user = User::find($current_user_id);
+                    $current_user->update([
+                        'country_id' => $current_user_country,
+                        'levels' => 1
+                    ]);
+                }
+            }  
         }
     }
 
-    public function giveUserCards(int $user_id)
-    {
-        //將要改變的資料從前端接收
-        //將資料存入變數
-        //使用ORM update CurrentUserRecord
-
-    }
     // 帶遊戲資料，參數有目前玩家的遊戲進度
     public function getGameData()
     {
