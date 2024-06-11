@@ -22,10 +22,14 @@ Route::middleware([
     // 顯示五個國家icon頁面
     Route::get('/welcome', function () {
 
-        //檢查玩家進度，如果國家id等於0和等級id等於0，就都給1進去。
+        
         $Current_User_Country = auth()->user()->country_id;
         $Current_User_Country_Level = auth()->user()->levels;
         $Current_User_id=auth()->user()->id;
+        // 用一個字典存放能玩跟不能玩的國家
+        $country_json = array();
+        //檢查玩家進度，如果國家id等於0和等級id等於0，就都給1進去。
+        // 第一次玩
         if ($Current_User_Country == null && $Current_User_Country_Level == null) {
             $user = User::find($Current_User_id);
             $user->update([
