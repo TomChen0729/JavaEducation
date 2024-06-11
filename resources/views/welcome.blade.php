@@ -255,10 +255,15 @@
 
     <div class="container">
         <div class="icon">
-                @foreach ($countries as $country)
-                    <a href="{{ route('country.index', ['country_id' => $country -> id]) }}"><img src="/images/country/{{ $country -> imgPath }}" alt=""></a>
-                @endforeach
-            </div>
+            <!-- $country是國家圖檔名，$status是他的可點選狀態 -->
+            @foreach ($countries as $country => $status)
+                @if ($status == 1)
+                    <a href="{{ route('country.index', ['country_id' => $loop->index + 1]) }}"><img src="/images/country/{{ $country}}" alt=""></a>
+                @else
+                        <img src="/images/country/{{ $country }}" disabled>
+                @endif
+            @endforeach
+        </div>
     </div>
 
 

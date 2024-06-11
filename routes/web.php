@@ -1,16 +1,12 @@
 <?php
-use App\Http\Controllers\DataController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\KnowledgeCardController;
 use App\Models\Country;
 use App\Models\User;
-use App\Http\Controllers\KnowledgeCardController;
-use Illuminate\Routing\RouteUri;
 use Illuminate\Support\Facades\Route;
-use App\Services\GameService;
 
-
-Route::get('/', function(){
+Route::get('/', function () {
     return view('home');
 });
 
@@ -21,13 +17,11 @@ Route::middleware([
 ])->group(function () {
     // 顯示五個國家icon頁面
     Route::get('/welcome', function () {
-
-        
         $Current_User_Country = auth()->user()->country_id;
         $Current_User_Country_Level = auth()->user()->levels;
-        $Current_User_id=auth()->user()->id;
-        // 用一個字典存放能玩跟不能玩的國家
-        $country_json = array();
+        $Current_User_id = auth()->user()->id;
+        // 用一個字典存放能玩跟不能玩的國家，key=imgPath，value=1(可以),0(不可以)
+        $country_dic = array();
         //檢查玩家進度，如果國家id等於0和等級id等於0，就都給1進去。
         // 第一次玩
         if ($Current_User_Country == null && $Current_User_Country_Level == null) {
@@ -36,13 +30,35 @@ Route::middleware([
                 'country_id' => 1,
                 'levels' => 1,
             ]);
-            $countries = Country::where('id', 1)->get();
-        }
-        else{
-            $countries = Country::where('id', '<=', $Current_User_Country)->get();
+            $canUseCountry = Country::where('id', 1)->pluck('imgPath')->toArray();
+            $cantUserCountry = Country::where('id', '>', 1)->pluck('imgPath')->toArray();
+            if ($canUseCountry != null && $cantUserCountry != null) {
+                // 用迴圈將值放到字典裡面
+                foreach ($canUseCountry as $item) {
+                    // item是正在被讀取的國家icon檔名，後面帶狀態(1或是0)，用以區分可以玩或不能玩
+                    $country_dic[$item] = 1;
+                }
+                foreach ($cantUserCountry as $item) {
+                    $country_dic[$item] = 0;
+                }
+            }
+        } 
+        else {
+            // 玩家可以點選的國家圖示
+            $canUseCountry = Country::where('id', '<=', $Current_User_Country)->pluck('imgPath')->toArray();
+            // 玩家不可以點選的國家圖示
+            $cantUserCountry = Country::where('id', '>', $Current_User_Country)->pluck('imgPath')->toArray();
+            if ($canUseCountry != null && $cantUserCountry != null) {
+                foreach ($canUseCountry as $item) {
+                    $country_dic[$item] = 1;
+                }
+                foreach ($cantUserCountry as $item) {
+                    $country_dic[$item] = 0;
+                }
+            }
         }
 
-        return view('welcome', ['countries' => $countries]);
+        return view('welcome', ['countries' => $country_dic]);
     })->name('welcome');
     Route::get('/dashboard', function () {
         return view('dashboard');
@@ -52,7 +68,7 @@ Route::middleware([
     // 帶值(等級)進入遊戲類型選擇畫面1-4闖關，5主線
     Route::get('/levels/{levels}/country_id/{country_id}', [GameController::class, 'index'])->name('game.index');
     // 進入該遊戲畫面
-    Route::get('/GameType/{GameType}/country_id/{country_id}/levels/{levels}',[GameController::class, 'ChooseGame'])->name('game.gameTypeChoose');
+    Route::get('/GameType/{GameType}/country_id/{country_id}/levels/{levels}', [GameController::class, 'ChooseGame'])->name('game.gameTypeChoose');
     // 顯示知識卡所有分類
     Route::get('/knowledgecardtypes', [KnowledgeCardController::class, 'index'])->name('showallcardtypes');
     // 顯示目標分類底下所有知識卡
@@ -62,25 +78,24 @@ Route::middleware([
 });
 
 //測試用
-Route::get('TrueORFalse', function(){
+Route::get('TrueORFalse', function () {
     return view('game.TrueORFalse');
 });
-Route::get('choose', function(){
+Route::get('choose', function () {
     return view('game.choose');
 });
-Route::get('match', function(){
+Route::get('match', function () {
     return view('game.match');
 });
-Route::get('reorganization', function(){
+Route::get('reorganization', function () {
     return view('game.reorganization');
 });
-Route::get('Gameviews', function(){
+Route::get('Gameviews', function () {
     return view('Gameviews');
 });
-Route::get('level', function(){
+Route::get('level', function () {
     return view('level');
 });
-Route::get('knowledge', function(){
+Route::get('knowledge', function () {
     return view('knowledge');
 });
-

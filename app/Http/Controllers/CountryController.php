@@ -27,7 +27,6 @@ class CountryController extends Controller
     // 導向等級選取，帶使用者資料，檢查玩家遊戲進度
     public function index(int $country_id)
     {
-        
         //初始化玩家紀錄(檢查玩家的country_id 和 levels)
         $this->gameService->initUserRecord();
         $User_country = auth()->user()->country_id;
