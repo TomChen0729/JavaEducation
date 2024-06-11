@@ -90,43 +90,50 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 28px 12%;
-            background: rgba(167,170,184, 0.8); /* 透明背景 */
+            padding: 28px 2%;
+            background: rgba(72, 170, 193, 0.8); /* 透明背景 */
             transition: all 0.50s ease;
         }
 
-        .light {
-            position: relative;
-            font-size: 7em;
-            letter-spacing: 15px; /* 字元間距 */
-            color: #0e3742;
-            text-transform: uppercase; /* 所有字母皆為大寫 */
-            width: 200px;
-            text-align: center;
-            -webkit-box-reflect: below 1px linear-gradient(transparent, #0e3742); /* 鏡像效果：反射方向 反射距離 線性漸變 */
-            line-height: 0.1em; /* 設置行高 */
-            outline: none; /* 輪廓線 */
-            animation: animate 5s linear infinite;
+        .breadcrumbs {
+            letter-spacing: 5px; /* 字元間距 */
+            font-size: 24px;
+            font-family: sans-serif;
         }
 
-        @keyframes animate {
+        /*@keyframes animate {
             from {
-                transform: translateX(0); /* 起始位置 */
+                transform: translateX(0); 起始位置
             }
             to {
-                transform: translateX(50px); /* 結束位置 */
+                transform: translateX(50px); 結束位置
             }
+        }*/
+
+        .breadcrumbs__item {
+            display: inline-block;
         }
 
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-
-        .logo span {
+        .breadcrumbs__item:not(:last-of-type)::after {
+            content: '\203a';
+            margin: 0 5px;
             color: #fff;
-            font-size: 30px;
-            font-weight: bolder;
+        }
+
+        .breadcrumbs__link {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .breadcrumbs__link:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumbs__link__active {
+            text-decoration: none;
+            color: #009578;
+            font-weight: bold;
         }
 
         .navbar {
@@ -152,6 +159,7 @@
             font-weight: bolder;
             text-align: center;
             border: 2px solid #fff;
+            border-radius: 5px;
             padding: 5px 15px;
             margin: 0px 30px;
             transition: all 0.50s ease;
@@ -188,7 +196,7 @@
 
         #menu-icon {
             font-size: 35px;
-            color: var(--text-color);
+            color: #fff;
             cursor: pointer;
             z-index: 10001;
             display: none;
@@ -266,10 +274,10 @@
 
             .navbar {
                 position: absolute;
-                top: 100%;
+                top: 90%;
                 right: -100%;
                 width: 270px;
-                background: #fce5cd;
+                background: #a7aab8;
                 font-style: none;
                 border: 2px solid #5b5b5b;
                 display: flex;
@@ -314,7 +322,20 @@
     </div>
 
     <header class="header">
-        <div class="light"><a href="{{ route('welcome') }}" class="logo"><span>綠野仙蹤</span></a></div>
+    <ul class="breadcrumbs">
+            <li class="breadcrumbs__item">
+                <a href="{{ route('welcome') }}" class="breadcrumbs__link">綠野仙蹤</a>
+            </li>
+            <li class="breadcrumbs__item">
+                <a href="{{ route('welcome') }}" class="breadcrumbs__link">遊玩等級</a>
+            </li>
+            <li class="breadcrumbs__item">
+                <a href="{{ route('welcome') }}" class="breadcrumbs__link">遊戲種類</a>
+            </li>
+            <li class="breadcrumbs__item">
+                <a href="{{ route('welcome') }}" class="breadcrumbs__link__active">選擇題</a>
+            </li>
+        </ul>
 
         <ul class="navbar">
             <li><a href="#" onclick="togglePopup()"> 知識卡</a></li>

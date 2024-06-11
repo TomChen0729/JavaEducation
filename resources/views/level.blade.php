@@ -109,7 +109,11 @@
         }
 
         /* RWD for smaller devices */
-        @media screen and (max-width: 600px) {
+        @media screen and (max-width: 900px) {
+            .container{
+                height: 100%;
+            }
+
             .card {
                 width: 90%; /* Adjust card width */
                 margin: 10px auto;

@@ -110,23 +110,15 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 28px 12%;
+            padding: 28px 2%;
             background: rgba(72, 170, 193, 0.8); /* 透明背景 */
             transition: all 0.50s ease;
         }
 
-        .light {
-            position: relative;
-            font-size: 7em;
-            letter-spacing: 15px; /* 字元間距 */
-            color: #0e3742;
-            text-transform: uppercase; /* 所有字母皆為大寫 */
-            width: 200px;
-            text-align: center;
-            -webkit-box-reflect: below 1px linear-gradient(transparent, #0e3742); /* 鏡像效果：反射方向 反射距離 線性漸變 */
-            line-height: 0.1em; /* 設置行高 */
-            outline: none; /* 輪廓線 */
-            animation: animate 5s linear infinite;
+        .breadcrumbs {
+            letter-spacing: 5px; /* 字元間距 */
+            font-size: 24px;
+            font-family: sans-serif;
         }
 
         /*@keyframes animate {
@@ -138,15 +130,30 @@
             }
         }*/
 
-        .logo {
-            display: flex;
-            align-items: center;
+        .breadcrumbs__item {
+            display: inline-block;
         }
 
-        .logo span {
+        .breadcrumbs__item:not(:last-of-type)::after {
+            content: '\203a';
+            margin: 0 5px;
             color: #fff;
-            font-size: 30px;
-            font-weight: bolder;
+        }
+
+        .breadcrumbs__link {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .breadcrumbs__link:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumbs__link__active {
+            text-decoration: none;
+            color: #009578;
+            font-weight: bold;
         }
 
         .navbar {
@@ -172,6 +179,7 @@
             font-weight: bolder;
             text-align: center;
             border: 2px solid #fff;
+            border-radius: 5px;
             padding: 5px 15px;
             margin: 0px 30px;
             transition: all 0.50s ease;
@@ -208,7 +216,7 @@
 
         #menu-icon {
             font-size: 35px;
-            color: var(--text-color);
+            color: #fff;
             cursor: pointer;
             z-index: 10001;
             display: none;
@@ -223,7 +231,8 @@
             background-color: #f1c232;
             border-radius: 10px;
             box-shadow: 0 0 10px rgb(100, 100, 100);
-            width: 800px;
+            width: 620px;
+            height: 300px;
             overflow: hidden;
             padding: 100px;
             margin: 10px;
@@ -238,7 +247,7 @@
             background-color: #93c47d;
             border-radius: 10px;
             box-shadow: 0 0 10px rgb(50,50,50);
-            width: 390px;
+            width: 300px;
             overflow: hidden;
             padding: 20px;
             /*內部*/
@@ -254,7 +263,7 @@
             background-color: #e06666;
             border-radius: 10px;
             box-shadow: 0 0 10px rgb(50,50,50);
-            width: 390px;
+            width: 300px;
             overflow: hidden;
             padding: 20px;
             /*內部*/
@@ -282,15 +291,15 @@
 
             .navbar {
                 position: absolute;
-                top: 100%;
+                top: 90%;
                 right: -100%;
                 width: 270px;
-                background: #fce5cd;
+                background: #48aac1;
                 font-style: none;
-                border: 2px solid #5b5b5b;
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-start;
+                border: 2px solid #5b5b5b;
                 border-radius: 10px;
                 transition: all 0.50s ease;
             }
@@ -304,6 +313,7 @@
             }
 
             .navbar a:hover {
+                border: none;
                 color: var(--text-color);
                 transform: translateY(5px);
             }
@@ -331,7 +341,20 @@
     </div>
 
     <header class="header">
-        <div class="light"><a href="{{ route('welcome') }}" class="logo"><span>綠野仙蹤</span></a></div>
+        <ul class="breadcrumbs">
+            <li class="breadcrumbs__item">
+                <a href="{{ route('welcome') }}" class="breadcrumbs__link">綠野仙蹤</a>
+            </li>
+            <li class="breadcrumbs__item">
+                <a href="{{ route('welcome') }}" class="breadcrumbs__link">遊玩等級</a>
+            </li>
+            <li class="breadcrumbs__item">
+                <a href="{{ route('welcome') }}" class="breadcrumbs__link">遊戲種類</a>
+            </li>
+            <li class="breadcrumbs__item">
+                <a href="{{ route('welcome') }}" class="breadcrumbs__link__active">是非題</a>
+            </li>
+        </ul>
 
         <ul class="navbar">
             <li><a href="#" onclick="togglePopup()"> 知識卡</a></li>
