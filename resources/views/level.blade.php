@@ -141,7 +141,7 @@
             @foreach($parent_cards as $card)
                 <div class="card">
                     <div class="card-content">
-                        <div class="icon">&#x1F3AE;</div> <!-- 示例图标，可以替换为其他图标 -->
+                        <div class="icon">{{ html_entity_decode($card -> img) }}</div>
                         <h3>LV.{{ $card->levels }}</h3>
                         <p>{{ $card->card_type }}</p>
                         <a href="{{ route('game.index', ['levels' => $card->levels, 'country_id' => $card->country_id]) }}" class="btn">開始遊戲</a>
