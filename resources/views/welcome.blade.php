@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,22 +8,24 @@
     <title>JavaEducation - 首頁</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
-        *{
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: "Poppins", sans-serif;
-            text-decoration: none; /*底線去除*/
-            list-style: none; /*去除清單前面的符號*/
+            text-decoration: none;
+            /*底線去除*/
+            list-style: none;
+            /*去除清單前面的符號*/
         }
 
-        :root{
+        :root {
             --bg-color: #222327;
             --text-color: #333333;
             --main-color: #6875F5;
         }
 
-        body{
+        body {
             background-image: url('/images/background/backgroundnoroad2.svg');
             background-repeat: no-repeat;
             background-position: top;
@@ -45,32 +48,41 @@
             align-items: center;
             justify-content: space-between;
             padding: 28px 10%;
-            background: rgba(22,83,126, 0.8); /* 透明背景 */
+            background: rgba(22, 83, 126, 0.8);
+            /* 透明背景 */
             transition: all 0.50s ease;
         }
 
         .light {
             position: relative;
             font-size: 7em;
-            letter-spacing: 15px; /* 字元間距 */
+            letter-spacing: 15px;
+            /* 字元間距 */
             color: #0e3742;
-            text-transform: uppercase; /* 所有字母皆為大寫 */
+            text-transform: uppercase;
+            /* 所有字母皆為大寫 */
             width: 200px;
             text-align: center;
-            -webkit-box-reflect: below 1px linear-gradient(transparent, #0e3742); /* 鏡像效果：反射方向 反射距離 線性漸變 */
-            line-height: 0.1em; /* 設置行高 */
-            outline: none; /* 輪廓線 */
+            -webkit-box-reflect: below 1px linear-gradient(transparent, #0e3742);
+            /* 鏡像效果：反射方向 反射距離 線性漸變 */
+            line-height: 0.1em;
+            /* 設置行高 */
+            outline: none;
+            /* 輪廓線 */
             animation: animate 5s linear infinite;
         }
 
-            @keyframes animate {
-                from {
-                    transform: translateX(0); /* 起始位置 */
-                }
-                to {
-                    transform: translateX(50px); /* 结束位置 */
-                }
+        @keyframes animate {
+            from {
+                transform: translateX(0);
+                /* 起始位置 */
             }
+
+            to {
+                transform: translateX(50px);
+                /* 结束位置 */
+            }
+        }
 
         .logo {
             display: flex;
@@ -85,14 +97,17 @@
 
         .navbar {
             display: flex;
-            align-items: center; /* 確保垂直方向對齊 */
-            margin-left: auto; /* 讓 navbar 靠右對齊 */
+            align-items: center;
+            /* 確保垂直方向對齊 */
+            margin-left: auto;
+            /* 讓 navbar 靠右對齊 */
         }
 
         .navbar a {
             color: #fff;
             font-size: 18px;
-            letter-spacing: 2px; /* 字元間距 */
+            letter-spacing: 2px;
+            /* 字元間距 */
             font-weight: bolder;
             text-align: center;
             border: 2px solid #fff;
@@ -161,7 +176,7 @@
         }
 
         .icon img {
-            height: 500px;
+            height: 80%;
             width: 100%;
             object-fit: fill;
         }
@@ -171,6 +186,7 @@
                 padding: 14px 2%;
                 transition: 0.2s;
             }
+
             .navbar a {
                 padding: 5px 0;
                 margin: 0px 20px;
@@ -213,11 +229,16 @@
             .navbar.open {
                 right: 2%;
             }
+
+            .display-none {
+                display: none;
+            }
         }
     </style>
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <header class="header">
         <div class="light"><a href="{{ route('welcome') }}" class="logo"><span>綠野仙蹤</span></a></div>
@@ -227,21 +248,21 @@
             <li><a href="{{ route('profile.show') }}">個人資料</a></li>
             <li>
                 @if (Route::has('login'))
-                    @auth
-                        <a href="{{ url('/dashboard') }}" class="px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
-                            歷史答題記錄
-                        </a>
-                        @else
-                            <a href="{{ route('login') }}" class="px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
-                                Log in
-                            </a>
+                @auth
+                <a href="{{ url('/dashboard') }}" class="px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                    歷史答題記錄
+                </a>
+                @else
+                <a href="{{ route('login') }}" class="px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                    Log in
+                </a>
 
-                            @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
-                                    Register
-                                </a>
-                        @endif
-                    @endauth
+                @if (Route::has('register'))
+                <a href="{{ route('register') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                    Register
+                </a>
+                @endif
+                @endauth
                 @endif
             </li>
             <li><a href="#">排行榜</a></li>
@@ -258,9 +279,9 @@
             <!-- $country是國家圖檔名，$status是他的可點選狀態 -->
             @foreach ($countries as $country => $status)
                 @if ($status == 1)
-                    <a href="{{ route('country.index', ['country_id' => $loop->index + 1]) }}"><img src="/images/country/{{ $country}}" alt=""></a>
+                    <button><a href="{{ route('country.index', ['country_id' => $loop->index + 1]) }}"><img src="/images/country/{{ $country}}" alt=""></a></button>
                 @else
-                        <img src="/images/country/{{ $country }}" disabled>
+                    <button onclick="alert('尚未解鎖')"><img src="/images/country/{{ $country }}" style="opacity:0.2" disabled </button>
                 @endif
             @endforeach
         </div>
@@ -277,6 +298,11 @@
             menu.classList.toggle('bx-x');
             navbar.classList.toggle('open');
         }
+
+    </script>
+
+
     </script>
 </body>
+
 </html>
