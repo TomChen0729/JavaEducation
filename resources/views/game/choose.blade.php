@@ -331,16 +331,16 @@
                 <a href="{{ route('welcome') }}" class="breadcrumbs__link">遊玩等級</a>
             </li>
             <li class="breadcrumbs__item">
-                <a href="{{ route('welcome') }}" class="breadcrumbs__link">遊戲種類</a>
+                <a href="{{ route('welcome')}}"  class="breadcrumbs__link">遊戲種類</a>
             </li>
             <li class="breadcrumbs__item">
-                <a href="{{ route('welcome') }}" class="breadcrumbs__link__active">選擇題</a>
+                <a href="#" class="breadcrumbs__link__active">選擇題</a>
             </li>
         </ul>
 
         <ul class="navbar">
             <li><a href="#" onclick="togglePopup()"> 知識卡</a></li>
-            <li><a href="{{ route('showallcardtypes') }}"> 回上一頁</a></li>
+            <li><a onclick="history.back()"> 回上一頁</a></li>
             <li class="time" id="timer">00:00:00</li>
         </ul>
 
