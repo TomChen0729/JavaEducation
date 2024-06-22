@@ -60,6 +60,11 @@
             font-size: 16px;
         }
 
+        .popup .pop p.cen{
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
         .popup .pop hr{
             margin: 10px 0;
         }
@@ -212,9 +217,9 @@
             <div class="close-btn" onclick="togglePopup()">&times;</div>
             <div class="pop">
                     <h1>遊戲說明</h1>
-                    <p>歡迎來到《綠野仙蹤》遊戲，在這個遊戲中，你將會經歷兩個大關卡：學習區和闖關區。</p>
+                    <p class="cen">歡迎來到《綠野仙蹤》遊戲，在這個遊戲中，你將會經歷兩個大關卡：學習區和闖關區。</p>
                     <p><strong>學習區</strong><br>
-                    在學習區，你將會遇到四種不同的關卡類型：是非、選擇、重組和配對。只有完成這四種關卡，你才能解鎖闖關區!</p>
+                    在學習區，你將會遇到四種不同的關卡類型：是非、選擇、重組和配對。</p>
                     <p><strong>闖關區</strong><br>
                     在完成學習區的所有關卡後，你將進入闖關區。</p>
                     <hr>
@@ -251,7 +256,6 @@
                 @endif
             @endforeach
         </div>
-        <hr>
         <div class="passarea">
             <h2>闖關區</h2>
             <div class="pass-buttons">

@@ -26,7 +26,7 @@
         }
 
         body {
-            background-image: url('/images/background/backgroundnoroad2.svg');
+            background-image: url('/images/background/background2.svg');
             background-repeat: no-repeat;
             background-position: top;
             background-attachment: scroll;
