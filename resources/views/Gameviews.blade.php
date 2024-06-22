@@ -95,13 +95,19 @@
         }
 
         .containers{
-            background: rgba(255, 255, 255, 0.9);
-            padding: 5px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
             max-width: 1200px;
-            margin: 20px;
             box-sizing: border-box;
+        }
+
+        .learnarea{
+            width: 50%;
+        }
+
+        .passarea{
+            width: 50%;
         }
 
         h2{
@@ -112,6 +118,13 @@
             text-align: center;
             margin: 0;
             padding-top: 50px;
+        }
+
+        .text-h2 {
+            text-align: left;
+            padding: 1rem;
+            margin-left: 150px;
+
         }
 
         hr{
@@ -243,7 +256,7 @@
 
     <div class="containers">
         <div class="learnarea">
-            <h2>學習區</h2>
+            <h2 class="text-h2">學習區</h2>
             @foreach($Question_list as $item)
                 @if($item -> gametype == '是非')
                     <button class="TF"><a href="{{ route('game.gameTypeChoose', ['GameType' => $item -> gametype, 'country_id' => $item -> country_id, 'levels' => $item -> levels]) }}">{{ $item -> gametype }}</a></button>
