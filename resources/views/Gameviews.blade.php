@@ -111,7 +111,7 @@
         }
 
         h2{
-            font-size: 28px;
+            font-size: 32px;
             font-weight: bold;
             color: #333333;
             padding: 1rem;
@@ -133,7 +133,7 @@
         }
 
         .TF, .CH, .MA, .RE, .PASS {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: bold;
             margin: 30px;
             padding: 20px;

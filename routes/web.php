@@ -99,3 +99,9 @@ Route::get('level', function () {
 Route::get('knowledge', function () {
     return view('knowledge');
 });
+Route::get('debug', function () {
+    return view('game.debug');
+});
+Route::get('drama', function () {
+    return view('drama');
+});
