@@ -29,10 +29,6 @@ class Question extends Model
     {
         return $this->hasMany(UserRecord::class);
     }
-    public function knowledge_cards()
-    {
-        return $this->BelongsTo(KnowledgeCard::class ,'knowledge_card_id');
-    }
     public function question_status(): HasMany
     {
         return $this->hasMany(QuestionStatus::class);

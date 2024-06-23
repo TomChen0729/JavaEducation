@@ -10,10 +10,6 @@ class KnowledgeCard extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    public function questions(): HasMany
-    {
-        return $this->hasMany(Question::class);
-    }
     public function user_knowledge_cards(): HasMany
     {
         return $this->hasMany(UserKnowledgeCard::class);
