@@ -1,3 +1,13 @@
+<style>
+    *{
+        background-image: url('/images/background/backgroundnoroad2.svg');
+        background-repeat: no-repeat;
+        background-position: top;
+        background-attachment: scroll;
+        background-size: cover;
+    }
+</style>
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
