@@ -59,7 +59,9 @@ class GameController extends Controller
                     $trueorfalse_count = Question::select('id')->where('gametype', '是非')
                         ->where('country_id', $country_id)
                         ->where('levels', $levels)->get();
+                    // 有玩過
                     if (count($current_count) > 0) {
+                        // 還有錯誤題的時候
                         if (count($current_count) < count($trueorfalse_count)) {
                             // 呼叫亂數出題
                             // 出當前使用者在當前國家當前等級未正確的題目
@@ -69,7 +71,8 @@ class GameController extends Controller
                                 ->whereNotIn('id', $current_count)->inRandomOrder()->first();
 
                             $Q_cards = QuestionCard::where('question_id', $question->id)->pluck('knowledge_card_id')->toArray();
-                        } else {
+                        } 
+                        else { // 沒有錯誤題的時候
                             // 如果玩過忽略排查紀錄，直接隨機出題
                             $question = Question::where('gametype', '是非')
                                 ->where('country_id', $country_id)
@@ -85,7 +88,8 @@ class GameController extends Controller
                                 $cards = KnowledgeCard::whereIn('id', $Q_cards)->get();
                             }
                         }
-                    } else {
+                    } 
+                    else { // 沒玩過
                         // 如果玩過忽略排查紀錄，直接隨機出題
                         $question = Question::where('gametype', '是非')
                             ->where('country_id', $country_id)
@@ -116,7 +120,9 @@ class GameController extends Controller
                     $trueorfalse_count = Question::select('id')->where('gametype', '選擇')
                         ->where('country_id', $country_id)
                         ->where('levels', $levels)->get();
+                    // 有玩過
                     if (count($current_count) > 0) {
+                        // 還有錯題
                         if (count($current_count) < count($trueorfalse_count)) {
                             // 呼叫亂數出題
                             // 出當前使用者在當前國家當前等級未正確的題目
@@ -126,7 +132,9 @@ class GameController extends Controller
                                 ->whereNotIn('id', $current_count)->inRandomOrder()->first();
 
                             $Q_cards = QuestionCard::where('question_id', $question->id)->pluck('knowledge_card_id')->toArray();
-                        } else {
+                        }
+                        // 沒有錯題
+                        else {
                             // 如果玩過忽略排查紀錄，直接隨機出題
                             $question = Question::where('gametype', '選擇')
                                 ->where('country_id', $country_id)
@@ -142,8 +150,9 @@ class GameController extends Controller
                                 $cards = KnowledgeCard::whereIn('id', $Q_cards)->get();
                             }
                         }
-                    } else {
-                        // 如果玩過忽略排查紀錄，直接隨機出題
+                    } 
+                    else { // 沒玩過
+                        // 沒玩過就不管了反正只會跑一次，全部亂數
                         $question = Question::where('gametype', '選擇')
                             ->where('country_id', $country_id)
                             ->where('levels', $levels)

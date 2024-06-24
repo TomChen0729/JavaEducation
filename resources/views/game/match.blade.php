@@ -448,6 +448,7 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             const pairContainer = document.getElementById('pair-container');
+            const pairContainer = document.getElementById('pair-container');
 
             // 後端數據傳到js
             questions = [
