@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -10,8 +11,10 @@
         * {
             box-sizing: border-box;
             font-family: "Poppins", sans-serif;
-            text-decoration: none; /* 底線去除 */
-            list-style: none; /* 去除清單前面的符號 */
+            text-decoration: none;
+            /* 底線去除 */
+            list-style: none;
+            /* 去除清單前面的符號 */
         }
 
         :root {
@@ -34,7 +37,7 @@
             /*自動隱藏超出的文字或圖片*/
         }
 
-        .popup .overlay{
+        .popup .overlay {
             position: fixed;
             top: 0px;
             left: 0px;
@@ -45,7 +48,7 @@
             display: none;
         }
 
-        .popup .content{
+        .popup .content {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -59,24 +62,24 @@
             box-sizing: border-box;
         }
 
-        .popup .pop{
+        .popup .pop {
             margin: 30px;
             padding: 30px 0;
             border-radius: 50px;
             border: 5px solid #333333;
         }
 
-        .popup .pop h1{
+        .popup .pop h1 {
             font-size: 20px;
             font-weight: bolder;
             margin-bottom: 5px;
         }
 
-        .popup .pop p{
+        .popup .pop p {
             font-size: 16px;
         }
 
-        .popup .close-btn{
+        .popup .close-btn {
             cursor: pointer;
             position: absolute;
             right: 20px;
@@ -92,11 +95,11 @@
             border-radius: 50%;
         }
 
-        .popup.active .overlay{
+        .popup.active .overlay {
             display: block;
         }
 
-        .popup.active .content{
+        .popup.active .content {
             transition: all 300ms ease-in-out;
             transform: translate(-50%, -50%) scale(1);
         }
@@ -111,12 +114,14 @@
             align-items: center;
             justify-content: space-between;
             padding: 28px 2%;
-            background: rgba(72, 170, 193, 0.8); /* 透明背景 */
+            background: rgba(72, 170, 193, 0.8);
+            /* 透明背景 */
             transition: all 0.50s ease;
         }
 
         .breadcrumbs {
-            letter-spacing: 5px; /* 字元間距 */
+            letter-spacing: 5px;
+            /* 字元間距 */
             font-size: 24px;
             font-family: sans-serif;
         }
@@ -158,8 +163,10 @@
 
         .navbar {
             display: flex;
-            align-items: center; /* 確保垂直方向對齊 */
-            margin-left: auto; /* 讓 navbar 靠右對齊 */
+            align-items: center;
+            /* 確保垂直方向對齊 */
+            margin-left: auto;
+            /* 讓 navbar 靠右對齊 */
         }
 
         .navbar .time {
@@ -246,14 +253,14 @@
             margin: 10px;
             background-color: #93c47d;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgb(50,50,50);
+            box-shadow: 0 0 10px rgb(50, 50, 50);
             width: 300px;
             overflow: hidden;
             padding: 20px;
             /*內部*/
         }
 
-        .true:hover{
+        .true:hover {
             transform: scale(1.03);
         }
 
@@ -262,14 +269,14 @@
             margin: 10px;
             background-color: #e06666;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgb(50,50,50);
+            box-shadow: 0 0 10px rgb(50, 50, 50);
             width: 300px;
             overflow: hidden;
             padding: 20px;
             /*內部*/
         }
 
-        .false:hover{
+        .false:hover {
             transform: scale(1.03);
         }
 
@@ -278,6 +285,7 @@
                 padding: 14px 2%;
                 transition: 0.2s;
             }
+
             .navbar a {
                 padding: 5px 0;
                 margin: 0px 20px;
@@ -322,23 +330,25 @@
                 right: 2%;
             }
         }
-
     </style>
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
 </head>
-<body>
 
+<body>
+    @foreach ( $questions_cards as $item)
     <div class="popup" id="popup-1">
         <div class="overlay"></div>
         <div class="content">
             <div class="close-btn" onclick="togglePopup()">&times;</div>
             <div class="pop">
-                <h1>Int</h1>
-                <p>整數</p>
+                <h1>{{ $item -> name }}</h1>
+                <p>{{ $item -> content }}</p>
             </div>
         </div>
     </div>
+    @endforeach
+
 
     <header class="header">
         <ul class="breadcrumbs">
@@ -346,19 +356,19 @@
                 <a href="{{ route('welcome') }}" class="breadcrumbs__link">綠野仙蹤</a>
             </li>
             <li class="breadcrumbs__item">
-                <a href="{{ route('welcome') }}" class="breadcrumbs__link">遊玩等級</a>
+                <a href="{{ route('country.index',['country_id' => $question -> country_id]) }}" class="breadcrumbs__link">遊玩等級</a>
             </li>
             <li class="breadcrumbs__item">
-                <a href="{{ route('welcome') }}" class="breadcrumbs__link">遊戲種類</a>
+                <a href="{{ route('game.index', ['country_id' => $question -> country_id, 'levels' => $question -> levels])}}" class="breadcrumbs__link">遊戲種類</a>
             </li>
             <li class="breadcrumbs__item">
-                <a href="{{ route('welcome') }}" class="breadcrumbs__link__active">是非題</a>
+                <a href="#" class="breadcrumbs__link__active">選擇題</a>
             </li>
         </ul>
 
         <ul class="navbar">
             <li><a href="#" onclick="togglePopup()"> 知識卡</a></li>
-            <li><a href="{{ route('showallcardtypes') }}"> 回上一頁</a></li>
+            <li onclick="history.go(-1)"><a href="#"> 回上一頁</a></li>
             <li class="time" id="timer">00:00:00</li>
         </ul>
 
@@ -370,7 +380,7 @@
     <div class="tof">
         <!-- 顯示題目容器 -->
         <h1 id="cid" style="display: none;">{{ auth()->user()->id }}</h1>
-        <div class="question">        
+        <div class="question">
             <p id="q-id" style="display: none;">{{ $question -> id }}</p>
             <h2 id="questions">{{ $question->questions}}</h2>
         </div>
@@ -402,13 +412,13 @@
                 seconds++;
                 if (seconds === 60) {
                     seconds = 0;
-                    minutes ++;
-                    if(minutes === 60){
+                    minutes++;
+                    if (minutes === 60) {
                         minutes = 0;
-                        hours ++;
+                        hours++;
                     }
                 }
-                const formattedHours = String(hours).padStart(2,'0');
+                const formattedHours = String(hours).padStart(2, '0');
                 const formattedMinutes = String(minutes).padStart(2, '0');
                 const formattedSeconds = String(seconds).padStart(2, '0');
                 timerElement.textContent = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
@@ -436,59 +446,55 @@
         // 對答案 api
         document.querySelectorAll('button.true, button.false').forEach(button => {
             button.addEventListener('click', function() {
-            var answerValue = this.value;
-            var game_type = '是非';
-            var question_id = document.getElementById('q-id').textContent;
-            var cid = document.getElementById('cid').textContent;
-            console.log(cid);
-            // console.log(question_id);
-            // console.log(answerValue);  // 測試用
-            var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            // console.log(csrfToken); // 測試用
-            var timer = stopTimer();
-            console.log(timer);
-            fetch('/api/correct_User_ANS?user_answer=' + encodeURIComponent(answerValue) + '&question_id=' + question_id + '&cid=' + cid + '&timer=' + timer, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrfToken
-                },
-                // body: JSON.stringify({
-                //     user_answer: answerValue,
-                //     question:  question,
-                //     game_type: '是非'
-                // })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                if (data.message == 'correct'){
-                    alert('答對');
-                    setTimeout(function() {
-                        // window.location.reload();
-                    }, 1000);
-                }
-                else if(data.message == 'wrongAnswer'){
-                    alert('答錯');
-                    setTimeout(function() {
-                        window.location.reload();
-                    }, 1000);
-                }
-                else{
-                    alert('伺服器錯誤');
-                    setTimeout(function() {
-                        window.location.reload();
-                    }, 1000);
-                }
-            })
-            // .catch(error => {
-            //     console.error('Error:', error);
-            //         });
-                });
+                var answerValue = this.value;
+                var game_type = '是非';
+                var question_id = document.getElementById('q-id').textContent;
+                var cid = document.getElementById('cid').textContent;
+                console.log(cid);
+                // console.log(question_id);
+                // console.log(answerValue);  // 測試用
+                var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                // console.log(csrfToken); // 測試用
+                var timer = stopTimer();
+                console.log(timer);
+                fetch('/api/correct_User_ANS?user_answer=' + encodeURIComponent(answerValue) + '&question_id=' + question_id + '&cid=' + cid + '&timer=' + timer, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken
+                        },
+                        // body: JSON.stringify({
+                        //     user_answer: answerValue,
+                        //     question:  question,
+                        //     game_type: '是非'
+                        // })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        if (data.message == 'correct') {
+                            alert('答對');
+                            setTimeout(function() {
+                                // window.location.reload();
+                            }, 1000);
+                        } else if (data.message == 'wrongAnswer') {
+                            alert('答錯');
+                            setTimeout(function() {
+                                window.location.reload();
+                            }, 1000);
+                        } else {
+                            alert('伺服器錯誤');
+                            setTimeout(function() {
+                                window.location.reload();
+                            }, 1000);
+                        }
+                    })
+                // .catch(error => {
+                //     console.error('Error:', error);
+                //         });
             });
-
-
-        
+        });
     </script>
 </body>
+
 </html>

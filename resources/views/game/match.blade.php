@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -10,8 +11,10 @@
         * {
             box-sizing: border-box;
             font-family: "Poppins", sans-serif;
-            text-decoration: none; /* 底線去除 */
-            list-style: none; /* 去除清單前面的符號 */
+            text-decoration: none;
+            /* 底線去除 */
+            list-style: none;
+            /* 去除清單前面的符號 */
         }
 
         :root {
@@ -31,7 +34,7 @@
             overflow: hidden;
         }
 
-        .popup .overlay{
+        .popup .overlay {
             position: fixed;
             top: 0px;
             left: 0px;
@@ -42,7 +45,7 @@
             display: none;
         }
 
-        .popup .content{
+        .popup .content {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -56,7 +59,7 @@
             box-sizing: border-box;
         }
 
-        .popup .close-btn{
+        .popup .close-btn {
             cursor: pointer;
             position: absolute;
             right: 20px;
@@ -72,11 +75,11 @@
             border-radius: 50%;
         }
 
-        .popup.active .overlay{
+        .popup.active .overlay {
             display: block;
         }
 
-        .popup.active .content{
+        .popup.active .content {
             transition: all 300ms ease-in-out;
             transform: translate(-50%, -50%) scale(1);
         }
@@ -91,12 +94,14 @@
             align-items: center;
             justify-content: space-between;
             padding: 28px 2%;
-            background: rgba(72, 170, 193, 0.8); /* 透明背景 */
+            background: rgba(72, 170, 193, 0.8);
+            /* 透明背景 */
             transition: all 0.50s ease;
         }
 
         .breadcrumbs {
-            letter-spacing: 5px; /* 字元間距 */
+            letter-spacing: 5px;
+            /* 字元間距 */
             font-size: 24px;
             font-family: sans-serif;
         }
@@ -138,8 +143,10 @@
 
         .navbar {
             display: flex;
-            align-items: center; /* 確保垂直方向對齊 */
-            margin-left: auto; /* 讓 navbar 靠右對齊 */
+            align-items: center;
+            /* 確保垂直方向對齊 */
+            margin-left: auto;
+            /* 讓 navbar 靠右對齊 */
         }
 
         .navbar .time {
@@ -201,7 +208,7 @@
             z-index: 10001;
             display: none;
         }
-        
+
         .container {
             margin-top: 80px;
             display: flex;
@@ -234,10 +241,12 @@
             align-items: center;
             cursor: pointer;
             transition: #A34343 0.3s ease;
-            text-align: center; /* 確保文字置中 */
+            text-align: center;
+            /* 確保文字置中 */
             padding: 0 10px;
             margin-right: 50px;
-            box-sizing: border-box; /* 確保padding不會影響寬度 */
+            box-sizing: border-box;
+            /* 確保padding不會影響寬度 */
             background-color: #A34343;
         }
 
@@ -256,10 +265,12 @@
             align-items: center;
             cursor: pointer;
             transition: #E9C874 0.3s ease;
-            text-align: center; /* 確保文字置中 */
-            padding: 0 10px; 
+            text-align: center;
+            /* 確保文字置中 */
+            padding: 0 10px;
             margin-left: 50px;
-            box-sizing: border-box; /* 確保padding不會影響寬度 */
+            box-sizing: border-box;
+            /* 確保padding不會影響寬度 */
             background-color: #E9C874;
         }
 
@@ -275,16 +286,20 @@
         .matched {
             /* 配對成功後的樣式 */
             background-color: #00ff00;
-            pointer-events: none; /* 禁用已配對元素的點擊事件 */
+            pointer-events: none;
+            /* 禁用已配對元素的點擊事件 */
         }
 
         @media (max-width: 768px) {
             .pair-container {
-                align-items: center; /* 垂直排列时居中对齐 */
+                align-items: center;
+                /* 垂直排列时居中对齐 */
             }
 
-            .question, .answer {
-                margin: 10px; /* 垂直排列时保持间距 */
+            .question,
+            .answer {
+                margin: 10px;
+                /* 垂直排列时保持间距 */
             }
         }
 
@@ -293,6 +308,7 @@
                 padding: 14px 2%;
                 transition: 0.2s;
             }
+
             .navbar a {
                 padding: 5px 0;
                 margin: 0px 20px;
@@ -336,12 +352,12 @@
                 right: 2%;
             }
         }
-
     </style>
     @yield('style')
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
     <div class="popup" id="popup-1">
@@ -354,7 +370,7 @@
     </div>
 
     <header class="header">
-    <ul class="breadcrumbs">
+        <ul class="breadcrumbs">
             <li class="breadcrumbs__item">
                 <a href="{{ route('welcome') }}" class="breadcrumbs__link">綠野仙蹤</a>
             </li>
@@ -371,7 +387,7 @@
 
         <ul class="navbar">
             <li><a href="#" onclick="togglePopup()"> 知識卡</a></li>
-            <li><a href="{{ route('showallcardtypes') }}"> 回上一頁</a></li>
+            <li onclick="history.go(-1)"><a href="#"> 回上一頁</a></li>
             <li class="time" id="timer">00:00</li>
         </ul>
 
@@ -385,11 +401,11 @@
         <div id="pair-container"></div>
         <!--題目隨機出題-->
         @foreach ($questions as $question)
-            {{ $question->questions }}
+        {{ $question->questions }}
         @endforeach
         <!--選項隨機排序-->
         @foreach ($options as $option)
-            {{ $option->options }}
+        {{ $option->options }}
         @endforeach
     </div>
 
@@ -436,13 +452,30 @@
 
         // 遊戲
         // 定義問題和答案
-        let questions = [
-            { question: "資料型態用於表示整數", answer: "int" },
-            { question: "資料型態用於表示浮點數", answer: "float" },
-            { question: "資料型態用於表示布林值", answer: "boolean" },
-            { question: "資料型態用於表示雙精浮點數", answer: "double" },
-            { question: "資料型態用於表示字串", answer: "String" },
-            { question: "資料型態用於表示字元", answer: "char" }
+        let questions = [{
+                question: "資料型態用於表示整數",
+                answer: "int"
+            },
+            {
+                question: "資料型態用於表示浮點數",
+                answer: "float"
+            },
+            {
+                question: "資料型態用於表示布林值",
+                answer: "boolean"
+            },
+            {
+                question: "資料型態用於表示雙精浮點數",
+                answer: "double"
+            },
+            {
+                question: "資料型態用於表示字串",
+                answer: "String"
+            },
+            {
+                question: "資料型態用於表示字元",
+                answer: "char"
+            }
         ];
 
         // 儲存當前選中的題目和答案
@@ -539,4 +572,5 @@
         }
     </script>
 </body>
+
 </html>

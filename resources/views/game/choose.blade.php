@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -10,8 +11,10 @@
         * {
             box-sizing: border-box;
             font-family: "Poppins", sans-serif;
-            text-decoration: none; /* 底線去除 */
-            list-style: none; /* 去除清單前面的符號 */
+            text-decoration: none;
+            /* 底線去除 */
+            list-style: none;
+            /* 去除清單前面的符號 */
         }
 
         :root {
@@ -31,7 +34,7 @@
             overflow: hidden;
         }
 
-        .popup .overlay{
+        .popup .overlay {
             position: fixed;
             top: 0px;
             left: 0px;
@@ -42,7 +45,7 @@
             display: none;
         }
 
-        .popup .content{
+        .popup .content {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -56,7 +59,7 @@
             box-sizing: border-box;
         }
 
-        .popup .close-btn{
+        .popup .close-btn {
             cursor: pointer;
             position: absolute;
             right: 20px;
@@ -72,11 +75,11 @@
             border-radius: 50%;
         }
 
-        .popup.active .overlay{
+        .popup.active .overlay {
             display: block;
         }
 
-        .popup.active .content{
+        .popup.active .content {
             transition: all 300ms ease-in-out;
             transform: translate(-50%, -50%) scale(1);
         }
@@ -91,12 +94,14 @@
             align-items: center;
             justify-content: space-between;
             padding: 28px 2%;
-            background: rgba(72, 170, 193, 0.8); /* 透明背景 */
+            background: rgba(72, 170, 193, 0.8);
+            /* 透明背景 */
             transition: all 0.50s ease;
         }
 
         .breadcrumbs {
-            letter-spacing: 5px; /* 字元間距 */
+            letter-spacing: 5px;
+            /* 字元間距 */
             font-size: 24px;
             font-family: sans-serif;
         }
@@ -138,8 +143,10 @@
 
         .navbar {
             display: flex;
-            align-items: center; /* 確保垂直方向對齊 */
-            margin-left: auto; /* 讓 navbar 靠右對齊 */
+            align-items: center;
+            /* 確保垂直方向對齊 */
+            margin-left: auto;
+            /* 讓 navbar 靠右對齊 */
         }
 
         .navbar .time {
@@ -201,8 +208,8 @@
             z-index: 10001;
             display: none;
         }
-        
-        .question{
+
+        .question {
             margin: 1em;
             margin-top: 80px;
             background-color: #bcdf49;
@@ -212,11 +219,12 @@
             overflow: hidden;
         }
 
-        .quiz-header{
-            padding: 4rem;  /*內部*/
+        .quiz-header {
+            padding: 4rem;
+            /*內部*/
         }
 
-        #questions{
+        #questions {
             font-size: 24px;
             font-weight: bold;
             padding: 1rem;
@@ -224,21 +232,23 @@
             margin: 0;
         }
 
-        .quiz-header ul{
-            list-style-type: none; /*無標號*/
+        .quiz-header ul {
+            list-style-type: none;
+            /*無標號*/
             padding: 0;
         }
 
-        .quiz-header ul li{
+        .quiz-header ul li {
             font-size: 20px;
             margin: 18px 0;
         }
 
-        .quiz-header ul li label{
-            cursor: pointer; /*改變滑鼠游標*/
+        .quiz-header ul li label {
+            cursor: pointer;
+            /*改變滑鼠游標*/
         }
 
-        #sub{
+        #sub {
             color: #333;
             font-weight: bold;
             display: block;
@@ -252,8 +262,9 @@
             background-color: rgb(136, 136, 136);
         }
 
-        #sub:focus{
-            outline: solid; /*輪廓線，不占空間*/
+        #sub:focus {
+            outline: solid;
+            /*輪廓線，不占空間*/
             background-color: rgb(99, 99, 99);
         }
 
@@ -262,6 +273,7 @@
                 padding: 14px 2%;
                 transition: 0.2s;
             }
+
             .navbar a {
                 padding: 5px 0;
                 margin: 0px 20px;
@@ -305,33 +317,36 @@
                 right: 2%;
             }
         }
-
     </style>
     @yield('style')
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
 </head>
-<body>
 
+<body>
+    @foreach ( $questions_cards as $item)
     <div class="popup" id="popup-1">
         <div class="overlay"></div>
         <div class="content">
             <div class="close-btn" onclick="togglePopup()">&times;</div>
-            <h1>Title</h1>
-            <p>123456789</p>
+            <div class="pop">
+                <h1>{{ $item -> name }}</h1>
+                <p>{{ $item -> content }}</p>
+            </div>
         </div>
     </div>
+    @endforeach
 
     <header class="header">
-    <ul class="breadcrumbs">
+        <ul class="breadcrumbs">
             <li class="breadcrumbs__item">
                 <a href="{{ route('welcome') }}" class="breadcrumbs__link">綠野仙蹤</a>
             </li>
             <li class="breadcrumbs__item">
-                <a href="{{ route('welcome') }}" class="breadcrumbs__link">遊玩等級</a>
+                <a href="{{ route('country.index',['country_id' => $question -> country_id]) }}" class="breadcrumbs__link">遊玩等級</a>
             </li>
             <li class="breadcrumbs__item">
-                <a href="{{ route('welcome')}}"  class="breadcrumbs__link">遊戲種類</a>
+                <a href="{{ route('game.index', ['country_id' => $question -> country_id, 'levels' => $question -> levels])}}" class="breadcrumbs__link">遊戲種類</a>
             </li>
             <li class="breadcrumbs__item">
                 <a href="#" class="breadcrumbs__link__active">選擇題</a>
@@ -356,10 +371,10 @@
             <h2 id="questions">{{ $question -> questions }}</h2>
             <ul>
                 @foreach ($options as $option)
-                    <li>
-                        <input type="radio" name="answer" id="ans" class="answer" value="{{ $option -> options}}">
-                        <label for="ans" id="ans-text">{{ $option -> options}}</label>
-                    </li>
+                <li>
+                    <input type="radio" name="answer" id="ans" class="answer" value="{{ $option -> options}}">
+                    <label for="ans" id="ans-text">{{ $option -> options}}</label>
+                </li>
                 @endforeach
             </ul>
         </div>
@@ -390,13 +405,13 @@
                 seconds++;
                 if (seconds === 60) {
                     seconds = 0;
-                    minutes ++;
-                    if(minutes === 60){
+                    minutes++;
+                    if (minutes === 60) {
                         minutes = 0;
-                        hours ++;
+                        hours++;
                     }
                 }
-                const formattedHours = String(hours).padStart(2,'0');
+                const formattedHours = String(hours).padStart(2, '0');
                 const formattedMinutes = String(minutes).padStart(2, '0');
                 const formattedSeconds = String(seconds).padStart(2, '0');
                 timerElement.textContent = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
@@ -421,68 +436,61 @@
         // 接後端
         // 對答案 api
         document.getElementById('sub').addEventListener('click', function() {
-        const answers = document.querySelectorAll('.answer');
-        var question_id = question_id = document.getElementById('q-id').textContent;
-        console.log(question_id);
-        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        var cid = document.getElementById('cid').textContent;
-        var timer = stopTimer();
-        // console.log(answers);
-        let selectedOption; // 用一個變數存我選取的選項(USER_ANS)
-        // 用迴圈跑那些選項
-        for (const answer of answers) {
-            // 如果選項被選擇了，存進去，並且離開
-            if (answer.checked) {
-                selectedOption = answer.value;
-                break;
+            const answers = document.querySelectorAll('.answer');
+            var question_id = question_id = document.getElementById('q-id').textContent;
+            console.log(question_id);
+            var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            var cid = document.getElementById('cid').textContent;
+            var timer = stopTimer();
+            // console.log(answers);
+            let selectedOption; // 用一個變數存我選取的選項(USER_ANS)
+            // 用迴圈跑那些選項
+            for (const answer of answers) {
+                // 如果選項被選擇了，存進去，並且離開
+                if (answer.checked) {
+                    selectedOption = answer.value;
+                    break;
+                }
             }
-        }
 
-        if (selectedOption) {
-            alert('您選擇的答案是: ' + selectedOption);
-            fetch('/api/correct_User_ANS?user_answer=' + encodeURIComponent(selectedOption) + '&question_id=' + question_id + '&cid=' + cid + '&timer=' + timer, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrfToken
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                if (data.message == 'correct'){
-                    alert('答對');
-                    setTimeout(function() {
-                        // window.location.reload();
-                    }, 1000);
-                }
-                else if(data.message == 'wrongAnswer'){
-                    alert('答錯');
-                    setTimeout(function() {
-                        window.location.reload();
-                    }, 1000);
-                }
-                else{
-                    alert('伺服器錯誤');
-                    setTimeout(function() {
-                        window.location.reload();
-                    }, 1000);
-                }
-            });
+            if (selectedOption) {
+                alert('您選擇的答案是: ' + selectedOption);
+                fetch('/api/correct_User_ANS?user_answer=' + encodeURIComponent(selectedOption) + '&question_id=' + question_id + '&cid=' + cid + '&timer=' + timer, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken
+                        },
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        if (data.message == 'correct') {
+                            alert('答對');
+                            setTimeout(function() {
+                                // window.location.reload();
+                            }, 1000);
+                        } else if (data.message == 'wrongAnswer') {
+                            alert('答錯');
+                            setTimeout(function() {
+                                window.location.reload();
+                            }, 1000);
+                        } else {
+                            alert('伺服器錯誤');
+                            setTimeout(function() {
+                                window.location.reload();
+                            }, 1000);
+                        }
+                    });
 
 
 
 
-        } 
-        else {
-            alert('請選擇一個答案');
-        }
-    });
-
-
-
-
-
+            } else {
+                alert('請選擇一個答案');
+            }
+        });
     </script>
 </body>
+
 </html>
