@@ -2,9 +2,10 @@
     *{
         background-image: url('/images/background/backgroundnoroad2.svg');
         background-repeat: no-repeat;
-        background-position: top;
-        background-attachment: scroll;
+        background-position: center;
+        background-attachment: fixed;
         background-size: cover;
+        color: #333333;
     }
 </style>
 
