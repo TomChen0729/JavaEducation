@@ -59,15 +59,32 @@ class GameController extends Controller
                     $trueorfalse_count = Question::select('id')->where('gametype', '是非')
                         ->where('country_id', $country_id)
                         ->where('levels', $levels)->get();
-                    if (count($current_count) < count($trueorfalse_count)) {
-                        // 呼叫亂數出題
-                        // 出當前使用者在當前國家當前等級未正確的題目
-                        $question = Question::where('gametype', '是非')
-                            ->where('country_id', $country_id)
-                            ->where('levels', $levels)
-                            ->whereNotIn('id', $current_count)->inRandomOrder()->first();
+                    if (count($current_count) > 0) {
+                        if (count($current_count) < count($trueorfalse_count)) {
+                            // 呼叫亂數出題
+                            // 出當前使用者在當前國家當前等級未正確的題目
+                            $question = Question::where('gametype', '是非')
+                                ->where('country_id', $country_id)
+                                ->where('levels', $levels)
+                                ->whereNotIn('id', $current_count)->inRandomOrder()->first();
 
-                        $Q_cards = KnowledgeCard::where('question_id', $question->id)->get();
+                            $Q_cards = QuestionCard::where('question_id', $question->id)->pluck('knowledge_card_id')->toArray();
+                        } else {
+                            // 如果玩過忽略排查紀錄，直接隨機出題
+                            $question = Question::where('gametype', '是非')
+                                ->where('country_id', $country_id)
+                                ->where('levels', $levels)
+                                ->inRandomOrder()->first();
+
+                            // 抓出這題會用到的知識卡id，存到一個陣列裡面
+                            $Q_cards = QuestionCard::where('question_id', $question->id)->pluck('knowledge_card_id')->toArray();
+
+                            // 判斷$Q_cards是不是空的
+                            if (count($Q_cards) > 0) {
+                                // 照那個array裡面的所有卡片內容
+                                $cards = KnowledgeCard::whereIn('id', $Q_cards)->get();
+                            }
+                        }
                     } else {
                         // 如果玩過忽略排查紀錄，直接隨機出題
                         $question = Question::where('gametype', '是非')
@@ -99,15 +116,32 @@ class GameController extends Controller
                     $trueorfalse_count = Question::select('id')->where('gametype', '選擇')
                         ->where('country_id', $country_id)
                         ->where('levels', $levels)->get();
-                    if (count($current_count) < count($trueorfalse_count)) {
-                        // 呼叫亂數出題
-                        // 出當前使用者在當前國家當前等級未正確的題目
-                        $question = Question::where('gametype', '選擇')
-                            ->where('country_id', $country_id)
-                            ->where('levels', $levels)
-                            ->whereNotIn('id', $current_count)->inRandomOrder()->first();
+                    if (count($current_count) > 0) {
+                        if (count($current_count) < count($trueorfalse_count)) {
+                            // 呼叫亂數出題
+                            // 出當前使用者在當前國家當前等級未正確的題目
+                            $question = Question::where('gametype', '選擇')
+                                ->where('country_id', $country_id)
+                                ->where('levels', $levels)
+                                ->whereNotIn('id', $current_count)->inRandomOrder()->first();
 
-                        $Q_cards = KnowledgeCard::where('question_id', $question->id)->get();
+                            $Q_cards = QuestionCard::where('question_id', $question->id)->pluck('knowledge_card_id')->toArray();
+                        } else {
+                            // 如果玩過忽略排查紀錄，直接隨機出題
+                            $question = Question::where('gametype', '選擇')
+                                ->where('country_id', $country_id)
+                                ->where('levels', $levels)
+                                ->inRandomOrder()->first();
+
+                            // 抓出這題會用到的知識卡id，存到一個陣列裡面
+                            $Q_cards = QuestionCard::where('question_id', $question->id)->pluck('knowledge_card_id')->toArray();
+
+                            // 判斷$Q_cards是不是空的
+                            if (count($Q_cards) > 0) {
+                                // 照那個array裡面的所有卡片內容
+                                $cards = KnowledgeCard::whereIn('id', $Q_cards)->get();
+                            }
+                        }
                     } else {
                         // 如果玩過忽略排查紀錄，直接隨機出題
                         $question = Question::where('gametype', '選擇')

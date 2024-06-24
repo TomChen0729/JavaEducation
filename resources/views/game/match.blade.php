@@ -223,7 +223,7 @@
             display: flex;
             justify-content: space-between;
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
             margin-bottom: 20px;
         }
 
@@ -234,7 +234,7 @@
             letter-spacing: 1px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgb(100, 100, 100);
-            width: 300px;
+            width: 1300px;
             height: 60px;
             display: flex;
             justify-content: center;
@@ -258,7 +258,7 @@
             font-size: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgb(100, 100, 100);
-            width: 150px;
+            width: 200px;
             height: 60px;
             display: flex;
             justify-content: center;
