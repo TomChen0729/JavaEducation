@@ -67,7 +67,7 @@ class GameController extends Controller
                             ->where('levels', $levels)
                             ->whereNotIn('id', $current_count)->inRandomOrder()->first();
 
-                        $Q_cards = KnowledgeCard::where('quesion_id', $question->id)->get();
+                        $Q_cards = KnowledgeCard::where('question_id', $question->id)->get();
                     } else {
                         // 如果玩過忽略排查紀錄，直接隨機出題
                         $question = Question::where('gametype', '是非')
@@ -107,7 +107,7 @@ class GameController extends Controller
                             ->where('levels', $levels)
                             ->whereNotIn('id', $current_count)->inRandomOrder()->first();
 
-                        $Q_cards = KnowledgeCard::where('quesion_id', $question->id)->get();
+                        $Q_cards = KnowledgeCard::where('question_id', $question->id)->get();
                     } else {
                         // 如果玩過忽略排查紀錄，直接隨機出題
                         $question = Question::where('gametype', '選擇')
