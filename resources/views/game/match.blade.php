@@ -449,25 +449,29 @@
         let selectedAnswer = null;
 
         document.addEventListener('DOMContentLoaded', () => {
-            const pairContainer = document.getElementById('pair-container');
+        const pairContainer = document.getElementById('pair-container');
 
-            // 從Blade模板傳遞過來的數據
-            const questions = [
-                @foreach ($questions as $question)
-                    {
-                        question: `{!! $question->questions !!}`,
-                        answer: `{!! $question->answer !!}`
-                    } @if (!$loop->last) , @endif
-                @endforeach
-            ];
+        // 從Blade模板傳遞過來的數據
+        const questions = [
+            @foreach ($questions as $question)
+                {
+                    question: `{!! $question->questions !!}`,
+                    answer: `{!! $question->answer !!}`
+                } @if (!$loop->last) , @endif
+            @endforeach
+        ];
+
+            // 將問題和答案分別存入兩個數組
+            const shuffledQuestions = shuffleArray(questions.map(item => item.question));
+            const shuffledAnswers = shuffleArray(questions.map(item => item.answer));
 
             // 動態生成問題和答案的HTML結構
-            questions.forEach((item, index) => {
+            shuffledQuestions.forEach((question, index) => {
                 const pairDiv = document.createElement('div');
                 pairDiv.className = 'pair-container';
 
-                const questionDiv = createDiv(item.question, 'question', index);
-                const answerDiv = createDiv(item.answer, 'answer', index);
+                const questionDiv = createDiv(question, 'question', index);
+                const answerDiv = createDiv(shuffledAnswers[index], 'answer', index); // 使用對應的打亂後答案
 
                 pairDiv.appendChild(questionDiv);
                 pairDiv.appendChild(answerDiv);
@@ -494,68 +498,36 @@
             return div;
         }
 
+        // 隨機打亂數組的順序
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
         // 處理題目點擊事件的函數
         function selectQuestion(el) {
             console.log(`Question selected: ${el.innerHTML}`);
-            
+            if (selectedQuestion) {
+                selectedQuestion.classList.remove('selected'); // 取消之前選中的題目高亮顯示
+            }
+            selectedQuestion = el; // 設置當前選中的題目
+            el.classList.add('selected'); // 高亮顯示當前選中的題目
         }
 
         // 處理答案點擊事件的函數
         function selectAnswer(el) {
             console.log(`Answer selected: ${el.innerHTML}`);
-            
+            if (selectedAnswer) {
+                selectedAnswer.classList.remove('selected'); // 取消之前選中的答案高亮顯示
+            }
+            selectedAnswer = el; // 設置當前選中的答案
+            el.classList.add('selected'); // 高亮顯示當前選中的答案
         }
 
 
-        
-        // // 打亂數組元素的順序
-        // function shuffleArray(array) {
-        //     for (let i = array.length - 1; i > 0; i--) {
-        //         const j = Math.floor(Math.random() * (i + 1));
-        //         [array[i], array[j]] = [array[j], array[i]];
-        //     }
-        // }
-
-        // // 選擇題目時的處理函數
-        // function selectQuestion(el) {
-        //     if (selectedQuestion) {
-        //         selectedQuestion.classList.remove('selected'); // 取消之前選中的題目高亮顯示
-        //     }
-        //     selectedQuestion = el; // 設置當前選中的題目
-        //     el.classList.add('selected'); // 高亮顯示當前選中的題目
-        //     checkMatch(); // 檢查是否配對成功
-        // }
-
-        // // 選擇答案時的處理函數
-        // function selectAnswer(el) {
-        //     if (selectedAnswer) {
-        //         selectedAnswer.classList.remove('selected'); // 取消之前選中的答案高亮顯示
-        //     }
-        //     selectedAnswer = el; // 設置當前選中的答案
-        //     el.classList.add('selected'); // 高亮顯示當前選中的答案
-        //     checkMatch(); // 檢查是否配對成功
-        // }
-
-        // // 檢查題目和答案是否配對成功
-        // function checkMatch() {
-        //     if (selectedQuestion && selectedAnswer) {
-        //         if (selectedQuestion.dataset.index === selectedAnswer.dataset.index) {
-        //             alert('配對成功!');
-        //             selectedQuestion.classList.add('matched');
-        //             selectedAnswer.classList.add('matched');
-        //             selectedQuestion.classList.remove('selected');
-        //             selectedAnswer.classList.remove('selected');
-        //             selectedQuestion = null;
-        //             selectedAnswer = null;
-        //         } else {
-        //             alert('配對失敗');
-        //             selectedQuestion.classList.remove('selected');
-        //             selectedAnswer.classList.remove('selected');
-        //             selectedQuestion = null;
-        //             selectedAnswer = null;
-        //         }
-        //     }
-        // }
     </script>
 </body>
 
