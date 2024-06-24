@@ -105,7 +105,7 @@ class GameController extends Controller
                     return view('game.TrueORFalse', ['question' => $question, 'questions_cards' => $cards]);
 
                 case '選擇':
-                    // 如果GameType_id == 1
+                    // 如果GameType_id == 2
                     // 呼叫檢查使用者遊玩進度
                     $current_uid = auth()->user()->id;
                     // 玩家在當前國家當前等級玩過且正確的題目id
@@ -143,7 +143,7 @@ class GameController extends Controller
                             }
                         }
                     } else {
-                        // 第一次玩等於全部亂數出
+                        // 如果玩過忽略排查紀錄，直接隨機出題
                         $question = Question::where('gametype', '選擇')
                             ->where('country_id', $country_id)
                             ->where('levels', $levels)
@@ -158,8 +158,8 @@ class GameController extends Controller
                             $cards = KnowledgeCard::whereIn('id', $Q_cards)->get();
                         }
                     }
-                    // 還要帶該遊戲第二層知識卡，方便跳窗後點擊查詢卡片內容
-                    return view('game.TrueORFalse', ['question' => $question, 'questions_cards' => $cards]);
+                    $options = Option::where('question_id', $question->id)->inRandomOrder()->get();
+                    return view('game.choose', ['question' => $question, 'options' => $options, 'questions_cards' => $cards]);
                 case '配對':
                     //
                     //隨機抓取六道題目
