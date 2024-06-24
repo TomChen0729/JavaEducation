@@ -53,6 +53,16 @@
             flex: 1;
         }
 
+        .chat-container p{
+            color: #fff;
+            position: fixed;
+            padding: 10px;
+            bottom: 0;
+            left: 45%;
+            letter-spacing: 10px;
+            font-weight: bolder;
+        }
+
         .chat-box {
             display: flex;
             align-items: center;
@@ -65,10 +75,12 @@
             line-height: 1.6;
         }
 
-        #chat-log i {
+        #chat-log .icon {
+            width: 40px;
+            height: 40px;
             margin-right: 10px;
-            color: #fff;
-            border-radius: 5px;
+            background-size: cover;
+            border-radius: 50%;
         }
 
         .bot, .user {
@@ -81,18 +93,8 @@
             border-radius: 6px;
         }
 
-        #chat-log #user-icon i {
-            background-color: #19c37d;
-            padding: 10px 11px;
-        }
 
-        #chat-log #bot-icon i {
-            background-color: #9859b7;
-            padding: 10px 8px 11px;
-        }
     </style>
-    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -103,6 +105,7 @@
 
         <div class="chat-container">
             <div id="chat-log"></div>
+            <div><p>請點擊空白處</p></div>
         </div>
     </div>
 
@@ -123,7 +126,7 @@
         clickArea.addEventListener('click', displayNextMessage);
 
         function displayNextMessage() {
-            if (currentDialogueIndex < dialogues.length) { // 修正這裡的lenth為length
+            if (currentDialogueIndex < dialogues.length) {
                 const { sender, message } = dialogues[currentDialogueIndex];
                 appendMessage(sender, message);
                 currentDialogueIndex++;
@@ -136,7 +139,6 @@
             const messageElement = document.createElement('div');
             const iconElement = document.createElement('div');
             const chatElement = document.createElement('div');
-            const icon = document.createElement('i');
 
             chatElement.classList.add('chat-box');
             iconElement.classList.add('icon');
@@ -145,14 +147,11 @@
 
             // 根據誰傳送訊息，機器人或user增加icon
             if (sender === 'user') {
-                icon.classList.add('fa-regular', 'fa-user');
-                iconElement.setAttribute('id', 'user-icon');
+                iconElement.style.backgroundImage = 'url("/images/drama/tls.svg")';
             } else {
-                icon.classList.add('fa-solid', 'fa-robot');
-                iconElement.setAttribute('id', 'bot-icon');
+                iconElement.style.backgroundImage = 'url("/images/drama/scarecrow.svg")';
             }
 
-            iconElement.appendChild(icon);
             chatElement.appendChild(iconElement);
             chatElement.appendChild(messageElement);
             chatLog.appendChild(chatElement);
