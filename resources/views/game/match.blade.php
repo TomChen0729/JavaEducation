@@ -364,8 +364,7 @@
         <div class="overlay"></div>
         <div class="content">
             <div class="close-btn" onclick="togglePopup()">&times;</div>
-            <h1>Title</h1>
-            <p>123456789</p>
+            <span id="popup-message"></span>
         </div>
     </div>
 
@@ -426,7 +425,6 @@
                     seconds = 0;
                     minutes++;
                 }
-
                 const formattedMinutes = String(minutes).padStart(2, '0');
                 const formattedSeconds = String(seconds).padStart(2, '0');
                 timerElement.textContent = `${formattedMinutes}:${formattedSeconds}`;
@@ -443,35 +441,35 @@
         }
 
         // 遊戲
-
         // 儲存當前選中的題目和答案
         let selectedQuestion = null;
         let selectedAnswer = null;
+        let questions = [];
 
         document.addEventListener('DOMContentLoaded', () => {
-        const pairContainer = document.getElementById('pair-container');
+            const pairContainer = document.getElementById('pair-container');
 
-        // 從Blade模板傳遞過來的數據
-        const questions = [
-            @foreach ($questions as $question)
-                {
-                    question: `{!! $question->questions !!}`,
-                    answer: `{!! $question->answer !!}`
-                } @if (!$loop->last) , @endif
-            @endforeach
-        ];
+            // 後端數據傳到js
+            questions = [
+                @foreach ($questions as $question)
+                    {
+                        question: `{!! addslashes($question->questions) !!}`,
+                        answer: `{!! addslashes($question->answer) !!}`
+                    } @if (!$loop->last) , @endif
+                @endforeach
+            ];
 
-            // 將問題和答案分別存入兩個數組
+            // 存問題與答案
             const shuffledQuestions = shuffleArray(questions.map(item => item.question));
             const shuffledAnswers = shuffleArray(questions.map(item => item.answer));
 
-            // 動態生成問題和答案的HTML結構
+            // 生成問題與答案
             shuffledQuestions.forEach((question, index) => {
                 const pairDiv = document.createElement('div');
                 pairDiv.className = 'pair-container';
 
                 const questionDiv = createDiv(question, 'question', index);
-                const answerDiv = createDiv(shuffledAnswers[index], 'answer', index); // 使用對應的打亂後答案
+                const answerDiv = createDiv(shuffledAnswers[index], 'answer', index); 
 
                 pairDiv.appendChild(questionDiv);
                 pairDiv.appendChild(answerDiv);
@@ -479,7 +477,7 @@
                 pairContainer.appendChild(pairDiv);
             });
 
-            // 為每個題目和答案添加點擊事件監聽器
+            // 問題與答案的監聽器
             document.querySelectorAll('.question').forEach(el => {
                 el.addEventListener('click', () => selectQuestion(el));
             });
@@ -489,16 +487,16 @@
             });
         });
 
-        // 創建一個帶有HTML內容、類名和索引的 div 元素
+        // 
         function createDiv(htmlContent, className, index) {
             const div = document.createElement('div');
             div.className = className;
-            div.innerHTML = htmlContent; // 設置HTML內容
-            div.dataset.index = index; // 存儲題目或答案的索引
+            div.innerHTML = htmlContent; 
+            div.dataset.index = index; 
             return div;
         }
 
-        // 隨機打亂數組的順序
+        // 隨機打亂
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -507,26 +505,57 @@
             return array;
         }
 
-        // 處理題目點擊事件的函數
+        // 點擊題目後的事件
         function selectQuestion(el) {
-            console.log(`Question selected: ${el.innerHTML}`);
             if (selectedQuestion) {
-                selectedQuestion.classList.remove('selected'); // 取消之前選中的題目高亮顯示
+                selectedQuestion.classList.remove('selected');
             }
-            selectedQuestion = el; // 設置當前選中的題目
-            el.classList.add('selected'); // 高亮顯示當前選中的題目
+            selectedQuestion = el;
+            el.classList.add('selected');
         }
 
-        // 處理答案點擊事件的函數
+        // 點擊答案後的事件
         function selectAnswer(el) {
-            console.log(`Answer selected: ${el.innerHTML}`);
+            if (!selectedQuestion) return;//沒選問題的話選答案沒用
+
             if (selectedAnswer) {
-                selectedAnswer.classList.remove('selected'); // 取消之前選中的答案高亮顯示
+                selectedAnswer.classList.remove('selected');
             }
-            selectedAnswer = el; // 設置當前選中的答案
-            el.classList.add('selected'); // 高亮顯示當前選中的答案
+            selectedAnswer = el;
+            el.classList.add('selected');
+
+            checkAnswer();
         }
 
+        // 檢查
+        function checkAnswer() {
+            const questionIndex = selectedQuestion.dataset.index;
+            const selectedOption = selectedAnswer.textContent.trim();
+            const correctAnswer = questions[questionIndex].answer.trim();
+            if (selectedOption === correctAnswer) {
+                selectedQuestion.classList.add('matched');
+                selectedAnswer.classList.add('matched');
+                showPopup('答對');
+            } else {
+                showPopup('答錯');
+            }
+            //清空當前存取的資料
+            selectedQuestion.classList.remove('selected');
+            selectedAnswer.classList.remove('selected');
+            selectedQuestion = null;
+            selectedAnswer = null;
+
+        }
+
+        // 彈出視窗
+        function showPopup(message) {
+            const popupMessage = document.getElementById('popup-message');
+            popupMessage.textContent = message;
+            togglePopup();
+        }
+
+
+        
 
     </script>
 </body>
