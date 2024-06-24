@@ -1,18 +1,7 @@
-<style>
-    *{
-        background-image: url('/images/background/backgroundnoroad2.svg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-attachment: fixed;
-        background-size: cover;
-        color: #333333;
-    }
-</style>
-
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Profile') }}
+            {{ __('個人資料') }}
         </h2>
     </x-slot>
 

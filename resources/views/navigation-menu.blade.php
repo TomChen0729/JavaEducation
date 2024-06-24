@@ -4,16 +4,17 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center">
+                <div class="shrink-0 flex items-center" style="margin-top: 5px;">
                     <a href="{{ route('welcome') }}">
-                        <x-application-mark class="block h-9 w-auto" />
+                        <!-- <x-application-mark class="block h-9 w-auto" /> -->
+                        {{ __('首頁') }}
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('歷史答題記錄') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -93,8 +94,9 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            <!-- Account Management -->
-                            <div class="block px-4 py-2 text-xs text-gray-400">
+                            <div>
+                                <!-- Account Management -->
+                            <div class="block px-4 py-2 text-xs text-gray-500">
                                 {{ __('Manage Account') }}
                             </div>
 
@@ -108,7 +110,7 @@
                                 </x-dropdown-link>
                             @endif
 
-                            <div class="border-t border-gray-200"></div>
+                            <div class="border-t border-gray-200" style="border: 1px solid #5b5b5b;"></div>
 
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}" x-data>
@@ -119,6 +121,10 @@
                                     {{ __('Log Out') }}
                                 </x-dropdown-link>
                             </form>
+
+                            </div>
+                            
+
                         </x-slot>
                     </x-dropdown>
                 </div>
