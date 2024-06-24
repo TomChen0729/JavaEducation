@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -10,8 +11,11 @@
         * {
             box-sizing: border-box;
             font-family: "Poppins", sans-serif;
-            text-decoration: none; /* 底線去除 */
-            list-style: none; /* 去除清單前面的符號 */
+            /* 底線去除 */
+            text-decoration: none;
+            /* 去除清單前面的符號 */
+            list-style: none;
+
         }
 
         :root {
@@ -31,7 +35,7 @@
             overflow: hidden;
         }
 
-        .popup .overlay{
+        .popup .overlay {
             position: fixed;
             top: 0px;
             left: 0px;
@@ -42,7 +46,7 @@
             display: none;
         }
 
-        .popup .content{
+        .popup .content {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -56,7 +60,7 @@
             box-sizing: border-box;
         }
 
-        .popup .close-btn{
+        .popup .close-btn {
             cursor: pointer;
             position: absolute;
             right: 20px;
@@ -72,11 +76,11 @@
             border-radius: 50%;
         }
 
-        .popup.active .overlay{
+        .popup.active .overlay {
             display: block;
         }
 
-        .popup.active .content{
+        .popup.active .content {
             transition: all 300ms ease-in-out;
             transform: translate(-50%, -50%) scale(1);
         }
@@ -91,12 +95,16 @@
             align-items: center;
             justify-content: space-between;
             padding: 28px 2%;
-            background: rgba(72, 170, 193, 0.8); /* 透明背景 */
+            /* 透明背景 */
+            background: rgba(72, 170, 193, 0.8);
+
             transition: all 0.50s ease;
         }
 
         .breadcrumbs {
-            letter-spacing: 5px; /* 字元間距 */
+            /* 字元間距 */
+            letter-spacing: 5px;
+
             font-size: 24px;
             font-family: sans-serif;
         }
@@ -138,8 +146,11 @@
 
         .navbar {
             display: flex;
-            align-items: center; /* 確保垂直方向對齊 */
-            margin-left: auto; /* 讓 navbar 靠右對齊 */
+            /* 確保垂直方向對齊 */
+            align-items: center;
+            /* 讓 navbar 靠右對齊 */
+            margin-left: auto;
+
         }
 
         .navbar .time {
@@ -201,8 +212,8 @@
             z-index: 10001;
             display: none;
         }
-        
-        #hints{
+
+        #hints {
             font-size: 28px;
             font-weight: bold;
             margin-top: 70px;
@@ -214,7 +225,7 @@
             overflow: hidden;
         }
 
-        #board{
+        #board {
             width: 805.6px;
             height: 209px;
             border: 5px solid #76a5af;
@@ -224,13 +235,13 @@
             flex-wrap: wrap;
         }
 
-        #board img{
+        #board img {
             width: 199px;
             height: 199px;
             border: 0.5px solid #76a5af;
         }
 
-        #pieces{
+        #pieces {
             width: 805.6px;
             height: 209px;
             border: 5px solid #76a5af;
@@ -240,7 +251,7 @@
             flex-wrap: wrap;
         }
 
-        #pieces img{
+        #pieces img {
             width: 199px;
             height: 199px;
             border: 0.5px solid lightblue;
@@ -248,37 +259,46 @@
 
         /* RWD */
         @media (max-width: 1200px) {
-            #board, #pieces {
+
+            #board,
+            #pieces {
                 width: auto;
                 height: auto;
             }
 
-            #board img, #pieces img {
+            #board img,
+            #pieces img {
                 width: 150px;
                 height: 150px;
             }
         }
 
         @media (max-width: 768px) {
-            #board, #pieces {
+
+            #board,
+            #pieces {
                 width: auto;
                 height: auto;
             }
 
-            #board img, #pieces img {
+            #board img,
+            #pieces img {
                 width: 100px;
                 height: 100px;
             }
         }
 
         @media (max-width: 480px) {
-            #board, #pieces {
+
+            #board,
+            #pieces {
                 flex-direction: column;
                 width: auto;
                 height: auto;
             }
 
-            #board img, #pieces img {
+            #board img,
+            #pieces img {
                 width: 80px;
                 height: 80px;
             }
@@ -289,6 +309,7 @@
                 padding: 14px 2%;
                 transition: 0.2s;
             }
+
             .navbar a {
                 padding: 5px 0;
                 margin: 0px 20px;
@@ -332,12 +353,12 @@
                 right: 2%;
             }
         }
-
     </style>
     @yield('style')
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
     <div class="popup" id="popup-1">
@@ -350,7 +371,7 @@
     </div>
 
     <header class="header">
-    <ul class="breadcrumbs">
+        <ul class="breadcrumbs">
             <li class="breadcrumbs__item">
                 <a href="{{ route('welcome') }}" class="breadcrumbs__link">綠野仙蹤</a>
             </li>
@@ -425,35 +446,34 @@
         }
 
         // 遊戲
-        var currTile;  // 正在拖動的圖片
+        var currTile; // 正在拖動的圖片
         var otherTile; // 目標圖片
 
         // 題目
         window.onload = function() {
-            let questions = [
-                { 
+            let questions = [{
                     question: "int years = 18;",
-                    hint: "years是整數變數" 
+                    hint: "years是整數變數"
                 },
-                { 
+                {
                     question: "String roads = '中華路';",
-                    hint: "roads是字符串變數" 
+                    hint: "roads是字符串變數"
                 },
-                { 
+                {
                     question: "float miles = 3/1.6;",
                     hint: "miles是浮點數變數"
                 },
-                { 
+                {
                     question: "boolean mine = false;",
                     hint: "mine是布林值變數"
                 },
-                { 
+                {
                     question: "boolean yourself = true;",
                     hint: "yourself是布林值變數"
                 },
-                { 
+                {
                     question: "char K = '王';",
-                    hint: "K是字符變數" 
+                    hint: "K是字符變數"
                 }
             ];
 
@@ -464,7 +484,7 @@
             // 初始化圖片
             for (let i = 0; i < parts.length; i++) {
                 let tile = document.createElement('img');
-                tile.src = "../images/blank.jpg"; // 空白圖片佔位
+                tile.src = "{{asset('/images/blank.jpg')}}"; // 空白圖片佔位
 
                 // 拖放功能
                 tile.addEventListener("dragstart", dragStart);
@@ -564,4 +584,5 @@
         }
     </script>
 </body>
+
 </html>

@@ -449,17 +449,17 @@
         let selectedAnswer = null;
 
         document.addEventListener('DOMContentLoaded', () => {
-        const pairContainer = document.getElementById('pair-container');
+            const pairContainer = document.getElementById('pair-container');
 
-        // 從Blade模板傳遞過來的數據
-        const questions = [
-            @foreach ($questions as $question)
-                {
-                    question: `{!! $question->questions !!}`,
+            // 從Blade模板傳遞過來的數據
+            const questions = [
+                @foreach($questions as $question) {
+                    question: `{!! $question -> questions !!}`,
                     answer: `{!! $question->answer !!}`
-                } @if (!$loop->last) , @endif
-            @endforeach
-        ];
+                }
+                @if(!$loop - > last), @endif
+                @endforeach
+            ];
 
             // 將問題和答案分別存入兩個數組
             const shuffledQuestions = shuffleArray(questions.map(item => item.question));
@@ -526,8 +526,6 @@
             selectedAnswer = el; // 設置當前選中的答案
             el.classList.add('selected'); // 高亮顯示當前選中的答案
         }
-
-
     </script>
 </body>
 
