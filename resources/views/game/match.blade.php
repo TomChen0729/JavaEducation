@@ -399,14 +399,6 @@
     <div class="container">
         <!-- 動態生成問題和答案 -->
         <div id="pair-container"></div>
-        <!--題目隨機出題-->
-        @foreach ($questions as $question)
-        {{ $question->questions }}
-        @endforeach
-        <!--選項隨機排序-->
-        @foreach ($options as $option)
-        {{ $option->options }}
-        @endforeach
     </div>
 
     <!--js-->
@@ -451,43 +443,23 @@
         }
 
         // 遊戲
-        // 定義問題和答案
-        let questions = [{
-                question: "資料型態用於表示整數",
-                answer: "int"
-            },
-            {
-                question: "資料型態用於表示浮點數",
-                answer: "float"
-            },
-            {
-                question: "資料型態用於表示布林值",
-                answer: "boolean"
-            },
-            {
-                question: "資料型態用於表示雙精浮點數",
-                answer: "double"
-            },
-            {
-                question: "資料型態用於表示字串",
-                answer: "String"
-            },
-            {
-                question: "資料型態用於表示字元",
-                answer: "char"
-            }
-        ];
 
         // 儲存當前選中的題目和答案
         let selectedQuestion = null;
         let selectedAnswer = null;
 
-        // 頁面加載完成後執行的函數
         document.addEventListener('DOMContentLoaded', () => {
             const pairContainer = document.getElementById('pair-container');
 
-            // 隨機打亂題目和答案的順序
-            shuffleArray(questions);
+            // 從Blade模板傳遞過來的數據
+            const questions = [
+                @foreach ($questions as $question)
+                    {
+                        question: `{!! $question->questions !!}`,
+                        answer: `{!! $question->answer !!}`
+                    } @if (!$loop->last) , @endif
+                @endforeach
+            ];
 
             // 動態生成問題和答案的HTML結構
             questions.forEach((item, index) => {
@@ -513,63 +485,77 @@
             });
         });
 
-        // 創建一個帶有文本、類名和索引的 div 元素
-        function createDiv(text, className, index) {
+        // 創建一個帶有HTML內容、類名和索引的 div 元素
+        function createDiv(htmlContent, className, index) {
             const div = document.createElement('div');
             div.className = className;
-            div.textContent = text;
+            div.innerHTML = htmlContent; // 設置HTML內容
             div.dataset.index = index; // 存儲題目或答案的索引
             return div;
         }
 
-        // 打亂數組元素的順序
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
-
-        // 選擇題目時的處理函數
+        // 處理題目點擊事件的函數
         function selectQuestion(el) {
-            if (selectedQuestion) {
-                selectedQuestion.classList.remove('selected'); // 取消之前選中的題目高亮顯示
-            }
-            selectedQuestion = el; // 設置當前選中的題目
-            el.classList.add('selected'); // 高亮顯示當前選中的題目
-            checkMatch(); // 檢查是否配對成功
+            console.log(`Question selected: ${el.innerHTML}`);
+            
         }
 
-        // 選擇答案時的處理函數
+        // 處理答案點擊事件的函數
         function selectAnswer(el) {
-            if (selectedAnswer) {
-                selectedAnswer.classList.remove('selected'); // 取消之前選中的答案高亮顯示
-            }
-            selectedAnswer = el; // 設置當前選中的答案
-            el.classList.add('selected'); // 高亮顯示當前選中的答案
-            checkMatch(); // 檢查是否配對成功
+            console.log(`Answer selected: ${el.innerHTML}`);
+            
         }
 
-        // 檢查題目和答案是否配對成功
-        function checkMatch() {
-            if (selectedQuestion && selectedAnswer) {
-                if (selectedQuestion.dataset.index === selectedAnswer.dataset.index) {
-                    alert('配對成功!');
-                    selectedQuestion.classList.add('matched');
-                    selectedAnswer.classList.add('matched');
-                    selectedQuestion.classList.remove('selected');
-                    selectedAnswer.classList.remove('selected');
-                    selectedQuestion = null;
-                    selectedAnswer = null;
-                } else {
-                    alert('配對失敗');
-                    selectedQuestion.classList.remove('selected');
-                    selectedAnswer.classList.remove('selected');
-                    selectedQuestion = null;
-                    selectedAnswer = null;
-                }
-            }
-        }
+
+        
+        // // 打亂數組元素的順序
+        // function shuffleArray(array) {
+        //     for (let i = array.length - 1; i > 0; i--) {
+        //         const j = Math.floor(Math.random() * (i + 1));
+        //         [array[i], array[j]] = [array[j], array[i]];
+        //     }
+        // }
+
+        // // 選擇題目時的處理函數
+        // function selectQuestion(el) {
+        //     if (selectedQuestion) {
+        //         selectedQuestion.classList.remove('selected'); // 取消之前選中的題目高亮顯示
+        //     }
+        //     selectedQuestion = el; // 設置當前選中的題目
+        //     el.classList.add('selected'); // 高亮顯示當前選中的題目
+        //     checkMatch(); // 檢查是否配對成功
+        // }
+
+        // // 選擇答案時的處理函數
+        // function selectAnswer(el) {
+        //     if (selectedAnswer) {
+        //         selectedAnswer.classList.remove('selected'); // 取消之前選中的答案高亮顯示
+        //     }
+        //     selectedAnswer = el; // 設置當前選中的答案
+        //     el.classList.add('selected'); // 高亮顯示當前選中的答案
+        //     checkMatch(); // 檢查是否配對成功
+        // }
+
+        // // 檢查題目和答案是否配對成功
+        // function checkMatch() {
+        //     if (selectedQuestion && selectedAnswer) {
+        //         if (selectedQuestion.dataset.index === selectedAnswer.dataset.index) {
+        //             alert('配對成功!');
+        //             selectedQuestion.classList.add('matched');
+        //             selectedAnswer.classList.add('matched');
+        //             selectedQuestion.classList.remove('selected');
+        //             selectedAnswer.classList.remove('selected');
+        //             selectedQuestion = null;
+        //             selectedAnswer = null;
+        //         } else {
+        //             alert('配對失敗');
+        //             selectedQuestion.classList.remove('selected');
+        //             selectedAnswer.classList.remove('selected');
+        //             selectedQuestion = null;
+        //             selectedAnswer = null;
+        //         }
+        //     }
+        // }
     </script>
 </body>
 
