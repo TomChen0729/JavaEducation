@@ -449,7 +449,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const pairContainer = document.getElementById('pair-container');
 
-            // 後端數據傳到js
+            // 後端資料傳到前端
             questions = [
                 @foreach ($questions as $question)
                     {

@@ -138,15 +138,15 @@
 
         const dialogues = [
             { sender: 'narration', message: '有一天，桃樂絲和她的狗托托住的房子被一場龍捲風吹走，掉到了蠻支金國土，房子砸在了東方壞女巫的身上，意外地救了這片土地上的居民。正當大家慶祝時，西方壞女巫出現了。' },
-            { sender: 'badwitch', message: '你們這些小矮人！居然敢慶祝我的姐姐被消滅！' },
+            { sender: 'badwitch', message: '壞女巫：你們這些小矮人！居然敢慶祝我的姐姐被消滅！' },
             { sender: 'narration', message: '南國女巫葛琳達出現，給了桃樂絲護身符。' },
-            { sender: 'goodwitch', message: '這個護身符會幫助你通過接下來的關卡，但要小心壞女巫，她一定會想辦法搶走它們，你現在必須要去翡翠城找歐茲法師幫忙，只要沿著這條黃磚路走你就能通往翡翠城。' },
-            { sender: 'badwitch', message: '我們走著瞧！' },
+            { sender: 'goodwitch', message: '好女巫：這個護身符會幫助你通過接下來的關卡，但要小心壞女巫，她一定會想辦法搶走它們，你現在必須要去翡翠城找歐茲法師幫忙，只要沿著這條黃磚路走你就能通往翡翠城。' },
+            { sender: 'badwitch', message: '壞女巫：我們走著瞧！' },
             { sender: 'narration', message: '在蠻之金國土中，桃樂絲決定去翡翠城尋求歐茲法師的幫助。沿著黃磚路，桃樂絲來到一片金黃色的稻田，遇到了被綁住的稻草人。' },
-            { sender: 'scarecrow', message: '你好，請幫幫我，我被困在這裡好久了。' },
+            { sender: 'scarecrow', message: '稻草人：你好，請幫幫我，我被困在這裡好久了。' },
             { sender: 'narration', message: '桃樂絲爬進藍色柵欄，幫稻草人解開了繩子，並詢問稻草人是否願意跟她一起尋找歐茲法師。' },
-            { sender: 'scarecrow', message: '謝謝你！我願意陪你一起去找歐茲法師。' },
-            { sender: 'tls', message: '太好了，有你陪我，我會安心很多。' }
+            { sender: 'scarecrow', message: '稻草人：謝謝你！我願意陪你一起去找歐茲法師。' },
+            { sender: 'tls', message: '桃樂絲：太好了，有你陪我，我會安心很多。' }
         ];
 
         let currentDialogueIndex = 0;
