@@ -544,7 +544,6 @@
             selectedAnswer.classList.remove('selected');
             selectedQuestion = null;
             selectedAnswer = null;
-
         }
 
         // 彈出視窗

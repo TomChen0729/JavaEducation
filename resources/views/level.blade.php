@@ -144,7 +144,7 @@
 
     <div class="card-container">
         @foreach($parent_cards as $card)
-            @if( ($card -> levels) <= auth()->user()->levels)
+            @if((($card->country_id) <= auth()->user()->country_id) &&(($card -> levels) <= auth()->user()->levels))
                 <div class="card">
                     <div class="card-content">
                         <div class="icon">{{ html_entity_decode($card -> img) }}</div>

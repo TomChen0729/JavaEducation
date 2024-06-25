@@ -362,7 +362,7 @@
                 <a href="{{ route('game.index', ['country_id' => $question -> country_id, 'levels' => $question -> levels])}}" class="breadcrumbs__link">遊戲種類</a>
             </li>
             <li class="breadcrumbs__item">
-                <a href="#" class="breadcrumbs__link__active">選擇題</a>
+                <a href="#" class="breadcrumbs__link__active">是非題</a>
             </li>
         </ul>
 
