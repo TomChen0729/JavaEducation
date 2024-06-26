@@ -4,7 +4,7 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center" style="margin-top: 5px;">
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" style="margin-left: 0; margin-top: 20px;">
                     <a href="{{ route('welcome') }}">
                         <!-- <x-application-mark class="block h-9 w-auto" /> -->
                         {{ __('首頁') }}
@@ -12,10 +12,25 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" style="margin-top: 20px;">
+                    <a href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                        <!-- <x-application-mark class="block h-9 w-auto" /> -->
                         {{ __('歷史答題記錄') }}
-                    </x-nav-link>
+                    </a>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" style="margin-top: 20px;">
+                <a href="{{ route('welcome') }}">
+                        <!-- <x-application-mark class="block h-9 w-auto" /> -->
+                        {{ __('已獲得知識卡') }}
+                    </a>
+                </div>
+                
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" style="margin-top: 20px;">
+                    <a href="{{ route('welcome') }}">
+                        <!-- <x-application-mark class="block h-9 w-auto" /> -->
+                        {{ __('個人排行榜') }}
+                    </a>
                 </div>
             </div>
 
@@ -101,7 +116,19 @@
                             </div>
 
                             <x-dropdown-link href="{{ route('profile.show') }}">
-                                {{ __('Profile') }}
+                                {{ __('個人資料') }}
+                            </x-dropdown-link>
+
+                            <x-dropdown-link href="{{ route('dashboard') }}">
+                                {{ __('歷史答題記錄') }}
+                            </x-dropdown-link>
+
+                            <x-dropdown-link href="{{ route('profile.show') }}">
+                                {{ __('已獲得知識卡') }}
+                            </x-dropdown-link>
+
+                            <x-dropdown-link href="{{ route('profile.show') }}">
+                                {{ __('個人排行榜') }}
                             </x-dropdown-link>
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
@@ -110,7 +137,7 @@
                                 </x-dropdown-link>
                             @endif
 
-                            <div class="border-t border-gray-200" style="border: 1px solid #5b5b5b;"></div>
+                            <div class="border-t border-gray-200"></div>
 
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}" x-data>
@@ -118,7 +145,7 @@
 
                                 <x-dropdown-link href="{{ route('logout') }}"
                                          @click.prevent="$root.submit();">
-                                    {{ __('Log Out') }}
+                                    {{ __('登出') }}
                                 </x-dropdown-link>
                             </form>
 
