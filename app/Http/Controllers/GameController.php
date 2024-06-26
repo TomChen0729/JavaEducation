@@ -171,16 +171,12 @@ class GameController extends Controller
                     return view('game.choose', ['question' => $question, 'options' => $options, 'questions_cards' => $cards]);
                 case '配對':
                     //
+                    $current_uid = auth()->user()->id;
                     //隨機抓取六道題目
                     $questions = Question::where('gametype', '配對')
                         ->where('country_id', $country_id)
                         ->where('levels', $levels)->inRandomOrder()->take(6)->get();
-
-                    //根據題目id去抓選項並將選項隨機
-                    //whereIn能將options集合的元素視為單個條件值去跟question_id比對，$questions->pluck('id')會把$questions集合的每個問題的id抓出來
-                    $options = MatchOption::whereIn('question_id', $questions->pluck('id'))->get()->shuffle();
-
-                    return view('game.match', ['questions' => $questions, 'options' => $options]);
+                    return view('game.match', ['questions' => $questions]);
                 case '重組':
                     $question = Question::where('gametype', '重組')
                         ->where('country_id', $country_id)
@@ -241,5 +237,30 @@ class GameController extends Controller
         } else {
             return response()->json(['message' => 'http method must be get']);
         }
+    }
+    //配對使用者紀錄
+    public function matchuserecord(Request $request){
+        if($request->isMethod('GET')){
+            $q_id = $request->query('question_id');
+            $current_uid = $request->query('cid');
+            $spent_time = $request->query('timer');
+            $status = $request->query('status');
+
+            $record = UserRecord::create([
+                'user_id' => $current_uid,
+                'question_id' => $q_id,
+                'watchtime' => $spent_time,
+                'status' => $status,
+            ]);
+
+            if (!$record) {
+                throw new \Exception('創建用戶記錄失敗。');
+            }
+            return response()->json(['message' => '用戶記錄創建成功。'], 200);
+        }
+        else{
+            return response()->json(['message' => 'HTTP 方法必須是 GET。'], 405);
+        }
+
     }
 }

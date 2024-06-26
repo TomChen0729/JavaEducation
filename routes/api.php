@@ -11,6 +11,8 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 // 對答案
 Route::get('/correct_User_ANS', [GameController::class, 'correctANS']);
+//存配對的紀錄
+Route::get('/matchuserecord',[GameController::class,'matchuserecord']);
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

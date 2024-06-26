@@ -404,6 +404,7 @@
     <!-- <script src="{{ asset('js/app.js') }}"></script> -->
     @yield('script')
     <script>
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         // 漢堡
         let menu = document.querySelector('#menu-icon');
         let navbar = document.querySelector('.navbar');
@@ -417,6 +418,7 @@
         function startTimer() {
             let minutes = 0;
             let seconds = 0;
+            let hours = 0;
             const timerElement = document.getElementById('timer');
 
             function updateTimer() {
@@ -424,15 +426,25 @@
                 if (seconds === 60) {
                     seconds = 0;
                     minutes++;
+                    if (minutes === 60) {
+                        minutes = 0;
+                        hours++;
+                    }
                 }
+                const formattedHours = String(hours).padStart(2, '0');
                 const formattedMinutes = String(minutes).padStart(2, '0');
                 const formattedSeconds = String(seconds).padStart(2, '0');
-                timerElement.textContent = `${formattedMinutes}:${formattedSeconds}`;
+                timerElement.textContent = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
             }
 
             setInterval(updateTimer, 1000);
         }
 
+        function stopTimer() {
+            clearInterval(timer);
+            const timerElement = document.getElementById('timer').textContent;
+            return timerElement;
+        }
         window.onload = startTimer;
 
         // 彈跳視窗
@@ -441,7 +453,7 @@
         }
 
         // 遊戲
-        // 儲存當前選中的題目和答案
+        // 儲存當前選中的題目、答案以及拿來對題目答案的陣列
         let selectedQuestion = null;
         let selectedAnswer = null;
         let questions = [];
@@ -453,7 +465,8 @@
                 @foreach ($questions as $question)
                     {
                         question: `{!! addslashes($question->questions) !!}`,
-                        answer: `{!! addslashes($question->answer) !!}`
+                        answer: `{!! addslashes($question->answer) !!}`,
+                        id: `{!! addslashes($question->id) !!}`,
                     } @if (!$loop->last) , @endif
                 @endforeach
             ];
@@ -470,19 +483,6 @@
             }
             return array;
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             
             // 生成問題與答案
@@ -527,12 +527,13 @@
             }
             selectedQuestion = el;
             el.classList.add('selected');
+            
         }
 
         // 點擊答案後的事件
         function selectAnswer(el) {
             if (!selectedQuestion) return;//沒選問題的話選答案沒用
-
+            
             if (selectedAnswer) {
                 selectedAnswer.classList.remove('selected');
             }
@@ -542,23 +543,77 @@
             checkAnswer();
         }
 
-        // 檢查
+        
         function checkAnswer() {
+            //將選中的題目、答案存入變數和用來確認的正確答案
             const questionIndex = selectedQuestion.dataset.index;
             const selectedOption = selectedAnswer.textContent.trim();
             const correctAnswer = questions[questionIndex].answer.trim();
+            //需要傳到後端的題目id、使用者id、時間與答題狀態
+            const question_id = questions[questionIndex].id.trim();
+            const cid = {!! json_encode(auth()->user()->id) !!};
+            var timer = stopTimer();
+            let status;
+            //對答案
             if (selectedOption === correctAnswer) {
                 selectedQuestion.classList.add('matched');
                 selectedAnswer.classList.add('matched');
+                status = 1;
                 alert('答對');
-            } else {
+            } else 
+            {
+                status = 0;
                 alert('答錯');
             }
-            //清空當前存取的資料
-            selectedQuestion.classList.remove('selected');
-            selectedAnswer.classList.remove('selected');
-            selectedQuestion = null;
-            selectedAnswer = null;
+            
+        //     fetch('/api/matchuserecord?&question_id=' + question_id + '&cid=' + cid + '&status' + status + '&timer=' + timer, {
+        //     method: 'GET',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'X-CSRF-TOKEN': csrfToken
+        //     },
+        // })
+        // .then(response => {
+        //     if (!response.ok) {
+        //         throw new Error('response錯誤');
+        //     }
+        //     //清空當前存取的資料
+        //     //取消選取的格式
+        //     selectedQuestion.classList.remove('selected');
+        //     selectedAnswer.classList.remove('selected');
+        //     //清除值
+        //     selectedQuestion = null;
+        //     selectedAnswer = null;
+        // })
+        // .catch(error => {
+        //     console.error('錯誤:', error);
+        // })
+        // }
+        // 構建 GET 請求的 URL
+        const url = `/api/matchuserecord?question_id=${question_id}&cid=${cid}&status=${status}&timer=${timer}`;
+
+        // 發送 GET 請求
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken
+            },
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('API 請求失敗');
+            }
+        })
+        .catch(error => {
+            console.error('錯誤:', error);
+        });
+
+        // 清空當前存取的資料
+        selectedQuestion.classList.remove('selected');
+        selectedAnswer.classList.remove('selected');
+        selectedQuestion = null;
+        selectedAnswer = null;
         }
 
         // 彈出視窗
