@@ -16,112 +16,27 @@
             margin: 0;
         }
 
-        .popup .overlay{
-            position: fixed;
-            top: 0px;
-            left: 0px;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1;
-            display: none;
-        }
-
-        .popup .content{
-            position: absolute;
-            top: 55%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            background: #fff;
-            width: 950px;
-            height: 500px;
-            z-index: 1;
-            padding: 20px;
-            box-sizing: border-box;
-            overflow: auto; /* 滾輪 */
-        }
-
-        .popup .pop{
-            color: #333333;
-            margin: 30px;
-            padding: 30px;
-            border-radius: 50px;
-            border: 5px solid #333333;
-        }
-
-        .popup .pop h1{
-            text-align: center;
-            font-size: 26px;
-            font-weight: bolder;
-            margin-bottom: 5px;
-        }
-
-        .popup .pop p{
-            font-size: 16px;
-        }
-
-        .popup .pop p.cen{
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .popup .pop hr{
-            margin: 10px 0;
-        }
-
-        .popup .close-btn{
-            cursor: pointer;
-            position: absolute;
-            right: 20px;
-            top: 20px;
-            width: 30px;
-            height: 30px;
-            background-color: #222;
-            color: #fff;
-            font-size: 25px;
-            font-weight: 600;
-            line-height: 30px;
-            text-align: center;
-            border-radius: 50%;
-        }
-
-        .popup.active .overlay{
-            display: block;
-        }
-
-        .popup.active .content{
-            transition: all 300ms ease-in-out;
-            transform: translate(-50%, -50%) scale(1);
-        }
-
         .containers{
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            max-width: 1200px;
-            box-sizing: border-box;
+            margin-top: 100px;
+            padding: 20px;
+            background-color: #4D613C;
+            border: 3px solid #455736;
+            border-radius: 30px;
+            text-align: center;
         }
 
         h2{
-            font-size: 32px;
+            font-size: 60px;
             font-weight: bold;
-            color: #333333;
-            padding: 1rem;
-            text-align: center;
-            margin: 0;
-            padding-top: 50px;
+            margin: 10px;
+            color: #4D613C;
+            text-shadow: -1px -1px 0 #F6B654, 1px -1px 0 #F6B654, -1px 1px 0 #F6B654, 1px 1px 0 #F6B654;
         }
 
-        .text-h2 {
+        p{
+            margin: 20px 30px;
             text-align: left;
-            padding: 1rem;
-            margin-left: 150px;
-
-        }
-
-        hr{
-            border: 2px solid #333;
-            margin: 20px 0;
+            color: #F8F2ED;
         }
 
         .TF, .CH, .MA, .RE {
@@ -207,63 +122,30 @@
 @endsection
 
 @section('content')
-<div class="popup active" id="popup-1">
-        <div class="overlay"></div>
-        <div class="content">
-            <div class="close-btn" onclick="togglePopup()">&times;</div>
-            <div class="pop">
-                    <h1>遊戲說明</h1>
-                    <p class="cen">歡迎來到《綠野仙蹤》遊戲，在這個遊戲中，你將會經歷兩個大關卡：學習區和闖關區。</p>
-                    <p><strong>學習區</strong><br>
-                    在學習區，你將會遇到四種不同的關卡類型：是非、選擇、重組和配對。</p>
-                    <p><strong>闖關區</strong><br>
-                    在完成學習區的所有關卡後，你將進入闖關區。</p>
-                    <hr>
-                    <p><strong>是非關卡</strong><br>
-                    玩法說明：判斷題目所述內容的正確性，選擇正確答案是True還是False。</p>
-                    <p><strong>選擇關卡</strong><br>
-                    玩法說明：從多個選項中選擇一個最符合題意的答案。</p>
-                    <p><strong>重組關卡</strong><br>
-                    玩法說明：根據提示內容，將打亂的程式碼片段按正確順序重組。</p>
-                    <p><strong>配對關卡</strong><br>
-                    玩法說明：根據題目與正確的描述或應用進行配對。</p>
-                    <p><strong>Debug關卡</strong><br>
-                    玩法說明：在這個關卡中，你會得到一段有錯誤的程式碼。你的任務是找出並修正這些錯誤。</p>
-                    <hr>
-                    <p><strong>獎勵</strong><br>
-                    成功通過學習區和闖關區後，你將獲得一包知識卡，這將幫助你更好地理解和運用相關知識。</p>
-                    <p>準備好開始你的冒險了嗎？快來挑戰這個充滿知識與樂趣的遊戲，提升你的編程技能吧！</p>
-                </div>
-        </div>
-    </div>
-
     <div class="containers">
-        <div class="learnarea">
-            <h2 class="text-h2">學習區</h2>
-            @foreach($Question_list as $item)
-                @if($item -> gametype == '是非')
-                    <button class="TF"><a href="{{ route('game.gameTypeChoose', ['GameType' => $item -> gametype, 'country_id' => $item -> country_id, 'levels' => $item -> levels]) }}">{{ $item -> gametype }}</a></button>
-                @elseif($item -> gametype == '選擇')
-                    <button class="CH"><a href="{{ route('game.gameTypeChoose', ['GameType' => $item -> gametype, 'country_id' => $item -> country_id, 'levels' => $item -> levels]) }}">{{ $item -> gametype }}</a></button>
-                @elseif($item -> gametype == '配對')
-                    <button class="MA"><a href="{{ route('game.gameTypeChoose', ['GameType' => $item -> gametype, 'country_id' => $item -> country_id, 'levels' => $item -> levels]) }}">{{ $item -> gametype }}</a></button>
-                @else
-                    <button class="RE"><a href="{{ route('game.gameTypeChoose', ['GameType' => $item -> gametype, 'country_id' => $item -> country_id, 'levels' => $item -> levels]) }}">{{ $item -> gametype }}</a></button>
-                @endif
-            @endforeach
-        </div>
+        <h2>學習區</h2>
+        <p><strong>是非關卡</strong><br>
+        玩法說明：判斷題目所述內容的正確性，選擇正確答案是True還是False。</p>
+        <p><strong>選擇關卡</strong><br>
+        玩法說明：從多個選項中選擇一個最符合題意的答案。</p>
+        <p><strong>重組關卡</strong><br>
+        玩法說明：根據提示內容，將打亂的程式碼片段按正確順序重組。</p>
+        <p><strong>配對關卡</strong><br>
+        玩法說明：根據題目與正確的描述或應用進行配對。</p>
+        <p><strong>Debug關卡</strong><br>
+        玩法說明：在這個關卡中，你會得到一段有錯誤的程式碼。你的任務是找出並修正這些錯誤。</p>
+        @foreach($Question_list as $item)
+            @if($item -> gametype == '是非')
+                <button class="TF"><a href="{{ route('game.gameTypeChoose', ['GameType' => $item -> gametype, 'country_id' => $item -> country_id, 'levels' => $item -> levels]) }}">{{ $item -> gametype }}</a></button>
+            @elseif($item -> gametype == '選擇')
+                <button class="CH"><a href="{{ route('game.gameTypeChoose', ['GameType' => $item -> gametype, 'country_id' => $item -> country_id, 'levels' => $item -> levels]) }}">{{ $item -> gametype }}</a></button>
+            @elseif($item -> gametype == '配對')
+                <button class="MA"><a href="{{ route('game.gameTypeChoose', ['GameType' => $item -> gametype, 'country_id' => $item -> country_id, 'levels' => $item -> levels]) }}">{{ $item -> gametype }}</a></button>
+            @else
+                <button class="RE"><a href="{{ route('game.gameTypeChoose', ['GameType' => $item -> gametype, 'country_id' => $item -> country_id, 'levels' => $item -> levels]) }}">{{ $item -> gametype }}</a></button>
+            @endif
+        @endforeach
     </div>
 @endsection
 
-@section('script')
-    <script>
-        // 畫面載入後顯示彈跳視窗
-        document.addEventListener('DOMContentLoaded', function () {
-            document.getElementById("popup-1").classList.add("active");
-        });
 
-        function togglePopup() {
-            document.getElementById("popup-1").classList.toggle("active");
-        }
-    </script>
-@endsection
