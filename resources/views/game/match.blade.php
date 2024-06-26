@@ -370,17 +370,17 @@
 
     <header class="header">
         <ul class="breadcrumbs">
-            <li class="breadcrumbs__item">
+        <li class="breadcrumbs__item">
                 <a href="{{ route('welcome') }}" class="breadcrumbs__link">綠野仙蹤</a>
             </li>
             <li class="breadcrumbs__item">
-                <a href="{{ route('welcome') }}" class="breadcrumbs__link">遊玩等級</a>
+                <a href="{{ route('country.index',['country_id' => $questions[1] -> country_id]) }}" class="breadcrumbs__link">遊玩等級</a>
             </li>
             <li class="breadcrumbs__item">
-                <a href="{{ route('welcome') }}" class="breadcrumbs__link">遊戲種類</a>
+                <a href="{{ route('game.index', ['country_id' => $questions[1] -> country_id, 'levels' => $questions[1] -> levels])}}" class="breadcrumbs__link">遊戲種類</a>
             </li>
             <li class="breadcrumbs__item">
-                <a href="{{ route('welcome') }}" class="breadcrumbs__link__active">配對題</a>
+                <a href="#" class="breadcrumbs__link__active">配對題</a>
             </li>
         </ul>
 
@@ -448,7 +448,6 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             const pairContainer = document.getElementById('pair-container');
-
             // 後端資料傳到前端
             questions = [
                 @foreach ($questions as $question)
@@ -460,16 +459,39 @@
             ];
 
             // 存問題與答案
-            const shuffledQuestions = shuffleArray(questions.map(item => item.question));
+            const shuffledQuestions = questions.map(item => item.question);
             const shuffledAnswers = shuffleArray(questions.map(item => item.answer));
 
+            // 隨機打亂
+            function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
             // 生成問題與答案
             shuffledQuestions.forEach((question, index) => {
                 const pairDiv = document.createElement('div');
                 pairDiv.className = 'pair-container';
 
                 const questionDiv = createDiv(question, 'question', index);
-                const answerDiv = createDiv(shuffledAnswers[index], 'answer', index); 
+                const answerDiv = createDiv(shuffledAnswers[index], 'answer', index);
 
                 pairDiv.appendChild(questionDiv);
                 pairDiv.appendChild(answerDiv);
@@ -487,23 +509,16 @@
             });
         });
 
-        // 
+        //
         function createDiv(htmlContent, className, index) {
             const div = document.createElement('div');
             div.className = className;
-            div.innerHTML = htmlContent; 
-            div.dataset.index = index; 
+            div.innerHTML = htmlContent;
+            div.dataset.index = index;
             return div;
         }
 
-        // 隨機打亂
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
-        }
+
 
         // 點擊題目後的事件
         function selectQuestion(el) {
@@ -535,9 +550,9 @@
             if (selectedOption === correctAnswer) {
                 selectedQuestion.classList.add('matched');
                 selectedAnswer.classList.add('matched');
-                showPopup('答對');
+                alert('答對');
             } else {
-                showPopup('答錯');
+                alert('答錯');
             }
             //清空當前存取的資料
             selectedQuestion.classList.remove('selected');
@@ -554,7 +569,7 @@
         }
 
 
-        
+
 
     </script>
 </body>
