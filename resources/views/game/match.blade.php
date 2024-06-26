@@ -484,7 +484,7 @@
             return array;
             }
 
-            
+
             // 生成問題與答案
             shuffledQuestions.forEach((question, index) => {
                 const pairDiv = document.createElement('div');
@@ -527,13 +527,13 @@
             }
             selectedQuestion = el;
             el.classList.add('selected');
-            
+
         }
 
         // 點擊答案後的事件
         function selectAnswer(el) {
             if (!selectedQuestion) return;//沒選問題的話選答案沒用
-            
+
             if (selectedAnswer) {
                 selectedAnswer.classList.remove('selected');
             }
@@ -543,7 +543,7 @@
             checkAnswer();
         }
 
-        
+
         function checkAnswer() {
             //將選中的題目、答案存入變數和用來確認的正確答案
             const questionIndex = selectedQuestion.dataset.index;
@@ -560,12 +560,12 @@
                 selectedAnswer.classList.add('matched');
                 status = 1;
                 alert('答對');
-            } else 
+            } else
             {
                 status = 0;
                 alert('答錯');
             }
-            
+
         //     fetch('/api/matchuserecord?&question_id=' + question_id + '&cid=' + cid + '&status' + status + '&timer=' + timer, {
         //     method: 'GET',
         //     headers: {
@@ -589,6 +589,7 @@
         //     console.error('錯誤:', error);
         // })
         // }
+
         // 構建 GET 請求的 URL
         const url = `/api/matchuserecord?question_id=${question_id}&cid=${cid}&status=${status}&timer=${timer}`;
 
