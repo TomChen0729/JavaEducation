@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaEducation - 學習重組</title>
+    <title>JavaEducation - 學習填充</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         * {
@@ -382,7 +382,7 @@
                 <a href="{{ route('welcome') }}" class="breadcrumbs__link">遊戲種類</a>
             </li>
             <li class="breadcrumbs__item">
-                <a href="{{ route('welcome') }}" class="breadcrumbs__link__active">重組題</a>
+                <a href="{{ route('welcome') }}" class="breadcrumbs__link__active">填充題</a>
             </li>
         </ul>
 
@@ -452,27 +452,56 @@
         // 題目
         window.onload = function() {
             let questions = [{
-                    question: "int years = 18;",
+                    question: "___ years = 18;",
+                    a: "String",
+                    b: "int",
+                    c: "float",
+                    d: "char",
                     hint: "years是整數變數"
                 },
                 {
-                    question: "String roads = '中華路';",
+                    question: "___ roads = '中華路';",
+                    answer: "String",
+                    a: "String",
+                    b: "int",
+                    c: "float",
+                    d: "char",
                     hint: "roads是字符串變數"
                 },
                 {
-                    question: "float miles = 3/1.6;",
+                    question: "___ miles = 3/1.6;",
+                    answer: "float",
+                    a: "String",
+                    b: "int",
+                    c: "float",
+                    d: "char",
                     hint: "miles是浮點數變數"
                 },
                 {
-                    question: "boolean mine = false;",
+                    question: "___ mine = false;",
+                    answer: "boolean",
+                    a: "String",
+                    b: "int",
+                    c: "float",
+                    d: "boolean",
                     hint: "mine是布林值變數"
                 },
                 {
-                    question: "boolean yourself = true;",
+                    question: "___ yourself = true;",
+                    answer: "boolean",
+                    a: "String",
+                    b: "int",
+                    c: "float",
+                    d: "boolean",
                     hint: "yourself是布林值變數"
                 },
                 {
-                    question: "char K = '王';",
+                    question: "___ K = '王';",
+                    answer: "char",
+                    a: "String",
+                    b: "int",
+                    c: "float",
+                    d: "char",
                     hint: "K是字符變數"
                 }
             ];
@@ -481,10 +510,12 @@
             let selected = questions[Math.floor(Math.random() * questions.length)];
             let parts = selected.question.split(' '); // 用空格將題目分開
 
-            // 初始化圖片
-            for (let i = 0; i < parts.length; i++) {
+            // 生成拼圖片
+            let pieces = parts.map(part => generateImageFromText(part));
+            // 將題目加到頁面
+            for (let i = 0; i < pieces.length; i++) {
                 let tile = document.createElement('img');
-                tile.src = "{{asset('/images/blank.jpg')}}"; // 空白圖片佔位
+                tile.src = pieces[i]; // 使用生成拚圖片
 
                 // 拖放功能
                 tile.addEventListener("dragstart", dragStart);
@@ -497,21 +528,12 @@
                 document.getElementById("board").append(tile);
             }
 
-            // 生成拼圖片
-            let pieces = parts.map(part => generateImageFromText(part));
-
-            // 隨機打亂拼圖
-            for (let i = 0; i < pieces.length; i++) {
-                let j = Math.floor(Math.random() * pieces.length);
-                let tmp = pieces[i];
-                pieces[i] = pieces[j];
-                pieces[j] = tmp;
-            }
-
-            // 將拼圖片加到頁面
-            for (let i = 0; i < pieces.length; i++) {
+            // 將選項加到頁面
+            let options = [selected.a, selected.b, selected.c, selected.d];
+            for (let i = 0; i < options.length; i++) {
                 let tile = document.createElement('img');
-                tile.src = pieces[i]; // 使用生成拚圖片
+                tile.src = generateImageFromText(options[i]);
+                tile.dataset.answer = options[i]; // 存儲選項的答案
 
                 // 拖放功能
                 tile.addEventListener("dragstart", dragStart);
