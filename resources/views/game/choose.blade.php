@@ -30,8 +30,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            overflow: hidden;
         }
 
         .popup .overlay {
@@ -210,13 +208,12 @@
         }
 
         .question {
-            margin: 1em;
-            margin-top: 80px;
             background-color: #bcdf49;
             border-radius: 10px;
+            margin: 10px;
+            margin-top: 150px;
             box-shadow: 0 0 10px rgb(100, 100, 100);
-            width: 600px;
-            overflow: hidden;
+            width: 700px;
         }
 
         .quiz-header {

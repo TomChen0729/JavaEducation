@@ -32,9 +32,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            overflow: hidden;
-            /*自動隱藏超出的文字或圖片*/
         }
 
         .popup .overlay {
@@ -240,9 +237,9 @@
             box-shadow: 0 0 10px rgb(100, 100, 100);
             width: 620px;
             height: 300px;
-            overflow: hidden;
             padding: 100px;
             margin: 10px;
+            margin-top: 90px;
             font-size: 26px;
             font-weight: bold;
             text-align: center;
@@ -255,7 +252,6 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgb(50, 50, 50);
             width: 300px;
-            overflow: hidden;
             padding: 20px;
             /*內部*/
         }
@@ -271,7 +267,6 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgb(50, 50, 50);
             width: 300px;
-            overflow: hidden;
             padding: 20px;
             /*內部*/
         }

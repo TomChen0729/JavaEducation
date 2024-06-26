@@ -10,14 +10,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            overflow: hidden;
             font-family: 'Arial', sans-serif;
             margin: 0;
         }
 
         .containers{
-            margin-top: 100px;
+            margin-top: 50px;
             padding: 20px;
             background-color: #4D613C;
             border: 3px solid #455736;
