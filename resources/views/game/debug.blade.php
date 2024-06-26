@@ -92,7 +92,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 28px 2%;
-            background: rgba(72, 170, 193, 0.8);
+            background: rgba(121,165,177, 0.8);
             /* 透明背景 */
             transition: all 0.50s ease;
         }
@@ -208,97 +208,33 @@
         }
 
         .container {
-            margin-top: 80px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
+            width: 80%;
+            margin-top: 100px;
             padding: 10px;
-        }
-
-        /* 每一對題目、答案橫向對齊，保持間距 */
-        .pair-container {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            max-width: 800px;
-            margin-bottom: 20px;
-        }
-
-        .question {
-            font-size: 20px;
-            color: #fff;
-            font-weight: bold;
-            letter-spacing: 1px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgb(100, 100, 100);
-            width: 300px;
-            height: 60px;
             display: flex;
             justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: #A34343 0.3s ease;
-            text-align: center;
-            /* 確保文字置中 */
-            padding: 0 10px;
-            margin-right: 50px;
-            box-sizing: border-box;
-            /* 確保padding不會影響寬度 */
-            background-color: #A34343;
         }
 
-        .question:hover {
-            background-color: #e06666;
+        .left {
+            width: 50%;
+            padding: 20px;
+            border: 2px solid #444;
         }
 
-        .answer {
-            font-size: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgb(100, 100, 100);
-            width: 150px;
-            height: 60px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: #E9C874 0.3s ease;
-            text-align: center;
-            /* 確保文字置中 */
-            padding: 0 10px;
-            margin-left: 50px;
-            box-sizing: border-box;
-            /* 確保padding不會影響寬度 */
-            background-color: #E9C874;
+        .right {
+            width: 50%;
+            padding: 20px;
+            border: 2px solid #444;
         }
 
-        .answer:hover {
-            background-color: #f1c232;
+        .code {
+            padding: 20px;
+            border: 2px solid #444;
         }
 
-        .selected {
-            /* 選中項目有邊框顯示 */
-            outline: 3px solid #0000ff;
-        }
-
-        .matched {
-            /* 配對成功後的樣式 */
-            background-color: #00ff00;
-            pointer-events: none;
-            /* 禁用已配對元素的點擊事件 */
-        }
-
-        @media (max-width: 768px) {
-            .pair-container {
-                align-items: center;
-                /* 垂直排列时居中对齐 */
-            }
-
-            .question,
-            .answer {
-                margin: 10px;
-                /* 垂直排列时保持间距 */
-            }
+        .box {
+            padding: 20px;
+            border: 2px solid #444;
         }
 
         @media (max-width: 1280px) {
@@ -323,7 +259,7 @@
                 top: 90%;
                 right: -100%;
                 width: 270px;
-                background: #9ec7c6;
+                background: #a7aab8;
                 font-style: none;
                 border: 2px solid #5b5b5b;
                 display: flex;
@@ -357,35 +293,23 @@
 </head>
 
 <body>
-    <div class="popup" id="popup-1">
-        <div class="overlay"></div>
-        <div class="content">
-            <div class="close-btn" onclick="togglePopup()">&times;</div>
-            <h1>Title</h1>
-            <p>123456789</p>
-        </div>
-    </div>
-
     <header class="header">
         <ul class="breadcrumbs">
             <li class="breadcrumbs__item">
                 <a href="{{ route('welcome') }}" class="breadcrumbs__link">綠野仙蹤</a>
             </li>
             <li class="breadcrumbs__item">
-                <a href="{{ route('country.index',['country_id' => $question -> country_id]) }}" class="breadcrumbs__link">遊玩等級</a>
+                <a href="#" class="breadcrumbs__link">闖關區</a>
             </li>
             <li class="breadcrumbs__item">
-                <a href="{{ route('game.index', ['country_id' => $question -> country_id, 'levels' => $question -> levels])}}" class="breadcrumbs__link">遊戲種類</a>
-            </li>
-            <li class="breadcrumbs__item">
-                <a href="#" class="breadcrumbs__link__active">選擇題</a>
+                <a href="#" class="breadcrumbs__link__active">Debug題</a>
             </li>
         </ul>
 
         <ul class="navbar">
             <li><a href="#" onclick="togglePopup()"> 知識卡</a></li>
-            <li><a href="{{ route('showallcardtypes') }}"> 回上一頁</a></li>
-            <li class="time" id="timer">00:00</li>
+            <li><a onclick="history.back()"> 回上一頁</a></li>
+            <li class="time" id="timer">00:00:00</li>
         </ul>
 
         <div class="main">
@@ -393,7 +317,20 @@
         </div>
     </header>
 
-
+    <div class="container">
+        <div class="left">
+            <h1>說明區</h1>
+        </div>
+        <div class="right">
+            <div class="code"><h1>程式碼</h1></div>
+            <div class="box">
+                <input type="text" placeholder="Enter a correct code">
+                <div class="buttons">
+                    <button class="check-word">Check Word</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!--js-->
     <!-- <script src="{{ asset('js/app.js') }}"></script> -->
@@ -412,6 +349,7 @@
         function startTimer() {
             let minutes = 0;
             let seconds = 0;
+            let hours = 0;
             const timerElement = document.getElementById('timer');
 
             function updateTimer() {
@@ -419,14 +357,24 @@
                 if (seconds === 60) {
                     seconds = 0;
                     minutes++;
+                    if (minutes === 60) {
+                        minutes = 0;
+                        hours++;
+                    }
                 }
-
+                const formattedHours = String(hours).padStart(2, '0');
                 const formattedMinutes = String(minutes).padStart(2, '0');
                 const formattedSeconds = String(seconds).padStart(2, '0');
-                timerElement.textContent = `${formattedMinutes}:${formattedSeconds}`;
+                timerElement.textContent = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
             }
 
             setInterval(updateTimer, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timer);
+            const timerElement = document.getElementById('timer').textContent;
+            return timerElement;
         }
 
         window.onload = startTimer;
@@ -436,7 +384,7 @@
             document.getElementById("popup-1").classList.toggle("active");
         }
 
-        // 遊戲
+        
     </script>
 </body>
 

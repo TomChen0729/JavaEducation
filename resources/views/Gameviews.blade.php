@@ -15,7 +15,7 @@
         }
 
         .containers{
-            margin-top: 50px;
+            margin-top: 30px;
             padding: 20px;
             background-color: #4D613C;
             border: 3px solid #455736;
@@ -130,8 +130,8 @@
         玩法說明：根據提示內容，將打亂的程式碼片段按正確順序重組。</p>
         <p><strong>配對關卡</strong><br>
         玩法說明：根據題目與正確的描述或應用進行配對。</p>
-        <p><strong>Debug關卡</strong><br>
-        玩法說明：在這個關卡中，你會得到一段有錯誤的程式碼。你的任務是找出並修正這些錯誤。</p>
+        <!-- <p><strong>Debug關卡</strong><br>
+        玩法說明：在這個關卡中，你會得到一段有錯誤的程式碼。你的任務是找出並修正這些錯誤。</p> -->
         @foreach($Question_list as $item)
             @if($item -> gametype == '是非')
                 <button class="TF"><a href="{{ route('game.gameTypeChoose', ['GameType' => $item -> gametype, 'country_id' => $item -> country_id, 'levels' => $item -> levels]) }}">{{ $item -> gametype }}</a></button>

@@ -215,12 +215,12 @@
     .PASS {
         background: #F1F4DA;
         border: 2px solid #F1F4DA;
-        font-size: 24px;
+        font-size: 20px;
         font-weight: bold;
         color: #59412D;
         margin: 10px;
-        padding: 20px;
-        width: 150px;
+        padding: 10px;
+        width: 120px;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         text-align: center;
@@ -273,17 +273,6 @@
                     <p><strong>闖關區</strong><br>
                     在完成學習區的所有關卡後，你將進入闖關區。</p>
                     <hr>
-                    <!-- <p><strong>是非關卡</strong><br>
-                    玩法說明：判斷題目所述內容的正確性，選擇正確答案是True還是False。</p>
-                    <p><strong>選擇關卡</strong><br>
-                    玩法說明：從多個選項中選擇一個最符合題意的答案。</p>
-                    <p><strong>重組關卡</strong><br>
-                    玩法說明：根據提示內容，將打亂的程式碼片段按正確順序重組。</p>
-                    <p><strong>配對關卡</strong><br>
-                    玩法說明：根據題目與正確的描述或應用進行配對。</p>
-                    <p><strong>Debug關卡</strong><br>
-                    玩法說明：在這個關卡中，你會得到一段有錯誤的程式碼。你的任務是找出並修正這些錯誤。</p>
-                    <hr> -->
                     <p><strong>獎勵</strong><br>
                     成功通過學習區後，你將獲得一包知識卡，這將幫助你更好地理解和運用相關知識，來決戰闖關區。</p>
                     <p>準備好開始你的冒險了嗎？快來挑戰這個充滿知識與樂趣的遊戲，提升你的編程技能吧！</p>
