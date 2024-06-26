@@ -245,13 +245,18 @@ class GameController extends Controller
             $current_uid = $request->query('cid');
             $spent_time = $request->query('timer');
             $status = $request->query('status');
-
+            if (!UserRecord::where('question_id', $q_id)->where('user_id', $current_uid)->exists()){
             $record = UserRecord::create([
                 'user_id' => $current_uid,
                 'question_id' => $q_id,
                 'watchtime' => $spent_time,
                 'status' => $status,
             ]);
+            }
+            else
+            {
+                UserRecord::where('question_id', $q_id)->where('user_id', $current_uid)->update(['status' => $status,'watchtime'=>$spent_time]);g
+            }
 
             if (!$record) {
                 throw new \Exception('創建用戶記錄失敗。');
