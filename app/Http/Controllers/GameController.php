@@ -255,7 +255,7 @@ class GameController extends Controller
             }
             else
             {
-                UserRecord::where('question_id', $q_id)->where('user_id', $current_uid)->update(['status' => $status,'watchtime'=>$spent_time]);g
+                UserRecord::where('question_id', $q_id)->where('user_id', $current_uid)->update(['status' => $status,'watchtime'=>$spent_time]);
             }
 
             if (!$record) {
