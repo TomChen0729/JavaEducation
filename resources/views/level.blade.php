@@ -14,7 +14,7 @@
 
     .container {
         max-width: 1000px;
-        height: 600px;
+        height: 100%;
         margin: 80px auto 0;
         padding: 10px;
         text-align: center;
@@ -110,6 +110,53 @@
         color: #007bff;
     }
 
+    .footers {
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #59412D;
+        border: 3px solid #452E34;
+        border-radius: 30px;
+        text-align: center;
+        max-width: 800px;
+    }
+
+    .footers h1 {
+        font-size: 36px;
+        font-weight: bold;
+        margin: 10px;
+        color: #59412D;
+        text-shadow: -1px -1px 0 #F1F4DA, 1px -1px 0 #F1F4DA, -1px 1px 0 #F1F4DA, 1px 1px 0 #F1F4DA;
+    }
+
+    .footers p {
+        font-size: 18px;
+        color: #F1F4DA;
+        margin-bottom: 10px;
+    }
+
+    .PASS {
+        background: #F1F4DA;
+        border: 2px solid #F1F4DA;
+        font-size: 24px;
+        font-weight: bold;
+        color: #59412D;
+        margin: 10px;
+        padding: 20px;
+        width: 150px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        text-decoration: none;
+    }
+
+    .PASS:hover {
+        box-shadow: 0 0 10px rgb(100, 100, 100);
+        background-color: #59412D;
+        border: 2px solid #F1F4DA;
+        color: #F1F4DA;
+        transform: scale(1.03);
+    }
+
     /* RWD for smaller devices */
     @media screen and (max-width: 900px) {
         .container {
@@ -164,6 +211,12 @@
                 </div>
             @endif
         @endforeach
+    </div>
+
+    <div class="footers">
+        <h1>闖關區</h1>
+        <p>在完成上方學習區的所有關卡後，你將進入闖關區。</p>
+        <button class="PASS">闖關區</button>
     </div>
 </div>
 @endsection

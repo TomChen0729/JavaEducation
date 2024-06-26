@@ -102,14 +102,6 @@
             box-sizing: border-box;
         }
 
-        .learnarea{
-            width: 50%;
-        }
-
-        .passarea{
-            width: 50%;
-        }
-
         h2{
             font-size: 32px;
             font-weight: bold;
@@ -132,7 +124,7 @@
             margin: 20px 0;
         }
 
-        .TF, .CH, .MA, .RE, .PASS {
+        .TF, .CH, .MA, .RE {
             font-size: 28px;
             font-weight: bold;
             margin: 30px;
@@ -160,18 +152,9 @@
             background-color: #76a5af;
         }
 
-        .PASS{
-            background-color: #8e7cc3;
-        }
-
-        .TF:hover, .CH:hover, .MA:hover, .RE:hover, .PASS:hover {
+        .TF:hover, .CH:hover, .MA:hover, .RE:hover {
             box-shadow: 0 0 10px rgb(100, 100, 100);
             transform: scale(1.03);
-        }
-
-        .pass-buttons {
-            display: flex;
-            justify-content: center;
         }
 
         @media (max-width: 900px) {
@@ -268,12 +251,6 @@
                     <button class="RE"><a href="{{ route('game.gameTypeChoose', ['GameType' => $item -> gametype, 'country_id' => $item -> country_id, 'levels' => $item -> levels]) }}">{{ $item -> gametype }}</a></button>
                 @endif
             @endforeach
-        </div>
-        <div class="passarea">
-            <h2>闖關區</h2>
-            <div class="pass-buttons">
-                <button class="PASS">闖關區</button>
-            </div>
         </div>
     </div>
 @endsection
