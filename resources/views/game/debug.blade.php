@@ -208,33 +208,64 @@
         }
 
         .container {
-            width: 80%;
+            width: 90%;
             margin-top: 100px;
             padding: 10px;
             display: flex;
             justify-content: center;
         }
 
-        .left {
+        .container .left {
+            background-color: #333333;
+            border-radius: 50px;
+            color: #fff;
             width: 50%;
-            padding: 20px;
-            border: 2px solid #444;
+            margin: 10px;
+            padding: 50px;
         }
 
-        .right {
+        .container .right {
+            background-color: #333333;
+            color: #fff;
+            border-radius: 50px;
             width: 50%;
+            margin: 10px;
+            padding: 50px;
+            border: 2px solid #444;
+        }
+
+        .container .left .content {
             padding: 20px;
             border: 2px solid #444;
         }
 
-        .code {
+        .container .right .code {
             padding: 20px;
             border: 2px solid #444;
         }
 
-        .box {
-            padding: 20px;
-            border: 2px solid #444;
+        .container .right .box {
+            margin-top: 30px;
+        }
+
+        .container .right .box .inputs {
+            width: 550px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .container .right .box button {
+            margin-top: 10px;
+            padding: 5px;
+            border: 1px solid #fff;
+        }
+
+        .container .right .box button:hover {
+            background-color: #fff;
+            color: #333333;
+            padding: 5px;
+            border: 1px solid #333333;
         }
 
         @media (max-width: 1280px) {
@@ -319,14 +350,33 @@
 
     <div class="container">
         <div class="left">
-            <h1>說明區</h1>
+            <div class="content">
+                <h1>請印出「The Wonderful Wizard of Oz」並換行</h1>
+            </div>
         </div>
         <div class="right">
-            <div class="code"><h1>程式碼</h1></div>
+            <div class="code">
+                <pre>
+public class Ex01 {
+    public static void main(String[] args) {
+        System.out.println("The Wonderful Wizard of Oz");
+    }
+}
+                </pre>
+            </div>
             <div class="box">
-                <input type="text" placeholder="Enter a correct code">
+                <div class="inputs">
+                    <div>
+                        <p>錯誤行數：</p>
+                        <input type="text" id="errorLine" style="width: 80px;">
+                    </div>
+                    <div>
+                        <p>正確程式碼：</p>
+                        <input type="text" id="correctCode" style="width: 470px;">
+                    </div>
+                </div>
                 <div class="buttons">
-                    <button class="check-word">Check Word</button>
+                    <button class="check-word">Check Answer</button>
                 </div>
             </div>
         </div>
@@ -384,6 +434,8 @@
             document.getElementById("popup-1").classList.toggle("active");
         }
 
+        // 遊戲
+        
         
     </script>
 </body>
