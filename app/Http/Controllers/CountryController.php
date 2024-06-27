@@ -20,7 +20,7 @@ class CountryController extends Controller
     // 注入GameService
     public function __construct(GameService $gameService)
     {
-        $this -> gameService = $gameService;
+        $this->gameService = $gameService;
     }
 
 
@@ -32,11 +32,18 @@ class CountryController extends Controller
         $User_country = auth()->user()->country_id;
         // 如果玩家最新的國家id大於等於當前國家id
         // 帶出當前國家資訊 LV1-3
-        if($User_country >= $country_id){
+        if ($User_country >= $country_id) {
             // 國家底下的第一層知識卡
             $parent_cards = CardType::where('country_id', $country_id)->get();
         }
-        return view('level', ['parent_cards'=> $parent_cards]);
-    }
+        // 找當前國家最大等級
+        $currentCountryMaxLV = CardType::where('country_id', $country_id)->max('levels');
+        if (!User::where('id', auth()->user()->id)->where('country_id', $country_id)->where('levels', $currentCountryMaxLV)->exists()) {
+            $debug = 0;
+        } else {
+            $debug = 1;
+        }
 
+        return view('level', ['parent_cards' => $parent_cards, 'debug' => $debug]);
+    }
 }
