@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JavaEducation - 闖關Debug</title>
@@ -219,7 +219,7 @@
             background-color: #333333;
             border-radius: 50px;
             color: #fff;
-            width: 50%;
+            width: 30%;
             margin: 10px;
             padding: 50px;
         }
@@ -228,10 +228,19 @@
             background-color: #333333;
             color: #fff;
             border-radius: 50px;
-            width: 50%;
+            width: 70%;
             margin: 10px;
             padding: 50px;
             border: 2px solid #444;
+        }
+
+        h1 {
+            font-size: 20px;
+            font-weight: bolder;
+        }
+
+        input{
+            color: #333333;
         }
 
         .container .left .content {
@@ -318,7 +327,6 @@
             }
         }
     </style>
-    @yield('style')
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
 </head>
@@ -327,7 +335,7 @@
     <header class="header">
         <ul class="breadcrumbs">
             <li class="breadcrumbs__item">
-                <a href="{{ route('welcome') }}" class="breadcrumbs__link">綠野仙蹤</a>
+                <a href="#" class="breadcrumbs__link">綠野仙蹤</a>
             </li>
             <li class="breadcrumbs__item">
                 <a href="#" class="breadcrumbs__link">闖關區</a>
@@ -344,99 +352,213 @@
         </ul>
 
         <div class="main">
-            <div class="bx bx-menu" id="menu-icon"></div>
+            <a href="#" class="logo"></a>
         </div>
     </header>
 
     <div class="container">
         <div class="left">
-            <div class="content">
-                <h1>請印出「The Wonderful Wizard of Oz」並換行</h1>
+            <div class="content" id="question-content">
+                <!-- 題目內容動態生成 -->
+                <!-- <h1>題目說明：</h1>
+                <p>請印出「The Wonderful Wizard of Oz」並換行</p>
+                <br>
+                <h1>結果輸出：</h1>
+                <p>The Wonderful Wizard of Oz</p> -->
             </div>
         </div>
         <div class="right">
             <div class="code">
-                <pre>
-public class Ex01 {
-    public static void main(String[] args) {
-        System.out.println("The Wonderful Wizard of Oz");
-    }
-}
+                <h1>程式碼：</h1>
+                <pre id="code-block">
+                    <!-- 程式碼內容動態生成 -->
+                    <!-- 1. public class Ex01 {
+                    2.     public static void main(String[] args) {
+                    3.         System.out.println("The Wonderful Wizard of Oz");
+                    4.     }
+                    5. } -->
                 </pre>
             </div>
             <div class="box">
                 <div class="inputs">
                     <div>
                         <p>錯誤行數：</p>
-                        <input type="text" id="errorLine" style="width: 80px;">
+                        <input type="text" id="errorLine">
                     </div>
                     <div>
                         <p>正確程式碼：</p>
-                        <input type="text" id="correctCode" style="width: 470px;">
+                        <input type="text" id="correctCode">
                     </div>
                 </div>
                 <div class="buttons">
-                    <button class="check-word">Check Answer</button>
+                    <button class="check-word" onclick="checkAnswer()">檢查答案</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!--js-->
-    <!-- <script src="{{ asset('js/app.js') }}"></script> -->
-    @yield('script')
     <script>
-        // 漢堡
-        let menu = document.querySelector('#menu-icon');
-        let navbar = document.querySelector('.navbar');
+        // 題目(description)、程式碼(code)、正確行數(correctLine)、正確程式碼(correctCode)
+        const questions = [
+            {
+                description: `歡迎來到綠野仙蹤~跟著我們一起冒險吧!請印出:
+                <br>The Wonderful Wizard of Oz，並且自動換行。`,
+                code: `public class Main {
+    public static void main(String[] args) {
+        System.out.print("The Wonderful Wizard of Oz");
+    }
+}`,
+                correctLine: 3,
+                correctCode: `System.out.println("The Wonderful Wizard of Oz");`
+            },
+            {
+                description: `設計一個程式，輸入您的姓名，並輸出:
+                <br>「歡迎(您的名字)進入綠野仙蹤，努力幫助桃樂絲通關吧!」`,
+                code: `import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner keyin = new Scanner(System.in);
+        System.out.print("請輸入您的名稱：");
+        Int Name = keyin.nextInt();
+        System.out.println("歡迎"+ Name +"進入綠野仙蹤，努力幫助桃樂絲通關吧!");
+        keyin.close();
+    }
+}`,
+                correctLine: 6,
+                correctCode: `String Name = keyin.nextLine();`
+            },
+            {
+                description: `桃樂絲和稻草人要在10分25秒跑3公里，逃離金黃色稻田到達南國以免被壞女巫抓住，請寫一個程式:
+                <br>計算並顯示桃樂絲每小時的平均英哩時速(1英哩=1.6公里)
+                <br>計算3公里 = x 英哩(列出公式，不用計算出答案)
+                <br>10分25秒 = y小時
+                <br>輸出 : 每小時的平均英哩數=?`,
+                code: `public class Main {
+    public static void main(String[] args) {
+        double miles = 3 / 1.6;
+        double hours = 10.0 / 60.0 + 25.0 / 3600.0;
+        double avgSpeed = miles / hours;
 
-        menu.onclick = () => {
-            menu.classList.toggle('bx-x');
-            navbar.classList.toggle('open');
-        }
+        System.out.print("每小時的平均英哩數=%.2f", avgSpeed);
+    }
+}`,
+                correctLine: 7,
+                correctCode: `System.out.printf("每小時的平均英哩數=%.2f", avgSpeed);`
+            },
+            {
+                description: `稻草人被綁在金黃色稻田裡，為了更快速地替稻草人解綁
+                <br>請幫助桃樂絲計算金黃色稻田的周長和面積，稻田的半徑為2.5，寫一個程式
+                <br>計算此圓的周長和面積，PI = 3.14`,
+                code: `public class Main {
+    public static void main(String[] args) {
+        final int PI = 3.14;
+		double r = 2.5;
+		double Peri = 2*PI*r;
+		double Area = PI*r*r;
+		System.out.println("圓周長 = " +Peri+", 圓面積 = "+Area );
+    }
+}`,
+                correctLine: 3,
+                correctCode: `final double PI = 3.14;`
+            },
+            {
+                description: `請幫助蠻金之國的小矮人收割稻草，小矮人族長為了報答您決定收滿1000個稻草送100個稻草，請寫一程式:
+                <br>輸入您收割多少稻草並輸出得到多少稻草`,
+                code: `import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner keyin = new Scanner(System.in);
+        System.out.println("您收割了多少稻草：");
+        int a = keyin.nextInt();
+        System.out.print("您獲得了%d根稻草",(a/1000)*100);
 
-        // 計時器
-        function startTimer() {
-            let minutes = 0;
-            let seconds = 0;
-            let hours = 0;
-            const timerElement = document.getElementById('timer');
+    }
+}`,
+                correctLine: 8,
+                correctCode: `keyin.close();`
+            },
+            {
+                description: `稻草收割完稻草必須公平分配給每一位小矮人，輸入收割的稻草數(a)和小矮人人數(b)
+                <br>輸出每個小矮人分配到的稻草數量(商)以及多餘的稻草(餘數)`,
+                code: `public class Main {
+   public static void main(String[] args) {
+    Scanner keyin = new Scanner(System.in);
+		
+		//輸入兩個整數 a 及 b ，輸出 a 除以 b的商及餘數
+		System.out.print("請輸入收割的稻草數（a）：");
+		int a = keyin.nextInt();
+        System.out.print("請輸入小矮人人數（b）：");
+		int b = keyin.nextInt();
+		System.out.printf("每個小矮人分配到的稻草數量為：%d，多餘稻草數為：%d",a/b,a%b);
+        keyin.close();
+   } 
+}`,
+                correctLine: 1,
+                correctCode: `import java.util.Scanner;`
+            },
+            {
+                description: `壞女巫對蠻金之國下了暴雨詛咒，農作物需要馬上收割，小矮人請桃樂絲幫助他們收割並給她薪水，寫一個程式
+                <br>輸入桃樂絲幫忙小矮人收割的時數，並計算其薪資(時薪183)`,
+                code: `import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner keyin = new Scanner(System.in);
 
-            function updateTimer() {
-                seconds++;
-                if (seconds === 60) {
-                    seconds = 0;
-                    minutes++;
-                    if (minutes === 60) {
-                        minutes = 0;
-                        hours++;
-                    }
-                }
-                const formattedHours = String(hours).padStart(2, '0');
-                const formattedMinutes = String(minutes).padStart(2, '0');
-                const formattedSeconds = String(seconds).padStart(2, '0');
-                timerElement.textContent = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+        System.out.print("請輸入桃樂絲幫忙收割的時數：");
+        float hours = keyin.nextInt();
+
+        double salaryRate = 183.0;
+        double salary = hours * salaryRate;
+
+        System.out.println("桃樂絲的薪資為：" + salary);
+        keyin.close();
+    }
+}`,
+                correctLine: 7,
+                correctCode: `float hours = keyin.nextFloat();`
             }
+        ];
 
-            setInterval(updateTimer, 1000);
+        // 初始化
+        let currentQuestionIndex = 0;
+
+        // 加載問題索引，接受參數'index'
+        function loadQuestion(index) {
+            // 獲取問題(從questions數組中根據索引獲取題目)
+            const question = questions[index];
+            // 顯示問題描述(獲取id為'question-content'的元素)
+            const questionContent = document.getElementById('question-content');
+            // 顯示程式碼(獲取id為'code-block'的元素)
+            const codeBlock = document.getElementById('code-block');
+            // 丟數組中的description進去'question-content'，replace()函數用於替換字符串為新的字符串，這裡將所有\n替換為<br>以便在HTML中正確顯示段落
+            questionContent.innerHTML = `<h1>題目說明：</h1><p>${question.description.replace(/\n/g, '<br>')}</p>`;
+            // 丟數組中的code進去'code-block'，將程式碼以\n分割成行(用來組成陣列)，用map()函數對陣列每一行加行數(從1開始)，回呼函式有兩個參數(line, idx)，最後用join('\n')連接成字串
+            codeBlock.textContent = question.code.split('\n').map((line, idx) => `${idx + 1}. ${line}`).join('\n');
         }
 
-        function stopTimer() {
-            clearInterval(timer);
-            const timerElement = document.getElementById('timer').textContent;
-            return timerElement;
+
+        // 檢查答案
+        function checkAnswer() {
+            // trim()用於刪除字串的頭尾空白、tab、換行符號
+            let errorLine = document.getElementById('errorLine').value.trim();
+            let correctCode = document.getElementById('correctCode').value.trim();
+            const question = questions[currentQuestionIndex];
+
+            if (errorLine == question.correctLine && correctCode == question.correctCode) {
+                alert('答案正確!');
+            } else {
+                alert('答案錯誤，請再試一次!');
+            }
         }
 
-        window.onload = startTimer;
-
-        // 彈跳視窗
-        function togglePopup() {
-            document.getElementById("popup-1").classList.toggle("active");
+        function getRandomQuestionIndex() {
+            return Math.floor(Math.random() * questions.length);
         }
 
-        // 遊戲
-        
-        
+        window.onload = function() {
+            currentQuestionIndex = getRandomQuestionIndex();
+            loadQuestion(currentQuestionIndex);
+        };
     </script>
 </body>
 
