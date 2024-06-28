@@ -551,10 +551,12 @@ public class Main {
             }
         }
 
+        // 隨機出題
         function getRandomQuestionIndex() {
             return Math.floor(Math.random() * questions.length);
         }
 
+        // 顯示題目
         window.onload = function() {
             currentQuestionIndex = getRandomQuestionIndex();
             loadQuestion(currentQuestionIndex);
