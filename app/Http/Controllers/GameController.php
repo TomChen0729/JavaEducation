@@ -166,7 +166,7 @@ class GameController extends Controller
                     //
                     $current_uid = auth()->user()->id;
                     //串表查詢當前使用者玩過哪些配對題目的總數
-                    $played_count = UserRecord::with('question')->whereHas('question', function ($query) use ($levels) {
+                    $played_count = UserRecord::with('question')->where('user_id', $current_uid)->whereHas('question', function ($query) use ($levels) {
                         $query->where('gametype', '配對')->where('levels', $levels);
                     })->count();
                     //當前題庫中的該等級配對題目總數
@@ -278,7 +278,35 @@ class GameController extends Controller
     {
         //
         if ($request->isMethod('get')) {
-            $GameType='';
+            // 串表去找使用者玩過的類型
+            // 先串表、找答對的問題，再去questions表找符合等級的資料，最後只抓取遊戲種類
+            $current_uid = auth()->user()->id;
+            $PlayedGameType = UserRecord::with('question')->where('user_id', $current_uid)->where('status', 1)->whereHas('question', function ($query) use ($levels) {
+                $query->where('levels', $levels);
+            })->pluck('question.gametype')->toArray();
+            // 儲存當前所有的遊戲種類
+            $typelist = ['是非', '選擇', '配對', '填充'];
+            // 用來記錄沒玩過的遊戲種類
+            $UnPlayedGameType = [];
+
+            foreach ($typelist as $gametype) {
+                //去找所有沒玩過的遊戲類型，當這遊戲類型沒玩過就抓到$UnPlayedGameType裡
+                if (!in_array($gametype, $PlayedGameType)) {
+                    $UnPlayedGameType[] = $gametype;
+                }
+            }
+
+            if (!empty($UnPlayedGameType)) {
+                //如果$UnPlayedGameType不為空，就從其中隨機抽一個類型
+                // https://www.runoob.com/php/func-array-rand.html 根據這個寫的
+                $random = array_rand($UnPlayedGameType);
+                $GameType = $UnPlayedGameType[$random];
+            } else {
+                //如果$UnPlayedGameType為空，就從$type其中隨機抽一個類型
+                $random = array_rand($typelist);
+                $GameType = $typelist[$random];
+            }
+
             switch ($GameType) {
                 case '是非':
                     // 如果GameType_id == 是非
@@ -403,7 +431,7 @@ class GameController extends Controller
                     //
                     $current_uid = auth()->user()->id;
                     //串表查詢當前使用者玩過哪些配對題目的總數
-                    $played_count = UserRecord::with('question')->whereHas('question', function ($query) use ($levels) {
+                    $played_count = UserRecord::with('question')->where('user_id', $current_uid)->whereHas('question', function ($query) use ($levels) {
                         $query->where('gametype', '配對')->where('levels', $levels);
                     })->count();
                     //當前題庫中的該等級配對題目總數
@@ -418,7 +446,7 @@ class GameController extends Controller
                             ->where('levels', $levels)->inRandomOrder()->take(6)->get();
                     } else {
                         //去抓玩過哪些題目
-                        $played_questions = UserRecord::with('question')->whereHas('question', function ($query) use ($levels) {
+                        $played_questions = UserRecord::with('question')->where('user_id', $current_uid)->whereHas('question', function ($query) use ($levels) {
                             $query->where('gametype', '配對')->where('levels', $levels);
                         })->pluck('question_id')->toArray();
                         //沒玩過的題目
