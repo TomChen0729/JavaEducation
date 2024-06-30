@@ -57,6 +57,23 @@
             box-sizing: border-box;
         }
 
+        .popup .pop {
+            margin: 30px;
+            padding: 30px 0;
+            border-radius: 50px;
+            border: 5px solid #333333;
+        }
+
+        .popup .pop h1 {
+            font-size: 20px;
+            font-weight: bolder;
+            margin-bottom: 5px;
+        }
+
+        .popup .pop p {
+            font-size: 16px;
+        }
+
         .popup .close-btn {
             cursor: pointer;
             position: absolute;
@@ -332,6 +349,29 @@
 </head>
 
 <body>
+    <div class="popup" id="popup-1">
+        <div class="overlay"></div>
+        <div class="content">
+            <div class="close-btn" onclick="togglePopup()">&times;</div>
+            <div class="pop">
+                <a href="#" onclick="togglePopups()">知識卡</a>
+            </div>
+        </div>
+    </div>
+
+    @foreach ( $questions_cards as $item)
+    <div class="popup" id="popup-2">
+        <div class="overlay"></div>
+        <div class="content">
+            <div class="close-btn" onclick="togglePopups()">&times;</div>
+            <div class="pop">
+                <h1>{{ $item -> name }}</h1>
+                <p>{{ $item -> content }}</p>
+            </div>
+        </div>
+    </div>
+    @endforeach
+
     <header class="header">
         <ul class="breadcrumbs">
             <li class="breadcrumbs__item">
@@ -398,6 +438,47 @@
     </div>
 
     <script>
+        // 漢堡
+        let menu = document.querySelector('#menu-icon');
+        let navbar = document.querySelector('.navbar');
+
+        menu.onclick = () => {
+            menu.classList.toggle('bx-x');
+            navbar.classList.toggle('open');
+        }
+
+        // 計時器
+        function startTimer() {
+            let minutes = 0;
+            let seconds = 0;
+            const timerElement = document.getElementById('timer');
+
+            function updateTimer() {
+                seconds++;
+                if (seconds === 60) {
+                    seconds = 0;
+                    minutes++;
+                }
+
+                const formattedMinutes = String(minutes).padStart(2, '0');
+                const formattedSeconds = String(seconds).padStart(2, '0');
+                timerElement.textContent = `${formattedMinutes}:${formattedSeconds}`;
+            }
+
+            setInterval(updateTimer, 1000);
+        }
+
+        window.onload = startTimer;
+
+        // 知識卡
+        function togglePopup() {
+            document.getElementById("popup-1").classList.toggle("active");
+        }
+
+        function togglePopups() {
+            document.getElementById("popup-2").classList.toggle("active");
+        }
+
         // 題目(description)、程式碼(code)、正確行數(correctLine)、正確程式碼(correctCode)
         const questions = [{
                 description: `歡迎來到綠野仙蹤~跟著我們一起冒險吧!請印出:

@@ -331,11 +331,21 @@
 </head>
 
 <body>
-    @foreach ( $questions_cards as $item)
     <div class="popup" id="popup-1">
         <div class="overlay"></div>
         <div class="content">
             <div class="close-btn" onclick="togglePopup()">&times;</div>
+            <div class="pop">
+                <a href="#" onclick="togglePopups()">知識卡</a>
+            </div>
+        </div>
+    </div>
+
+    @foreach ( $questions_cards as $item)
+    <div class="popup" id="popup-2">
+        <div class="overlay"></div>
+        <div class="content">
+            <div class="close-btn" onclick="togglePopups()">&times;</div>
             <div class="pop">
                 <h1>{{ $item -> name }}</h1>
                 <p>{{ $item -> content }}</p>
@@ -430,10 +440,16 @@
 
         window.onload = startTimer;
 
+        // 知識卡
         function togglePopup() {
             document.getElementById("popup-1").classList.toggle("active");
         }
 
+        function togglePopups() {
+            document.getElementById("popup-2").classList.toggle("active");
+        }
+
+        // 遊戲
         const questionEl = document.getElementById('questions'); // 題目
         const trueBtn = document.getElementById('trueB'); // true 按鈕
         const falseBtn = document.getElementById('falseB'); //False 按鈕

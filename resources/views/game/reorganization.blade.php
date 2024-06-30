@@ -60,6 +60,23 @@
             box-sizing: border-box;
         }
 
+        .popup .pop {
+            margin: 30px;
+            padding: 30px 0;
+            border-radius: 50px;
+            border: 5px solid #333333;
+        }
+
+        .popup .pop h1 {
+            font-size: 20px;
+            font-weight: bolder;
+            margin-bottom: 5px;
+        }
+
+        .popup .pop p {
+            font-size: 16px;
+        }
+
         .popup .close-btn {
             cursor: pointer;
             position: absolute;
@@ -360,15 +377,28 @@
 </head>
 
 <body>
-
     <div class="popup" id="popup-1">
         <div class="overlay"></div>
         <div class="content">
             <div class="close-btn" onclick="togglePopup()">&times;</div>
-            <h1>Title</h1>
-            <p>123456789</p>
+            <div class="pop">
+                <a href="#" onclick="togglePopups()">知識卡</a>
+            </div>
         </div>
     </div>
+
+    @foreach ( $questions_cards as $item)
+    <div class="popup" id="popup-2">
+        <div class="overlay"></div>
+        <div class="content">
+            <div class="close-btn" onclick="togglePopups()">&times;</div>
+            <div class="pop">
+                <h1>{{ $item -> name }}</h1>
+                <p>{{ $item -> content }}</p>
+            </div>
+        </div>
+    </div>
+    @endforeach
 
     <header class="header">
         <ul class="breadcrumbs">
@@ -440,9 +470,13 @@
 
         window.onload = startTimer;
 
-        // 彈跳視窗
+        // 知識卡
         function togglePopup() {
             document.getElementById("popup-1").classList.toggle("active");
+        }
+
+        function togglePopups() {
+            document.getElementById("popup-2").classList.toggle("active");
         }
 
         // 遊戲
