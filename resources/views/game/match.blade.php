@@ -34,6 +34,82 @@
             overflow: hidden;
         }
 
+        .first .overlay {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            width: 100vw;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+            display: none;
+        }
+
+        .first .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: #fff;
+            width: 950px;
+            z-index: 1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .first .pop {
+            color: #333333;
+            margin: 30px;
+            padding: 30px;
+            border-radius: 50px;
+            border: 5px solid #333333;
+        }
+
+        .first .pop h1 {
+            text-align: center;
+            font-size: 26px;
+            font-weight: bolder;
+            margin-bottom: 5px;
+        }
+
+        .first .pop p {
+            font-size: 16px;
+        }
+
+        .first .pop p.cen {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .first .pop hr {
+            margin: 10px 0;
+        }
+
+        .first .close-btn {
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            width: 30px;
+            height: 30px;
+            background-color: #222;
+            color: #fff;
+            font-size: 25px;
+            font-weight: 600;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 50%;
+        }
+
+        .first.active .overlay {
+            display: block;
+        }
+
+        .first.active .content {
+            transition: all 300ms ease-in-out;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
         .popup .overlay {
             position: fixed;
             top: 0px;
@@ -376,6 +452,25 @@
 </head>
 
 <body>
+    <div class="first active" id="popup">
+        <div class="overlay"></div>
+        <div class="content">
+            <div class="close-btn" onclick="togglePopup1()">&times;</div>
+            <div class="pop">
+                <h1>遊戲說明</h1>
+                <p class="cen">歡迎來到《綠野仙蹤》遊戲，在這個遊戲中，你將會經歷兩個大關卡：學習區和闖關區。</p>
+                <p><strong>學習區</strong><br>
+                    在學習區，你將會遇到四種不同的關卡類型：是非、選擇、重組和配對。</p>
+                <p><strong>闖關區</strong><br>
+                    在完成學習區的所有關卡後，你將進入闖關區。</p>
+                <hr>
+                <p><strong>獎勵</strong><br>
+                    成功通過學習區後，你將獲得一包知識卡，這將幫助你更好地理解和運用相關知識，來決戰闖關區。</p>
+                <p>準備好開始你的冒險了嗎？快來挑戰這個充滿知識與樂趣的遊戲，提升你的編程技能吧！</p>
+            </div>
+        </div>
+    </div>
+
     <div class="popup" id="popup-1">
         <div class="overlay"></div>
         <div class="content">
@@ -479,11 +574,20 @@
         window.onload = startTimer;
 
         // 知識卡
-        function togglePopup() {
+        // 畫面載入後顯示彈跳視窗
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById("popup").classList.add("active");
+        });
+
+        function togglePopup1() {
+            document.getElementById("popup").classList.toggle("active");
+        }
+
+        function togglePopup2() {
             document.getElementById("popup-1").classList.toggle("active");
         }
 
-        function togglePopups() {
+        function togglePopup3() {
             document.getElementById("popup-2").classList.toggle("active");
         }
 
