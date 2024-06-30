@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JavaEducation - 闖關Debug</title>
@@ -92,7 +92,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 28px 2%;
-            background: rgba(121,165,177, 0.8);
+            background: rgba(121, 165, 177, 0.8);
             /* 透明背景 */
             transition: all 0.50s ease;
         }
@@ -239,7 +239,7 @@
             font-weight: bolder;
         }
 
-        input{
+        input {
             color: #333333;
         }
 
@@ -399,8 +399,7 @@
 
     <script>
         // 題目(description)、程式碼(code)、正確行數(correctLine)、正確程式碼(correctCode)
-        const questions = [
-            {
+        const questions = [{
                 description: `歡迎來到綠野仙蹤~跟著我們一起冒險吧!請印出:
                 <br>The Wonderful Wizard of Oz，並且自動換行。`,
                 code: `public class Main {
