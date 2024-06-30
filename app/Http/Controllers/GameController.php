@@ -166,8 +166,8 @@ class GameController extends Controller
                     //
                     $current_uid = auth()->user()->id;
                     //串表查詢當前使用者玩過哪些配對題目的總數
-                    $played_count = UserRecord::with('question')->where('user_id', $current_uid)->whereHas('question', function ($query) use ($levels) {
-                        $query->where('gametype', '配對')->where('levels', $levels);
+                    $played_count = UserRecord::with('question')->where('user_id', $current_uid)->whereHas('question', function ($query) use ($levels, $country_id) {
+                        $query->where('country_id', $country_id)->where('gametype', '配對')->where('levels', $levels);
                     })->count();
                     //當前題庫中的該等級配對題目總數
                     $match_question_count = Question::where('gametype', '配對')->where('levels', $levels)->count();
@@ -181,13 +181,14 @@ class GameController extends Controller
                             ->where('levels', $levels)->inRandomOrder()->take(6)->get();
                     } else {
                         //去抓玩過哪些題目
-                        $played_questions = UserRecord::with('question')->whereHas('question', function ($query) use ($levels) {
-                            $query->where('gametype', '配對')->where('levels', $levels);
+                        $played_questions = UserRecord::with('question')->whereHas('question', function ($query) use ($levels, $country_id) {
+                            $query->where('country_id', $country_id)->where('gametype', '配對')->where('levels', $levels);
                         })->pluck('question_id')->toArray();
                         //沒玩過的題目
-                        $not_played_questions = Question::whereNotIn('id', $played_questions)->where('gametype', '配對')->where('levels', $levels)->get();
+                        $not_played_questions = Question::whereNotIn('id', $played_questions)->where('country_id', $country_id)->where('gametype', '配對')->where('levels', $levels)->get();
                         //額外補充的題目，先排除上面沒玩過的題目
                         $fill_questions = Question::whereNotIn('id', $not_played_questions->pluck('id')->toArray())
+                            ->where('country_id', $country_id)
                             ->where('gametype', '配對')
                             ->where('levels', $levels)
                             ->take($difference)
@@ -431,8 +432,8 @@ class GameController extends Controller
                     //
                     $current_uid = auth()->user()->id;
                     //串表查詢當前使用者玩過哪些配對題目的總數
-                    $played_count = UserRecord::with('question')->where('user_id', $current_uid)->whereHas('question', function ($query) use ($levels) {
-                        $query->where('gametype', '配對')->where('levels', $levels);
+                    $played_count = UserRecord::with('question')->where('user_id', $current_uid)->whereHas('question', function ($query) use ($levels, $country_id) {
+                        $query->where('country_id', $country_id)->where('gametype', '配對')->where('levels', $levels);
                     })->count();
                     //當前題庫中的該等級配對題目總數
                     $match_question_count = Question::where('gametype', '配對')->where('levels', $levels)->count();
@@ -446,13 +447,14 @@ class GameController extends Controller
                             ->where('levels', $levels)->inRandomOrder()->take(6)->get();
                     } else {
                         //去抓玩過哪些題目
-                        $played_questions = UserRecord::with('question')->where('user_id', $current_uid)->whereHas('question', function ($query) use ($levels) {
-                            $query->where('gametype', '配對')->where('levels', $levels);
+                        $played_questions = UserRecord::with('question')->whereHas('question', function ($query) use ($levels, $country_id) {
+                            $query->where('country_id', $country_id)->where('gametype', '配對')->where('levels', $levels);
                         })->pluck('question_id')->toArray();
                         //沒玩過的題目
-                        $not_played_questions = Question::whereNotIn('id', $played_questions)->where('gametype', '配對')->where('levels', $levels)->get();
+                        $not_played_questions = Question::whereNotIn('id', $played_questions)->where('country_id', $country_id)->where('gametype', '配對')->where('levels', $levels)->get();
                         //額外補充的題目，先排除上面沒玩過的題目
                         $fill_questions = Question::whereNotIn('id', $not_played_questions->pluck('id')->toArray())
+                            ->where('country_id', $country_id)
                             ->where('gametype', '配對')
                             ->where('levels', $levels)
                             ->take($difference)
@@ -609,5 +611,16 @@ class GameController extends Controller
             return response()->json(['message' => 'HTTP 方法必須是 GET。'], 405);
         }
 
+    }
+    public function HistoryAnswerRecord(Request $request, int $levels)
+    {
+        $current_uid = auth()->user()->id;
+        //抓當前使用者的答題記錄
+        $UserRecords = UserRecord::with('question')
+            ->where('user_id', $current_uid)
+            ->whereHas('question', function ($query) use ($levels) {
+                $query->where('levels', $levels);
+            })
+            ->get();
     }
 }
