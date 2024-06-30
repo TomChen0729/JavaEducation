@@ -63,6 +63,8 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+    // 顯示該國家的劇情畫面
+    Route::get('/drama/country/{country_id}', [CountryController::class, 'drama'])->name('country.drama');
     // 帶值進入第幾個國家的難度選取畫面
     Route::get('/country/{country_id}', [CountryController::class, 'index'])->name('country.index');
     // 帶值(等級)進入遊戲類型選擇畫面1-4闖關，5主線
@@ -101,7 +103,4 @@ Route::get('knowledge', function () {
 });
 Route::get('debug', function () {
     return view('game.debug');
-});
-Route::get('drama', function () {
-    return view('drama');
 });

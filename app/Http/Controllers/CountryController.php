@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CardType;
 use App\Models\Country;
+use App\Models\Drama;
 use App\Models\KnowledgeCard;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -23,6 +24,26 @@ class CountryController extends Controller
         $this->gameService = $gameService;
     }
 
+    // 劇情畫面
+    public function drama(int $country_id)
+    {
+        //初始化玩家紀錄(檢查玩家的country_id 和 levels)
+        $this->gameService->initUserRecord();
+        // 選取這兩個欄位('role_icon', 'msg')
+        // 排的順序是依照order欄位小到大
+        $currentCountryDrama = Drama::select('role_icon', 'msg')
+            ->where('country_id', $country_id)
+            ->orderBy('order', 'asc')->get()
+            // 用map跑一遍裡面撈出來的資料，並形成陣列sender是腳色icon，message是劇情訊息
+            ->map(function ($item) {
+                return [
+                    'sender' => $item->role_icon,
+                    'message' => $item->msg,
+                ];
+            });
+
+        return view('drama', ['dramas' => $currentCountryDrama, 'currentCountry' => $country_id]);
+    }
 
     // 導向等級選取，帶使用者資料，檢查玩家遊戲進度
     public function index(int $country_id)

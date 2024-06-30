@@ -279,7 +279,7 @@
             <!-- $country是國家圖檔名，$status是他的可點選狀態 -->
             @foreach ($countries as $country => $status)
                 @if ($status == 1)
-                    <button><a href="{{ route('country.index', ['country_id' => $loop->index + 1]) }}"><img src="/images/country/{{ $country}}" alt=""></a></button>
+                    <button><a href="{{ route('country.drama', ['country_id' => $loop->index + 1]) }}"><img src="/images/country/{{ $country}}" alt=""></a></button>
                 @else
                     <button onclick="alert('尚未解鎖')"><img src="/images/country/{{ $country }}" style="opacity:0.2" disabled></button>
                 @endif
