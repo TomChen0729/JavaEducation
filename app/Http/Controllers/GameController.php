@@ -210,8 +210,8 @@ class GameController extends Controller
                         }
                     }
                     return view('game.match', ['questions' => $questions]);
-                case '重組':
-                    // 如果GameType_id == 重組
+                case '填空':
+                    // 如果GameType_id == 填空
                     // 呼叫檢查使用者遊玩進度
                     $current_uid = auth()->user()->id;
                     // 玩家在當前國家當前等級玩過且正確的題目id
@@ -219,7 +219,7 @@ class GameController extends Controller
                         ->where('user_id', $current_uid)
                         ->where('status', 1)->pluck('question_id')->toArray();
                     // 當前國家當前等級會有的題目id
-                    $trueorfalse_count = Question::select('id')->where('gametype', '重組')
+                    $trueorfalse_count = Question::select('id')->where('gametype', '填空')
                         ->where('country_id', $country_id)
                         ->where('levels', $levels)->get();
                     // 有玩過
@@ -228,7 +228,7 @@ class GameController extends Controller
                         if (count($current_count) < count($trueorfalse_count)) {
                             // 呼叫亂數出題
                             // 出當前使用者在當前國家當前等級未正確的題目
-                            $question = Question::where('gametype', '重組')
+                            $question = Question::where('gametype', '填空')
                                 ->where('country_id', $country_id)
                                 ->where('levels', $levels)
                                 ->whereNotIn('id', $current_count)->inRandomOrder()->first();
@@ -242,7 +242,7 @@ class GameController extends Controller
                         // 沒有錯題
                         else {
                             // 如果玩過忽略排查紀錄，直接隨機出題
-                            $question = Question::where('gametype', '重組')
+                            $question = Question::where('gametype', '填空')
                                 ->where('country_id', $country_id)
                                 ->where('levels', $levels)
                                 ->inRandomOrder()->first();
@@ -258,7 +258,7 @@ class GameController extends Controller
                         }
                     } else { // 沒玩過
                         // 沒玩過就不管了反正只會跑一次，全部亂數
-                        $question = Question::where('gametype', '重組')
+                        $question = Question::where('gametype', '填空')
                             ->where('country_id', $country_id)
                             ->where('levels', $levels)
                             ->inRandomOrder()->first();
@@ -490,8 +490,8 @@ class GameController extends Controller
                         }
                     }
                     return view('game.match', ['questions' => $questions]);
-                case '重組':
-                    // 如果GameType_id == 重組
+                case '填空':
+                    // 如果GameType_id == 填空
                     // 呼叫檢查使用者遊玩進度
                     $current_uid = auth()->user()->id;
                     // 玩家在當前國家當前等級玩過且正確的題目id
@@ -499,7 +499,7 @@ class GameController extends Controller
                         ->where('user_id', $current_uid)
                         ->where('status', 1)->pluck('question_id')->toArray();
                     // 當前國家當前等級會有的題目id
-                    $trueorfalse_count = Question::select('id')->where('gametype', '重組')
+                    $trueorfalse_count = Question::select('id')->where('gametype', '填空')
                         ->where('country_id', $country_id)
                         ->where('levels', $levels)->get();
                     // 有玩過
@@ -508,7 +508,7 @@ class GameController extends Controller
                         if (count($current_count) < count($trueorfalse_count)) {
                             // 呼叫亂數出題
                             // 出當前使用者在當前國家當前等級未正確的題目
-                            $question = Question::where('gametype', '重組')
+                            $question = Question::where('gametype', '填空')
                                 ->where('country_id', $country_id)
                                 ->where('levels', $levels)
                                 ->whereNotIn('id', $current_count)->inRandomOrder()->first();
@@ -523,7 +523,7 @@ class GameController extends Controller
                         // 沒有錯題
                         else {
                             // 如果玩過忽略排查紀錄，直接隨機出題
-                            $question = Question::where('gametype', '重組')
+                            $question = Question::where('gametype', '填空')
                                 ->where('country_id', $country_id)
                                 ->where('levels', $levels)
                                 ->inRandomOrder()->first();
@@ -539,7 +539,7 @@ class GameController extends Controller
                         }
                     } else { // 沒玩過
                         // 沒玩過就不管了反正只會跑一次，全部亂數
-                        $question = Question::where('gametype', '重組')
+                        $question = Question::where('gametype', '填空')
                             ->where('country_id', $country_id)
                             ->where('levels', $levels)
                             ->inRandomOrder()->first();
