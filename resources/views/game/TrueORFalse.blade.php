@@ -330,7 +330,7 @@
 
         .breadcrumbs__link__active {
             text-decoration: none;
-            color: #154769;
+            color: #22668d;
             font-weight: bold;
         }
 
@@ -408,9 +408,8 @@
         }
 
         .question {
-            background-color: #163F53;
-            color: #F8F2ED;
-            border: 5px solid #CFD78E;
+            background-color: #22668d;
+            color: #fffadd;
             border-radius: 10px;
             box-shadow: 0 0 10px rgb(100, 100, 100);
             width: 620px;
@@ -423,9 +422,15 @@
             text-align: center;
         }
 
+        .question h2{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         .true {
             font-size: 20px;
-            color: #F8F2ED;
+            color: #fffadd;
             margin: 10px;
             background-color: #93c47d;
             border-radius: 10px;
@@ -441,7 +446,7 @@
 
         .false {
             font-size: 20px;
-            color: #F8F2ED;
+            color: #fffadd;
             margin: 10px;
             background-color: #e06666;
             border-radius: 10px;
