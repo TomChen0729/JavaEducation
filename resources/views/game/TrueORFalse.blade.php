@@ -38,7 +38,7 @@
             position: fixed;
             top: 0px;
             left: 0px;
-            width: 100vw;
+            width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.7);
             z-index: 1;
@@ -50,26 +50,27 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0);
-            background: #fff;
-            width: 950px;
+            background: #2B4D42;
+            border-radius: 50px;
+            width: 50%;
             z-index: 1;
             padding: 20px;
             box-sizing: border-box;
         }
 
         .first .pop {
-            color: #333333;
+            color: #F7EFD2;
             margin: 30px;
             padding: 30px;
             border-radius: 50px;
-            border: 5px solid #333333;
+            border: 5px solid #81745F;
         }
 
         .first .pop h1 {
             text-align: center;
             font-size: 26px;
             font-weight: bolder;
-            margin-bottom: 5px;
+            margin-bottom: 30px;
         }
 
         .first .pop p {
@@ -83,6 +84,7 @@
 
         .first .pop hr {
             margin: 10px 0;
+            border: 1px solid #81745F;
         }
 
         .first .close-btn {
@@ -92,8 +94,8 @@
             top: 20px;
             width: 30px;
             height: 30px;
-            background-color: #222;
-            color: #fff;
+            background-color: #81745F;
+            color: #F7EFD2;
             font-size: 25px;
             font-weight: 600;
             line-height: 30px;
@@ -126,9 +128,10 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0);
-            background: #fff;
+            background: #434B5C;
+            border-radius: 50px;
             width: 450px;
-            height: 220px;
+            height: 40%;
             z-index: 2;
             text-align: center;
             padding: 20px;
@@ -136,20 +139,37 @@
         }
 
         .popup .pop {
+            color: #EBE2D1;
             margin: 30px;
             padding: 30px 0;
             border-radius: 50px;
-            border: 5px solid #333333;
+            border: 5px solid #736356;
+            height: 70%;
         }
 
         .popup .pop h1 {
             font-size: 20px;
             font-weight: bolder;
-            margin-bottom: 5px;
+            margin-bottom: 30px;
         }
 
         .popup .pop p {
             font-size: 16px;
+        }
+
+        .popup .pop a {
+            font-size: 20px;
+            font-weight: bold;
+            background-color: #736356;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px;
+            margin-top: 30px;
+        }
+
+        .popup .pop a:hover {
+            color: #736356;
+            background-color: #EBE2D1;
         }
 
         .popup .close-btn {
@@ -159,8 +179,8 @@
             top: 20px;
             width: 30px;
             height: 30px;
-            background-color: #222;
-            color: #fff;
+            background-color: #876E51;
+            color: #F7E9DC;
             font-size: 25px;
             font-weight: 600;
             line-height: 30px;
@@ -177,6 +197,86 @@
             transform: translate(-50%, -50%) scale(1);
         }
 
+        .end .overlay {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+            display: none;
+        }
+
+        .end .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: #452E34;
+            border-radius: 50px;
+            width: 30%;
+            z-index: 2;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .end .pop {
+            color: #E7E9DC;
+            margin: 30px;
+            padding: 30px 0;
+            border-radius: 50px;
+            border: 5px solid #876E51;
+            height: 50%;
+        }
+
+        .end .pop h1 {
+            font-size: 30px;
+            font-weight: bolder;
+            margin-bottom: 30px;
+        }
+
+        .end .pop a {
+            font-size: 20px;
+            font-weight: bold;
+            background-color: #876E51;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px;
+            margin-top: 30px;
+        }
+
+        .end .pop a:hover {
+            color: #876E51;
+            background-color: #F7E9DC;
+        }
+
+        .end .close-btn {
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            width: 30px;
+            height: 30px;
+            background-color: #876E51;
+            color: #F7E9DC;
+            font-size: 25px;
+            font-weight: 600;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 50%;
+        }
+
+        .end.active .overlay {
+            display: block;
+        }
+
+        .end.active .content {
+            transition: all 300ms ease-in-out;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
         header {
             position: fixed;
             width: 100%;
@@ -187,7 +287,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 28px 2%;
-            background: rgba(72, 170, 193, 0.8);
+            background: rgba(145,170,191, 0.8);
             /* 透明背景 */
             transition: all 0.50s ease;
         }
@@ -407,25 +507,21 @@
 </head>
 
 <body>
+    <!-- 彈窗 -->
+    <!-- 遊戲說明 -->
     <div class="first active" id="popup">
         <div class="overlay"></div>
         <div class="content">
             <div class="close-btn" onclick="togglePopup1()">&times;</div>
             <div class="pop">
                 <h1>遊戲說明</h1>
-                <p class="cen">歡迎來到《綠野仙蹤》遊戲，在這個遊戲中，你將會經歷兩個大關卡：學習區和闖關區。</p>
-                <p><strong>學習區</strong><br>
-                    在學習區，你將會遇到四種不同的關卡類型：是非、選擇、重組和配對。</p>
-                <p><strong>闖關區</strong><br>
-                    在完成學習區的所有關卡後，你將進入闖關區。</p>
-                <hr>
-                <p><strong>獎勵</strong><br>
-                    成功通過學習區後，你將獲得一包知識卡，這將幫助你更好地理解和運用相關知識，來決戰闖關區。</p>
-                <p>準備好開始你的冒險了嗎？快來挑戰這個充滿知識與樂趣的遊戲，提升你的編程技能吧！</p>
+                <p><strong>是非題</strong><br>
+                    判斷題目敘述，正確答案選擇True，錯誤答案選擇False</p>
             </div>
         </div>
     </div>
 
+    <!-- 知識卡選擇 -->
     <div class="popup" id="popup-1">
         <div class="overlay"></div>
         <div class="content">
@@ -436,6 +532,7 @@
         </div>
     </div>
 
+    <!-- 知識卡資訊 -->
     @foreach ( $questions_cards as $item)
     <div class="popup" id="popup-2">
         <div class="overlay"></div>
@@ -449,6 +546,18 @@
     </div>
     @endforeach
 
+    <!-- 答題正確 -->
+    <div class="end" id="popup-3">
+        <div class="overlay"></div>
+        <div class="content">
+            <div class="close-btn" onclick="togglePopup4()">&times;</div>
+            <div class="pop">
+                <h1>答案正確</h1>
+                <a href="#" onclick="history.go(-1)">遊戲種類</a>
+                <a href="#">繼續答題</a>
+            </div>
+        </div>
+    </div>
 
     <header class="header">
         <ul class="breadcrumbs">
@@ -553,6 +662,10 @@
             document.getElementById("popup-2").classList.toggle("active");
         }
 
+        function togglePopup4() {
+            document.getElementById("popup-3").classList.toggle("active");
+        }
+
         // 遊戲
         const questionEl = document.getElementById('questions'); // 題目
         const trueBtn = document.getElementById('trueB'); // true 按鈕
@@ -588,10 +701,7 @@
                     .then(data => {
                         console.log(data);
                         if (data.message == 'correct') {
-                            alert('答對');
-                            setTimeout(function() {
-                                // window.location.reload();
-                            }, 1000);
+                            togglePopup4();
                         } else if (data.message == 'wrongAnswer') {
                             alert('答錯');
                             setTimeout(function() {
