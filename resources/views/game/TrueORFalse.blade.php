@@ -68,13 +68,13 @@
 
         .first .pop h1 {
             text-align: center;
-            font-size: 26px;
+            font-size: 30px;
             font-weight: bolder;
             margin-bottom: 30px;
         }
 
         .first .pop p {
-            font-size: 16px;
+            font-size: 20px;
         }
 
         .first .pop p.cen {
@@ -130,8 +130,8 @@
             transform: translate(-50%, -50%) scale(0);
             background: #434B5C;
             border-radius: 50px;
-            width: 450px;
-            height: 40%;
+            width: 40%;
+            height: 50%;
             z-index: 2;
             text-align: center;
             padding: 20px;
@@ -140,11 +140,11 @@
 
         .popup .pop {
             color: #EBE2D1;
+            height: 80%;
             margin: 30px;
             padding: 30px 0;
             border-radius: 50px;
             border: 5px solid #736356;
-            height: 70%;
         }
 
         .popup .pop h1 {
@@ -214,8 +214,8 @@
             left: 50%;
             transform: translate(-50%, -50%) scale(0);
             background: #452E34;
-            border-radius: 50px;
-            width: 30%;
+            border-radius: 30px;
+            width: 40%;
             z-index: 2;
             text-align: center;
             padding: 20px;
@@ -330,7 +330,7 @@
 
         .breadcrumbs__link__active {
             text-decoration: none;
-            color: #009578;
+            color: #154769;
             font-weight: bold;
         }
 
@@ -408,14 +408,16 @@
         }
 
         .question {
-            background-color: #f1c232;
+            background-color: #163F53;
+            color: #F8F2ED;
+            border: 5px solid #CFD78E;
             border-radius: 10px;
             box-shadow: 0 0 10px rgb(100, 100, 100);
             width: 620px;
             height: 300px;
-            padding: 100px;
+            padding: 90px;
             margin: 10px;
-            margin-top: 90px;
+            margin-top: 100px;
             font-size: 26px;
             font-weight: bold;
             text-align: center;
@@ -423,6 +425,7 @@
 
         .true {
             font-size: 20px;
+            color: #F8F2ED;
             margin: 10px;
             background-color: #93c47d;
             border-radius: 10px;
@@ -438,6 +441,7 @@
 
         .false {
             font-size: 20px;
+            color: #F8F2ED;
             margin: 10px;
             background-color: #e06666;
             border-radius: 10px;

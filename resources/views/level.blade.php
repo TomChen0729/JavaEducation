@@ -29,7 +29,8 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%) scale(0);
-        background: #fff;
+        background: #223E53;
+        border-radius: 30px;
         width: 950px;
         z-index: 1;
         padding: 20px;
@@ -37,11 +38,11 @@
     }
 
     .popup .pop {
-        color: #333333;
+        color: #E7F2E1;
         margin: 30px;
         padding: 30px;
         border-radius: 50px;
-        border: 5px solid #333333;
+        border: 5px solid #CABA89;
     }
 
     .popup .pop h1 {
@@ -62,6 +63,7 @@
 
     .popup .pop hr {
         margin: 10px 0;
+        border: 1px solid #CABA89;
     }
 
     .popup .close-btn {
@@ -71,8 +73,8 @@
         top: 20px;
         width: 30px;
         height: 30px;
-        background-color: #222;
-        color: #fff;
+        background-color: #CABA89;
+        color: #E7F2E1;
         font-size: 25px;
         font-weight: 600;
         line-height: 30px;
