@@ -277,7 +277,7 @@ class GameController extends Controller
                 case 5:
                     //
                     break;
-                //
+                    //
                 default:
                     //
                     return response('error');
@@ -558,7 +558,7 @@ class GameController extends Controller
                 case 5:
                     //
                     break;
-                //
+                    //
                 default:
                     //
                     return response('error');
@@ -638,7 +638,6 @@ class GameController extends Controller
         } else {
             return response()->json(['message' => 'HTTP 方法必須是 GET。'], 405);
         }
-
     }
     public function HistoryAnswerRecord(Request $request, int $levels)
     {
