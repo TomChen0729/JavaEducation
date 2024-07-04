@@ -285,7 +285,7 @@
             justify-content: space-between;
             padding: 28px 2%;
             /* 透明背景 */
-            background: rgba(72, 170, 193, 0.8);
+            background: rgba(199,168,132, 0.8);
 
             transition: all 0.50s ease;
         }
