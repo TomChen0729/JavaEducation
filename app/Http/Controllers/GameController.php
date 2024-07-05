@@ -67,6 +67,10 @@ class GameController extends Controller
                                 ->whereNotIn('id', $current_count)->inRandomOrder()->first();
 
                             $Q_cards = QuestionCard::where('question_id', $question->id)->pluck('knowledge_card_id')->toArray();
+                            if (count($Q_cards) > 0) {
+                                // 照那個array裡面的所有卡片內容
+                                $cards = KnowledgeCard::whereIn('id', $Q_cards)->get();
+                            }
                         } else { // 沒有錯誤題的時候
                             // 如果玩過忽略排查紀錄，直接隨機出題
                             $question = Question::where('gametype', '是非')
@@ -106,6 +110,7 @@ class GameController extends Controller
                     return view('game.TrueORFalse', ['question' => $question, 'questions_cards' => $cards]);
 
                 case '選擇':
+                    $cards = [];
                     // 如果GameType_id == 選擇
                     // 呼叫檢查使用者遊玩進度
                     $current_uid = auth()->user()->id;
@@ -129,6 +134,10 @@ class GameController extends Controller
                                 ->whereNotIn('id', $current_count)->inRandomOrder()->first();
 
                             $Q_cards = QuestionCard::where('question_id', $question->id)->pluck('knowledge_card_id')->toArray();
+                            if (count($Q_cards) > 0) {
+                                // 照那個array裡面的所有卡片內容
+                                $cards = KnowledgeCard::whereIn('id', $Q_cards)->get();
+                            }
                         }
                         // 沒有錯題
                         else {
@@ -228,6 +237,10 @@ class GameController extends Controller
                                 ->whereNotIn('id', $current_count)->inRandomOrder()->first();
 
                             $Q_cards = QuestionCard::where('question_id', $question->id)->pluck('knowledge_card_id')->toArray();
+                            if (count($Q_cards) > 0) {
+                                // 照那個array裡面的所有卡片內容
+                                $cards = KnowledgeCard::whereIn('id', $Q_cards)->get();
+                            }
                         }
                         // 沒有錯題
                         else {
@@ -267,7 +280,7 @@ class GameController extends Controller
                 case 5:
                     //
                     break;
-                //
+                    //
                 default:
                     //
                     return response('error');
@@ -336,6 +349,11 @@ class GameController extends Controller
                                 ->whereNotIn('id', $current_count)->inRandomOrder()->first();
 
                             $Q_cards = QuestionCard::where('question_id', $question->id)->pluck('knowledge_card_id')->toArray();
+                            // 判斷$Q_cards是不是空的
+                            if (count($Q_cards) > 0) {
+                                // 照那個array裡面的所有卡片內容
+                                $cards = KnowledgeCard::whereIn('id', $Q_cards)->get();
+                            }
                         } else { // 沒有錯誤題的時候
                             // 如果玩過忽略排查紀錄，直接隨機出題
                             $question = Question::where('gametype', '是非')
@@ -395,6 +413,11 @@ class GameController extends Controller
                                 ->whereNotIn('id', $current_count)->inRandomOrder()->first();
 
                             $Q_cards = QuestionCard::where('question_id', $question->id)->pluck('knowledge_card_id')->toArray();
+                            // 判斷$Q_cards是不是空的
+                            if (count($Q_cards) > 0) {
+                                // 照那個array裡面的所有卡片內容
+                                $cards = KnowledgeCard::whereIn('id', $Q_cards)->get();
+                            }
                         }
                         // 沒有錯題
                         else {
@@ -494,6 +517,11 @@ class GameController extends Controller
                                 ->whereNotIn('id', $current_count)->inRandomOrder()->first();
 
                             $Q_cards = QuestionCard::where('question_id', $question->id)->pluck('knowledge_card_id')->toArray();
+                            // 判斷$Q_cards是不是空的
+                            if (count($Q_cards) > 0) {
+                                // 照那個array裡面的所有卡片內容
+                                $cards = KnowledgeCard::whereIn('id', $Q_cards)->get();
+                            }
                         }
                         // 沒有錯題
                         else {
@@ -533,7 +561,7 @@ class GameController extends Controller
                 case 5:
                     //
                     break;
-                //
+                    //
                 default:
                     //
                     return response('error');
@@ -613,7 +641,6 @@ class GameController extends Controller
         } else {
             return response()->json(['message' => 'HTTP 方法必須是 GET。'], 405);
         }
-
     }
     public function HistoryAnswerRecord(Request $request, int $levels)
     {
