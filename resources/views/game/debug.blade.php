@@ -718,9 +718,7 @@
         // 題目(description)、程式碼(code)、正確行數(correctLine)、正確程式碼(correctCode)
         const questions = @json($question);
         console.log(questions);
-        // 初始化
-        let currentQuestionIndex = 0;
-
+        
         // 加載問題索引，接受參數'index'
         function loadQuestion(item) {
             // 獲取問題(從questions數組中根據索引獲取題目)
@@ -745,9 +743,9 @@
             let debug_id = parseInt(questions['debug_id']);
             let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             let cid = parseInt(document.getElementById('cid').textContent);
-            console.log(errorLine);
-            console.log(correctCode);
-            console.log(cid);
+            // console.log(errorLine);
+            // console.log(correctCode);
+            // console.log(cid);
             // console.log(csrfToken);
             // console.log(debug_id);
             // console.log(watchtime);
