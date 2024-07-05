@@ -10,6 +10,7 @@ class DebugRecord extends Model
     use HasFactory;
     protected $guarded = [];
 
+    protected $table = 'debug_records';
     public function debug(){
         return $this->belongsTo(Debug::class, 'debug_id');
     }
