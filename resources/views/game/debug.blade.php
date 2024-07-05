@@ -473,6 +473,15 @@
             border: 1px solid #333333;
         }
 
+        @media (max-width: 1600px) {
+            .container .right .code {
+            padding: 20px;
+            height: 250px;
+            overflow-y: auto;
+            border: 2px solid #444;
+            }
+        }
+        
         @media (max-width: 1280px) {
             header {
                 padding: 14px 2%;
