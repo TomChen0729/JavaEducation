@@ -103,6 +103,9 @@ class GameController extends Controller
                             $cards = KnowledgeCard::whereIn('id', $Q_cards)->get();
                         }
                     }
+                    $question_card = KnowledgeCard::with('question_cards')->whereHas('question_cards', function ($query) use ($question) {
+                        $query->where('question_id', $question('id'));
+                    })->get();
                     // 還要帶該遊戲第二層知識卡，方便跳窗後點擊查詢卡片內容
                     return view('game.TrueORFalse', ['question' => $question, 'questions_cards' => $cards]);
 

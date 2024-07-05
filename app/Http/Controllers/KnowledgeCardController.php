@@ -6,6 +6,7 @@ use App\Models\CardType;
 use App\Models\KnowledgeCard;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\FuncCall;
 
 class KnowledgeCardController extends Controller
 {
@@ -32,6 +33,14 @@ class KnowledgeCardController extends Controller
     public function showcardcontent(int $card_id){
         $current_card = KnowledgeCard::find($card_id);
         return view('knowledge.knowledgecontent', ['current_card' => $current_card]);
+    }
+
+    // 題目知識卡
+    public function questioncard(int $question_id,$web_id){
+        $question_card = KnowledgeCard::with('question_cards')->whereHas('question_cards', function ($query) use ($question_id) {
+            $query->where('question_id', $question_id);
+        })->get();
+        return view($web_id,['question_card'=>$question_card]);
     }
 
     // 遊戲畫面中的知識卡功能

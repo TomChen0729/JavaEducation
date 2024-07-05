@@ -49,6 +49,7 @@
             left: 50%;
             transform: translate(-50%, -50%) scale(0);
             background: #3B4161;
+            border-radius: 50px;
             width: 50%;
             z-index: 1;
             padding: 20px;
@@ -124,7 +125,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0);
-            background: #3A3D3B;
+            background: #835D6A;
             border-radius: 50px;
             width: 40%;
             height: 50%;
@@ -135,12 +136,12 @@
         }
 
         .popup .pop {
-            color: #EDE4E4;
+            color: #F8F2ED;
             height: 80%;
             margin: 30px;
             padding: 30px 0;
             border-radius: 50px;
-            border: 5px solid #F1B2C3;
+            border: 5px solid #CEB980;
         }
 
         .popup .pop h1 {
@@ -154,10 +155,10 @@
         }
 
         .popup .pop a {
-            color: #3A3D3B;
+            color: #F8F0DC;
             font-size: 20px;
             font-weight: bold;
-            background-color: #F1B2C3;
+            background-color: #CEB980;
             border-radius: 10px;
             padding: 10px;
             margin: 10px;
@@ -165,8 +166,8 @@
         }
 
         .popup .pop a:hover {
-            color: #F1B2C3;
-            background-color: #757475;
+            color: #835D6A;
+            background-color: #F8F0DC;
         }
 
         .popup .close-btn {
@@ -176,8 +177,8 @@
             top: 20px;
             width: 30px;
             height: 30px;
-            background-color: #F1B2C3;
-            color: #757475;
+            background-color: #CEB980;
+            color: #F8F2ED;
             font-size: 25px;
             font-weight: 600;
             line-height: 30px;
