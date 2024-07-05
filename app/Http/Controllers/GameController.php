@@ -13,6 +13,8 @@ use App\Models\Debug;
 use App\Models\DebugRecord;
 use App\Services\GameService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
 
 class GameController extends Controller
 {
@@ -655,59 +657,107 @@ class GameController extends Controller
             })
             ->get();
     }
-    
-    public function Debug(Request $request, int $country_id){
+
+    public function Debug(Request $request, int $country_id)
+    {
         if ($request->isMethod('get')) {
             $current_uid = auth()->user()->id;
             // 玩家在當前國家玩過且正確的debug_id
             $current_count = DebugRecord::select('debug_id')
-            ->where('user_id', $current_uid)
-            ->where('status', 1)
-            ->pluck('debug_id')->toArray();
+                ->where('user_id', $current_uid)
+                ->where('status', 1)
+                ->pluck('debug_id')->toArray();
             // 當前國家的debug_id
             $debug_count = Debug::select('id')->where('country_id', $country_id)->get();
             // 玩過
-            if($current_count>0){
+            if (count($current_count) > 0) {
                 //還有沒玩過的
-                if($debug_count>$current_count){
-                    $question = Debug::where('country_id',$country_id)
-                    ->whereNotIn('id', $current_count)
-                    ->inRandomOrder()->first()
-                    ->map(function($item){
-                        return [
-                            'debug_id' => $item->id,
-                            'code' => $item->code,
-                            'description' => $item->description
-                        ];
-                    });
-                }
-                else
-                {
-                    $question = Debug::where('country_id',$country_id)
-                    ->inRandomOrder()->first()
-                    ->map(function($item){
-                        return [
-                            'debug_id' => $item->id,
-                            'code' => $item->code,
-                            'description' => $item->description
-                        ];
-                    });
+                if (count($debug_count) > count($current_count)) {
+                    $question = Debug::where('country_id', $country_id)
+                        ->whereNotIn('id', $current_count)
+                        ->inRandomOrder()->get()
+                        ->map(function ($item) {
+                            return [
+                                'debug_id' => $item->id,
+                                'code' => $item->code,
+                                'description' => $item->description
+                            ];
+                        })->first();
+                } else {
+                    $question = Debug::where('country_id', $country_id)
+                        ->inRandomOrder()->get()
+                        ->map(function ($item) {
+                            return [
+                                'debug_id' => $item->id,
+                                'code' => $item->code,
+                                'description' => $item->description
+                            ];
+                        })->first();
                 }
             }
             //沒玩過
-            else
-            {
-                $question = Debug::where('country_id',$country_id)
-                ->inRandomOrder()->first()
-                ->map(function($item){
-                    return [
-                        'debug_id' => $item->id,
-                        'code' => $item->code,
-                        'description' => $item->description
-                    ];
-                });
+            else {
+                $question = Debug::where('country_id', $country_id)
+                    ->inRandomOrder()->get()
+                    ->map(function ($item) {
+                        return [
+                            'debug_id' => $item->id,
+                            'code' => $item->code,
+                            'description' => $item->description
+                        ];
+                    })->first();
             }
             return view('game.debug', ['question' => $question]);
+        }
     }
+
+    public function correctDebug(Request $request)
+    {
+        if ($request->isMethod('get')) {
+            // 當前使用者id
+            $currentUid = $request->query('cid');
+            // 使用者填寫的答案(code)
+            $userAns = $request->query('user_answer');
+            // 這個debug題的id
+            $debug_id = $request->query('debug_id');
+            // 使用者回答的錯誤行數
+            $wrongLine = $request->query('wrongLine');
+            // 使用者的作答時間
+            $watchtime = $request->query('watchtime');
+            // 正確答案的查詢
+            $ansLine = Debug::where('id', $debug_id)->pluck('wrong_line')->first();
+            $ansAnswer = Debug::where('id', $debug_id)->pluck('answer')->first();
+            Log::info('User Answer: ' . $userAns);
+            Log::info('Correct Answer: ' . $ansAnswer);
+            Log::info('User Wrong Line: ' . $wrongLine);
+            Log::info('Correct Wrong Line: ' . $ansLine);
+            // 檢查正確行數
+            if ($wrongLine == $ansLine) {
+                // 再檢查填寫的答案
+                if ($userAns == $ansAnswer) {
+                    $createUserRecord = new DebugRecord();
+                    $createUserRecord->create([
+                        'user_id' => $currentUid,
+                        'debug_id' => $debug_id,
+                        'watchtime' => $watchtime,
+                        'status' => 1,
+                    ]);
+
+                    return response()->json(['message' => 'correct']);
+                } else {
+                    $createUserRecord = new DebugRecord();
+                    $createUserRecord->create([
+                        'user_id' => $currentUid,
+                        'debug_id' => $debug_id,
+                        'status' => 0,
+                    ]);
+                    return response()->json(['message' => 'wrongAns']);
+                }
+            } else {
+                return response()->json(['message' => 'wrongline']);
+            }
+        } else {
+            return response()->json(['message' => 'http method must be get!']);
+        }
     }
 }

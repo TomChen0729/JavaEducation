@@ -315,7 +315,7 @@
     <div class="footers">
         <h1>闖關區</h1>
         <p>在完成上方學習區的所有關卡後，你將進入闖關區。</p>
-        <button class="PASS"><a href="{{ route('game.debugRD', ['country_id', $currentCountry]) }}">闖關區</a></button>
+        <button class="PASS"><a href="{{ route('game.debugRD', ['country_id' => $currentCountry]) }}">闖關區</a></button>
     </div>
     @else
     <div class="footers">

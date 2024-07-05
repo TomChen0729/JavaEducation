@@ -454,8 +454,10 @@
         }
 
         .container .right .box .inputs {
-            width: 550px;
+            width: 100%;
+            max-width: 550px;
             display: flex;
+            flex-wrap: wrap;
             align-items: center;
             gap: 10px;
         }
@@ -475,13 +477,13 @@
 
         @media (max-width: 1600px) {
             .container .right .code {
-            padding: 20px;
-            height: 250px;
-            overflow-y: auto;
-            border: 2px solid #444;
+                padding: 20px;
+                height: 250px;
+                overflow-y: auto;
+                border: 2px solid #444;
             }
         }
-        
+
         @media (max-width: 1280px) {
             header {
                 padding: 14px 2%;
@@ -604,6 +606,7 @@
     </header>
 
     <div class="container">
+        <p id="cid" style="display: none">{{ auth()->user()->id }}</p>
         <div class="left">
             <div class="content" id="question-content">
                 <!-- 題目內容動態生成 -->
@@ -685,7 +688,7 @@
             const timerElement = document.getElementById('timer').textContent;
             return timerElement;
         }
-        window.onload = startTimer;
+        window.onload = startTimer();
 
         // 知識卡
         // 畫面載入後顯示彈跳視窗
@@ -717,9 +720,9 @@
         let currentQuestionIndex = 0;
 
         // 加載問題索引，接受參數'index'
-        function loadQuestion(index) {
+        function loadQuestion(item) {
             // 獲取問題(從questions數組中根據索引獲取題目)
-            const question = questions[index];
+            let question = questions;
             // 顯示問題描述(獲取id為'question-content'的元素)
             const questionContent = document.getElementById('question-content');
             // 顯示程式碼(獲取id為'code-block'的元素)
@@ -734,43 +737,50 @@
         // 檢查答案
         function checkAnswer() {
             // trim()用於刪除字串的頭尾空白、tab、換行符號
-            let errorLine = document.getElementById('errorLine').value.trim();
+            let errorLine = parseInt(document.getElementById('errorLine').value.trim());
             let correctCode = document.getElementById('correctCode').value.trim();
             let watchtime = stopTimer();
-            let debug_id = questions['debug_id'];
-            console.log(debug_id);
-            console.log(watchtime);
-            fetch('/api/correctDebug?user_answer=' + encodeURIComponent(correctCode) + 'debug_id=' + debug_id + 'wrongLine=' + encodeURIComponent(errorLine) + 'watchtime=' + watchtime, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrfToken
-                    },
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    if (data.message == 'correct') {
-                        alert('答對');
-                    } else if (data.message == 'wrongline') {
-                        alert('不是錯這行喔~');
-                    } else if ('wrongAns') {
-                        alert('答案不對喔~');
-                    } else {
-                        alert('伺服器錯誤');
-                        setTimeout(function() {
-                            window.location.reload();
-                        }, 1000);
-                    }
-                })
+            let debug_id = parseInt(questions['debug_id']);
+            let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            let cid = parseInt(document.getElementById('cid').textContent);
+            console.log(errorLine);
+            console.log(correctCode);
+            console.log(cid);
+            // console.log(csrfToken);
+            // console.log(debug_id);
+            // console.log(watchtime);
+            if (errorLine != '' && correctCode != '') {
+                fetch('/api/correctDebug?user_answer=' + encodeURIComponent(correctCode) + '&debug_id=' + encodeURIComponent(debug_id) + '&wrongLine=' + encodeURIComponent(errorLine) + '&watchtime=' + encodeURIComponent(watchtime) + '&cid=' + encodeURIComponent(cid), {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken
+                        },
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        if (data.message == 'correct') {
+                            alert('答對');
+                        } else if (data.message == 'wrongline') {
+                            alert('不是錯這行喔~');
+                        } else if ('wrongAns') {
+                            alert('答案不對喔~');
+                        } else {
+                            alert('伺服器錯誤');
+                            setTimeout(function() {
+                                window.location.reload();
+                            }, 1000);
+                        }
+                    })
+            }else{
+                alert('不能交白卷喔!!')
+            }
         }
-
-
 
         // 顯示題目
         window.onload = function() {
-            currentQuestionIndex = getRandomQuestionIndex();
-            loadQuestion(currentQuestionIndex);
+            loadQuestion(questions);
         };
     </script>
 </body>
