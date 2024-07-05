@@ -461,7 +461,9 @@
             align-items: center;
             gap: 10px;
         }
-
+        .container .right .box .inputs input{
+            width: 100%;
+        }
         .container .right .box button {
             margin-top: 10px;
             padding: 5px;
