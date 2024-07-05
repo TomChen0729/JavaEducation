@@ -659,9 +659,10 @@ class GameController extends Controller
     public function Debug(Request $request, int $country_id){
         if ($request->isMethod('get')) {
             $current_uid = auth()->user()->id;
-            // 玩家在當前國家玩過的debug_id
+            // 玩家在當前國家玩過且正確的debug_id
             $current_count = DebugRecord::select('debug_id')
             ->where('user_id', $current_uid)
+            ->where('status', 1)
             ->pluck('debug_id')->toArray();
             // 當前國家的debug_id
             $debug_count = Debug::select('id')->where('country_id', $country_id)->get();
@@ -669,19 +670,44 @@ class GameController extends Controller
             if($current_count>0){
                 //還有沒玩過的
                 if($debug_count>$current_count){
-                    $question = Debug::where('country_id',$country_id)->whereNotIn('id', $current_count)->inRandomOrder()->first();
+                    $question = Debug::where('country_id',$country_id)
+                    ->whereNotIn('id', $current_count)
+                    ->inRandomOrder()->first()
+                    ->map(function($item){
+                        return [
+                            'debug_id' => $item->id,
+                            'code' => $item->code,
+                            'description' => $item->description
+                        ];
+                    });
                 }
                 else
                 {
-                    $question = Debug::where('country_id',$country_id)->inRandomOrder()->first();
+                    $question = Debug::where('country_id',$country_id)
+                    ->inRandomOrder()->first()
+                    ->map(function($item){
+                        return [
+                            'debug_id' => $item->id,
+                            'code' => $item->code,
+                            'description' => $item->description
+                        ];
+                    });
                 }
             }
             //沒玩過
             else
             {
-                $question = Debug::where('country_id',$country_id)->inRandomOrder()->first();
+                $question = Debug::where('country_id',$country_id)
+                ->inRandomOrder()->first()
+                ->map(function($item){
+                    return [
+                        'debug_id' => $item->id,
+                        'code' => $item->code,
+                        'description' => $item->description
+                    ];
+                });
             }
-            return view('game.debug', ['question' => $question,]);
+            return view('game.debug', ['question' => $question]);
     }
     }
 }

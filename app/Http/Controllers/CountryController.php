@@ -65,6 +65,6 @@ class CountryController extends Controller
             $debug = 1;
         }
 
-        return view('level', ['parent_cards' => $parent_cards, 'debug' => $debug]);
+        return view('level', ['parent_cards' => $parent_cards, 'debug' => $debug, 'currentCountry' => $country_id]);
     }
 }

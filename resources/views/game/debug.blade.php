@@ -711,125 +711,8 @@
 
 
         // 題目(description)、程式碼(code)、正確行數(correctLine)、正確程式碼(correctCode)
-        const questions = [{
-                description: `歡迎來到綠野仙蹤~跟著我們一起冒險吧!請印出:
-                <br>The Wonderful Wizard of Oz，並且自動換行。`,
-                code: `public class Main {
-    public static void main(String[] args) {
-        System.out.print("The Wonderful Wizard of Oz");
-    }
-}`,
-                correctLine: 3,
-                correctCode: `System.out.println("The Wonderful Wizard of Oz");`
-            },
-            {
-                description: `設計一個程式，輸入您的姓名，並輸出:
-                <br>「歡迎(您的名字)進入綠野仙蹤，努力幫助桃樂絲通關吧!」`,
-                code: `import java.util.Scanner;
-public class Main {
-    public static void main(String[] args) {
-        Scanner keyin = new Scanner(System.in);
-        System.out.print("請輸入您的名稱：");
-        Int Name = keyin.nextInt();
-        System.out.println("歡迎"+ Name +"進入綠野仙蹤，努力幫助桃樂絲通關吧!");
-        keyin.close();
-    }
-}`,
-                correctLine: 6,
-                correctCode: `String Name = keyin.nextLine();`
-            },
-            {
-                description: `桃樂絲和稻草人要在10分25秒跑3公里，逃離金黃色稻田到達南國以免被壞女巫抓住，請寫一個程式:
-                <br>計算並顯示桃樂絲每小時的平均英哩時速(1英哩=1.6公里)
-                <br>計算3公里 = x 英哩(列出公式，不用計算出答案)
-                <br>10分25秒 = y小時
-                <br>輸出 : 每小時的平均英哩數=?`,
-                code: `public class Main {
-    public static void main(String[] args) {
-        double miles = 3 / 1.6;
-        double hours = 10.0 / 60.0 + 25.0 / 3600.0;
-        double avgSpeed = miles / hours;
-
-        System.out.print("每小時的平均英哩數=%.2f", avgSpeed);
-    }
-}`,
-                correctLine: 7,
-                correctCode: `System.out.printf("每小時的平均英哩數=%.2f", avgSpeed);`
-            },
-            {
-                description: `稻草人被綁在金黃色稻田裡，為了更快速地替稻草人解綁
-                <br>請幫助桃樂絲計算金黃色稻田的周長和面積，稻田的半徑為2.5，寫一個程式
-                <br>計算此圓的周長和面積，PI = 3.14`,
-                code: `public class Main {
-    public static void main(String[] args) {
-        final int PI = 3.14;
-		double r = 2.5;
-		double Peri = 2*PI*r;
-		double Area = PI*r*r;
-		System.out.println("圓周長 = " +Peri+", 圓面積 = "+Area );
-    }
-}`,
-                correctLine: 3,
-                correctCode: `final double PI = 3.14;`
-            },
-            {
-                description: `請幫助蠻金之國的小矮人收割稻草，小矮人族長為了報答您決定收滿1000個稻草送100個稻草，請寫一程式:
-                <br>輸入您收割多少稻草並輸出得到多少稻草`,
-                code: `import java.util.Scanner;
-public class Main {
-    public static void main(String[] args) {
-        Scanner keyin = new Scanner(System.in);
-        System.out.println("您收割了多少稻草：");
-        int a = keyin.nextInt();
-        System.out.print("您獲得了%d根稻草",(a/1000)*100);
-
-    }
-}`,
-                correctLine: 8,
-                correctCode: `keyin.close();`
-            },
-            {
-                description: `稻草收割完稻草必須公平分配給每一位小矮人，輸入收割的稻草數(a)和小矮人人數(b)
-                <br>輸出每個小矮人分配到的稻草數量(商)以及多餘的稻草(餘數)`,
-                code: `public class Main {
-   public static void main(String[] args) {
-    Scanner keyin = new Scanner(System.in);
-		
-		//輸入兩個整數 a 及 b ，輸出 a 除以 b的商及餘數
-		System.out.print("請輸入收割的稻草數（a）：");
-		int a = keyin.nextInt();
-        System.out.print("請輸入小矮人人數（b）：");
-		int b = keyin.nextInt();
-		System.out.printf("每個小矮人分配到的稻草數量為：%d，多餘稻草數為：%d",a/b,a%b);
-        keyin.close();
-   } 
-}`,
-                correctLine: 1,
-                correctCode: `import java.util.Scanner;`
-            },
-            {
-                description: `壞女巫對蠻金之國下了暴雨詛咒，農作物需要馬上收割，小矮人請桃樂絲幫助他們收割並給她薪水，寫一個程式
-                <br>輸入桃樂絲幫忙小矮人收割的時數，並計算其薪資(時薪183)`,
-                code: `import java.util.Scanner;
-public class Main {
-    public static void main(String[] args) {
-        Scanner keyin = new Scanner(System.in);
-
-        System.out.print("請輸入桃樂絲幫忙收割的時數：");
-        float hours = keyin.nextInt();
-
-        double salaryRate = 183.0;
-        double salary = hours * salaryRate;
-
-        System.out.println("桃樂絲的薪資為：" + salary);
-        keyin.close();
-    }
-}`,
-                correctLine: 7,
-                correctCode: `float hours = keyin.nextFloat();`
-            }
-        ];
-
+        const questions = @json($question);
+        console.log(questions);
         // 初始化
         let currentQuestionIndex = 0;
 
@@ -854,7 +737,8 @@ public class Main {
             let errorLine = document.getElementById('errorLine').value.trim();
             let correctCode = document.getElementById('correctCode').value.trim();
             let watchtime = stopTimer();
-            let debug_id = {!!  !!};
+            let debug_id = questions['debug_id'];
+            console.log(debug_id);
             console.log(watchtime);
             fetch('/api/correctDebug?user_answer=' + encodeURIComponent(correctCode) + 'debug_id=' + debug_id + 'wrongLine=' + encodeURIComponent(errorLine) + 'watchtime=' + watchtime, {
                     method: 'GET',

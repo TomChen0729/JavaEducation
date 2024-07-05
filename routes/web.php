@@ -77,6 +77,8 @@ Route::middleware([
     Route::get('/knowledgecardtype/{card_type_id}', [KnowledgeCardController::class, 'showallcards'])->name('showallcards');
     // 顯示知識卡詳細內容
     Route::get('/knowledgecard/{card_id}', [KnowledgeCardController::class, 'showcardcontent'])->name('showcardcontent');
+    // debug出題功能
+    Route::get('debug/country/{country_id}', [GameController::class, 'Debug'])->name('game.debugRD');
 });
 
 //測試用
