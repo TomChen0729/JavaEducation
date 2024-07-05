@@ -35,7 +35,7 @@
             margin: 20px;
             padding: 0;
         }
-        
+
         .first .overlay {
             position: fixed;
             top: 0px;
@@ -554,7 +554,7 @@
     </div>
 
     <!-- 知識卡資訊 -->
-    
+
 
     <!-- 答題正確 -->
     <div class="end" id="popup-3">
@@ -569,7 +569,7 @@
         </div>
     </div>
 
-    
+
     <header class="header">
         <ul class="breadcrumbs">
             <li class="breadcrumbs__item">
@@ -649,6 +649,7 @@
         function startTimer() {
             let minutes = 0;
             let seconds = 0;
+            let hours = 0;
             const timerElement = document.getElementById('timer');
 
             function updateTimer() {
@@ -656,16 +657,25 @@
                 if (seconds === 60) {
                     seconds = 0;
                     minutes++;
+                    if (minutes === 60) {
+                        minutes = 0;
+                        hours++;
+                    }
                 }
-
+                const formattedHours = String(hours).padStart(2, '0');
                 const formattedMinutes = String(minutes).padStart(2, '0');
                 const formattedSeconds = String(seconds).padStart(2, '0');
-                timerElement.textContent = `${formattedMinutes}:${formattedSeconds}`;
+                timerElement.textContent = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
             }
 
             setInterval(updateTimer, 1000);
         }
 
+        function stopTimer() {
+            clearInterval(timer);
+            const timerElement = document.getElementById('timer').textContent;
+            return timerElement;
+        }
         window.onload = startTimer;
 
         // 知識卡
@@ -834,19 +844,35 @@ public class Main {
             // trim()用於刪除字串的頭尾空白、tab、換行符號
             let errorLine = document.getElementById('errorLine').value.trim();
             let correctCode = document.getElementById('correctCode').value.trim();
-            const question = questions[currentQuestionIndex];
-
-            if (errorLine == question.correctLine && correctCode == question.correctCode) {
-                alert('答案正確!');
-            } else {
-                alert('答案錯誤，請再試一次!');
-            }
+            let watchtime = stopTimer();
+            let debug_id = {!!  !!};
+            console.log(watchtime);
+            fetch('/api/correctDebug?user_answer=' + encodeURIComponent(correctCode) + 'debug_id=' + debug_id + 'wrongLine=' + encodeURIComponent(errorLine) + 'watchtime=' + watchtime, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.message == 'correct') {
+                        alert('答對');
+                    } else if (data.message == 'wrongline') {
+                        alert('不是錯這行喔~');
+                    } else if ('wrongAns') {
+                        alert('答案不對喔~');
+                    } else {
+                        alert('伺服器錯誤');
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1000);
+                    }
+                })
         }
 
-        // 隨機出題
-        function getRandomQuestionIndex() {
-            return Math.floor(Math.random() * questions.length);
-        }
+
 
         // 顯示題目
         window.onload = function() {
