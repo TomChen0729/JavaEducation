@@ -711,6 +711,7 @@ class GameController extends Controller
         }
     }
 
+    // debug對答案(未處理重複記錄問題)
     public function correctDebug(Request $request)
     {
         if ($request->isMethod('get')) {
