@@ -9,6 +9,8 @@ use App\Models\QuestionCard;
 use App\Models\ReorganizationOption;
 use App\Models\User;
 use App\Models\UserRecord;
+use App\Models\Debug;
+use App\Models\DebugRecord;
 use App\Services\GameService;
 use Illuminate\Http\Request;
 
@@ -652,5 +654,34 @@ class GameController extends Controller
                 $query->where('levels', $levels);
             })
             ->get();
+    }
+    
+    public function Debug(Request $request, int $country_id){
+        if ($request->isMethod('get')) {
+            $current_uid = auth()->user()->id;
+            // 玩家在當前國家玩過的debug_id
+            $current_count = DebugRecord::select('debug_id')
+            ->where('user_id', $current_uid)
+            ->pluck('debug_id')->toArray();
+            // 當前國家的debug_id
+            $debug_count = Debug::select('id')->where('country_id', $country_id)->get();
+            // 玩過
+            if($current_count>0){
+                //還有沒玩過的
+                if($debug_count>$current_count){
+                    $question = Debug::where('country_id',$country_id)->whereNotIn('id', $current_count)->inRandomOrder()->first();
+                }
+                else
+                {
+                    $question = Debug::where('country_id',$country_id)->inRandomOrder()->first();
+                }
+            }
+            //沒玩過
+            else
+            {
+                $question = Debug::where('country_id',$country_id)->inRandomOrder()->first();
+            }
+            return view('game.debug', ['question' => $question,]);
+    }
     }
 }
