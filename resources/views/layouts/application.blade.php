@@ -131,54 +131,47 @@
                 display: none;
             }
 
-            @media (max-width: 1280px) {
-                header {
-                    padding: 14px 2%;
-                    transition: 0.2s;
-                }
-                .navbar a {
-                    padding: 5px 0;
-                    margin: 0px 20px;
-                }
+            @media screen and (max-width: 1400px) {
+            #menu-icon {
+                display: block;
             }
 
-            @media (max-width: 1090px) {
-                #menu-icon {
-                    display: block;
-                }
-
-                .navbar {
-                    position: absolute;
-                    top: 100%;
-                    right: -100%;
-                    width: 270px;
-                    background: #16537e;
-                    font-style: none;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: flex-start;
-                    border-radius: 10px;
-                    transition: all 0.50s ease;
-                }
-
-                .navbar a {
-                    border: none;
-                    display: block;
-                    margin: 12px 0;
-                    padding: 0px 25px;
-                    transition: all 0.50s ease;
-                }
-
-                .navbar a:hover {
-                    border: none;
-                    color: var(--text-color);
-                    transform: translateY(5px);
-                }
-
-                .navbar.open {
-                    right: 2%;
-                }
+            .navbar {
+                position: absolute;
+                top: 100%;
+                right: -100%;
+                width: 270px;
+                background: #16537e;
+                font-style: none;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                border-radius: 10px;
+                transition: all 0.50s ease;
             }
+
+            .navbar a {
+                border: none;
+                display: block;
+                margin: 12px 0;
+                padding: 0px 25px;
+                transition: all 0.50s ease;
+            }
+
+            .navbar a:hover {
+                border: none;
+                color: var(--text-color);
+                transform: translateY(5px);
+            }
+
+            .navbar.open {
+                right: 2%;
+            }
+
+            .display-none {
+                display: none;
+            }
+        }
     </style>
     @yield('style')
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">

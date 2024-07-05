@@ -26,10 +26,7 @@
         }
 
         body {
-            background-image: url('/images/background/background2.svg');
-            background-repeat: no-repeat;
-            background-position: top;
-            background-attachment: scroll;
+            background: url('/images/background/background2.svg') no-repeat top center fixed;
             background-size: cover;
             color: var(--text-color);
             min-height: 100vh;
@@ -155,15 +152,13 @@
         }
 
         .container {
-            margin-top: 80px;
             display: flex;
             width: 100%;
-            max-width: 1300px;
-            height: 500px;
+            max-width: 1400px;
+            height: 600px;
             align-items: center;
             justify-content: center;
             position: relative;
-            overflow: hidden;
         }
 
         .icon {
@@ -178,22 +173,11 @@
         .icon img {
             height: 80%;
             width: 100%;
+            /* 填滿 */
             object-fit: fill;
         }
 
-        @media (max-width: 1280px) {
-            header {
-                padding: 14px 2%;
-                transition: 0.2s;
-            }
-
-            .navbar a {
-                padding: 5px 0;
-                margin: 0px 20px;
-            }
-        }
-
-        @media (max-width: 1090px) {
+        @media screen and (max-width: 1400px) {
             #menu-icon {
                 display: block;
             }
@@ -232,6 +216,22 @@
 
             .display-none {
                 display: none;
+            }
+        }
+
+        @media screen and (max-width: 1024px) {
+            .container{
+                margin-top: 20%;
+                height: 100%;
+            }
+
+            .icon {
+                width: 70%;
+                /* Adjust card width */
+                margin: 10px auto;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
             }
         }
     </style>

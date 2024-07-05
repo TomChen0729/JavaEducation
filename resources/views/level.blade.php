@@ -31,7 +31,7 @@
         transform: translate(-50%, -50%) scale(0);
         background: #223E53;
         border-radius: 30px;
-        width: 950px;
+        width: 60%;
         z-index: 1;
         padding: 20px;
         box-sizing: border-box;
@@ -237,8 +237,13 @@
         transform: scale(1.03);
     }
 
-    /* RWD for smaller devices */
-    @media screen and (max-width: 900px) {
+    @media (max-width: 1300px) {
+        .popup .content {
+            top: 60%;
+        }
+    }
+
+    @media (max-width: 900px) {
         .container {
             height: 100%;
         }
@@ -257,6 +262,51 @@
         .headers p {
             font-size: 14px;
             /* Reduce paragraph font size */
+        }
+
+        .popup .content {
+            width: 90%;
+            height: auto;
+            max-height: 80vh;
+        }
+
+        .button-group .btn {
+            width: calc(50% - 20px);
+            margin-bottom: 10px;
+        }
+
+        .popup .pop h1 {
+            font-size: 20px;
+        }
+
+        .popup .pop p {
+            font-size: 14px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .button-group .btn {
+            width: calc(100% - 20px);
+            margin-bottom: 10px;
+            font-size: 18px;
+            padding: 10px 20px;
+        }
+
+        .popup .pop h1 {
+            font-size: 18px;
+        }
+
+        .popup .pop p {
+            font-size: 12px;
+        }
+
+        .popup .close-btn {
+            right: 10px;
+            top: 10px;
+            width: 25px;
+            height: 25px;
+            font-size: 20px;
+            line-height: 25px;
         }
     }
 </style>
