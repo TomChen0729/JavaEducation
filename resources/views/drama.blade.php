@@ -112,6 +112,15 @@
             letter-spacing: 10px;
             margin: 0;
         }
+
+        .skip {
+            font-size: 20px;
+            font-weight: bold;
+            border: 2px solid #fff;
+            border-radius: 10px;
+            padding: 2px;
+            margin-left: 20px;
+        }
     </style>
 </head>
 
@@ -129,6 +138,9 @@
 
         <div class="footer">
             <p>請點擊空白處</p>
+            <div>
+                <button class="skip">跳過劇情</button>
+            </div>
         </div>
     </div>
 
