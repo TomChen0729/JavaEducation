@@ -270,11 +270,6 @@
             max-height: 80vh;
         }
 
-        .button-group .btn {
-            width: calc(50% - 20px);
-            margin-bottom: 10px;
-        }
-
         .popup .pop h1 {
             font-size: 20px;
         }
@@ -285,13 +280,6 @@
     }
 
     @media (max-width: 480px) {
-        .button-group .btn {
-            width: calc(100% - 20px);
-            margin-bottom: 10px;
-            font-size: 18px;
-            padding: 10px 20px;
-        }
-
         .popup .pop h1 {
             font-size: 18px;
         }
