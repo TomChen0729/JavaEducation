@@ -444,19 +444,31 @@
         /* 設定選項按鈕的樣式 */
         .option-btn {
             display: inline-block;
+            width: 110px;
+            height: 60px;
             padding: 10px;
             margin: 5px;
-            border: 1px solid #ccc;
+            border: 5px solid #faf1e4;
+            border-radius: 20px;
             cursor: pointer;
         }
 
         /* 設定拖放區域的樣式 */
         .drop-zone {
             display: inline-block;
-            width: 100px;
-            height: 30px;
-            border: 2px dashed #ccc;
-            margin-left: 10px;
+            width: 110px;
+            height: 60px;
+            border: 5px dashed #faf1e4;
+            border-radius: 20px;
+            margin-right: 10px;
+        }
+
+        #submit-btn{
+            margin-top: 50px;
+        }
+
+        #submit-btn:hover{
+            text-decoration: underline;
         }
 
         /* RWD */
