@@ -617,12 +617,14 @@
         </div>
     </header>
 
-    <div class="container">
+    <div id="container">
         <h2 id="hints"></h2>
-        <div id="board"></div>
+        <div id="question-container">
+            <div id="board"></div>
+            <div id="question"></div>
+        </div>
         <div id="pieces"></div>
     </div>
-
 
     <!--js-->
     <!-- <script src="{{ asset('js/app.js') }}"></script> -->
@@ -745,10 +747,10 @@
 
             // 隨機題目
             let selected = questions[Math.floor(Math.random() * questions.length)];
-            let parts = selected.question.split(' '); // 用空格將題目分開
+            let parts = selected.question.split('___'); // 用空格將題目分開
 
             // 生成拼圖片
-            let pieces = parts.map(part => generateImageFromText(part));
+            let pieces = generateImageFromText(part[0]);
             // 將題目加到頁面
             for (let i = 0; i < pieces.length; i++) {
                 let tile = document.createElement('img');
