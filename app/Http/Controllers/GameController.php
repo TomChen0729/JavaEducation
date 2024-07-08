@@ -281,7 +281,7 @@ class GameController extends Controller
                 case 5:
                     //
                     break;
-                    //
+                //
                 default:
                     //
                     return response('error');
@@ -562,7 +562,7 @@ class GameController extends Controller
                 case 5:
                     //
                     break;
-                    //
+                //
                 default:
                     //
                     return response('error');
@@ -732,26 +732,67 @@ class GameController extends Controller
             // 檢查正確行數
             if ($wrongLine == $ansLine) {
                 // 再檢查填寫的答案
+                // 答對
                 if ($userAns == $ansAnswer) {
-                    $createUserRecord = new DebugRecord();
-                    $createUserRecord->create([
-                        'user_id' => $currentUid,
-                        'debug_id' => $debug_id,
-                        'watchtime' => $watchtime,
-                        'status' => 1,
-                    ]);
-
+                    // 沒玩過這題
+                    if (!DebugRecord::where('debug_id', $debug_id)->where('user_id', $currentUid)->exists()) {
+                        $createUserRecord = new DebugRecord();
+                        $createUserRecord->create([
+                            'user_id' => $currentUid,
+                            'debug_id' => $debug_id,
+                            'watchtime' => $watchtime,
+                            'status' => 1,
+                        ]);
+                    }
+                    // 原本錯現在對
+                    elseif (DebugRecord::where('debug_id', $debug_id)->where('user_id', $currentUid)->value('status') == 0) {
+                        DebugRecord::where('debug_id', $debug_id)->where('user_id', $currentUid)->update(['status' => 1]);
+                    }
+                    // 原本對現在對
+                    else {
+                        DebugRecord::where('debug_id', $debug_id)->where('user_id', $currentUid)->update(['updated_at' => now()]);
+                    }
                     return response()->json(['message' => 'correct']);
+                    // 答錯
                 } else {
+                    // 沒玩過這題
+                    if (!DebugRecord::where('debug_id', $debug_id)->where('user_id', $currentUid)->exists()) {
+                        $createUserRecord = new DebugRecord();
+                        $createUserRecord->create([
+                            'user_id' => $currentUid,
+                            'debug_id' => $debug_id,
+                            'status' => 0,
+                        ]);
+                    }
+                    // 原本對現在錯
+                    elseif (DebugRecord::where('debug_id', $debug_id)->where('user_id', $currentUid)->value('status') == 1) {
+                        DebugRecord::where('debug_id', $debug_id)->where('user_id', $currentUid)->update(['status' => 0]);
+                    }
+                    // 原本錯現在錯
+                    else {
+                        DebugRecord::where('debug_id', $debug_id)->where('user_id', $currentUid)->update(['updated_at' => now()]);
+                    }
+                    return response()->json(['message' => 'wrongAns']);
+                }
+                // 行數答錯
+            } else {
+                // 沒玩過，錯行數的時候
+                if (!DebugRecord::where('debug_id', $debug_id)->where('user_id', $currentUid)->exists()) {
                     $createUserRecord = new DebugRecord();
                     $createUserRecord->create([
                         'user_id' => $currentUid,
                         'debug_id' => $debug_id,
                         'status' => 0,
                     ]);
-                    return response()->json(['message' => 'wrongAns']);
                 }
-            } else {
+                // 原本答對，但現在錯行數
+                elseif (DebugRecord::where('debug_id', $debug_id)->where('user_id', $currentUid)->value('status') == 1) {
+                    DebugRecord::where('debug_id', $debug_id)->where('user_id', $currentUid)->update(['status' => 0]);
+                }
+                // 原本答錯，現在錯行數
+                else {
+                    DebugRecord::where('debug_id', $debug_id)->where('user_id', $currentUid)->update(['updated_at' => now()]);
+                }
                 return response()->json(['message' => 'wrongline']);
             }
         } else {
