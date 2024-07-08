@@ -651,7 +651,7 @@
             return timerElement;
         }
 
-        window.onload = startTimer;
+        window.onload = startTimer();
 
         // 知識卡
         // 畫面載入後顯示彈跳視窗

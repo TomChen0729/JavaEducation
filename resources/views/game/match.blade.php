@@ -586,7 +586,7 @@
             <div class="pop">
                 <h1>答案正確</h1>
                 <a href="#" onclick="history.go(-1)">遊戲種類</a>
-                <a href="{{ route('game.gameRD', ['country_id' => $question[1] -> country_id, 'levels' => $question[1] -> levels]) }}">繼續答題</a>
+                <a href="{{ route('game.gameRD', ['country_id' => $questions[1] -> country_id, 'levels' => $questions[1] -> levels]) }}">繼續答題</a>
             </div>
         </div>
     </div>

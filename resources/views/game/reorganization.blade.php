@@ -285,7 +285,7 @@
             justify-content: space-between;
             padding: 28px 2%;
             /* 透明背景 */
-            background: rgba(199,168,132, 0.8);
+            background: rgba(199, 168, 132, 0.8);
 
             transition: all 0.50s ease;
         }
@@ -463,11 +463,11 @@
             margin-right: 10px;
         }
 
-        #submit-btn{
+        #submit-btn {
             margin-top: 50px;
         }
 
-        #submit-btn:hover{
+        #submit-btn:hover {
             text-decoration: underline;
         }
 
@@ -574,7 +574,7 @@
 </head>
 
 <body>
-<!-- 彈窗 -->
+    <!-- 彈窗 -->
     <!-- 遊戲說明 -->
     <div class="first active" id="popup">
         <div class="overlay"></div>
@@ -600,7 +600,7 @@
     </div>
 
     <!-- 知識卡資訊 -->
-    
+
 
     <!-- 答題正確 -->
     <div class="end" id="popup-3">
@@ -610,7 +610,7 @@
             <div class="pop">
                 <h1>答案正確</h1>
                 <a href="#" onclick="history.go(-1)">遊戲種類</a>
-                <a href="{{ route('game.gameRD', ['country_id' => $question -> country_id, 'levels' => $question -> levels]) }}">繼續答題</a>
+                <a href="{{ route('game.gameRD', ['country_id' => $currentCountry, 'levels' => $question_data['levels']]) }}">繼續答題</a>
             </div>
         </div>
     </div>
@@ -644,6 +644,7 @@
 
     <!-- 題目和選項的容器 -->
     <div id="container">
+        <h1 id="cid" style="display: none;">{{ auth()->user()->id }}</h1>
         <!-- 顯示提示的元素 -->
         <h2 id="hints"></h2>
         <!-- 顯示題目的容器 -->
@@ -674,6 +675,7 @@
         function startTimer() {
             let minutes = 0;
             let seconds = 0;
+            let hours = 0;
             const timerElement = document.getElementById('timer');
 
             function updateTimer() {
@@ -681,17 +683,27 @@
                 if (seconds === 60) {
                     seconds = 0;
                     minutes++;
+                    if (minutes === 60) {
+                        minutes = 0;
+                        hours++;
+                    }
                 }
-
+                const formattedHours = String(hours).padStart(2, '0');
                 const formattedMinutes = String(minutes).padStart(2, '0');
                 const formattedSeconds = String(seconds).padStart(2, '0');
-                timerElement.textContent = `${formattedMinutes}:${formattedSeconds}`;
+                timerElement.textContent = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
             }
 
             setInterval(updateTimer, 1000);
         }
 
-        window.onload = startTimer;
+        function stopTimer() {
+            clearInterval(timer);
+            const timerElement = document.getElementById('timer').textContent;
+            return timerElement;
+        }
+
+        window.onload = startTimer();
 
         // 知識卡
         // 畫面載入後顯示彈跳視窗
@@ -719,110 +731,82 @@
         // 題目
         // 初始化題目
         window.onload = function() {
-            // 設定當前題目的索引
-            let currentQuestion = 0;
             // 定義題目和答案的數組
-            const questions = [{
-                    question: "___ years = 18;",
-                    answer: "int",
-                    options: ["String", "int", "float", "char"],
-                    hint: "提示：years是整數變數"
-                },
-                {
-                    question: "___ roads = '中華路';",
-                    answer: "String",
-                    options: ["String", "int", "float", "char"],
-                    hint: "提示：roads是字符串變數"
-                },
-                {
-                    question: "___ miles = 3/1.6;",
-                    answer: "float",
-                    options: ["String", "int", "float", "char"],
-                    hint: "提示：miles是浮點數變數"
-                },
-                {
-                    question: "___ mine = false;",
-                    answer: "boolean",
-                    options: ["String", "int", "float", "boolean"],
-                    hint: "提示：mine是布林值變數"
-                },
-                {
-                    question: "___ yourself = true;",
-                    answer: "boolean",
-                    options: ["String", "int", "float", "boolean"],
-                    hint: "提示：yourself是布林值變數"
-                },
-                {
-                    question: "___ K = '王';",
-                    answer: "char",
-                    options: ["String", "int", "float", "char"],
-                    hint: "提示：K是字符變數"
-                }
-            ];
-
-            // 打亂題目順序的函數
-            function shuffle(array) {
-                // 從數組的最後一個元素開始迭代
-                for (let i = array.length - 1; i > 0; i--) {
-                    // 生成一個隨機索引
-                    const j = Math.floor(Math.random() * (i + 1));
-                    // 交換當前元素和隨機索引處的元素
-                    [array[i], array[j]] = [array[j], array[i]];
-                }
-            }
-
-            // 打亂題目順序
-            shuffle(questions);
+            const questions = @json($question_data);
+            console.log(questions);
             // 顯示當前題目
-            displayQuestion(currentQuestion);
+            displayQuestion(questions);
 
-            // 顯示指定索引的題目
-            function displayQuestion(index) {
+            // 顯示題目
+            function displayQuestion(questions) {
                 // 獲取題目容器元素
                 const questionElement = document.getElementById('question-container');
                 // 設定題目內容和拖放區域
                 questionElement.innerHTML = `
-                    <p><span id="drop-zone-${index}" class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)"></span> ${questions[index].question.slice(3)}</p>
+                    <p><span id="drop-zone-${questions['id']}" class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)"></span> ${questions.question.slice(3)}</p>
                 `;
 
                 // 獲取選項容器元素
                 const piecesElement = document.getElementById('pieces');
                 // 設定選項按鈕
-                piecesElement.innerHTML = questions[index].options.map(option => {
-                    return `<button class="option-btn" data-answer="${option}" draggable="true" ondragstart="drag(event)">${option}</button>`;
+                piecesElement.innerHTML = questions.options.map(options => {
+                    return `<button class="option-btn" data-answer="${options.option}" draggable="true" ondragstart="drag(event)">${options.option}</button>`;
                 }).join('');
 
                 // 獲取提示元素並設定提示內容
                 const hintElement = document.getElementById('hints');
-                hintElement.textContent = questions[index].hint;
+                hintElement.textContent = "提示：" + questions.hint;
             }
 
             // 提交按鈕的點擊事件
             document.getElementById('submit-btn').onclick = function() {
-                checkAnswers(currentQuestion);
+                checkAnswers();
             }
 
             // 檢查答案是否正確
-            function checkAnswers(index) {
+            function checkAnswers() {
                 // 獲取拖放區域元素
-                const dropZone = document.getElementById(`drop-zone-${index}`);
-                // 獲取用戶選擇的答案
+                const dropZone = document.getElementById(`drop-zone-${questions['id']}`);
+                // 獲取使用者選擇的答案
+                var cid = document.getElementById('cid').textContent;
+                var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                var timer = stopTimer();
                 const selectedAnswer = dropZone.textContent.trim();
-                // 比較用戶選擇的答案和正確答案
-                if (selectedAnswer === questions[index].answer) {
-                    alert('答案正確');
-                    // 移動到下一個題目
-                    currentQuestion++;
-                    // 如果還有題目，顯示下一個題目
-                    if (currentQuestion < questions.length) {
-                        displayQuestion(currentQuestion);
-                    } else {
-                        // 所有題目完成後顯示提示
-                        alert('你已完成所有題目');
-                    }
+                console.log(selectedAnswer);
+                // console.log(csrfToken); // 測試用
+                console.log(cid);
+                if (selectedAnswer != null) {
+                    fetch('/api/correct_User_ANS?user_answer=' + encodeURIComponent(selectedAnswer) + '&question_id=' + questions['id'] + '&cid=' + cid + '&timer=' + timer, {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': csrfToken
+                            },
+                            // body: JSON.stringify({
+                            //     user_answer: answerValue,
+                            //     question:  question,
+                            //     game_type: '是非'
+                            // })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+                            if (data.message == 'correct') {
+                                togglePopup4();
+                            } else if (data.message == 'wrongAnswer') {
+                                alert('答錯');
+                                setTimeout(function() {
+                                    window.location.reload();
+                                }, 1000);
+                            } else {
+                                alert('伺服器錯誤');
+                                setTimeout(function() {
+                                    window.location.reload();
+                                }, 1000);
+                            }
+                        })
                 } else {
-                    // 答案錯誤時顯示提示
-                    alert('答案錯誤，請再試一次');
+                    alert('請選擇一個答案~');
                 }
             }
         };
