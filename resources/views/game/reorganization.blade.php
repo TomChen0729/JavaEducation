@@ -32,7 +32,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            overflow: hidden;
+            margin: 0;
         }
 
         .first .overlay {
@@ -402,33 +402,61 @@
             display: none;
         }
 
-        #container{
+        /* 設定容器樣式 */
+        #container {
             background-color: #504647;
             color: #faf1e4;
             border: 5px solid #cc9252;
             padding: 20px;
+            text-align: center;
         }
 
+        /* 設定提示的樣式 */
         h2 {
-            text-align: center;
             font-size: 28px;
             font-weight: bold;
             margin-bottom: 50px;
         }
 
-        #question-container{
-            text-align: center;
+        /* 設定題目容器樣式 */
+        #question-container {
             font-size: 24px;
             margin-bottom: 40px;
         }
 
-        #pieces{
+        /* 設定選項容器樣式 */
+        #pieces {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
             font-size: 20px;
-            padding: 20px;
         }
 
-        button{
-            margin: 10px;
+        /* 設定選項的樣式 */
+        .piece {
+            display: inline-block;
+            padding: 10px;
+            border: 1px solid #000;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* 設定選項按鈕的樣式 */
+        .option-btn {
+            display: inline-block;
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+        /* 設定拖放區域的樣式 */
+        .drop-zone {
+            display: inline-block;
+            width: 100px;
+            height: 30px;
+            border: 2px dashed #ccc;
+            margin-left: 10px;
         }
 
         /* RWD */
@@ -602,12 +630,19 @@
         </div>
     </header>
 
+    <!-- 題目和選項的容器 -->
     <div id="container">
+        <!-- 顯示提示的元素 -->
         <h2 id="hints"></h2>
+        <!-- 顯示題目的容器 -->
         <div id="question-container">
+            <!-- 預設顯示第一題 -->
             <div id="board"></div>
         </div>
+        <!-- 顯示選項的容器 -->
         <div id="pieces"></div>
+        <!-- 提交按鈕 -->
+        <button id="submit-btn" onclick="checkAnswers()">Submit</button>
     </div>
 
     <!--js-->
@@ -670,10 +705,12 @@
 
         // 遊戲
         // 題目
+        // 初始化題目
         window.onload = function() {
+            // 設定當前題目的索引
             let currentQuestion = 0;
-            const questions = [
-                {
+            // 定義題目和答案的數組
+            const questions = [{
                     question: "___ years = 18;",
                     answer: "int",
                     options: ["String", "int", "float", "char"],
@@ -710,56 +747,93 @@
                     hint: "提示：K是字符變數"
                 }
             ];
-            const boardElement = document.getElementById('board');
-            const questionElement = document.getElementById('question');
-            const piecesElement = document.getElementById('pieces');
-            const hintsElement = document.getElementById('hints');
 
-            // 顯示當前問題的函數
-            function displayQuestion() {
-                const questionData = questions[currentQuestion];
-                const answer = questionData.answer;
-                const options = questionData.options;
-                const hint = questionData.hint;
-
-                hintsElement.textContent = hint; // 顯示提示說明
-                boardElement.innerHTML = questionData.question; // 顯示帶有底線的問題
-
-                // 將問題選項顯示為按鈕
-                piecesElement.innerHTML = '';
-                options.forEach(option => {
-                    const optionButton = document.createElement('button');
-                    optionButton.textContent = option;
-                    optionButton.addEventListener('click', function() {
-                        if (option === answer) {
-                            hintsElement.textContent = ''; // 清除提示
-                            piecesElement.innerHTML = '正確！'; // 顯示正確消息
-                            setTimeout(nextQuestion, 1000); // 延遲後進入下一個問題
-                        } else {
-                            piecesElement.innerHTML = '再試一次！'; // 顯示錯誤消息
-                            hintsElement.textContent = hint; // 顯示提示
-                        }
-                    });
-                    piecesElement.appendChild(optionButton);
-                });
-            }
-
-            // 移動到下一個問題的函數
-            function nextQuestion() {
-                currentQuestion++;
-                if (currentQuestion < questions.length) {
-                    displayQuestion();
-                } else {
-                    piecesElement.innerHTML = '測驗完成！'; // 顯示完成消息
-                    boardElement.innerHTML = ''; // 清除問題板
-                    questionElement.innerHTML = ''; // 清除問題
-                    hintsElement.innerHTML = ''; // 清除提示
+            // 打亂題目順序的函數
+            function shuffle(array) {
+                // 從數組的最後一個元素開始迭代
+                for (let i = array.length - 1; i > 0; i--) {
+                    // 生成一個隨機索引
+                    const j = Math.floor(Math.random() * (i + 1));
+                    // 交換當前元素和隨機索引處的元素
+                    [array[i], array[j]] = [array[j], array[i]];
                 }
             }
 
-            displayQuestion(); // 首次顯示第一個問題
+            // 打亂題目順序
+            shuffle(questions);
+            // 顯示當前題目
+            displayQuestion(currentQuestion);
+
+            // 顯示指定索引的題目
+            function displayQuestion(index) {
+                // 獲取題目容器元素
+                const questionElement = document.getElementById('question-container');
+                // 設定題目內容和拖放區域
+                questionElement.innerHTML = `
+                    <p><span id="drop-zone-${index}" class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)"></span> ${questions[index].question.slice(3)}</p>
+                `;
+
+                // 獲取選項容器元素
+                const piecesElement = document.getElementById('pieces');
+                // 設定選項按鈕
+                piecesElement.innerHTML = questions[index].options.map(option => {
+                    return `<button class="option-btn" data-answer="${option}" draggable="true" ondragstart="drag(event)">${option}</button>`;
+                }).join('');
+
+                // 獲取提示元素並設定提示內容
+                const hintElement = document.getElementById('hints');
+                hintElement.textContent = questions[index].hint;
+            }
+
+            // 提交按鈕的點擊事件
+            document.getElementById('submit-btn').onclick = function() {
+                checkAnswers(currentQuestion);
+            }
+
+            // 檢查答案是否正確
+            function checkAnswers(index) {
+                // 獲取拖放區域元素
+                const dropZone = document.getElementById(`drop-zone-${index}`);
+                // 獲取用戶選擇的答案
+                const selectedAnswer = dropZone.textContent.trim();
+                // 比較用戶選擇的答案和正確答案
+                if (selectedAnswer === questions[index].answer) {
+                    alert('答案正確');
+                    // 移動到下一個題目
+                    currentQuestion++;
+                    // 如果還有題目，顯示下一個題目
+                    if (currentQuestion < questions.length) {
+                        displayQuestion(currentQuestion);
+                    } else {
+                        // 所有題目完成後顯示提示
+                        alert('你已完成所有題目');
+                    }
+                } else {
+                    // 答案錯誤時顯示提示
+                    alert('答案錯誤，請再試一次');
+                }
+            }
         };
 
+        // 允許拖放的函數
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        // 拖動開始的函數
+        function drag(event) {
+            // 設定拖動數據
+            event.dataTransfer.setData("text", event.target.dataset.answer);
+        }
+
+        // 拖放完成的函數
+        function drop(event) {
+            event.preventDefault();
+            // 獲取拖動數據
+            const data = event.dataTransfer.getData("text");
+            // 設定拖放區域的文本內容
+            event.target.textContent = data;
+        }
     </script>
 </body>
 
