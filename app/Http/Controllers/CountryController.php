@@ -41,8 +41,8 @@ class CountryController extends Controller
                     'message' => $item->msg,
                 ];
             });
-
-        return view('drama', ['dramas' => $currentCountryDrama, 'currentCountry' => $country_id]);
+        
+        return view('drama', ['dramas' => $currentCountryDrama, 'currentCountry' => (int)$country_id]);
     }
 
     // 導向等級選取，帶使用者資料，檢查玩家遊戲進度
