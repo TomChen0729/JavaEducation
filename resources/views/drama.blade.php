@@ -139,7 +139,7 @@
         <div class="footer">
             <p>請點擊空白處</p>
             <div>
-                <button class="skip">跳過劇情</button>
+                <button class="skip" onclick="skipdrama()">跳過劇情</a></button>
             </div>
         </div>
     </div>
@@ -210,6 +210,10 @@
 
         // 初始化顯示第一句對話
         displayNextMessage();
+
+        function skipdrama(){
+            window.location.href = `/country/${c_id}`;
+        }
     </script>
 </body>
 
