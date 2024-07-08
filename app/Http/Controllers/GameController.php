@@ -705,7 +705,7 @@ class GameController extends Controller
                         ];
                     })->first();
             }
-            return view('game.debug', ['question' => $question]);
+            return view('game.debug', ['question' => $question, 'currentCountry' => $country_id]);
         }
     }
 

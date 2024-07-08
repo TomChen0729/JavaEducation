@@ -748,6 +748,7 @@
             // 隨機題目
             let selected = questions[Math.floor(Math.random() * questions.length)];
             let parts = selected.question.split('___'); // 用空格將題目分開
+            console.log(parts);
 
             // 生成拼圖片
             let pieces = generateImageFromText(part[0]);
@@ -825,7 +826,6 @@
         function dragEnter(e) {
             e.preventDefault(); // 同意拖放操作
         }
-
         function dragLeave() {
             // 不需要處理
         }
