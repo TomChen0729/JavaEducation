@@ -727,7 +727,6 @@
             document.getElementById("popup-3").classList.toggle("active");
         }
 
-        // 遊戲
         // 題目
         // 初始化題目
         window.onload = function() {
@@ -737,37 +736,38 @@
             // 顯示當前題目
             displayQuestion(questions);
 
-            // 顯示題目
+            // 顯示整個作答區
             function displayQuestion(questions) {
-                // 獲取題目容器元素
+                // 獲取題目的div
                 const questionElement = document.getElementById('question-container');
-                // 設定題目內容和拖放區域
-                questionElement.innerHTML = `
-                    <p><span id="drop-zone-${questions['id']}" class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)"></span> ${questions.question.slice(3)}</p>
-                `;
 
-                // 獲取選項容器元素
+                // 將題目中的 '___' 替換為缺空處
+                let formattedQuestion = questions.question.replace(/___/g, generateDropZone(questions.id));
+                questionElement.innerHTML = `<p>${formattedQuestion}</p>`;
+
+
+                // 獲取放置選項的div
                 const piecesElement = document.getElementById('pieces');
-                // 設定選項按鈕
+                // 設定選項按鈕，透過map函數遍歷整個options陣列，將每個值讀出來，然後動態生成選項
                 piecesElement.innerHTML = questions.options.map(options => {
-                    return `<button class="option-btn" data-answer="${options.option}" draggable="true" ondragstart="drag(event)">${options.option}</button>`;
+                    return `<button class="option-btn" data-useranswer="${options.option}" draggable="true" ondragstart="drag(event)">${options.option}</button>`;
                 }).join('');
 
-                // 獲取提示元素並設定提示內容
+                // 獲取提示文字的div，並將值放進去
                 const hintElement = document.getElementById('hints');
                 hintElement.textContent = "提示：" + questions.hint;
             }
 
-            // 提交按鈕的點擊事件
+            // 提交按鈕的點擊事件，即為觸發對答案的函數
             document.getElementById('submit-btn').onclick = function() {
                 checkAnswers();
             }
 
             // 檢查答案是否正確
             function checkAnswers() {
-                // 獲取拖放區域元素
+                // 獲取玩家已填入缺空處的值
                 const dropZone = document.getElementById(`drop-zone-${questions['id']}`);
-                // 獲取使用者選擇的答案
+                // 獲取當前使用者id
                 var cid = document.getElementById('cid').textContent;
                 var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
                 var timer = stopTimer();
@@ -811,24 +811,32 @@
             }
         };
 
-        // 允許拖放的函數
+        // 允許拖放的函數，參數是event
         function allowDrop(event) {
+            // 允許值被放上去
             event.preventDefault();
         }
 
-        // 拖動開始的函數
+        // 拖動開始的函數，參數是event
         function drag(event) {
             // 設定拖動數據
-            event.dataTransfer.setData("text", event.target.dataset.answer);
+            event.dataTransfer.setData("text", event.target.dataset.useranswer);
         }
 
-        // 拖放完成的函數
+        // 把值放上去時的函數
         function drop(event) {
+            // 允許值被放上去
+            // 因為在拖放操作(該元素)中，這個事件是不被允許的(瀏覽器不允許拖放元素)，也就是說，默認事件是不允許拖放元素的，達成的效果就是當使用者在拖放選項的時候，是被瀏覽器允許的，所以值可以成功的被放進去。
             event.preventDefault();
-            // 獲取拖動數據
+            // 獲取使用者放上去的資料
             const data = event.dataTransfer.getData("text");
-            // 設定拖放區域的文本內容
+            // 將放上去的文字設為使用者自己拖上去的
             event.target.textContent = data;
+        }
+
+        // 產生缺空處的函數
+        function generateDropZone(id) {
+            return `<span id="drop-zone-${id}" class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)"></span>`;
         }
     </script>
 </body>

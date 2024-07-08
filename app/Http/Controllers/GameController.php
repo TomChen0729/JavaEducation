@@ -45,6 +45,7 @@ class GameController extends Controller
     // 送至前端的東西：通關所需知識卡，題目資訊，
     public function ChooseGame(Request $request, string $GameType, int $country_id, int $levels)
     {
+        $cards = array();
         //
         if ($request->isMethod('get')) {
             switch ($GameType) {
