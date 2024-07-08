@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaEducation - 學習填充</title>
+    <title>JavaEducation - 學習填空</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         * {
@@ -402,48 +402,33 @@
             display: none;
         }
 
-        #hints {
+        #container{
+            background-color: #504647;
+            color: #faf1e4;
+            border: 5px solid #cc9252;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
             font-size: 28px;
             font-weight: bold;
-            margin-top: 70px;
-            margin-bottom: 20px;
-            background-color: #76a5af;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgb(100, 100, 100);
-            width: 805.6px;
-            overflow: hidden;
+            margin-bottom: 50px;
         }
 
-        #board {
-            width: 805.6px;
-            height: 209px;
-            border: 5px solid #76a5af;
-            box-shadow: 0 0 10px rgb(100, 100, 100);
-            margin: 20px auto;
-            display: flex;
-            flex-wrap: wrap;
+        #question-container{
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 40px;
         }
 
-        #board img {
-            width: 199px;
-            height: 199px;
-            border: 0.5px solid #76a5af;
+        #pieces{
+            font-size: 20px;
+            padding: 20px;
         }
 
-        #pieces {
-            width: 805.6px;
-            height: 209px;
-            border: 5px solid #76a5af;
-            box-shadow: 0 0 10px rgb(100, 100, 100);
-            margin: 10px auto;
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        #pieces img {
-            width: 199px;
-            height: 199px;
-            border: 0.5px solid lightblue;
+        button{
+            margin: 10px;
         }
 
         /* RWD */
@@ -557,8 +542,8 @@
             <div class="close-btn" onclick="togglePopup1()">&times;</div>
             <div class="pop">
                 <h1>遊戲說明</h1>
-                <p><strong>是非題</strong><br>
-                    判斷題目敘述，正確答案選擇True，錯誤答案選擇False</p>
+                <p><strong>填充題</strong><br>
+                    判斷題目敘述，選擇正確選項並拖曳至上方空白處</p>
             </div>
         </div>
     </div>
@@ -621,7 +606,6 @@
         <h2 id="hints"></h2>
         <div id="question-container">
             <div id="board"></div>
-            <div id="question"></div>
         </div>
         <div id="pieces"></div>
     </div>
@@ -685,193 +669,96 @@
         }
 
         // 遊戲
-        var currTile; // 正在拖動的圖片
-        var otherTile; // 目標圖片
-
         // 題目
         window.onload = function() {
-            let questions = [{
+            let currentQuestion = 0;
+            const questions = [
+                {
                     question: "___ years = 18;",
-                    a: "String",
-                    b: "int",
-                    c: "float",
-                    d: "char",
-                    hint: "years是整數變數"
+                    answer: "int",
+                    options: ["String", "int", "float", "char"],
+                    hint: "提示：years是整數變數"
                 },
                 {
                     question: "___ roads = '中華路';",
                     answer: "String",
-                    a: "String",
-                    b: "int",
-                    c: "float",
-                    d: "char",
-                    hint: "roads是字符串變數"
+                    options: ["String", "int", "float", "char"],
+                    hint: "提示：roads是字符串變數"
                 },
                 {
                     question: "___ miles = 3/1.6;",
                     answer: "float",
-                    a: "String",
-                    b: "int",
-                    c: "float",
-                    d: "char",
-                    hint: "miles是浮點數變數"
+                    options: ["String", "int", "float", "char"],
+                    hint: "提示：miles是浮點數變數"
                 },
                 {
                     question: "___ mine = false;",
                     answer: "boolean",
-                    a: "String",
-                    b: "int",
-                    c: "float",
-                    d: "boolean",
-                    hint: "mine是布林值變數"
+                    options: ["String", "int", "float", "boolean"],
+                    hint: "提示：mine是布林值變數"
                 },
                 {
                     question: "___ yourself = true;",
                     answer: "boolean",
-                    a: "String",
-                    b: "int",
-                    c: "float",
-                    d: "boolean",
-                    hint: "yourself是布林值變數"
+                    options: ["String", "int", "float", "boolean"],
+                    hint: "提示：yourself是布林值變數"
                 },
                 {
                     question: "___ K = '王';",
                     answer: "char",
-                    a: "String",
-                    b: "int",
-                    c: "float",
-                    d: "char",
-                    hint: "K是字符變數"
+                    options: ["String", "int", "float", "char"],
+                    hint: "提示：K是字符變數"
                 }
             ];
+            const boardElement = document.getElementById('board');
+            const questionElement = document.getElementById('question');
+            const piecesElement = document.getElementById('pieces');
+            const hintsElement = document.getElementById('hints');
 
-            // 隨機題目
-            let selected = questions[Math.floor(Math.random() * questions.length)];
-            let parts = selected.question.split('___'); // 用空格將題目分開
+            // 顯示當前問題的函數
+            function displayQuestion() {
+                const questionData = questions[currentQuestion];
+                const answer = questionData.answer;
+                const options = questionData.options;
+                const hint = questionData.hint;
 
-            // 生成拼圖片
-            let pieces = generateImageFromText(part[0]);
-            // 將題目加到頁面
-            for (let i = 0; i < pieces.length; i++) {
-                let tile = document.createElement('img');
-                tile.src = pieces[i]; // 使用生成拚圖片
+                hintsElement.textContent = hint; // 顯示提示說明
+                boardElement.innerHTML = questionData.question; // 顯示帶有底線的問題
 
-                // 拖放功能
-                tile.addEventListener("dragstart", dragStart);
-                tile.addEventListener("dragover", dragOver);
-                tile.addEventListener("dragenter", dragEnter);
-                tile.addEventListener("dragleave", dragLeave);
-                tile.addEventListener("drop", dragDrop);
-                tile.addEventListener("dragend", dragEnd);
-
-                document.getElementById("board").append(tile);
+                // 將問題選項顯示為按鈕
+                piecesElement.innerHTML = '';
+                options.forEach(option => {
+                    const optionButton = document.createElement('button');
+                    optionButton.textContent = option;
+                    optionButton.addEventListener('click', function() {
+                        if (option === answer) {
+                            hintsElement.textContent = ''; // 清除提示
+                            piecesElement.innerHTML = '正確！'; // 顯示正確消息
+                            setTimeout(nextQuestion, 1000); // 延遲後進入下一個問題
+                        } else {
+                            piecesElement.innerHTML = '再試一次！'; // 顯示錯誤消息
+                            hintsElement.textContent = hint; // 顯示提示
+                        }
+                    });
+                    piecesElement.appendChild(optionButton);
+                });
             }
 
-            // 將選項加到頁面
-            let options = [selected.a, selected.b, selected.c, selected.d];
-            for (let i = 0; i < options.length; i++) {
-                let tile = document.createElement('img');
-                tile.src = generateImageFromText(options[i]);
-                tile.dataset.answer = options[i]; // 存儲選項的答案
-
-                // 拖放功能
-                tile.addEventListener("dragstart", dragStart);
-                tile.addEventListener("dragover", dragOver);
-                tile.addEventListener("dragenter", dragEnter);
-                tile.addEventListener("dragleave", dragLeave);
-                tile.addEventListener("drop", dragDrop);
-                tile.addEventListener("dragend", dragEnd);
-
-                document.getElementById("pieces").append(tile);
+            // 移動到下一個問題的函數
+            function nextQuestion() {
+                currentQuestion++;
+                if (currentQuestion < questions.length) {
+                    displayQuestion();
+                } else {
+                    piecesElement.innerHTML = '測驗完成！'; // 顯示完成消息
+                    boardElement.innerHTML = ''; // 清除問題板
+                    questionElement.innerHTML = ''; // 清除問題
+                    hintsElement.innerHTML = ''; // 清除提示
+                }
             }
 
-            // 提示
-            let hint = document.createElement('h2');
-            hint.className = 'hint';
-            hint.textContent = '提示：' + selected.hint; // 在提示前加上 "提示：" 字樣
-            document.getElementById("hints").insertAdjacentElement('afterbegin', hint); // 將提示添加到 board 元素中 "提示：" 的後面
-
-        }
-
-        // 生成帶有文本的圖片
-        function generateImageFromText(text) {
-            let canvas = document.createElement('canvas');
-            canvas.width = 199;
-            canvas.height = 199;
-            let context = canvas.getContext('2d');
-            context.fillStyle = 'white'; // 背景白色
-            context.fillRect(0, 0, canvas.width, canvas.height);
-            context.fillStyle = 'black'; // 文字黑色
-            context.font = '30px Helvetica';
-
-            // 計算文字寬度，將文字置中
-            let textWidth = context.measureText(text).width;
-            let x = (canvas.width - textWidth) / 2;
-            let y = (canvas.height / 2) + 10;
-
-            context.fillText(text, x, y); // 文字、位置
-            return canvas.toDataURL(); // 返回圖片
-        }
-
-        // 拖放功能
-        function dragStart() {
-            currTile = this; // 記錄當下正在拖放的圖片
-        }
-
-        function dragOver(e) {
-            e.preventDefault(); // 同意拖放操作
-        }
-
-        function dragEnter(e) {
-            e.preventDefault(); // 同意拖放操作
-        }
-
-        function dragLeave() {
-            // 不需要處理
-        }
-
-        function dragDrop() {
-            otherTile = this; // 紀錄目標圖片
-        }
-
-        function dragEnd() {
-            if (currTile.src.includes("blank")) {
-                return; // 如果是空白圖片，跳過
-            }
-            let currImg = currTile.src;
-            let otherImg = otherTile.src;
-            currTile.src = otherImg; // 交換圖片
-            otherTile.src = currImg;
-        }
-
-        // 當使用者提交答案時執行
-        function checkAnswer() {
-            let boardTiles = document.getElementById("board").querySelectorAll("img");
-            let piecesTiles = document.getElementById("pieces").querySelectorAll("img");
-            let userAnswer = '';
-
-            // 獲取使用者的拼圖順序
-            boardTiles.forEach(tile => {
-                userAnswer += tile.dataset.answer.charAt(0);
-            });
-
-            // 獲取問題的正確答案
-            let correctAnswer = '';
-            questions.forEach(question => {
-                correctAnswer += question.answer.charAt(0);
-            });
-
-            // 比較使用者答案與正確答案
-            if (userAnswer === correctAnswer) {
-                // 答對的處理方式
-                alert('答對了！');
-                // 可以進行下一步操作，比如繼續遊戲或顯示其他內容
-            } else {
-                // 答錯的處理方式
-                alert('答錯了，請再試一次。');
-                // 可以重置遊戲或提供更多提示
-            }
-        }
+            displayQuestion(); // 首次顯示第一個問題
+        };
 
     </script>
 </body>
