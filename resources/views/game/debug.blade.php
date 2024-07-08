@@ -577,7 +577,7 @@
             <div class="pop">
                 <h1>答案正確</h1>
                 <a href="#" onclick="history.go(-1)">遊戲種類</a>
-                <a href="#">繼續答題</a>
+                <a href="{{ route() }}">繼續答題</a>
             </div>
         </div>
     </div>
@@ -586,7 +586,7 @@
     <header class="header">
         <ul class="breadcrumbs">
             <li class="breadcrumbs__item">
-                <a href="#" class="breadcrumbs__link">綠野仙蹤</a>
+                <a href="{{ route('welcome') }}" class="breadcrumbs__link">綠野仙蹤</a>
             </li>
             <li class="breadcrumbs__item">
                 <a href="#" class="breadcrumbs__link">闖關區</a>

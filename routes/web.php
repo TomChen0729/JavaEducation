@@ -71,6 +71,8 @@ Route::middleware([
     Route::get('/levels/{levels}/country_id/{country_id}', [GameController::class, 'index'])->name('game.index');
     // 進入該遊戲畫面
     Route::get('/GameType/{GameType}/country_id/{country_id}/levels/{levels}', [GameController::class, 'ChooseGame'])->name('game.gameTypeChoose');
+    // 隨機沒玩過的遊戲類型
+    Route::get('/gameRD/{country_id}/{levels}', [GameController::class, 'randomChooseGame'])->name('game.gameRD');
     // 顯示知識卡所有分類
     Route::get('/knowledgecardtypes', [KnowledgeCardController::class, 'index'])->name('showallcardtypes');
     // 顯示目標分類底下所有知識卡

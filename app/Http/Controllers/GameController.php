@@ -35,6 +35,7 @@ class GameController extends Controller
             ->where('levels', $levels)
             ->where('country_id', $country_id)
             ->groupBy('gametype', 'country_id', 'levels')
+            ->orderBy('id')
             ->get();
 
         return view('Gameviews', ['Question_list' => $Question_list]);
@@ -291,7 +292,7 @@ class GameController extends Controller
 
     // 
     // 依照遊戲類別 選擇導向遊戲畫面
-    // 送至前端的東西：通關所需知識卡，題目資訊，
+    // 送至前端的東西：通關所需知識卡，題目資訊
     public function randomChooseGame(Request $request, int $country_id, int $levels)
     {
         //
@@ -299,9 +300,9 @@ class GameController extends Controller
             // 串表去找使用者玩過的類型
             // 先串表、找答對的問題，再去questions表找符合等級的資料，最後只抓取遊戲種類
             $current_uid = auth()->user()->id;
-            $PlayedGameType = UserRecord::with('question')->where('user_id', $current_uid)->where('status', 1)->whereHas('question', function ($query) use ($levels) {
+            $PlayedGameType = UserRecord::with('questions')->where('user_id', $current_uid)->where('status', 1)->whereHas('question', function ($query) use ($levels) {
                 $query->where('levels', $levels);
-            })->pluck('question.gametype')->toArray();
+            })->pluck('question_id')->toArray();
             // 儲存當前所有的遊戲種類
             $typelist = ['是非', '選擇', '配對', '填充'];
             // 用來記錄沒玩過的遊戲種類
