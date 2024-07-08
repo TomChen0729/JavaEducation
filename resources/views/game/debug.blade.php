@@ -549,8 +549,8 @@
             <div class="close-btn" onclick="togglePopup1()">&times;</div>
             <div class="pop">
                 <h1>遊戲說明</h1>
-                <p><strong>是非題</strong><br>
-                    判斷題目敘述，正確答案選擇True，錯誤答案選擇False</p>
+                <p><strong>Debug題</strong><br>
+                    判斷題目敘述，檢查程式碼邏輯，並找出錯誤行數，以及輸入正確程式碼</p>
             </div>
         </div>
     </div>
