@@ -576,8 +576,8 @@
             <div class="close-btn" onclick="togglePopup4()">&times;</div>
             <div class="pop">
                 <h1>答案正確</h1>
-                <a href="#" onclick="history.go(-1)">遊戲種類</a>
-                <a href="{{ route() }}">繼續答題</a>
+                <a href="{{ route('country.index', ['country_id' => $currentCountry]) }}">等級選擇</a>
+                <a href="{{ route('game.debugRD', ['country_id' => $currentCountry]) }}">繼續答題</a>
             </div>
         </div>
     </div>
@@ -761,7 +761,7 @@
                     .then(data => {
                         console.log(data);
                         if (data.message == 'correct') {
-                            alert('答對');
+                            togglePopup4();
                         } else if (data.message == 'wrongline') {
                             alert('不是錯這行喔~');
                         } else if ('wrongAns') {
