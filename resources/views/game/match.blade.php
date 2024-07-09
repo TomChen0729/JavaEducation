@@ -586,7 +586,7 @@
             <div class="pop">
                 <h1>答案正確</h1>
                 <a href="#" onclick="history.go(-1)">遊戲種類</a>
-                <a href="{{ route('game.gameRD', ['country_id' => $questions[1] -> country_id, 'levels' => $questions[1] -> levels]) }}">繼續答題</a>
+                <a href="{{ route('game.gameRD', ['country_id' => $questions[1]-> country_id, 'levels' => $questions[1] -> levels]) }}">繼續答題</a>
             </div>
         </div>
     </div>
@@ -701,18 +701,10 @@
         document.addEventListener('DOMContentLoaded', () => {
             const pairContainer = document.getElementById('pair-container');
             // 後端資料傳到前端
-            questions = [
-                @foreach ($questions as $question)
-                    {
-                        question: `{!! addslashes($question->questions) !!}`,
-                        answer: `{!! addslashes($question->answer) !!}`,
-                        id: `{!! addslashes($question->id) !!}`,
-                    } @if (!$loop->last) , @endif
-                @endforeach
-            ];
-
+            questions = @json($questions);
+            console.log(questions);
             // 存問題與答案
-            const shuffledQuestions = questions.map(item => item.question);
+            const shuffledQuestions = questions.map(item => item.questions);
             const shuffledAnswers = shuffleArray(questions.map(item => item.answer));
 
             // 隨機打亂
@@ -790,45 +782,24 @@
             const selectedOption = selectedAnswer.textContent.trim();
             const correctAnswer = questions[questionIndex].answer.trim();
             //需要傳到後端的題目id、使用者id、時間與答題狀態
-            const question_id = questions[questionIndex].id.trim();
+            const question_id = questions[questionIndex].id;
             const cid = {!! json_encode(auth()->user()->id) !!};
             var timer = stopTimer();
             let status;
+            var counter = 0;
             //對答案
             if (selectedOption === correctAnswer) {
                 selectedQuestion.classList.add('matched');
                 selectedAnswer.classList.add('matched');
                 status = 1;
                 alert('答對');
+                
             } else
             {
                 status = 0;
                 alert('答錯');
             }
 
-        //     fetch('/api/matchuserecord?&question_id=' + question_id + '&cid=' + cid + '&status' + status + '&timer=' + timer, {
-        //     method: 'GET',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'X-CSRF-TOKEN': csrfToken
-        //     },
-        // })
-        // .then(response => {
-        //     if (!response.ok) {
-        //         throw new Error('response錯誤');
-        //     }
-        //     //清空當前存取的資料
-        //     //取消選取的格式
-        //     selectedQuestion.classList.remove('selected');
-        //     selectedAnswer.classList.remove('selected');
-        //     //清除值
-        //     selectedQuestion = null;
-        //     selectedAnswer = null;
-        // })
-        // .catch(error => {
-        //     console.error('錯誤:', error);
-        // })
-        // }
 
         // 構建 GET 請求的 URL
         const url = `/api/matchuserecord?question_id=${question_id}&cid=${cid}&status=${status}&timer=${timer}`;
