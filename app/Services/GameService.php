@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\CardType;
 use App\Models\Country;
 use App\Models\Debug;
+use App\Models\DebugRecord;
 use App\Models\KnowledgeCard;
 use App\Models\Question;
 use App\Models\User;
@@ -84,7 +85,7 @@ class GameService
         else { 
             // 這邊是他已經在他最高的國家中已經是最高等級
             // 再去檢查他該國家dubug類型是否有正確了一題
-            if (Debug::where('user_id', auth()->user()->id)->where('country_id', $current_user->country_id)->where('status', 1)->count() >= 1) {
+            if (DebugRecord::where('user_id', auth()->user()->id)->where('country_id', $current_user->country_id)->where('status', 1)->get()->count() >= 1) {
                 // 升級國家
                 // 等級回到一
                 $current_user_country = auth()->user()->country_id;
