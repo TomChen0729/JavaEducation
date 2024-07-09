@@ -33,7 +33,7 @@ class GameService
         }
     }
 
-    // 傳入當前國家id, 當前levels
+    // 升級功能
     public function updateUserRecord()
     {
         $current_user = auth()->user();
@@ -53,7 +53,7 @@ class GameService
         $countryMaxLV = CardType::where('country_id', $current_user->country_id)->max('levels');
         // 查看他自己的遊玩進度是不是最大的
         // 如果不是的話，才進行等級晉升動作
-        if (!User::where('user_id', $current_user->id)->where('country_id', $current_user->country_id)->where('levels', $countryMaxLV)) {
+        if (!User::where('user_id', $current_user->id)->where('country_id', $current_user->country_id)->where('levels', $countryMaxLV)->exists()) {
             // 不是最大的話，檢查他遊玩進度的最大等級的所有學習區類型是否玩過且有正確紀錄
             // 如果兩者長度相等的話，等級加一
             if (count($gametype_set) == count($user_gametype_set)) {
@@ -88,7 +88,7 @@ class GameService
             // 抓玩過且正確的所有debug_id
             $debugID = DebugRecord::where('user_id', auth()->user()->id)->where('status', 1)->pluck('debug_id');
             // 帶$debugID查詢debugs表題目，計算筆數是否>=1
-            if (Debug::where('id,', $debugID)->where('country_id', $current_user->country_id)->count() >= 1) {
+            if (Debug::whereIn('id,', $debugID)->where('country_id', $current_user->country_id)->get()->count() >= 1) {
                 // 升級國家
                 // 等級回到一
                 $current_user_country = auth()->user()->country_id;
@@ -107,7 +107,7 @@ class GameService
     {
     }
     // 隨機出題，帶國家id，難度id查詢資料庫，呼叫檢查當前用戶遊玩紀錄比對，篩選掉已經玩過的題目
-    public function Random(int $Country_id, int $pass_familiarity_id)
+    public function Random(int $Country_id, int $levels)
     {
     }
     // 檢查遊玩次數(紀錄)
