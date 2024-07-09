@@ -53,7 +53,7 @@ class GameService
         $countryMaxLV = CardType::where('country_id', $current_user->country_id)->max('levels');
         // 查看他自己的遊玩進度是不是最大的
         // 如果不是的話，才進行等級晉升動作
-        if (!User::where('user_id', $current_user->id)->where('country_id', $current_user->country_id)->where('levels', $countryMaxLV)->exists()) {
+        if (!User::where('id', $current_user->id)->where('country_id', $current_user->country_id)->where('levels', $countryMaxLV)->exists()) {
             // 不是最大的話，檢查他遊玩進度的最大等級的所有學習區類型是否玩過且有正確紀錄
             // 如果兩者長度相等的話，等級加一
             if (count($gametype_set) == count($user_gametype_set)) {
