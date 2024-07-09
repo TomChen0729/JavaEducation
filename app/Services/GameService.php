@@ -119,7 +119,7 @@ class GameService
     public function CheckCurrentGameKGrequired(int $Country_id)
     {
         // 國家->難度->關卡->知識卡要求
-        $CurrentCountry = Country::where('country_id', $Country_id); // 當前國家
+        $CurrentCountry = Country::where('id', $Country_id); // 當前國家
         $CurrentCountry->pass_familiarities;
 
         return;
