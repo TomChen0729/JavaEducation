@@ -775,6 +775,8 @@
             checkAnswer();
         }
 
+        // 定義計數器變數
+        let correctCount = 0;
 
         function checkAnswer() {
             //將選中的題目、答案存入變數和用來確認的正確答案
@@ -794,6 +796,14 @@
                 status = 1;
                 alert('答對');
                 
+                // 答對次數加一
+                correctCount++;
+                console.log(correctCount);
+
+                // 如果答對次數達到4次，顯示答案正確的彈窗
+                if (correctCount === 4) {
+                    togglePopup4(); // 呼叫彈窗
+                }
             } else
             {
                 status = 0;
