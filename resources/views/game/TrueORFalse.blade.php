@@ -402,21 +402,15 @@
             display: none;
         }
 
-        .tof {
-            margin-top: 80px;
-            padding: 10px;
-        }
-
         .question {
             background-color: #22668d;
             color: #fffadd;
             border-radius: 10px;
             box-shadow: 0 0 10px rgb(100, 100, 100);
-            width: 620px;
-            height: 300px;
+            width: 80%;
             padding: 90px;
-            margin: 10px;
-            margin-top: 100px;
+            margin: 50px auto;
+            margin-top: 15%;
             font-size: 26px;
             font-weight: bold;
             text-align: center;
@@ -428,47 +422,44 @@
             align-items: center;
         }
 
-        .true {
-            font-size: 20px;
-            color: #fffadd;
-            margin: 10px;
-            background-color: #93c47d;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgb(50, 50, 50);
-            width: 300px;
-            padding: 20px;
-            /*內部*/
+        .answer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
         }
 
-        .true:hover {
-            transform: scale(1.03);
+
+        .true,
+        .false {
+            font-size: 18px;
+            color: #fffadd;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgb(50, 50, 50);
+            width: 38%;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .true {
+            background-color: #93c47d;
         }
 
         .false {
-            font-size: 20px;
-            color: #fffadd;
-            margin: 10px;
             background-color: #e06666;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgb(50, 50, 50);
-            width: 300px;
-            padding: 20px;
-            /*內部*/
         }
 
+        .true:hover,
         .false:hover {
-            transform: scale(1.03);
+            transform: scale(1.05);
         }
 
-        @media (max-width: 1280px) {
-            header {
-                padding: 14px 2%;
-                transition: 0.2s;
-            }
-
-            .navbar a {
-                padding: 5px 0;
-                margin: 0px 20px;
+        @media (max-width: 1300px) {
+            .first .content {
+                top: 60%;
             }
         }
 
@@ -479,15 +470,14 @@
 
             .navbar {
                 position: absolute;
-                top: 90%;
+                top: 100%;
                 right: -100%;
                 width: 270px;
-                background: #48aac1;
+                background: #91aabf;
                 font-style: none;
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-start;
-                border: 2px solid #5b5b5b;
                 border-radius: 10px;
                 transition: all 0.50s ease;
             }
@@ -510,6 +500,56 @@
                 right: 2%;
             }
         }
+
+        @media (max-width: 900px) {
+
+            .first .content {
+                width: 90%;
+                height: auto;
+                max-height: 80vh;
+            }
+
+            .first .pop h1 {
+                font-size: 28px;
+            }
+
+            .first .pop p {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .tof{
+                margin-top: 3%;
+            }
+        }
+
+        @media (max-width: 630px) {
+            .tof{
+                margin-top: 15%;
+            }
+        }
+
+        @media (max-width: 500px) {
+            
+            .first .pop h1 {
+                font-size: 18px;
+            }
+
+            .first .pop p {
+                font-size: 12px;
+            }
+
+            .first .close-btn {
+                right: 10px;
+                top: 10px;
+                width: 25px;
+                height: 25px;
+                font-size: 20px;
+                line-height: 25px;
+            }
+        }
+
     </style>
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
