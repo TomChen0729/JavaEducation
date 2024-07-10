@@ -788,7 +788,6 @@
             const cid = {!! json_encode(auth()->user()->id) !!};
             var timer = stopTimer();
             let status;
-            var counter = 0;
             //對答案
             if (selectedOption === correctAnswer) {
                 selectedQuestion.classList.add('matched');

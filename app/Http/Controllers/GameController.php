@@ -45,7 +45,7 @@ class GameController extends Controller
     // 送至前端的東西：通關所需知識卡，題目資訊，
     public function ChooseGame(Request $request, string $GameType, int $country_id, int $levels)
     {
-        $cards = array();
+        $cards = [];
         //
         if ($request->isMethod('get')) {
             switch ($GameType) {
@@ -54,23 +54,28 @@ class GameController extends Controller
                     // 呼叫檢查使用者遊玩進度
                     $current_uid = auth()->user()->id;
                     // 玩家在當前國家當前等級玩過且正確的題目id
-                    $current_count = UserRecord::select('question_id')
+                    $questionsPlayed = UserRecord::select('question_id')
                         ->where('user_id', $current_uid)
                         ->where('status', 1)->pluck('question_id')->toArray();
-                    // 當前國家當前等級會有的題目id
+                    // 玩過且正確的是非題
+                    $trueORFalseOK = Question::whereIn('id', $questionsPlayed)
+                        ->where('gametype', '是非')
+                        ->where('country_id', $country_id)
+                        ->where('levels', $levels)->get();
+                    // 當前國家當前等級會有的是非題目id
                     $trueorfalse_count = Question::select('id')->where('gametype', '是非')
                         ->where('country_id', $country_id)
                         ->where('levels', $levels)->get();
-                    // 有玩過
-                    if (count($current_count) > 0) {
+                    // 有玩過此系統
+                    if (UserRecord::where('user_id', $current_uid)->count() > 0) {
                         // 還有錯誤題的時候
-                        if (count($current_count) < count($trueorfalse_count)) {
+                        if (count($trueORFalseOK) < count($trueorfalse_count)) {
                             // 呼叫亂數出題
                             // 出當前使用者在當前國家當前等級未正確的題目
                             $question = Question::where('gametype', '是非')
                                 ->where('country_id', $country_id)
                                 ->where('levels', $levels)
-                                ->whereNotIn('id', $current_count)->inRandomOrder()->first();
+                                ->whereNotIn('id', $trueORFalseOK)->inRandomOrder()->first();
 
                             $Q_cards = QuestionCard::where('question_id', $question->id)->pluck('knowledge_card_id')->toArray();
                             if (count($Q_cards) > 0) {
@@ -117,23 +122,28 @@ class GameController extends Controller
                     // 呼叫檢查使用者遊玩進度
                     $current_uid = auth()->user()->id;
                     // 玩家在當前國家當前等級玩過且正確的題目id
-                    $current_count = UserRecord::select('question_id')
+                    $questionsPlayed = UserRecord::select('question_id')
                         ->where('user_id', $current_uid)
                         ->where('status', 1)->pluck('question_id')->toArray();
-                    // 當前國家當前等級會有的題目id
-                    $trueorfalse_count = Question::select('id')->where('gametype', '選擇')
+                    // 玩過且正確的選擇題
+                    $chooseOK = Question::whereIn('id', $questionsPlayed)
+                        ->where('gametype', '選擇')
+                        ->where('country_id', $country_id)
+                        ->where('levels', $levels)->pluck('id');
+                    // 當前國家當前等級會有的選擇題目id
+                    $choose_count = Question::select('id')->where('gametype', '選擇')
                         ->where('country_id', $country_id)
                         ->where('levels', $levels)->get();
                     // 有玩過
-                    if (count($current_count) > 0) {
+                    if (UserRecord::where('user_id', $current_uid)->count() > 0) {
                         // 還有錯題
-                        if (count($current_count) < count($trueorfalse_count)) {
+                        if (count($chooseOK) < count($choose_count)) {
                             // 呼叫亂數出題
                             // 出當前使用者在當前國家當前等級未正確的題目
                             $question = Question::where('gametype', '選擇')
                                 ->where('country_id', $country_id)
                                 ->where('levels', $levels)
-                                ->whereNotIn('id', $current_count)->inRandomOrder()->first();
+                                ->whereNotIn('id', $chooseOK)->inRandomOrder()->first();
 
                             $Q_cards = QuestionCard::where('question_id', $question->id)->pluck('knowledge_card_id')->toArray();
                             if (count($Q_cards) > 0) {
@@ -178,42 +188,54 @@ class GameController extends Controller
                     return view('game.choose', ['question' => $question, 'options' => $options, 'questions_cards' => $cards]);
                 case '配對':
                     $current_uid = auth()->user()->id;
-                    // 查詢玩過且正確(一堆q_id)
+                    // 查詢當前使用者玩過(一堆q_id)
                     $questionsPlayed = UserRecord::select('question_id')
                         ->where('user_id', $current_uid)
                         ->where('status', 1)->pluck('question_id')->toArray();
-                    // 查詢該國家該等級的配對題目ID(一堆q_id)
-                    $matchCount = Question::select('id')->where('gametype', '配對')
+                    // 玩過且正確的配對題
+                    $matchOK = Question::whereIn('id', $questionsPlayed)
+                        ->where('gametype', '配對')
                         ->where('country_id', $country_id)
                         ->where('levels', $levels)->get();
-                    // 玩過配對
-                    if (count($questionsPlayed) > 0) {
-                        // 查詢該國家該等級玩家正確的題目id，gametype是配對的
-                        $matchPlayedOK = Question::whereIn('id', $questionsPlayed)
-                            ->where('country_id', $country_id)
-                            ->where('levels', $levels)->where('gametype', '配對')->get();
+                    // 當前國家當前等級會有的配對題目id
+                    $match_count = Question::select('id')->where('gametype', '是非')
+                        ->where('country_id', $country_id)
+                        ->where('levels', $levels)->get();
+                    // 玩過
+                    if (UserRecord::where('user_id', $current_uid)->count() > 0) {
                         // 還有錯
-                        if ($matchCount->count() > $matchPlayedOK->count()) {
-                            $matchPlayedOK = Question::whereNotIn('id', $questionsPlayed)
-                                ->where('gametype', '配對')
+                        if ($match_count->count() > $matchOK->count()) {
+                            // 抓還不是正確的配對題目
+                            $matchRD = Question::where('gametype', '配對')
                                 ->where('country_id', $country_id)
-                                ->where('levels', $levels)->get();
-                            $question_append = Question::whereIn('id', $questionsPlayed)
-                                ->where('gametype', '配對')
-                                ->where('country_id', $country_id)
-                                ->where('levels', $levels)
-                                ->take(4 - count($matchPlayedOK))->get();
+                                ->whereNotIn('id', $matchOK)
+                                ->where('levels', $levels)->inRandomOrder()->get();
+                            if ($matchRD->count() < 4) {
+                                $question_append = Question::whereIn('id', $questionsPlayed)
+                                    ->where('gametype', '配對')
+                                    ->where('country_id', $country_id)
+                                    ->where('levels', $levels)
+                                    ->take(4 - count($matchRD))->inRandomOrder()->get();
 
-                            $questions = $matchPlayedOK->merge($question_append);
+                                $questions = $matchRD->merge($question_append);
+                            } else {
+                                $matchRD = Question::whereNotIn('id', $questionsPlayed)
+                                    ->where('gametype', '配對')
+                                    ->where('country_id', $country_id)
+                                    ->whereNotIn('id', $matchOK)
+                                    ->where('levels', $levels)
+                                    ->inRandomOrder()->take(4)->get();
+                                $questions = $matchRD;
+                            }
                         } else { // 沒有錯
                             $questions = Question::where('gametype', '配對')
                                 ->where('country_id', $country_id)
-                                ->where('levels', $levels)->take(4)->get();
+                                ->where('levels', $levels)->inRandomOrder()->take(4)->get();
                         }
                     } else { // 沒玩過
                         $questions = Question::where('gametype', '配對')
                             ->where('country_id', $country_id)
-                            ->where('levels', $levels)->take(4)->get();
+                            ->where('levels', $levels)->inRandomOrder()->take(4)->get();
                     }
                     Log::info('questions' . $questions);
                     return view('game.match', ['questions' => $questions]);
@@ -222,24 +244,29 @@ class GameController extends Controller
                     // 呼叫檢查使用者遊玩進度
                     $current_uid = auth()->user()->id;
                     // 玩家在當前國家當前等級玩過且正確的題目id
-                    $current_count = UserRecord::select('question_id')
+                    $questionsPlayed = UserRecord::select('question_id')
                         ->where('user_id', $current_uid)
                         ->where('status', 1)->pluck('question_id')->toArray();
                     // 當前國家當前等級會有的題目id
-                    $trueorfalse_count = Question::select('id')->where('gametype', '填空')
+                    $reog_count = Question::select('id')->where('gametype', '填空')
+                        ->where('country_id', $country_id)
+                        ->where('levels', $levels)->get();
+                    // 玩過且正確的填空題
+                    $reogOK = Question::whereIn('id', $questionsPlayed)
+                        ->where('gametype', '配對')
                         ->where('country_id', $country_id)
                         ->where('levels', $levels)->get();
                     // 有玩過
-                    if (count($current_count) > 0) {
+                    if (UserRecord::where('user_id', $current_uid)->count() > 0) {
                         // 還有錯題
-                        if (count($current_count) < count($trueorfalse_count)) {
+                        if (count($reogOK) < count($reog_count)) {
                             // 呼叫亂數出題
                             // 出當前使用者在當前國家當前等級未正確的題目
                             $question = Question::select('id', 'questions', 'describe', 'levels')
                                 ->where('gametype', '填空')
                                 ->where('country_id', $country_id)
                                 ->where('levels', $levels)
-                                ->whereNotIn('id', $current_count)
+                                ->whereNotIn('id', $reogOK)
                                 ->inRandomOrder()
                                 ->first();
 
@@ -257,7 +284,6 @@ class GameController extends Controller
                                 ->where('gametype', '填空')
                                 ->where('country_id', $country_id)
                                 ->where('levels', $levels)
-                                ->whereNotIn('id', $current_count)
                                 ->inRandomOrder()
                                 ->first();
 
@@ -278,7 +304,6 @@ class GameController extends Controller
                             ->where('gametype', '填空')
                             ->where('country_id', $country_id)
                             ->where('levels', $levels)
-                            ->whereNotIn('id', $current_count)
                             ->inRandomOrder()
                             ->first();
 
@@ -298,7 +323,7 @@ class GameController extends Controller
                             return [
                                 'option' => $item->options
                             ];
-                        })->toArray();;
+                        })->toArray();
 
                     $question_data = [
                         'levels' => $question['levels'],
@@ -363,26 +388,30 @@ class GameController extends Controller
                     // 呼叫檢查使用者遊玩進度
                     $current_uid = auth()->user()->id;
                     // 玩家在當前國家當前等級玩過且正確的題目id
-                    $current_count = UserRecord::select('question_id')
+                    $questionsPlayed = UserRecord::select('question_id')
                         ->where('user_id', $current_uid)
                         ->where('status', 1)->pluck('question_id')->toArray();
-                    // 當前國家當前等級會有的題目id
+                    // 玩過且正確的是非題
+                    $trueORFalseOK = Question::whereIn('id', $questionsPlayed)
+                        ->where('gametype', '是非')
+                        ->where('country_id', $country_id)
+                        ->where('levels', $levels)->get();
+                    // 當前國家當前等級會有的是非題目id
                     $trueorfalse_count = Question::select('id')->where('gametype', '是非')
                         ->where('country_id', $country_id)
                         ->where('levels', $levels)->get();
-                    // 有玩過
-                    if (count($current_count) > 0) {
+                    // 有玩過此系統
+                    if (UserRecord::where('user_id', $current_uid)->count() > 0) {
                         // 還有錯誤題的時候
-                        if (count($current_count) < count($trueorfalse_count)) {
+                        if (count($trueORFalseOK) < count($trueorfalse_count)) {
                             // 呼叫亂數出題
                             // 出當前使用者在當前國家當前等級未正確的題目
                             $question = Question::where('gametype', '是非')
                                 ->where('country_id', $country_id)
                                 ->where('levels', $levels)
-                                ->whereNotIn('id', $current_count)->inRandomOrder()->first();
+                                ->whereNotIn('id', $trueORFalseOK)->inRandomOrder()->first();
 
                             $Q_cards = QuestionCard::where('question_id', $question->id)->pluck('knowledge_card_id')->toArray();
-                            // 判斷$Q_cards是不是空的
                             if (count($Q_cards) > 0) {
                                 // 照那個array裡面的所有卡片內容
                                 $cards = KnowledgeCard::whereIn('id', $Q_cards)->get();
@@ -427,26 +456,30 @@ class GameController extends Controller
                     // 呼叫檢查使用者遊玩進度
                     $current_uid = auth()->user()->id;
                     // 玩家在當前國家當前等級玩過且正確的題目id
-                    $current_count = UserRecord::select('question_id')
+                    $questionsPlayed = UserRecord::select('question_id')
                         ->where('user_id', $current_uid)
                         ->where('status', 1)->pluck('question_id')->toArray();
-                    // 當前國家當前等級會有的題目id
-                    $trueorfalse_count = Question::select('id')->where('gametype', '選擇')
+                    // 玩過且正確的選擇題
+                    $chooseOK = Question::whereIn('id', $questionsPlayed)
+                        ->where('gametype', '選擇')
+                        ->where('country_id', $country_id)
+                        ->where('levels', $levels)->pluck('id');
+                    // 當前國家當前等級會有的選擇題目id
+                    $choose_count = Question::select('id')->where('gametype', '選擇')
                         ->where('country_id', $country_id)
                         ->where('levels', $levels)->get();
                     // 有玩過
-                    if (count($current_count) > 0) {
+                    if (UserRecord::where('user_id', $current_uid)->count() > 0) {
                         // 還有錯題
-                        if (count($current_count) < count($trueorfalse_count)) {
+                        if (count($chooseOK) < count($choose_count)) {
                             // 呼叫亂數出題
                             // 出當前使用者在當前國家當前等級未正確的題目
                             $question = Question::where('gametype', '選擇')
                                 ->where('country_id', $country_id)
                                 ->where('levels', $levels)
-                                ->whereNotIn('id', $current_count)->inRandomOrder()->first();
+                                ->whereNotIn('id', $chooseOK)->inRandomOrder()->first();
 
                             $Q_cards = QuestionCard::where('question_id', $question->id)->pluck('knowledge_card_id')->toArray();
-                            // 判斷$Q_cards是不是空的
                             if (count($Q_cards) > 0) {
                                 // 照那個array裡面的所有卡片內容
                                 $cards = KnowledgeCard::whereIn('id', $Q_cards)->get();
@@ -489,42 +522,54 @@ class GameController extends Controller
                     return view('game.choose', ['question' => $question, 'options' => $options, 'questions_cards' => $cards]);
                 case '配對':
                     $current_uid = auth()->user()->id;
-                    // 查詢玩過且正確(一堆q_id)
+                    // 查詢當前使用者玩過(一堆q_id)
                     $questionsPlayed = UserRecord::select('question_id')
                         ->where('user_id', $current_uid)
                         ->where('status', 1)->pluck('question_id')->toArray();
-                    // 查詢該國家該等級的配對題目ID(一堆q_id)
-                    $matchCount = Question::select('id')->where('gametype', '配對')
+                    // 玩過且正確的配對題
+                    $matchOK = Question::whereIn('id', $questionsPlayed)
+                        ->where('gametype', '配對')
                         ->where('country_id', $country_id)
                         ->where('levels', $levels)->get();
-                    // 玩過配對
-                    if (count($questionsPlayed) > 0) {
-                        // 查詢該國家該等級玩家正確的題目id，gametype是配對的
-                        $matchPlayedOK = Question::whereIn('id', $questionsPlayed)
-                            ->where('country_id', $country_id)
-                            ->where('levels', $levels)->where('gametype', '配對')->get();
+                    // 當前國家當前等級會有的配對題目id
+                    $match_count = Question::select('id')->where('gametype', '是非')
+                        ->where('country_id', $country_id)
+                        ->where('levels', $levels)->get();
+                    // 玩過
+                    if (UserRecord::where('user_id', $current_uid)->count() > 0) {
                         // 還有錯
-                        if ($matchCount->count() > $matchPlayedOK->count()) {
-                            $matchPlayedOK = Question::whereNotIn('id', $questionsPlayed)
-                                ->where('gametype', '配對')
+                        if ($match_count->count() > $matchOK->count()) {
+                            // 抓還不是正確的配對題目
+                            $matchRD = Question::where('gametype', '配對')
                                 ->where('country_id', $country_id)
-                                ->where('levels', $levels)->get();
-                            $question_append = Question::whereIn('id', $questionsPlayed)
-                                ->where('gametype', '配對')
-                                ->where('country_id', $country_id)
-                                ->where('levels', $levels)
-                                ->take(4 - count($matchPlayedOK))->get();
+                                ->whereNotIn('id', $matchOK)
+                                ->where('levels', $levels)->inRandomOrder()->get();
+                            if ($matchRD->count() < 4) {
+                                $question_append = Question::whereIn('id', $questionsPlayed)
+                                    ->where('gametype', '配對')
+                                    ->where('country_id', $country_id)
+                                    ->where('levels', $levels)
+                                    ->take(4 - count($matchRD))->inRandomOrder()->get();
 
-                            $questions = $matchPlayedOK->merge($question_append);
+                                $questions = $matchRD->merge($question_append);
+                            } else {
+                                $matchRD = Question::whereNotIn('id', $questionsPlayed)
+                                    ->where('gametype', '配對')
+                                    ->where('country_id', $country_id)
+                                    ->whereNotIn('id', $matchOK)
+                                    ->where('levels', $levels)
+                                    ->inRandomOrder()->take(4)->get();
+                                $questions = $matchRD;
+                            }
                         } else { // 沒有錯
                             $questions = Question::where('gametype', '配對')
                                 ->where('country_id', $country_id)
-                                ->where('levels', $levels)->take(4)->get();
+                                ->where('levels', $levels)->inRandomOrder()->take(4)->get();
                         }
                     } else { // 沒玩過
                         $questions = Question::where('gametype', '配對')
                             ->where('country_id', $country_id)
-                            ->where('levels', $levels)->take(4)->get();
+                            ->where('levels', $levels)->inRandomOrder()->take(4)->get();
                     }
                     Log::info('questions' . $questions);
                     return view('game.match', ['questions' => $questions]);
@@ -533,24 +578,29 @@ class GameController extends Controller
                     // 呼叫檢查使用者遊玩進度
                     $current_uid = auth()->user()->id;
                     // 玩家在當前國家當前等級玩過且正確的題目id
-                    $current_count = UserRecord::select('question_id')
+                    $questionsPlayed = UserRecord::select('question_id')
                         ->where('user_id', $current_uid)
                         ->where('status', 1)->pluck('question_id')->toArray();
                     // 當前國家當前等級會有的題目id
-                    $trueorfalse_count = Question::select('id')->where('gametype', '填空')
+                    $reog_count = Question::select('id')->where('gametype', '填空')
+                        ->where('country_id', $country_id)
+                        ->where('levels', $levels)->get();
+                    // 玩過且正確的填空題
+                    $reogOK = Question::whereIn('id', $questionsPlayed)
+                        ->where('gametype', '配對')
                         ->where('country_id', $country_id)
                         ->where('levels', $levels)->get();
                     // 有玩過
-                    if (count($current_count) > 0) {
+                    if (UserRecord::where('user_id', $current_uid)->count() > 0) {
                         // 還有錯題
-                        if (count($current_count) < count($trueorfalse_count)) {
+                        if (count($reogOK) < count($reog_count)) {
                             // 呼叫亂數出題
                             // 出當前使用者在當前國家當前等級未正確的題目
                             $question = Question::select('id', 'questions', 'describe', 'levels')
                                 ->where('gametype', '填空')
                                 ->where('country_id', $country_id)
                                 ->where('levels', $levels)
-                                ->whereNotIn('id', $current_count)
+                                ->whereNotIn('id', $reogOK)
                                 ->inRandomOrder()
                                 ->first();
 
@@ -568,7 +618,6 @@ class GameController extends Controller
                                 ->where('gametype', '填空')
                                 ->where('country_id', $country_id)
                                 ->where('levels', $levels)
-                                ->whereNotIn('id', $current_count)
                                 ->inRandomOrder()
                                 ->first();
 
@@ -589,7 +638,6 @@ class GameController extends Controller
                             ->where('gametype', '填空')
                             ->where('country_id', $country_id)
                             ->where('levels', $levels)
-                            ->whereNotIn('id', $current_count)
                             ->inRandomOrder()
                             ->first();
 
@@ -609,7 +657,7 @@ class GameController extends Controller
                             return [
                                 'option' => $item->options
                             ];
-                        })->toArray();;
+                        })->toArray();
 
                     $question_data = [
                         'levels' => $question['levels'],
@@ -724,7 +772,7 @@ class GameController extends Controller
             // 當前國家的debug_id
             $debug_count = Debug::select('id')->where('country_id', $country_id)->get();
             // 玩過
-            if (count($current_count) > 0) {
+            if (DebugRecord::where('user_id', $current_uid)->count() > 0) {
                 //還有沒玩過的
                 if (count($debug_count) > count($current_count)) {
                     $question = Debug::where('country_id', $country_id)
