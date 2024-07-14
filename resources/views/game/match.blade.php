@@ -407,7 +407,6 @@
             padding: 10px;
         }
 
-        /* 每一對題目、答案橫向對齊，保持間距 */
         .pair-container {
             display: flex;
             justify-content: space-between;
@@ -431,11 +430,9 @@
             cursor: pointer;
             transition: #A34343 0.3s ease;
             text-align: center;
-            /* 確保文字置中 */
             padding: 0 10px;
             margin-right: 50px;
             box-sizing: border-box;
-            /* 確保padding不會影響寬度 */
             background-color: #A34343;
         }
 
@@ -455,11 +452,9 @@
             cursor: pointer;
             transition: #E9C874 0.3s ease;
             text-align: center;
-            /* 確保文字置中 */
             padding: 0 10px;
             margin-left: 50px;
             box-sizing: border-box;
-            /* 確保padding不會影響寬度 */
             background-color: #E9C874;
         }
 
@@ -468,21 +463,32 @@
         }
 
         .selected {
-            /* 選中項目有邊框顯示 */
             outline: 3px solid #394165;
         }
 
         .matched {
-            /* 配對成功後的樣式 */
             background-color: #394165;
             color: #E38931;
             pointer-events: none;
-            /* 禁用已配對元素的點擊事件 */
         }
 
         @media (max-width: 1300px) {
             .first .content {
                 top: 60%;
+            }
+
+            .question {
+                width: 100%;
+                margin-right: 10px;
+            }
+
+            .answer {
+                width: 100%;
+                margin-left: 10px;
+            }
+
+            .pair-container {
+                align-items: center;
             }
         }
 
@@ -522,10 +528,10 @@
             .navbar.open {
                 right: 2%;
             }
+
         }
 
         @media (max-width: 900px) {
-
             .first .content {
                 width: 90%;
                 height: auto;
@@ -539,6 +545,14 @@
             .first .pop p {
                 font-size: 18px;
             }
+
+            .question, .answer {
+                font-size: 18px;
+            }
+
+            .container {
+                padding: 0 20px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -550,6 +564,19 @@
         @media (max-width: 630px) {
             .tof{
                 margin-top: 15%;
+            }
+
+            .question, .answer {
+                font-size: 16px;
+                
+            }
+
+            .question{
+                height: 100%;
+            }
+
+            .container {
+                padding: 0 10px;
             }
         }
 
