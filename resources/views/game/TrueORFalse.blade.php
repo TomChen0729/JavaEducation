@@ -541,8 +541,8 @@
             }
 
             .first .close-btn {
-                right: 10px;
-                top: 10px;
+                right: 25px;
+                top: 25px;
                 width: 25px;
                 height: 25px;
                 font-size: 20px;

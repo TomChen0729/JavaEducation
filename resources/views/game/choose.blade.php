@@ -454,17 +454,9 @@
             border-radius: 10px;
         }
 
-        
-
-        @media (max-width: 1280px) {
-            header {
-                padding: 14px 2%;
-                transition: 0.2s;
-            }
-
-            .navbar a {
-                padding: 5px 0;
-                margin: 0px 20px;
+        @media (max-width: 1300px) {
+            .first .content {
+                top: 60%;
             }
         }
 
@@ -475,12 +467,11 @@
 
             .navbar {
                 position: absolute;
-                top: 90%;
+                top: 100%;
                 right: -100%;
                 width: 270px;
-                background: #a7aab8;
+                background: #91aabf;
                 font-style: none;
-                border: 2px solid #5b5b5b;
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-start;
@@ -497,6 +488,7 @@
             }
 
             .navbar a:hover {
+                border: none;
                 color: var(--text-color);
                 transform: translateY(5px);
             }
@@ -505,6 +497,57 @@
                 right: 2%;
             }
         }
+
+        @media (max-width: 900px) {
+
+            .first .content {
+                width: 90%;
+                height: auto;
+                max-height: 80vh;
+            }
+
+            .first .pop h1 {
+                font-size: 28px;
+            }
+
+            .first .pop p {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .tof{
+                margin-top: 3%;
+            }
+        }
+
+        @media (max-width: 630px) {
+            .tof{
+                margin-top: 15%;
+            }
+        }
+
+        @media (max-width: 500px) {
+            
+            .first .pop h1 {
+                font-size: 18px;
+            }
+
+            .first .pop p {
+                font-size: 12px;
+            }
+
+            .first .close-btn {
+                right: 25px;
+                top: 25px;
+                width: 25px;
+                height: 25px;
+                font-size: 20px;
+                line-height: 25px;
+            }
+        }
+
+        
     </style>
     @yield('style')
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
