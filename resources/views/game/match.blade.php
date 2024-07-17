@@ -851,7 +851,6 @@
                 selectedQuestion.classList.add('matched');
                 selectedAnswer.classList.add('matched');
                 status = 1;
-                alert('答對');
                 
                 // 答對次數加一
                 correctCount++;
