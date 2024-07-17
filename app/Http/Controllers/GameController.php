@@ -61,7 +61,7 @@ class GameController extends Controller
                     $trueORFalseOK = Question::whereIn('id', $questionsPlayed)
                         ->where('gametype', '是非')
                         ->where('country_id', $country_id)
-                        ->where('levels', $levels)->get();
+                        ->where('levels', $levels)->pluck('id')->toArray();
                     // 當前國家當前等級會有的是非題目id
                     $trueorfalse_count = Question::select('id')->where('gametype', '是非')
                         ->where('country_id', $country_id)
@@ -129,7 +129,7 @@ class GameController extends Controller
                     $chooseOK = Question::whereIn('id', $questionsPlayed)
                         ->where('gametype', '選擇')
                         ->where('country_id', $country_id)
-                        ->where('levels', $levels)->pluck('id');
+                        ->where('levels', $levels)->pluck('id')->toArray();
                     // 當前國家當前等級會有的選擇題目id
                     $choose_count = Question::select('id')->where('gametype', '選擇')
                         ->where('country_id', $country_id)
@@ -196,7 +196,7 @@ class GameController extends Controller
                     $matchOK = Question::whereIn('id', $questionsPlayed)
                         ->where('gametype', '配對')
                         ->where('country_id', $country_id)
-                        ->where('levels', $levels)->get();
+                        ->where('levels', $levels)->pluck('id')->toArray();
                     // 當前國家當前等級會有的配對題目id
                     $match_count = Question::select('id')->where('gametype', '是非')
                         ->where('country_id', $country_id)
@@ -204,7 +204,7 @@ class GameController extends Controller
                     // 玩過
                     if (UserRecord::where('user_id', $current_uid)->count() > 0) {
                         // 還有錯
-                        if ($match_count->count() > $matchOK->count()) {
+                        if (count($match_count) > count($matchOK)) {
                             // 抓還不是正確的配對題目
                             $matchRD = Question::where('gametype', '配對')
                                 ->where('country_id', $country_id)
@@ -255,7 +255,7 @@ class GameController extends Controller
                     $reogOK = Question::whereIn('id', $questionsPlayed)
                         ->where('gametype', '配對')
                         ->where('country_id', $country_id)
-                        ->where('levels', $levels)->get();
+                        ->where('levels', $levels)->pluck('id')->toArray();
                     // 有玩過
                     if (UserRecord::where('user_id', $current_uid)->count() > 0) {
                         // 還有錯題
@@ -395,7 +395,7 @@ class GameController extends Controller
                     $trueORFalseOK = Question::whereIn('id', $questionsPlayed)
                         ->where('gametype', '是非')
                         ->where('country_id', $country_id)
-                        ->where('levels', $levels)->get();
+                        ->where('levels', $levels)->pluck('id')->toArray();
                     // 當前國家當前等級會有的是非題目id
                     $trueorfalse_count = Question::select('id')->where('gametype', '是非')
                         ->where('country_id', $country_id)
@@ -463,7 +463,7 @@ class GameController extends Controller
                     $chooseOK = Question::whereIn('id', $questionsPlayed)
                         ->where('gametype', '選擇')
                         ->where('country_id', $country_id)
-                        ->where('levels', $levels)->pluck('id');
+                        ->where('levels', $levels)->pluck('id')->toArray();
                     // 當前國家當前等級會有的選擇題目id
                     $choose_count = Question::select('id')->where('gametype', '選擇')
                         ->where('country_id', $country_id)
@@ -530,7 +530,7 @@ class GameController extends Controller
                     $matchOK = Question::whereIn('id', $questionsPlayed)
                         ->where('gametype', '配對')
                         ->where('country_id', $country_id)
-                        ->where('levels', $levels)->get();
+                        ->where('levels', $levels)->pluck('id')->toArray();
                     // 當前國家當前等級會有的配對題目id
                     $match_count = Question::select('id')->where('gametype', '是非')
                         ->where('country_id', $country_id)
@@ -538,7 +538,7 @@ class GameController extends Controller
                     // 玩過
                     if (UserRecord::where('user_id', $current_uid)->count() > 0) {
                         // 還有錯
-                        if ($match_count->count() > $matchOK->count()) {
+                        if (count($match_count) > count($matchOK)) {
                             // 抓還不是正確的配對題目
                             $matchRD = Question::where('gametype', '配對')
                                 ->where('country_id', $country_id)
@@ -589,7 +589,7 @@ class GameController extends Controller
                     $reogOK = Question::whereIn('id', $questionsPlayed)
                         ->where('gametype', '配對')
                         ->where('country_id', $country_id)
-                        ->where('levels', $levels)->get();
+                        ->where('levels', $levels)->pluck('id')->toArray();
                     // 有玩過
                     if (UserRecord::where('user_id', $current_uid)->count() > 0) {
                         // 還有錯題
