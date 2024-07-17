@@ -57,11 +57,17 @@
             }
 
             @keyframes animate {
-                from {
-                    transform: translateX(0); /* 起始位置 */
+                0% {
+                    transform: translateX(0);
+                    /* 起始位置 */
                 }
-                to {
-                    transform: translateX(50px); /* 结束位置 */
+                50% {
+                    transform: translateX(50px);
+                    /* 中間位置 */
+                }
+                100% {
+                    transform: translateX(0);
+                    /* 返回起始位置 */
                 }
             }
 
