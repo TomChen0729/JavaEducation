@@ -88,7 +88,7 @@ class GameService
             // 抓玩過且正確的所有debug_id
             $debugID = DebugRecord::where('user_id', auth()->user()->id)->where('status', 1)->pluck('debug_id');
             // 帶$debugID查詢debugs表題目，計算筆數是否>=1
-            if (Debug::whereIn('id,', $debugID)->where('country_id', $current_user->country_id)->get()->count() >= 1) {
+            if (Debug::whereIn('id', $debugID)->where('country_id', $current_user->country_id)->get()->count() >= 1) {
                 // 升級國家
                 // 等級回到一
                 $current_user_country = auth()->user()->country_id;
@@ -119,7 +119,7 @@ class GameService
     public function CheckCurrentGameKGrequired(int $Country_id)
     {
         // 國家->難度->關卡->知識卡要求
-        $CurrentCountry = Country::where('country_id', $Country_id); // 當前國家
+        $CurrentCountry = Country::where('id', $Country_id); // 當前國家
         $CurrentCountry->pass_familiarities;
 
         return;

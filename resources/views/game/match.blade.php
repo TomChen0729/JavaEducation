@@ -407,7 +407,6 @@
             padding: 10px;
         }
 
-        /* 每一對題目、答案橫向對齊，保持間距 */
         .pair-container {
             display: flex;
             justify-content: space-between;
@@ -431,11 +430,9 @@
             cursor: pointer;
             transition: #A34343 0.3s ease;
             text-align: center;
-            /* 確保文字置中 */
             padding: 0 10px;
             margin-right: 50px;
             box-sizing: border-box;
-            /* 確保padding不會影響寬度 */
             background-color: #A34343;
         }
 
@@ -455,11 +452,9 @@
             cursor: pointer;
             transition: #E9C874 0.3s ease;
             text-align: center;
-            /* 確保文字置中 */
             padding: 0 10px;
             margin-left: 50px;
             box-sizing: border-box;
-            /* 確保padding不會影響寬度 */
             background-color: #E9C874;
         }
 
@@ -468,40 +463,32 @@
         }
 
         .selected {
-            /* 選中項目有邊框顯示 */
             outline: 3px solid #394165;
         }
 
         .matched {
-            /* 配對成功後的樣式 */
             background-color: #394165;
             color: #E38931;
             pointer-events: none;
-            /* 禁用已配對元素的點擊事件 */
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 1300px) {
+            .first .content {
+                top: 60%;
+            }
+
+            .question {
+                width: 100%;
+                margin-right: 10px;
+            }
+
+            .answer {
+                width: 100%;
+                margin-left: 10px;
+            }
+
             .pair-container {
                 align-items: center;
-                /* 垂直排列时居中对齐 */
-            }
-
-            .question,
-            .answer {
-                margin: 10px;
-                /* 垂直排列时保持间距 */
-            }
-        }
-
-        @media (max-width: 1280px) {
-            header {
-                padding: 14px 2%;
-                transition: 0.2s;
-            }
-
-            .navbar a {
-                padding: 5px 0;
-                margin: 0px 20px;
             }
         }
 
@@ -512,12 +499,11 @@
 
             .navbar {
                 position: absolute;
-                top: 90%;
+                top: 100%;
                 right: -100%;
                 width: 270px;
-                background: #9ec7c6;
+                background: #91aabf;
                 font-style: none;
-                border: 2px solid #5b5b5b;
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-start;
@@ -534,6 +520,7 @@
             }
 
             .navbar a:hover {
+                border: none;
                 color: var(--text-color);
                 transform: translateY(5px);
             }
@@ -541,7 +528,78 @@
             .navbar.open {
                 right: 2%;
             }
+
         }
+
+        @media (max-width: 900px) {
+            .first .content {
+                width: 90%;
+                height: auto;
+                max-height: 80vh;
+            }
+
+            .first .pop h1 {
+                font-size: 28px;
+            }
+
+            .first .pop p {
+                font-size: 18px;
+            }
+
+            .question, .answer {
+                font-size: 18px;
+            }
+
+            .container {
+                padding: 0 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .tof{
+                margin-top: 3%;
+            }
+        }
+
+        @media (max-width: 630px) {
+            .tof{
+                margin-top: 15%;
+            }
+
+            .question, .answer {
+                font-size: 16px;
+                
+            }
+
+            .question{
+                height: 100%;
+            }
+
+            .container {
+                padding: 0 10px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            
+            .first .pop h1 {
+                font-size: 18px;
+            }
+
+            .first .pop p {
+                font-size: 12px;
+            }
+
+            .first .close-btn {
+                right: 25px;
+                top: 25px;
+                width: 25px;
+                height: 25px;
+                font-size: 20px;
+                line-height: 25px;
+            }
+        }
+
     </style>
     @yield('style')
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
@@ -775,6 +833,8 @@
             checkAnswer();
         }
 
+        // 定義計數器變數
+        let correctCount = 0;
 
         function checkAnswer() {
             //將選中的題目、答案存入變數和用來確認的正確答案
@@ -786,14 +846,20 @@
             const cid = {!! json_encode(auth()->user()->id) !!};
             var timer = stopTimer();
             let status;
-            var counter = 0;
             //對答案
             if (selectedOption === correctAnswer) {
                 selectedQuestion.classList.add('matched');
                 selectedAnswer.classList.add('matched');
                 status = 1;
-                alert('答對');
                 
+                // 答對次數加一
+                correctCount++;
+                console.log(correctCount);
+
+                // 如果答對次數達到4次，顯示答案正確的彈窗
+                if (correctCount === 4) {
+                    togglePopup4(); // 呼叫彈窗
+                }
             } else
             {
                 status = 0;
