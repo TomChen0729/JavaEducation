@@ -28,12 +28,16 @@
             height: 200px;
             width: 250px;
         }
+
+        .img{
+            margin-top: 30%;
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <!-- <button><a href="{{ url('/welcome') }}">開始遊戲</a></button> -->
-    <a href="{{ url('/welcome') }}"><img src="/images/start/startbtn.svg" alt=""></a>
+    <a href="{{ url('/welcome') }}"><img class="img" src="/images/start/btn.svg" alt=""></a>
 </div>
 </body>
 </html>
