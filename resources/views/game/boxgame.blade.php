@@ -67,6 +67,7 @@
             }
         }*/
 
+
         .breadcrumbs__item {
             display: inline-block;
         }
@@ -193,11 +194,11 @@
             position: relative;
             top: 68%;  
             left: 52%;
-            transform: translate(-50%, -85%);
+            transform: translate(-45%, -40%);
         }
         .star.open{
             text-shadow: 0 0 0.2em white, 0 0 0.2em white, 0 0 0.2em white;
-            transform: translate(-50%, -30%);
+            transform: translate(-55%, -10%);
         }
         #treasure-box.open {
             background: url('/images/boxes/openbox1.svg') no-repeat center;
