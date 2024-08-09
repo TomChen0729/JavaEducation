@@ -108,3 +108,6 @@ Route::get('knowledge', function () {
 Route::get('debug', function () {
     return view('game.debug');
 });
+Route::get('game.boxgame', function () {
+    return view('game.boxgame');
+});
