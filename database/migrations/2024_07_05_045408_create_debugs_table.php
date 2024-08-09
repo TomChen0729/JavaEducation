@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('debugs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('country_id');
             $table->string('description', 255);
             $table->string('code', 10000);
             $table->integer('wrong_line');

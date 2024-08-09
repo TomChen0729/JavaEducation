@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->foreignId('debug_id'); // debug題目表的id
             $table->time('watchtime')->default('00:00:00');
+            $table->boolean('status');
             $table->timestamps();
         });
     }
