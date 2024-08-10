@@ -329,8 +329,14 @@ public class StarPatterns {
         //     changeImg();
         // });
 
+        function layer() {
+            const num = [3, 5, 7]; // 可選的階層數
+            const randomNum = Math.floor(Math.random() * num.length); // 隨機選擇一個索引
+            return num[randomNum]; // 返回隨機選擇的數字
+        }
+
         function triangle1() {
-            let n = 7;
+            let n = layer();
             let result = ""; // 初始化 result
 
             for(let i = 1; i <= n; i++){
@@ -351,7 +357,7 @@ public class StarPatterns {
         }
 
         function triangle2() {
-            let n = 7;
+            let n = layer();
             let result = ""; // 初始化 result
 
             for(let i = 1;i <= n;i++){
@@ -368,7 +374,7 @@ public class StarPatterns {
         }
 
         function triangle3() {
-            let n = 7;
+            let n = layer();
             let result = ""; // 初始化 result
 
             for(let i = n; i >= 1; i--){
@@ -389,7 +395,7 @@ public class StarPatterns {
         }
 
         function triangle4() {
-            let n = 7;
+            let n = layer();
             let result = ""; // 初始化 result
 
             for(let i = n;i >= 1;i--){
