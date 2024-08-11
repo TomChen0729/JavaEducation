@@ -19,7 +19,7 @@
         body {
             margin: 0;
             padding: 0;
-            background-image: url('/images/drama/lv1-1.svg');
+            background-image: url('/images/drama/country1/background/lv1.svg');
             background-repeat: no-repeat;
             background-position: center;
             background-attachment: scroll;
@@ -183,19 +183,19 @@
             // 根據誰傳送訊息，機器人或user增加icon
             switch (sender) {
                 case 'tls':
-                    iconElement.style.backgroundImage = 'url("/images/drama/tls.svg")';
+                    iconElement.style.backgroundImage = 'url("/images/drama/country1/role/tls.svg")';
                     break;
                 case 'scarecrow':
-                    iconElement.style.backgroundImage = 'url("/images/drama/scarecrow.svg")';
+                    iconElement.style.backgroundImage = 'url("/images/drama/country1/role/scarecrow.svg")';
                     break;
                 case 'narration':
-                    iconElement.style.backgroundImage = 'url("/images/drama/narration.svg")';
+                    iconElement.style.backgroundImage = 'url("/images/drama/country1/role/narration.svg")';
                     break;
                 case 'badwitch':
-                    iconElement.style.backgroundImage = 'url("/images/drama/badwitch.svg")';
+                    iconElement.style.backgroundImage = 'url("/images/drama/country1/role/badwitch.svg")';
                     break;
                 case 'goodwitch':
-                    iconElement.style.backgroundImage = 'url("/images/drama/goodwitch.svg")';
+                    iconElement.style.backgroundImage = 'url("/images/drama/country1/role/goodwitch.svg")';
                     break;
             }
 
