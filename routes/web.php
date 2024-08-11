@@ -108,7 +108,7 @@ Route::get('knowledge', function () {
 Route::get('debug', function () {
     return view('game.debug');
 });
-Route::get('game.boxgame', function () {
+Route::get('boxgame', function () {
     return view('game.boxgame');
 });
 Route::get('idcardgame', function () {
