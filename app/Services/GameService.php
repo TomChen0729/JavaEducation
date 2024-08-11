@@ -67,7 +67,7 @@ class GameService
                     // 抓當前國家id & levels，找出他的cardtype有哪些(之後可能會有一個levels對很多個type的問題，到時候有需要的話改迴圈)
                     $all_cardtypes_in_current_lv = CardType::where('country_id', $current_user->country_id)->where('levels', $current_user->levels)->pluck('id');
                     // 利用找到的card_type_id，去資料庫拉相關的所有知識卡
-                    $all_cards_in_current_lv = KnowledgeCard::where('card_type_id', $all_cardtypes_in_current_lv)->get();
+                    $all_cards_in_current_lv = KnowledgeCard::whereIn('card_type_id', $all_cardtypes_in_current_lv)->get();
                     // 新增一個當前使用者的UserKnowledgeCard物件
                     $current_user_card = new UserKnowledgeCard();
                     if ((count($all_cards_in_current_lv) != 0) && !$current_user_card->exists()) {
