@@ -498,7 +498,12 @@ public class StarPatterns {
         });
 
         function autoResize(input) {
-            input.style.width = input.scrollWidth + 'px'; // 方框隨著輸入的文字增加變大
+            const currentWidth = input.offsetWidth;//現在的寬度
+            const newWidth = input.scrollWidth;//新寬度
+
+            if (newWidth > currentWidth) {
+                input.style.width = newWidth + 'px';  // 新寬度>現在寬度就增加寬度
+            }
         }
     </script>
 </body>
