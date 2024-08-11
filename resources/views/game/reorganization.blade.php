@@ -19,6 +19,10 @@
 
         }
 
+        a:hover{
+            text-decoration: none;
+        }
+
         :root {
             --bg-color: #222327;
             --text-color: #333333;

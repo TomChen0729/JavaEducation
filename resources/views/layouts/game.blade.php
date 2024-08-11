@@ -15,6 +15,10 @@
             list-style: none; /* 去除清單前面的符號 */
         }
 
+        a:hover{
+            text-decoration: none;
+        }
+
         :root {
             --bg-color: #222327;
             --text-color: #333333;
