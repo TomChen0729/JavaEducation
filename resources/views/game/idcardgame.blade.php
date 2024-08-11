@@ -277,7 +277,7 @@
         <div class="row">
             <div class="col-md-6 left-container">
                 <div class="question">
-                    <p>用 if 判斷是否允許進入村莊，並且印出:<br>怪獸:禁止進入；村民:免費進入；外來者:支付費用。</p>
+                    <p>用 if...else 判斷是否允許進入村莊，並且印出:<br>怪獸:禁止進入；其他:免費進入。</p>
                 </div>
                 <div id="idcard">
                     <img class="img" id="seal" src="/images/idcard/idcardseal.svg" alt="">
@@ -292,18 +292,14 @@
 public class StarPatterns {
     public static void main(String[] args) {
 
-        String x = "<input type="text" id="xInit" placeholder="____" oninput="autoResize(this)">"; // 身分
+        String x = "怪獸"; // 身分
 
 
         if (x == "<input type="text" id="vInit" placeholder="____" oninput="autoResize(this)">") {
             System.out.print("<input type="text" id="fInit" placeholder="____" oninput="autoResize(this)">");
         }
 
-        if (x == "<input type="text" id="oInit" placeholder="____" oninput="autoResize(this)">") {
-            System.out.print("<input type="text" id="pInit" placeholder="____" oninput="autoResize(this)">");
-        }
-
-        if (x == "<input type="text" id="mInit" placeholder="____" oninput="autoResize(this)">") {
+        else {
             System.out.print("<input type="text" id="nInit" placeholder="____" oninput="autoResize(this)">");
         }
 
@@ -325,6 +321,9 @@ public class StarPatterns {
 
             if (newWidth > currentWidth) {
                 input.style.width = newWidth + 'px';  // 新寬度>現在寬度就增加寬度
+            }
+            else{
+                input.style.width = 80 + 'px' ;  
             }
         }
 
@@ -377,7 +376,7 @@ public class StarPatterns {
             // 開始動畫
             sealElement.classList.add('show');
 
-            // 完成動畫，移除顯示
+            // 完成動畫，新增文字，移除印章
             setTimeout(() => {
 
                 messageElement.classList.add('open');
