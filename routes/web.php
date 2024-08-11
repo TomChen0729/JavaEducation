@@ -111,3 +111,6 @@ Route::get('debug', function () {
 Route::get('game.boxgame', function () {
     return view('game.boxgame');
 });
+Route::get('idcardgame', function () {
+    return view('game.idcardgame');
+});
