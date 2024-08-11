@@ -19,7 +19,7 @@
         body {
             margin: 0;
             padding: 0;
-            background-image: url('/images/drama/country1/background/lv1.svg');
+            /* background-image: url('/images/drama/country1/background/lv1.svg'); */
             background-repeat: no-repeat;
             background-position: center;
             background-attachment: scroll;
@@ -152,6 +152,9 @@
             chatContainer = document.getElementById('chat-container');
 
         var dialogues = @json($dramas);
+        const backgroundImageUrl = "{{ $backgroundImg }}";
+        console.log(backgroundImageUrl);
+        document.body.style.backgroundImage = `url('/images/drama/country1/background/${backgroundImageUrl}')`;
         console.log(dialogues);
 
         let currentDialogueIndex = 0;
