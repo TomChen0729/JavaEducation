@@ -65,6 +65,10 @@
             background-color: #76a5af;
         }
 
+        a:hover{
+            color: white;
+        }
+
         .TF:hover, .CH:hover, .MA:hover, .RE:hover {
             box-shadow: 0 0 10px rgb(100, 100, 100);
             transform: scale(1.03);

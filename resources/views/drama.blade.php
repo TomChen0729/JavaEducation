@@ -16,10 +16,6 @@
             box-sizing: border-box;
         }
 
-        a:hover{
-            text-decoration: none;
-        }
-
         body {
             margin: 0;
             padding: 0;
@@ -125,6 +121,10 @@
             border-radius: 10px;
             padding: 2px;
             margin-left: 20px;
+        }
+
+        .skip a:hover{
+            color: white;
         }
     </style>
 </head>

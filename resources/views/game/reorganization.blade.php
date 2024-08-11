@@ -20,6 +20,7 @@
         }
 
         a:hover{
+            color: white;
             text-decoration: none;
         }
 
