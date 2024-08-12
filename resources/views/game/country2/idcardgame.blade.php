@@ -22,6 +22,11 @@
             /* 去除清單前面的符號 */
         }
 
+        a:hover{
+            color: white;
+            text-decoration: none;
+        }
+
         :root {
             --bg-color: #222327;
             --text-color: #333333;
@@ -338,9 +343,9 @@ public class StarPatterns {
 
             // 依據隨機身分證顯示文字
             const messages = {
-                '/images/idcard/monsteridcard.svg': { text: '禁止進入', color: 'red' , border: '3px solid red'},
-                '/images/idcard/outsideridcard.svg': { text: '支付費用', color: 'orange' , border: '3px solid orange'},
-                '/images/idcard/villageridcard.svg': { text: '免費進入', color: 'green' , border: '3px solid green'}
+                '/images/idcard/monsteridcard.svg': { text: '禁止進入', color: 'red' , border: '5px solid red'},
+                '/images/idcard/outsideridcard.svg': { text: '免費進入', color: 'green' , border: '5px solid green'},
+                '/images/idcard/villageridcard.svg': { text: '免費進入', color: 'green' , border: '5px solid green'}
             };
 
             function getRandom() {

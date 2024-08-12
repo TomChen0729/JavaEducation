@@ -109,8 +109,8 @@ Route::get('debug', function () {
     return view('game.debug');
 });
 Route::get('boxgame', function () {
-    return view('game.boxgame');
+    return view('game.country2.boxgame');
 });
 Route::get('idcardgame', function () {
-    return view('game.idcardgame');
+    return view('game.country2.idcardgame');
 });
