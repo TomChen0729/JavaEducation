@@ -429,7 +429,7 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgb(100, 100, 100);
             width: 1300px;
-            height: 60px;
+            height: 100px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -451,7 +451,7 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgb(100, 100, 100);
             width: 200px;
-            height: 60px;
+            height: 100px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -475,7 +475,7 @@
         .matched {
             background-color: #394165;
             color: #E38931;
-            pointer-events: none;
+            pointer-events: none; /*不會跳轉頁面*/
         }
 
         @media (max-width: 1300px) {

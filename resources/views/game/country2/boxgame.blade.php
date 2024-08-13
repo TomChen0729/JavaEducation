@@ -166,9 +166,11 @@
             z-index: 10001;
             display: none;
         }
+
         .container-fluid{
             margin-top: 2%;
         }
+
         .question {
             width: 100%;
             height: 100px;
@@ -182,14 +184,15 @@
             font-size: 20px;
             font-weight: bold;
         }
+
         #treasure-box {
-            margin: 0;
-            padding: 0;
+            margin-top: 10px;
             width: 100%;
             height: 400px;
             background: url('/images/boxes/closebox1.svg') no-repeat center;
             transition: background 0.5s;
         }
+
         .star{
             white-space: pre; /* 保留空格和換行 */
             font-family: monospace; /* 使用等寬字體 */
@@ -201,12 +204,16 @@
             left: 52%;
             transform: translate(-45%, -40%);
         }
+
         .star.open{
             text-shadow: 0 0 0.2em white, 0 0 0.2em white, 0 0 0.2em white;
-            transform: translate(-55%, -10%);
+            transform: translate(-60%, -10%);
         }
+
         #treasure-box.open {
             background: url('/images/boxes/openbox1.svg') no-repeat center;
+            width: 100%;
+            height: 500px;
             background-size: contain;
         }
 
@@ -221,6 +228,10 @@
             background-color: #f4f4f4;
             padding: 15px;
             border-radius: 8px;
+        }
+
+        pre{
+            font-size: 20px;
         }
 
         input {

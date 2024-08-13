@@ -40,6 +40,83 @@
             align-items: center;
             padding-top: 6%;
         }
+
+        .first .overlay {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+            display: none;
+        }
+
+        .first .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: #4D613C;
+            border-radius: 50px;
+            width: 50%;
+            z-index: 1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .first .pop {
+            color: #F8F2ED;
+            margin: 30px;
+            padding: 30px;
+            height: 100%;
+            border-radius: 50px;
+            border: 5px solid #F6B654;
+        }
+
+        .first .pop h1 {
+            text-align: center;
+            font-size: 50px;
+            font-weight: bolder;
+            margin-bottom: 30px;
+        }
+
+        .first .pop p strong {
+            font-size: 24px;
+        }
+
+        .first .pop p hr {
+            margin: 10px 0;
+        }
+
+        .first p{
+            font-size: 20px;
+        }
+
+        .first .close-btn {
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            width: 30px;
+            height: 30px;
+            background-color: #D6C9B6;
+            color: #5B1718;
+            font-size: 25px;
+            font-weight: 600;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 50%;
+        }
+
+        .first.active .overlay {
+            display: block;
+        }
+
+        .first.active .content {
+            transition: all 300ms ease-in-out;
+            transform: translate(-50%, -50%) scale(1);
+        }
         
         .header {
             position: absolute;
@@ -170,7 +247,7 @@
         }
         .question {
             width: 100%;
-            height: 100px;
+            height: 130px;
             background-color: #FFFDD3;
             border-radius: 20px;
             padding: 20px;
@@ -194,20 +271,20 @@
         }
 
         #seal.show{
-            top: 50px; /* 蓋章飛入後的位置 */
+            top: 10px; /* 蓋章飛入後的位置 */
             opacity: 1;
         }
 
         #message{
-            top: 40%;
-            left: 30%;
+            top: 30%;
+            left: 25%;
             opacity: 0;
             position: absolute;
             padding: 20px;
             background-color: white;
             border: 3px solid green;
             border-radius: 10px;
-            font-size: 72px;
+            font-size: 100px;
             font-weight: bold;
             z-index: 8;
             transform: rotate(-10deg);
@@ -217,15 +294,42 @@
             opacity: 1;
         }
         
-        #idcards{
+        #idcard{
             padding: 20px;
             position: relative;
+        }
+
+        .card{
+            padding: 50px;
+            border: 1px solid blue;
+            border-radius: 30px;
+            background-color: #8bc8ff;
+        }
+
+        .card h1{
+            padding: 10px;
+            font-size: 50px;
+            font-weight: bold;
+            text-align: center;
+            background-color: #999999;
+            border: 1px solid gray;
+        }
+
+        .card p{
+            margin: 0;
+            padding: 0;
+            font-size: 50px;
+            font-weight: bold;
         }
 
         .code-container {
             background-color: #f4f4f4;
             padding: 15px;
             border-radius: 8px;
+        }
+
+        pre{
+            font-size: 20px;
         }
 
         input {
@@ -250,6 +354,25 @@
 </head>
 
 <body>
+    <!-- 彈窗 -->
+    <!-- 遊戲說明 -->
+    <div class="first active" id="popup">
+        <div class="overlay"></div>
+        <div class="content">
+            <div class="close-btn" onclick="togglePopup1()">&times;</div>
+            <div class="pop">
+                <h1>遊戲說明</h1>
+                <p><strong>魔法門衛</strong><br><hr></p>
+                <p>
+                    剛進入南國的你，發現南國士兵排查進城的人們效率太慢
+                    <br>而導致許多人需要在外面排隊至少三天三夜才能進城。
+                    <br>許多的商人會的商品會因此爛掉或變質，商人們苦不堪言。
+                    <br>你剛好看到他們在招攬專業人才「希望能想出快速通關的解決方法。｣
+                    <br>請幫助他們解決問題！！
+                </p>
+            </div>
+        </div>
+    </div>
 
     <div class="header">
         <div class="row">
@@ -282,12 +405,29 @@
         <div class="row">
             <div class="col-md-6 left-container">
                 <div class="question">
-                    <p>用 if...else 判斷是否允許進入村莊，並且印出:<br>怪物:禁止進入；其他:免費進入。</p>
+                    <p>使用 for 迴圈收集今日進城的身份證，並使用 if...else 判斷是否為怪物
+                        <br>怪物禁止進入城堡，其他村民和商人免費進入，最後印出結果:
+                        <br>怪物:禁止進入；其他:免費進入。
+                    </p>
                 </div>
                 <div id="idcard">
                     <img class="img" id="seal" src="/images/idcard/idcardseal.svg" alt="">
                     <div id="message"></div> <!-- 動畫顯示文字 -->
-                    <img class="img" id="idcards" src="/images/idcard/villageridcard.svg" alt="">
+                    <!-- <img class="img" id="idcards" src="/images/idcard/villageridcard.svg" alt=""> -->
+                    <div class="card">
+                        <div class="row">
+                            <div class="col-md-6 left-container">
+                                <img class="img" id="idcards" src="/images/idcard/villageridcard.svg" alt="證件照">
+                            </div>
+                            <div class="col-md-6 right-container">
+                                <h1>身分證</h1>
+                                <p>身分：怪物</p>
+                                <p>年齡：90</p>
+                                <p>性別：無性別</p>
+                            </div>
+                        </div>
+                        
+                    </div>
                 </div>
                 <button onclick="playStamp()">測試蓋章動畫</button>
             </div>
@@ -296,18 +436,19 @@
 <pre>
 public class StarPatterns {
     public static void main(String[] args) {
+        int n = 10; // 今日進城人數
 
-        String x = "?"; // 身分
-
-
-        if (x == "<input type="text" id="vInit" placeholder="____" oninput="autoResize(this)">") {
-            System.out.print("<input type="text" id="fInit" placeholder="____" oninput="autoResize(this)">");
+        for(<input type="text" id="iInit" placeholder="____" oninput="autoResize(this)">; <input type="text" id="iInit" placeholder="____" oninput="autoResize(this)">; <input type="text" id="addInit" placeholder="____" oninput="autoResize(this)">){
+            
+            // 判斷是否為怪物
+            if (x == <input type="text" id="monstarInit" placeholder="____" oninput="autoResize(this)">) {
+                <input type="text" id="noInit" placeholder="____" oninput="autoResize(this)"> // 印出禁止進入
+            }
+    
+            else {
+                <input type="text" id="freeInit" placeholder="____" oninput="autoResize(this)"> // 印出免費進入
+            }
         }
-
-        else {
-            System.out.print("<input type="text" id="nInit" placeholder="____" oninput="autoResize(this)">");
-        }
-
     }
 }
 </pre>
@@ -320,6 +461,12 @@ public class StarPatterns {
     
     <!-- JavaScript -->
     <script>
+        // 畫面載入後顯示彈跳視窗
+        function togglePopup1() {
+            document.getElementById("popup").classList.toggle("active");
+        }
+
+
         function autoResize(input) {
             const currentWidth = input.offsetWidth;//現在的寬度
             const newWidth = input.scrollWidth;//新寬度
