@@ -40,6 +40,83 @@
             align-items: center;
             padding-top: 6%;
         }
+
+        .first .overlay {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+            display: none;
+        }
+
+        .first .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: #323232;
+            border-radius: 50px;
+            width: 50%;
+            z-index: 1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .first .pop {
+            color: #f3bb66;
+            margin: 30px;
+            padding: 30px;
+            height: 100%;
+            border-radius: 50px;
+            border: 5px solid #e28639;
+        }
+
+        .first .pop h1 {
+            text-align: center;
+            font-size: 50px;
+            font-weight: bolder;
+            margin-bottom: 30px;
+        }
+
+        .first .pop p strong {
+            font-size: 24px;
+        }
+
+        .first .pop p hr {
+            margin: 10px 0;
+        }
+
+        .first p{
+            font-size: 20px;
+        }
+
+        .first .close-btn {
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            width: 30px;
+            height: 30px;
+            background-color: #e28639;
+            color: #323232;
+            font-size: 25px;
+            font-weight: 600;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 50%;
+        }
+
+        .first.active .overlay {
+            display: block;
+        }
+
+        .first.active .content {
+            transition: all 300ms ease-in-out;
+            transform: translate(-50%, -50%) scale(1);
+        }
         
         .header {
             position: absolute;
@@ -173,7 +250,7 @@
 
         .question {
             width: 100%;
-            height: 100px;
+            height: 120px;
             background-color: #FFFDD3;
             border-radius: 20px;
             padding: 20px;
@@ -181,7 +258,7 @@
         }
 
         .question p {
-            font-size: 20px;
+            font-size: 25px;
             font-weight: bold;
         }
 
@@ -256,6 +333,25 @@
 </head>
 
 <body>
+    <!-- 彈窗 -->
+    <!-- 遊戲說明 -->
+    <div class="first active" id="popup">
+        <div class="overlay"></div>
+        <div class="content">
+            <div class="close-btn" onclick="togglePopup1()">&times;</div>
+            <div class="pop">
+                <h1>遊戲說明</h1>
+                <p><strong>解鎖寶箱</strong><br><hr></p>
+                <p>
+                    在冒險的路上總是會遇到很多奇奇怪怪的突發狀況
+                    <br>今天走在路上你突然看到一個很奇怪的寶箱擋在中間。
+                    <br>好奇心作祟，你就是手賤想打開。但是不管奪用力，寶箱都無法順利打開
+                    <br>在上面有一串奇怪的星星階層，你突然想到如果把星星都點亮或許就能打開寶箱
+                    <br>來試試看吧！！勇者，只要打開了，就能夠一年不愁吃穿
+                </p>
+            </div>
+        </div>
+    </div>
 
     <div class="header">
         <div class="row">
@@ -288,7 +384,7 @@
         <div class="row">
             <div class="col-md-6 left-container">
                 <div class="question">
-                    <p>要打開寶箱，必須讓 * 填滿三角形鎖頭<br>請在右方程式碼區，使用巢狀for迴圈來解鎖寶箱</p>
+                    <p>要打開寶箱，必須使用 * 點亮三角形鎖頭<br>請在右方程式碼區，使用巢狀for迴圈來解鎖寶箱</p>
                 </div>
                 <div id="treasure-box">
                     <!-- <img class="img" id="randomImg" src="/images/boxes/triangle.png" alt=""> -->
@@ -321,29 +417,10 @@ public class StarPatterns {
     </div>
     <!-- JavaScript -->
     <script>
-        // DOMContentLoaded事件在文件的HTML被完全載入和解析後觸發，而不必等待樣式表、圖像和子框架的完成加載
-        // document.addEventListener('DOMContentLoaded', function() {
-        //     const images = [
-        //         '/images/boxes/triangle.png',
-        //         '/images/boxes/left-triangle.png',
-        //         '/images/boxes/right-triangle.png',
-        //         '/images/boxes/shape.png'
-        //     ];
-
-        //     function getRandomImg() {
-        //         返回0~4之間，不包含4的隨機數，Math.floor()向下取整數，image.length = 4
-        //         const randomIndex = Math.floor(Math.random() * images.length);
-        //         return images[randomIndex];
-        //     }
-
-        //     function changeImg() {
-        //         const imgElement = document.getElementById('randomImg');
-        //         imgElement.src = getRandomImg();
-        //     }
-
-        //     變換三角形
-        //     changeImg();
-        // });
+        // 畫面載入後顯示彈跳視窗
+        function togglePopup1() {
+            document.getElementById("popup").classList.toggle("active");
+        }
 
         function layer() {
             const num = [3, 5, 7]; // 可選的階層數

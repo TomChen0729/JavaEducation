@@ -57,7 +57,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0);
-            background: #4D613C;
+            background: #644a47;
             border-radius: 50px;
             width: 50%;
             z-index: 1;
@@ -66,12 +66,12 @@
         }
 
         .first .pop {
-            color: #F8F2ED;
+            color: #fceede;
             margin: 30px;
             padding: 30px;
             height: 100%;
             border-radius: 50px;
-            border: 5px solid #F6B654;
+            border: 5px solid #9bbec1;
         }
 
         .first .pop h1 {
@@ -100,8 +100,8 @@
             top: 20px;
             width: 30px;
             height: 30px;
-            background-color: #D6C9B6;
-            color: #5B1718;
+            background-color: #9bbec1;
+            color: #644a47;
             font-size: 25px;
             font-weight: 600;
             line-height: 30px;
@@ -242,12 +242,14 @@
             z-index: 10001;
             display: none;
         }
+
         .container-fluid{
             margin-top: 2%;
         }
+
         .question {
             width: 100%;
-            height: 130px;
+            height: 150px;
             background-color: #FFFDD3;
             border-radius: 20px;
             padding: 20px;
@@ -255,7 +257,7 @@
         }
 
         .question p {
-            font-size: 20px;
+            font-size: 25px;
             font-weight: bold;
         }
 
@@ -364,11 +366,11 @@
                 <h1>遊戲說明</h1>
                 <p><strong>魔法門衛</strong><br><hr></p>
                 <p>
-                    剛進入南國的你，發現南國士兵排查進城的人們效率太慢
+                    進入南國的你，發現南國士兵排查進城的人們效率太慢
                     <br>而導致許多人需要在外面排隊至少三天三夜才能進城。
                     <br>許多的商人會的商品會因此爛掉或變質，商人們苦不堪言。
-                    <br>你剛好看到他們在招攬專業人才「希望能想出快速通關的解決方法。｣
-                    <br>請幫助他們解決問題！！
+                    <br>你剛好看到他們在招攬專業人才「希望能想出快速通關進城的解決方法。｣
+                    <br>請發揮你的才能，幫助他們解決問題！！
                 </p>
             </div>
         </div>
