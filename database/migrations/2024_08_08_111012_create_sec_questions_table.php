@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('sec_questions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('country_id');
-            $table->string('gametype', 255);
+            $table->string('gamename', 255);
             $table->text('questions');
             $table->text('template_code');
-            $table->text('description');
+            $table->text('game_explanation');
             $table->timestamps();
         });
     }

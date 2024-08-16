@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('sec_Qid');
-            $table->time('watchtime')->default('00:00:00');
+            $table->time('time')->default('00:00:00');
             $table->string('parameter');
-            $table->boolean('status');
+            $table->enum('status', ['watched', 'false', 'true', 'watch_again'])->default('watched');
+            $table->integer('counter')->default(0);
             $table->timestamps();
         });
     }
