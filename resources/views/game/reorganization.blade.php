@@ -410,6 +410,7 @@
 
         /* 設定容器樣式 */
         #container {
+            margin-top: 7%;
             background-color: #504647;
             color: #faf1e4;
             border: 5px solid #cc9252;
@@ -419,15 +420,20 @@
 
         /* 設定提示的樣式 */
         h2 {
-            font-size: 28px;
+            font-size: 22px;
             font-weight: bold;
             margin-bottom: 50px;
         }
 
         /* 設定題目容器樣式 */
         #question-container {
-            font-size: 24px;
+            font-size: 22px;
             margin-bottom: 40px;
+        }
+
+        pre{
+            color: #faf1e4;
+            text-align: left;
         }
 
         /* 設定選項容器樣式 */
