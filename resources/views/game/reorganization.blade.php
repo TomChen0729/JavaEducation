@@ -670,13 +670,13 @@
                 <a href="{{ route('welcome') }}" class="breadcrumbs__link">綠野仙蹤</a>
             </li>
             <li class="breadcrumbs__item">
-                <a href="{{ route('welcome') }}" class="breadcrumbs__link">遊玩等級</a>
+                <a href="{{ route('country.index',['country_id' => $currentCountry]) }}" class="breadcrumbs__link">遊玩等級</a>
             </li>
             <li class="breadcrumbs__item">
-                <a href="{{ route('welcome') }}" class="breadcrumbs__link">遊戲種類</a>
+                <a href="{{ route('game.index', ['country_id' => $currentCountry, 'levels' => $question_data['levels'] ])}}" class="breadcrumbs__link">遊戲種類</a>
             </li>
             <li class="breadcrumbs__item">
-                <a href="{{ route('welcome') }}" class="breadcrumbs__link__active">填充題</a>
+                <a href="#" class="breadcrumbs__link__active">填空題</a>
             </li>
         </ul>
 
