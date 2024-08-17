@@ -12,6 +12,9 @@
         padding: 0;
     }
 
+    a:hover{
+        color: #F1F4DA;
+    }
 
     .popup .overlay {
         position: fixed;

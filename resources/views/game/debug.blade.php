@@ -437,6 +437,10 @@
             border: 2px solid #444;
         }
 
+        #code-block{
+            color: white;
+        }
+
         h1 {
             font-size: 20px;
             font-weight: bolder;
