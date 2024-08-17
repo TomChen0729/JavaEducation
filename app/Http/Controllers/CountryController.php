@@ -24,11 +24,58 @@ class CountryController extends Controller
         $this->gameService = $gameService;
     }
 
+    public function welcome(){
+        $this->gameService->initUserRecord();
+        $this->gameService->updateUserRecord();
+        $Current_User_Country = auth()->user()->country_id;
+        $Current_User_Country_Level = auth()->user()->levels;
+        $Current_User_id = auth()->user()->id;
+        // 用一個字典存放能玩跟不能玩的國家，key=imgPath，value=1(可以),0(不可以)
+        $country_dic = array();
+        //檢查玩家進度，如果國家id等於0和等級id等於0，就都給1進去。
+        // 第一次玩
+        if ($Current_User_Country == null && $Current_User_Country_Level == null) {
+            $user = User::find($Current_User_id);
+            $user->update([
+                'country_id' => 1,
+                'levels' => 1,
+            ]);
+            $canUseCountry = Country::where('id', 1)->pluck('imgPath')->toArray();
+            $cantUserCountry = Country::where('id', '>', 1)->pluck('imgPath')->toArray();
+            if ($canUseCountry != null && $cantUserCountry != null) {
+                // 用迴圈將值放到字典裡面
+                foreach ($canUseCountry as $item) {
+                    // item是正在被讀取的國家icon檔名，後面帶狀態(1或是0)，用以區分可以玩或不能玩
+                    $country_dic[$item] = 1;
+                }
+                foreach ($cantUserCountry as $item) {
+                    $country_dic[$item] = 0;
+                }
+            }
+        } 
+        else {
+            // 玩家可以點選的國家圖示
+            $canUseCountry = Country::where('id', '<=', $Current_User_Country)->pluck('imgPath')->toArray();
+            // 玩家不可以點選的國家圖示
+            $cantUserCountry = Country::where('id', '>', $Current_User_Country)->pluck('imgPath')->toArray();
+            if ($canUseCountry != null && $cantUserCountry != null) {
+                foreach ($canUseCountry as $item) {
+                    $country_dic[$item] = 1;
+                }
+                foreach ($cantUserCountry as $item) {
+                    $country_dic[$item] = 0;
+                }
+            }
+        }
+
+        return view('welcome', ['countries' => $country_dic]);
+    }
     // 劇情畫面
     public function drama(int $country_id)
     {
         //初始化玩家紀錄(檢查玩家的country_id 和 levels)
         $this->gameService->initUserRecord();
+        $this->gameService->updateUserRecord();
         // 選取這兩個欄位('role_icon', 'msg')
         // 排的順序是依照order欄位小到大
         $currentCountryDrama = Drama::select('role_icon', 'msg')
@@ -50,6 +97,7 @@ class CountryController extends Controller
     {
         //初始化玩家紀錄(檢查玩家的country_id 和 levels)
         $this->gameService->initUserRecord();
+        $this->gameService->updateUserRecord();
         $User_country = auth()->user()->country_id;
         // 如果玩家最新的國家id大於等於當前國家id
         // 帶出當前國家資訊 LV1-3

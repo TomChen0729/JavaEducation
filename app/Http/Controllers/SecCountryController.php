@@ -20,7 +20,7 @@ class SecCountryController extends Controller
 
     // 檢查玩家沒有玩個該遊戲名稱的紀錄，如果有回傳當時參數
     public function checkSecRecord(string $Gametype){
-        
+
     }
     public function chooseGame(Request $request, string $Gametype, int $country_id)
     {
@@ -29,6 +29,7 @@ class SecCountryController extends Controller
                 // 從記錄表撈玩過的，如果最近一次有玩的參數先導入(寫一個function)
                 // 如果沒玩過或是全對的話，隨便random
                 case '寶箱遊戲':
+                    // 檢查checkSecRecord()的回傳結果
                     if($Gametype){
 
                     }else{

@@ -58,19 +58,13 @@ class GameService
             // 如果兩者長度相等的話，等級加一
             if (count($gametype_set) == count($user_gametype_set)) {
                 if (!User::where('id', $current_user->id)->where('country_id', $current_user->country_id)->where('levels', $current_user->levels + 1)->exists()) {
-                    $current_user_levels = auth()->user()->levels;
-                    $current_user_levels++;
-                    $current_user = User::find($current_user->id);
-                    $current_user->update([
-                        'levels' => $current_user_levels
-                    ]);
                     // 抓當前國家id & levels，找出他的cardtype有哪些(之後可能會有一個levels對很多個type的問題，到時候有需要的話改迴圈)
                     $all_cardtypes_in_current_lv = CardType::where('country_id', $current_user->country_id)->where('levels', $current_user->levels)->pluck('id');
                     // 利用找到的card_type_id，去資料庫拉相關的所有知識卡
                     $all_cards_in_current_lv = KnowledgeCard::whereIn('card_type_id', $all_cardtypes_in_current_lv)->get();
                     // 新增一個當前使用者的UserKnowledgeCard物件
                     $current_user_card = new UserKnowledgeCard();
-                    if ((count($all_cards_in_current_lv) != 0) && !$current_user_card->exists()) {
+                    if ((count($all_cards_in_current_lv) != 0)) {
                         foreach ($all_cards_in_current_lv as $item) {
                             $current_user_card->create([
                                 'user_id' => $current_user->id,
@@ -79,14 +73,19 @@ class GameService
                             ]);
                         }
                     }
+                    $current_user_levels = auth()->user()->levels;
+                    $current_user_levels++;
+                    $current_user = User::find($current_user->id);
+                    $current_user->update([
+                        'levels' => $current_user_levels
+                    ]);
                 }
             }
-        } 
-        else { 
+        } else {
             // 這邊是他已經在他最高的國家中已經是最高等級
             // 再去檢查他該國家dubug類型是否有正確了一題
             // 抓玩過且正確的所有debug_id
-            $debugID = DebugRecord::where('user_id', auth()->user()->id)->where('status', 1)->pluck('debug_id');
+            $debugID = DebugRecord::where('user_id', auth()->user()->id)->where('status', 1)->pluck('debug_id')->toArray();
             // 帶$debugID查詢debugs表題目，計算筆數是否>=1
             if (Debug::whereIn('id', $debugID)->where('country_id', $current_user->country_id)->get()->count() >= 1) {
                 // 升級國家
@@ -98,22 +97,45 @@ class GameService
                     'country_id' => $current_user_country,
                     'levels' => 1
                 ]);
+            } else {
+                $gametype_set_MAX = Question::select('gametype')
+                    ->where('country_id', $current_user->country_id)
+                    ->where('levels', $countryMaxLV)->distinct()->get();
+                // 調取目前玩家有的最高國家最高等級玩過且正確不重複玩法集合(if -> country_id=1 & levels=1，找1, 1中玩過且正確的)
+                // questions->users_records->distinct gametype欄位
+                $user_gametype_set_MAX = Question::join('user_records', 'user_records.question_id', '=', 'questions.id')
+                    ->where('country_id', $current_user->country_id)
+                    ->where('levels', $countryMaxLV)
+                    ->where('user_id', $current_user->id)
+                    ->where('status', 1)
+                    ->distinct()->pluck('questions.gametype');
+                if (count($gametype_set_MAX) == count($user_gametype_set_MAX)) {
+                    // 抓當前國家id & levels，找出他的cardtype有哪些(之後可能會有一個levels對很多個type的問題，到時候有需要的話改迴圈)
+                    $all_cardtypes_in_max_lv = CardType::where('country_id', $current_user->country_id)->where('levels', $countryMaxLV)->pluck('id')->toArray();
+                    // 利用找到的card_type_id，去資料庫拉相關的所有知識卡
+                    $all_cards_in_max_lv = KnowledgeCard::whereIn('card_type_id', $all_cardtypes_in_max_lv)->get();
+                    // 新增一個當前使用者的UserKnowledgeCard物件
+                    $current_user_card = new UserKnowledgeCard();
+                    if ((count($all_cards_in_max_lv) != 0)) {
+                        foreach ($all_cards_in_max_lv as $item) {
+                            $current_user_card->create([
+                                'user_id' => $current_user->id,
+                                'knowledge_card_id' => $item->id,
+                                'watchtime' => '00:00:00'
+                            ]);
+                        }
+                    }
+                }
             }
         }
     }
 
     // 帶遊戲資料，參數有目前玩家的遊戲進度
-    public function getGameData()
-    {
-    }
+    public function getGameData() {}
     // 隨機出題，帶國家id，難度id查詢資料庫，呼叫檢查當前用戶遊玩紀錄比對，篩選掉已經玩過的題目
-    public function Random(int $Country_id, int $levels)
-    {
-    }
+    public function Random(int $Country_id, int $levels) {}
     // 檢查遊玩次數(紀錄)
-    public function CheckPlayedCount()
-    {
-    }
+    public function CheckPlayedCount() {}
 
     // 關卡需要使用者具備哪些知識卡
     public function CheckCurrentGameKGrequired(int $Country_id)
