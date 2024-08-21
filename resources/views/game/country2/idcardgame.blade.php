@@ -257,7 +257,7 @@
         }
 
         .question p {
-            font-size: 25px;
+            font-size: 20px;
             font-weight: bold;
         }
 
@@ -296,21 +296,33 @@
             opacity: 1;
         }
         
-        #idcard{
-            padding: 20px;
+        #idcard {
+            padding: 30px;
             position: relative;
         }
 
         .card{
-            padding: 50px;
+            width: 100%;
+            height: 350px;
+            padding: 30px;
             border: 1px solid blue;
             border-radius: 30px;
             background-color: #8bc8ff;
         }
 
+        .card .img{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            margin: 0;
+            width: 300px;
+            height: 100%;
+        }
+
         .card h1{
             padding: 10px;
-            font-size: 50px;
+            font-size: 40px;
             font-weight: bold;
             text-align: center;
             background-color: #999999;
@@ -320,13 +332,12 @@
         .card p{
             margin: 0;
             padding: 0;
-            font-size: 50px;
+            font-size: 40px;
             font-weight: bold;
         }
 
         .code-container {
             background-color: #f4f4f4;
-            padding: 15px;
             border-radius: 8px;
         }
 
@@ -494,13 +505,11 @@ public class StarPatterns {
 
             // 依據隨機身分證顯示文字
             const messages = {
-                const messages = {
                     '/images/idcard/monster.svg': { text: '禁止進入', color: 'red', border: '5px solid red' },
                     '/images/idcard/boyvillager.svg': { text: '免費進入', color: 'green', border: '5px solid green' },
                     '/images/idcard/businessman.svg': { text: '免費進入', color: 'green', border: '5px solid green' },
                     '/images/idcard/businesswoman.svg': { text: '免費進入', color: 'green', border: '5px solid green' },
                     '/images/idcard/girlvillager.svg': { text: '免費進入', color: 'green', border: '5px solid green' }
-                };
             };
 
             function getRandom() {
