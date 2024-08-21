@@ -419,7 +419,7 @@
                     <div class="card">
                         <div class="row">
                             <div class="col-md-6 left-container">
-                                <img class="img" id="idcards" src="/images/idcard/villageridcard.svg" alt="證件照">
+                                <img class="img" id="idcards" src="/images/idcard/boyvillager.svg" alt="證件照">
                             </div>
                             <div class="col-md-6 right-container">
                                 <h1>身分證</h1>
@@ -485,16 +485,22 @@ public class StarPatterns {
         document.addEventListener('DOMContentLoaded', function(){
             // 隨機更換身分證
             const img = [
-                '/images/idcard/monsteridcard.svg',
-                '/images/idcard/outsideridcard.svg',
-                '/images/idcard/villageridcard.svg'
+                '/images/idcard/boyvillager.svg',
+                '/images/idcard/businessman.svg',
+                '/images/idcard/businesswoman.svg',
+                '/images/idcard/girlvillager.svg',
+                '/images/idcard/monster.svg'
             ];
 
             // 依據隨機身分證顯示文字
             const messages = {
-                '/images/idcard/monsteridcard.svg': { text: '禁止進入', color: 'red' , border: '5px solid red'},
-                '/images/idcard/outsideridcard.svg': { text: '免費進入', color: 'green' , border: '5px solid green'},
-                '/images/idcard/villageridcard.svg': { text: '免費進入', color: 'green' , border: '5px solid green'}
+                const messages = {
+                    '/images/idcard/monster.svg': { text: '禁止進入', color: 'red', border: '5px solid red' },
+                    '/images/idcard/boyvillager.svg': { text: '免費進入', color: 'green', border: '5px solid green' },
+                    '/images/idcard/businessman.svg': { text: '免費進入', color: 'green', border: '5px solid green' },
+                    '/images/idcard/businesswoman.svg': { text: '免費進入', color: 'green', border: '5px solid green' },
+                    '/images/idcard/girlvillager.svg': { text: '免費進入', color: 'green', border: '5px solid green' }
+                };
             };
 
             function getRandom() {
