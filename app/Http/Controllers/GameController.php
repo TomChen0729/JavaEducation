@@ -340,7 +340,7 @@ class GameController extends Controller
                     //
                 default:
                     //
-                    return response('error');
+                    return response('沒有這個遊戲類型');
             }
         }
     }

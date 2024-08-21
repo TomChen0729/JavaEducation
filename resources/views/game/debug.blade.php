@@ -437,6 +437,10 @@
             border: 2px solid #444;
         }
 
+        #code-block{
+            color: white;
+        }
+
         h1 {
             font-size: 20px;
             font-weight: bolder;
@@ -648,7 +652,7 @@
                 <a href="{{ route('welcome') }}" class="breadcrumbs__link">綠野仙蹤</a>
             </li>
             <li class="breadcrumbs__item">
-                <a href="#" class="breadcrumbs__link">闖關區</a>
+            <a href="{{ route('country.index',['country_id' => $currentCountry]) }}" class="breadcrumbs__link">闖關區</a>
             </li>
             <li class="breadcrumbs__item">
                 <a href="#" class="breadcrumbs__link__active">Debug題</a>
