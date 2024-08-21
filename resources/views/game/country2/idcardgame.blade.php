@@ -259,6 +259,7 @@
         .question p {
             font-size: 20px;
             font-weight: bold;
+            vertical-align: middle;
         }
 
         #seal{
@@ -420,7 +421,6 @@
                 <div class="question">
                     <p>使用 for 迴圈收集今日進城的身份證，並使用 if...else 判斷是否為怪物
                         <br>怪物禁止進入城堡，其他村民和商人免費進入，最後印出結果:
-                        <br>怪物:禁止進入；其他:免費進入。
                     </p>
                 </div>
                 <div id="idcard">
