@@ -198,7 +198,7 @@ class GameController extends Controller
                         ->where('country_id', $country_id)
                         ->where('levels', $levels)->pluck('id')->toArray();
                     // 當前國家當前等級會有的配對題目id
-                    $match_count = Question::select('id')->where('gametype', '是非')
+                    $match_count = Question::select('id')->where('gametype', '配對')
                         ->where('country_id', $country_id)
                         ->where('levels', $levels)->get();
                     // 玩過
@@ -253,7 +253,7 @@ class GameController extends Controller
                         ->where('levels', $levels)->get();
                     // 玩過且正確的填空題
                     $reogOK = Question::whereIn('id', $questionsPlayed)
-                        ->where('gametype', '配對')
+                        ->where('gametype', '填空')
                         ->where('country_id', $country_id)
                         ->where('levels', $levels)->pluck('id')->toArray();
                     // 有玩過
@@ -532,7 +532,7 @@ class GameController extends Controller
                         ->where('country_id', $country_id)
                         ->where('levels', $levels)->pluck('id')->toArray();
                     // 當前國家當前等級會有的配對題目id
-                    $match_count = Question::select('id')->where('gametype', '是非')
+                    $match_count = Question::select('id')->where('gametype', '配對')
                         ->where('country_id', $country_id)
                         ->where('levels', $levels)->get();
                     // 玩過
@@ -587,7 +587,7 @@ class GameController extends Controller
                         ->where('levels', $levels)->get();
                     // 玩過且正確的填空題
                     $reogOK = Question::whereIn('id', $questionsPlayed)
-                        ->where('gametype', '配對')
+                        ->where('gametype', '填空')
                         ->where('country_id', $country_id)
                         ->where('levels', $levels)->pluck('id')->toArray();
                     // 有玩過
