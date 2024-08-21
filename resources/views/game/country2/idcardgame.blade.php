@@ -249,7 +249,7 @@
 
         .question {
             width: 100%;
-            height: 150px;
+            height: 120px;
             background-color: #FFFDD3;
             border-radius: 20px;
             padding: 20px;
@@ -257,9 +257,8 @@
         }
 
         .question p {
-            font-size: 20px;
+            font-size: 25px;
             font-weight: bold;
-            vertical-align: middle;
         }
 
         #seal{
@@ -298,12 +297,18 @@
         }
         
         #idcard {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 30px;
             position: relative;
         }
 
         .card{
-            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 700px;
             height: 350px;
             padding: 30px;
             border: 1px solid blue;
@@ -311,13 +316,15 @@
             background-color: #8bc8ff;
         }
 
-        .card .img{
+        .card img{
+            object-fit: cover; /* 填滿容器，並保持圖片比例 */
+            padding: 0;
+            margin: 0;
+            border: 1px solid gray;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 0;
-            margin: 0;
-            width: 300px;
+            width: 100%;
             height: 100%;
         }
 
@@ -420,17 +427,16 @@
             <div class="col-md-6 left-container">
                 <div class="question">
                     <p>使用 for 迴圈收集今日進城的身份證，並使用 if...else 判斷是否為怪物
-                        <br>怪物禁止進入城堡，其他村民和商人免費進入，最後印出結果:
+                        <br>怪物禁止進入城堡，其他村民和商人免費進入
                     </p>
                 </div>
                 <div id="idcard">
                     <img class="img" id="seal" src="/images/idcard/idcardseal.svg" alt="">
                     <div id="message"></div> <!-- 動畫顯示文字 -->
-                    <!-- <img class="img" id="idcards" src="/images/idcard/villageridcard.svg" alt=""> -->
                     <div class="card">
                         <div class="row">
                             <div class="col-md-6 left-container">
-                                <img class="img" id="idcards" src="/images/idcard/boyvillager.svg" alt="證件照">
+                                <img id="idcards" src="/images/idcard/boyvillager.svg" alt="證件照">
                             </div>
                             <div class="col-md-6 right-container">
                                 <h1>身分證</h1>
