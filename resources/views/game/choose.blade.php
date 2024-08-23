@@ -735,6 +735,8 @@
             var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             var cid = document.getElementById('cid').textContent;
             var timer = stopTimer();
+            var currentCountry = {{ $currentCountry }};
+            var currentLV = {{ $currentLV }};
             // console.log(answers);
             let selectedOption; // 用一個變數存我選取的選項(USER_ANS)
             // 用迴圈跑那些選項
@@ -763,7 +765,7 @@
                         } else if (data.message == 'wrongAnswer') {
                             alert('答錯');
                             setTimeout(function() {
-                                window.location.reload();
+                                window.location.href = `/GameType/選擇/country_id/${currentCountry}/levels/${currentLV}`;
                             }, 1000);
                         } else {
                             alert('伺服器錯誤');

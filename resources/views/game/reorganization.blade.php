@@ -845,7 +845,7 @@
                             } else if (data.message == 'wrongAnswer') {
                                 alert('答錯');
                                 setTimeout(function() {
-                                    window.location.reload();
+                                    window.location.href = `/GameType/填空/country_id/${questions['country_id']}/levels/${questions['levels']}`;
                                 }, 1000);
                             } else {
                                 alert('伺服器錯誤');

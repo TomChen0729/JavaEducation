@@ -729,6 +729,8 @@
         // 對答案 api
         document.querySelectorAll('button.true, button.false').forEach(button => {
             button.addEventListener('click', function() {
+                var currentCountry = {{ $currentCountry }};
+                var currentLV = {{ $currentLV }};
                 var answerValue = this.value;
                 var game_type = '是非';
                 var question_id = document.getElementById('q-id').textContent;
@@ -760,7 +762,7 @@
                         } else if (data.message == 'wrongAnswer') {
                             alert('答錯');
                             setTimeout(function() {
-                                window.location.reload();
+                                window.location.href = `/GameType/是非/country_id/${currentCountry}/levels/${currentLV}`;
                             }, 1000);
                         } else {
                             alert('伺服器錯誤');

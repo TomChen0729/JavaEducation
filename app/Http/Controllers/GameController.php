@@ -115,7 +115,7 @@ class GameController extends Controller
                         }
                     }
                     // 還要帶該遊戲第二層知識卡，方便跳窗後點擊查詢卡片內容
-                    return view('game.TrueORFalse', ['question' => $question, 'questions_cards' => $cards]);
+                    return view('game.TrueORFalse', ['question' => $question, 'questions_cards' => $cards, 'currentLV' => $levels, 'currentCountry' => $country_id]);
 
                 case '選擇':
                     // 如果GameType_id == 選擇
@@ -185,7 +185,7 @@ class GameController extends Controller
                         }
                     }
                     $options = Option::where('question_id', $question->id)->inRandomOrder()->get();
-                    return view('game.choose', ['question' => $question, 'options' => $options, 'questions_cards' => $cards]);
+                    return view('game.choose', ['question' => $question, 'options' => $options, 'questions_cards' => $cards, 'currentCountry' => $country_id, 'currentLV' => $levels]);
                 case '配對':
                     $current_uid = auth()->user()->id;
                     // 查詢當前使用者玩過(一堆q_id)
@@ -326,6 +326,7 @@ class GameController extends Controller
                         })->toArray();
 
                     $question_data = [
+                        'country_id' => $country_id,
                         'levels' => $question['levels'],
                         'id' => $question['id'],
                         'question' => $question['questions'],
@@ -449,7 +450,7 @@ class GameController extends Controller
                         }
                     }
                     // 還要帶該遊戲第二層知識卡，方便跳窗後點擊查詢卡片內容
-                    return view('game.TrueORFalse', ['question' => $question, 'questions_cards' => $cards]);
+                    return view('game.TrueORFalse', ['question' => $question, 'questions_cards' => $cards, 'currentLV' => $levels, 'currentCountry' => $country_id]);
 
                 case '選擇':
                     // 如果GameType_id == 選擇
@@ -519,7 +520,7 @@ class GameController extends Controller
                         }
                     }
                     $options = Option::where('question_id', $question->id)->inRandomOrder()->get();
-                    return view('game.choose', ['question' => $question, 'options' => $options, 'questions_cards' => $cards]);
+                    return view('game.choose', ['question' => $question, 'options' => $options, 'questions_cards' => $cards, 'currentCountry' => $country_id, 'currentLV' => $levels]);
                 case '配對':
                     $current_uid = auth()->user()->id;
                     // 查詢當前使用者玩過(一堆q_id)
@@ -660,6 +661,7 @@ class GameController extends Controller
                         })->toArray();
 
                     $question_data = [
+                        'country_id' => $country_id,
                         'levels' => $question['levels'],
                         'id' => $question['id'],
                         'question' => $question['questions'],
