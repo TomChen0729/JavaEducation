@@ -419,7 +419,6 @@
                 <div class="bx bx-menu" id="menu-icon"></div>
             </div>
         </div>
-        
     </div>
 
     <div class="container-fluid">
@@ -445,7 +444,6 @@
                                 <p>性別：無性別</p>
                             </div>
                         </div>
-                        
                     </div>
                 </div>
                 <button onclick="playStamp()">測試蓋章動畫</button>
@@ -474,6 +472,7 @@ public class StarPatterns {
                 </div>
                 <div class="btn-container">
                     <button id="send-code" class="btn-submit">提交</button>
+                </div>
             </div>
         </div>
     </div>

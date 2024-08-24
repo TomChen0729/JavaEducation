@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>boxgame</title>
+    <title>通關密碼</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/base16-dark.min.css" rel="stylesheet">
@@ -247,88 +247,6 @@
         .container-fluid{
             margin-top: 2%;
         }
-
-        .question {
-            width: 100%;
-            height: 120px;
-            background-color: #FFFDD3;
-            border-radius: 20px;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .question p {
-            font-size: 25px;
-            font-weight: bold;
-        }
-
-        #treasure-box {
-            margin-top: 10px;
-            width: 100%;
-            height: 400px;
-            background: url('/images/boxes/closebox1.svg') no-repeat center;
-            transition: background 0.5s;
-        }
-
-        .star{
-            white-space: pre; /* 保留空格和換行 */
-            font-family: monospace; /* 使用等寬字體 */
-            font-size: 14px;
-            width: 150px;
-            height: 200px;
-            position: relative;
-            top: 68%;  
-            left: 52%;
-            transform: translate(-45%, -40%);
-        }
-
-        .star.open{
-            text-shadow: 0 0 0.2em white, 0 0 0.2em white, 0 0 0.2em white;
-            transform: translate(-60%, -10%);
-        }
-
-        #treasure-box.open {
-            background: url('/images/boxes/openbox1.svg') no-repeat center;
-            width: 100%;
-            height: 500px;
-            background-size: contain;
-        }
-
-        .textarea-container {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-        }
-
-        .code-container {
-            background-color: #f4f4f4;
-            padding: 15px;
-            border-radius: 8px;
-        }
-
-        pre{
-            font-size: 20px;
-        }
-
-        input {
-            width: 80px;
-            text-align: center;
-            transition: width 0.2s ease;
-        }
-
-        .btn-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .btn-container button {
-            font-size: 18px;
-            margin: 0 20px;
-            border-radius: 5px;
-            margin-top:20px;
-        }
     </style>
 </head>
 
@@ -383,35 +301,10 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6 left-container">
-                <div class="question">
-                    <p>要打開寶箱，必須使用 * 點亮三角形鎖頭<br>請在右方程式碼區，使用巢狀for迴圈來解鎖寶箱</p>
-                </div>
-                <div id="treasure-box">
-                    <!-- <img class="img" id="randomImg" src="/images/boxes/triangle.png" alt=""> -->
-                    <div id="star" class="star"></div>
-                </div>
-                <button onclick="openBox()">打開寶箱</button>
+                
             </div>
             <div class="col-md-6 right-container">
-                <div class="code-container">
-<pre>
-public class StarPatterns {
-    public static void main(String[] args) {
-        int n = {{ $variable }}; // 階層
-
-        for (<input type="text" id="iInit" placeholder="____" oninput="autoResize(this)">;<input type="text" id="iScope" placeholder="____" oninput="autoResize(this)">;<input type="text" id="iUpdate" placeholder="____" oninput="autoResize(this)">) {
-            for (<input type="text" id="jInit" placeholder="____" oninput="autoResize(this)">;<input type="text" id="jScope" placeholder="____" oninput="autoResize(this)">;<input type="text" id="jUpdate" placeholder="____" oninput="autoResize(this)">) {
-                System.out.print("*");
-            }
-            System.out.println();
-        }
-    }
-}
-</pre>
-                </div>
-                <div class="btn-container">
-                    <button id="send-code" class="btn-submit">提交</button>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -420,111 +313,6 @@ public class StarPatterns {
         // 畫面載入後顯示彈跳視窗
         function togglePopup1() {
             document.getElementById("popup").classList.toggle("active");
-        }
-
-        function layer() {
-            const num = [3, 5, 7]; // 可選的階層數
-            const randomNum = Math.floor(Math.random() * num.length); // 隨機選擇一個索引
-            return num[randomNum]; // 返回隨機選擇的數字
-        }
-
-        function triangle1() {
-            let n = layer();
-            let result = ""; // 初始化 result
-
-            for(let i = 1; i <= n; i++){
-                let star = "";
-
-                for(let j = 1; j <= n - i; j++){
-                    star += " ";
-                }
-
-                for(let j = 1; j <= 2 * i - 1; j++){
-                    star += "*";
-                }
-
-                result += star + "\n"; // 將一行星號加到 result
-            }
-            // 使用result一次更新DOM直接展示，而不是分段更新展示
-            document.getElementById('star').innerText = result;
-        }
-
-        function triangle2() {
-            let n = layer();
-            let result = ""; // 初始化 result
-
-            for(let i = 1;i <= n;i++){
-                let star = "";
-
-                for(let j = 1;j <= 2 * i - 1; j++){
-                    star += "*";
-                }
-
-                result += star + "\n"; // 將一行星號加到 result
-            }
-            // 使用result一次更新DOM直接展示，而不是分段更新展示
-            document.getElementById('star').innerText = result;
-        }
-
-        function triangle3() {
-            let n = layer();
-            let result = ""; // 初始化 result
-
-            for(let i = n; i >= 1; i--){
-                let star = "";
-
-                for(let j = 1; j <= n - i; j++){
-                    star += " ";
-                }
-                
-                for(let j = 1; j <= 2 * i - 1; j++){
-                    star += "*";
-                }
-
-                result += star + "\n"; // 將一行星號加到 result
-            }
-            // 使用result一次更新DOM直接展示，而不是分段更新展示
-            document.getElementById('star').innerText = result;
-        }
-
-        function triangle4() {
-            let n = layer();
-            let result = ""; // 初始化 result
-
-            for(let i = n;i >= 1;i--){
-                let star = "";
-
-                for(let j = 1;j <= 2 * i - 1; j++){
-                    star += "*";
-                }
-
-                result += star + "\n"; // 將一行星號加到 result
-            }
-            // 使用result一次更新DOM直接展示，而不是分段更新展示
-            document.getElementById('star').innerText = result;
-        }
-
-        // 隨機調用triangle1~4
-        function randomTriangle() {
-            const triangle = [triangle1, triangle2, triangle3, triangle4];
-            const randomIndex = Math.floor(Math.random() * triangle.length);
-            triangle[randomIndex]();
-        }
-
-        // 加載頁面後執行
-        document.addEventListener('DOMContentLoaded', function () {
-            randomTriangle();
-        });
-
-        function openBox() {
-            const box = document.getElementById("treasure-box");
-            box.classList.add("open");
-
-            const stars = document.getElementById("star");
-            stars.classList.add("open");
-
-            // const imgElement = document.getElementById("randomImg");
-            // imgElement.style.display = 'none'; 
         }
 
         /* 弄一個codeMirror出來，設定佈景、語言模式
