@@ -38,7 +38,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding-top: 6%;
+            padding-top: 3%;
         }
 
         .first .overlay {
@@ -247,6 +247,19 @@
         .container-fluid{
             margin-top: 2%;
         }
+
+        .question {
+            text-align: center;
+        }
+
+        /* .question p {
+            font-size: 25px;
+            font-weight: bold;
+        } */
+
+        img{
+            height: 800px;
+        }
     </style>
 </head>
 
@@ -259,13 +272,12 @@
             <div class="close-btn" onclick="togglePopup1()">&times;</div>
             <div class="pop">
                 <h1>遊戲說明</h1>
-                <p><strong>解鎖寶箱</strong><br><hr></p>
+                <p><strong>通關密碼</strong><br><hr></p>
                 <p>
-                    在冒險的路上總是會遇到很多奇奇怪怪的突發狀況
-                    <br>今天走在路上你突然看到一個很奇怪的寶箱擋在中間。
-                    <br>好奇心作祟，你就是手賤想打開。但是不管奪用力，寶箱都無法順利打開
-                    <br>在上面有一串奇怪的星星階層，你突然想到如果把星星都點亮或許就能打開寶箱
-                    <br>來試試看吧！！勇者，只要打開了，就能夠一年不愁吃穿
+                    <br>在蠻金之國與南國之間有一片神秘的森林
+                    <br>傳說中只有掌握正確通關密碼的人才能安全穿越這片森林並到達南國
+                    <br>你的任務是破解密碼並把大門密碼輸出到螢幕上
+                    <br>幫助桃樂絲一行人順利往南國前進。
                 </p>
             </div>
         </div>
@@ -281,7 +293,7 @@
                     <a href="#" class="breadcrumbs__link">遊戲種類</a>
                 </li>
                 <li class="breadcrumbs__item">
-                    <a href="#" class="breadcrumbs__link__active">解鎖寶箱</a>
+                    <a href="#" class="breadcrumbs__link__active">通關密碼</a>
                 </li>
             </ul>
 
@@ -299,6 +311,12 @@
     </div>
 
     <div class="container-fluid">
+        <div class="question">
+            <!-- <p>通關密碼需要在螢幕上顯示大門才會打開，請點擊「密碼紙」查看需要輸出的格式及密碼
+                <br>再點擊「程式密碼鎖」使用指定格式並輸出正確密碼!
+            </p> -->
+            <img src="/images/password/closedoor.svg" alt="緊閉的大門">
+        </div>
         <div class="row">
             <div class="col-md-6 left-container">
                 

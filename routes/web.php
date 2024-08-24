@@ -71,3 +71,6 @@ Route::get('boxgame', function () {
 Route::get('idcardgame', function () {
     return view('game.country2.idcardgame');
 });
+Route::get('password', function () {
+    return view('game.country2.password');
+});
