@@ -48,7 +48,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.7);
-            z-index: 1;
+            z-index: 10;
             display: none;
         }
 
@@ -60,7 +60,7 @@
             background: #323232;
             border-radius: 50px;
             width: 50%;
-            z-index: 1;
+            z-index: 10;
             padding: 20px;
             box-sizing: border-box;
         }
@@ -250,12 +250,22 @@
 
         .question {
             text-align: center;
-        }
-
-        /* .question p {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #f3bb66;
+            border-radius: 30px;
             font-size: 25px;
             font-weight: bold;
-        } */
+            padding: 20px;
+            z-index: 3; /* 確保覆蓋在圖像之上 */
+        }
+
+        .images {
+            position: relative;
+            text-align: center;
+        }
 
         img{
             height: 800px;
@@ -312,9 +322,12 @@
 
     <div class="container-fluid">
         <div class="question">
-            <!-- <p>通關密碼需要在螢幕上顯示大門才會打開，請點擊「密碼紙」查看需要輸出的格式及密碼
+            <p>通關密碼需要在螢幕上顯示大門才會打開
+                <br>請點擊「密碼紙」查看需要輸出的格式及密碼
                 <br>再點擊「程式密碼鎖」使用指定格式並輸出正確密碼!
-            </p> -->
+            </p>
+        </div>
+        <div class="images">
             <img src="/images/password/closedoor.svg" alt="緊閉的大門">
         </div>
         <div class="row">

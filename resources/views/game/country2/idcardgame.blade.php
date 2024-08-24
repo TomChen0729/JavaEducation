@@ -48,7 +48,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.7);
-            z-index: 1;
+            z-index: 10;
             display: none;
         }
 
@@ -60,7 +60,7 @@
             background: #644a47;
             border-radius: 50px;
             width: 50%;
-            z-index: 1;
+            z-index: 10;
             padding: 20px;
             box-sizing: border-box;
         }
