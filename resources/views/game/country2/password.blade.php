@@ -17,12 +17,10 @@
             box-sizing: border-box;
             font-family: "Poppins", sans-serif;
             text-decoration: none;
-            /* 底線去除 */
             list-style: none;
-            /* 去除清單前面的符號 */
         }
 
-        a:hover{
+        a:hover {
             color: white;
             text-decoration: none;
         }
@@ -43,8 +41,8 @@
 
         .first .overlay {
             position: fixed;
-            top: 0px;
-            left: 0px;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.7);
@@ -62,14 +60,12 @@
             width: 50%;
             z-index: 10;
             padding: 20px;
-            box-sizing: border-box;
         }
 
         .first .pop {
             color: #f3bb66;
             margin: 30px;
             padding: 30px;
-            height: 100%;
             border-radius: 50px;
             border: 5px solid #e28639;
         }
@@ -81,16 +77,16 @@
             margin-bottom: 30px;
         }
 
+        .first .pop p {
+            font-size: 20px;
+        }
+
         .first .pop p strong {
             font-size: 24px;
         }
 
         .first .pop p hr {
             margin: 10px 0;
-        }
-
-        .first p{
-            font-size: 20px;
         }
 
         .first .close-btn {
@@ -117,7 +113,7 @@
             transition: all 300ms ease-in-out;
             transform: translate(-50%, -50%) scale(1);
         }
-        
+
         .header {
             position: absolute;
             width: 100%;
@@ -127,28 +123,16 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 20px 2% 0px;
-            background: rgba(186,189,205, 0.8);
-            /* 透明背景 */
-            transition: all 0.50s ease;
+            padding: 20px 2% 0;
+            background: rgba(186, 189, 205, 0.8);
+            transition: all 0.5s ease;
         }
 
         .breadcrumbs {
             letter-spacing: 5px;
-            /* 字元間距 */
             font-size: 24px;
             font-family: sans-serif;
         }
-
-        /*@keyframes animate {
-            from {
-                transform: translateX(0); 起始位置
-            }
-            to {
-                transform: translateX(50px); 結束位置
-            }
-        }*/
-
 
         .breadcrumbs__item {
             display: inline-block;
@@ -179,9 +163,7 @@
         .navbar {
             display: flex;
             align-items: center;
-            /* 確保垂直方向對齊 */
             margin-left: auto;
-            /* 讓 navbar 靠右對齊 */
         }
 
         .navbar .time {
@@ -191,8 +173,8 @@
             font-weight: bolder;
             letter-spacing: 5px;
             padding: 5px 15px;
-            margin: 0px 30px;
-            transition: all 0.50s ease;
+            margin: 0 30px;
+            transition: all 0.5s ease;
         }
 
         .navbar a {
@@ -203,8 +185,8 @@
             border: 2px solid #fff;
             border-radius: 5px;
             padding: 5px 15px;
-            margin: 0px 30px;
-            transition: all 0.50s ease;
+            margin: 0 30px;
+            transition: all 0.5s ease;
         }
 
         .navbar a:hover {
@@ -219,17 +201,11 @@
         }
 
         .main a {
-            margin-right: 25px;
-            margin-left: 10px;
+            margin: 0 25px 0 10px;
             color: var(--text-color);
             font-size: 20px;
             font-weight: 500;
-            transition: all 0.50s ease;
-        }
-
-        .user {
-            display: flex;
-            align-items: center;
+            transition: all 0.5s ease;
         }
 
         .main a:hover {
@@ -244,8 +220,78 @@
             display: none;
         }
 
-        .container-fluid{
+        .container-fluid {
             margin-top: 2%;
+            position: relative;
+            width: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .left-container,
+        .right-container {
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            top: 0;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .left-container {
+            left: 0;
+        }
+
+        .right-container {
+            right: 0;
+        }
+
+        .left-container button {
+            position: absolute;
+            top: 55%;   
+            left: 42%;  
+            transform: translate(-50%, -50%); 
+        }
+
+        .right-container button {
+            position: absolute;
+            top: 52%;   
+            right: 42%; 
+            transform: translate(50%, 50%); 
+        }
+
+        .move-left {
+            transform: translateX(20%);
+        }
+
+        .move-right {
+            transform: translateX(-50%);
+        }
+
+        .code-container {
+            background-color: #f4f4f4;
+            border-radius: 8px;
+        }
+
+        pre {
+            font-size: 20px;
+        }
+
+        input {
+            width: 80px;
+            text-align: center;
+            transition: width 0.2s ease;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn-container button {
+            font-size: 18px;
+            margin: 0 20px;
+            border-radius: 5px;
+            margin-top: 20px;
         }
 
         .question {
@@ -259,7 +305,7 @@
             font-size: 25px;
             font-weight: bold;
             padding: 20px;
-            z-index: 3; /* 確保覆蓋在圖像之上 */
+            z-index: 3;
         }
 
         .images {
@@ -267,7 +313,7 @@
             text-align: center;
         }
 
-        img{
+        img {
             height: 800px;
         }
     </style>
@@ -332,10 +378,10 @@
         </div>
         <div class="row">
             <div class="col-md-6 left-container">
-                
+                <button type="button" class="btn btn-success" id="passwordPaperBtn">密碼紙</button>
             </div>
             <div class="col-md-6 right-container">
-                
+                <button type="button" class="btn btn-info" id="codeLockBtn">程式密碼鎖</button>
             </div>
         </div>
     </div>
@@ -345,6 +391,28 @@
         function togglePopup1() {
             document.getElementById("popup").classList.toggle("active");
         }
+
+        // 平移動畫
+        document.getElementById('passwordPaperBtn').addEventListener('click', function() {
+            const container = document.querySelector('.container-fluid');
+            if (container.classList.contains('move-left')) {
+                container.classList.remove('move-left');
+            } else {
+                container.classList.add('move-left');
+                container.classList.remove('move-right');
+            }
+        });
+
+        document.getElementById('codeLockBtn').addEventListener('click', function() {
+            const container = document.querySelector('.container-fluid');
+            if (container.classList.contains('move-right')) {
+                container.classList.remove('move-right');
+            } else {
+                container.classList.add('move-right');
+                container.classList.remove('move-left');
+            }
+        });
+
 
         /* 弄一個codeMirror出來，設定佈景、語言模式
         var editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
