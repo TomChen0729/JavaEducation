@@ -220,41 +220,42 @@
             display: none;
         }
 
-        .container-fluid {
+        .containers {
+            overflow: visible;
             margin-top: 2%;
             position: relative;
-            width: 100%;
             transition: transform 0.5s ease-in-out;
         }
 
-        .left-container,
+        .left-container {
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            top: 0;
+            transition: transform 0.5s ease-in-out;
+            left: 0;
+        }
+
         .right-container {
             position: absolute;
             width: 50%;
             height: 100%;
             top: 0;
             transition: transform 0.5s ease-in-out;
-        }
-
-        .left-container {
-            left: 0;
-        }
-
-        .right-container {
             right: 0;
         }
 
         .left-container button {
             position: absolute;
             top: 55%;   
-            left: 42%;  
+            left: 22%;  
             transform: translate(-50%, -50%); 
         }
 
         .right-container button {
             position: absolute;
             top: 52%;   
-            right: 42%; 
+            right: 23%; 
             transform: translate(50%, 50%); 
         }
 
@@ -269,6 +270,8 @@
         .code-container {
             background-color: #f4f4f4;
             border-radius: 8px;
+            top: 50%;
+            right: 0;
         }
 
         pre {
@@ -295,7 +298,6 @@
         }
 
         .question {
-            text-align: center;
             position: absolute;
             top: 50%;
             left: 50%;
@@ -308,13 +310,17 @@
             z-index: 3;
         }
 
+        .row{
+            width: 100%;
+        }
+
         .images {
             position: relative;
-            text-align: center;
+            height: 100%;
         }
 
         img {
-            height: 800px;
+            height: 750px;
         }
     </style>
 </head>
@@ -366,17 +372,17 @@
         
     </div>
 
-    <div class="container-fluid">
+    <div class="containers">
         <div class="question">
             <p>通關密碼需要在螢幕上顯示大門才會打開
                 <br>請點擊「密碼紙」查看需要輸出的格式及密碼
                 <br>再點擊「程式密碼鎖」使用指定格式並輸出正確密碼!
             </p>
         </div>
-        <div class="images">
-            <img src="/images/password/closedoor.svg" alt="緊閉的大門">
-        </div>
         <div class="row">
+            <div class="col-md-12 images">
+                <img src="/images/password/closedoor.svg" alt="緊閉的大門">
+            </div>
             <div class="col-md-6 left-container">
                 <button type="button" class="btn btn-success" id="passwordPaperBtn">密碼紙</button>
             </div>
@@ -385,6 +391,27 @@
             </div>
         </div>
     </div>
+    <!-- <div class="right">
+        <div class="code-container">
+<pre>
+public class StarPatterns {
+    public static void main(String[] args) {
+        int n = 4; // 階層
+
+        for (<input type="text" id="iInit" placeholder="____" oninput="autoResize(this)">;<input type="text" id="iScope" placeholder="____" oninput="autoResize(this)">;<input type="text" id="iUpdate" placeholder="____" oninput="autoResize(this)">) {
+            for (<input type="text" id="jInit" placeholder="____" oninput="autoResize(this)">;<input type="text" id="jScope" placeholder="____" oninput="autoResize(this)">;<input type="text" id="jUpdate" placeholder="____" oninput="autoResize(this)">) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+    }
+}
+</pre>
+        </div>
+    </div>
+    <div class="left">
+        <div class="passpaper"></div>
+    </div> -->
     <!-- JavaScript -->
     <script>
         // 畫面載入後顯示彈跳視窗
@@ -394,7 +421,7 @@
 
         // 平移動畫
         document.getElementById('passwordPaperBtn').addEventListener('click', function() {
-            const container = document.querySelector('.container-fluid');
+            const container = document.querySelector('.containers');
             if (container.classList.contains('move-left')) {
                 container.classList.remove('move-left');
             } else {
@@ -404,7 +431,7 @@
         });
 
         document.getElementById('codeLockBtn').addEventListener('click', function() {
-            const container = document.querySelector('.container-fluid');
+            const container = document.querySelector('.containers');
             if (container.classList.contains('move-right')) {
                 container.classList.remove('move-right');
             } else {
