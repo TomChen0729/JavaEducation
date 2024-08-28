@@ -310,6 +310,16 @@
             z-index: 3;
         }
 
+        .right,
+        .left {
+            display: none; 
+        }
+
+        .paper{
+            left: 0;
+            border: 5px solid gray;
+        }
+
         .row{
             width: 100%;
         }
@@ -372,6 +382,14 @@
         
     </div>
 
+    <div class="left">
+        <div class="paper">
+            <h1>PASSWROD</h1>
+            <p>格式：</p>
+            <p>密碼：</p>
+        </div>
+    </div>
+
     <div class="containers">
         <div class="question">
             <p>通關密碼需要在螢幕上顯示大門才會打開
@@ -391,7 +409,8 @@
             </div>
         </div>
     </div>
-    <!-- <div class="right">
+
+    <div class="right">
         <div class="code-container">
 <pre>
 public class StarPatterns {
@@ -409,9 +428,7 @@ public class StarPatterns {
 </pre>
         </div>
     </div>
-    <div class="left">
-        <div class="passpaper"></div>
-    </div> -->
+    
     <!-- JavaScript -->
     <script>
         // 畫面載入後顯示彈跳視窗
@@ -422,23 +439,32 @@ public class StarPatterns {
         // 平移動畫
         document.getElementById('passwordPaperBtn').addEventListener('click', function() {
             const container = document.querySelector('.containers');
+            const leftDiv = document.querySelector('.left');
+
             if (container.classList.contains('move-left')) {
                 container.classList.remove('move-left');
+                leftDiv.style.display = 'none'; 
             } else {
                 container.classList.add('move-left');
                 container.classList.remove('move-right');
+                leftDiv.style.display = 'block'; 
             }
         });
 
         document.getElementById('codeLockBtn').addEventListener('click', function() {
             const container = document.querySelector('.containers');
+            const rightDiv = document.querySelector('.right');
+
             if (container.classList.contains('move-right')) {
                 container.classList.remove('move-right');
+                rightDiv.style.display = 'none';
             } else {
                 container.classList.add('move-right');
                 container.classList.remove('move-left');
+                rightDiv.style.display = 'block'; 
             }
         });
+
 
 
         /* 弄一個codeMirror出來，設定佈景、語言模式
