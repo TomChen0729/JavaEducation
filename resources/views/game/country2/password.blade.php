@@ -332,6 +332,16 @@
         img {
             height: 750px;
         }
+
+        .left {
+            position: absolute;
+            left:100px;
+        }
+
+        .right {
+            position: absolute;
+            right:180px;
+        }
     </style>
 </head>
 
