@@ -425,14 +425,7 @@
 <pre>
 public class StarPatterns {
     public static void main(String[] args) {
-        int n = 4; // 階層
-
-        for (<input type="text" id="iInit" placeholder="____" oninput="autoResize(this)">;<input type="text" id="iScope" placeholder="____" oninput="autoResize(this)">;<input type="text" id="iUpdate" placeholder="____" oninput="autoResize(this)">) {
-            for (<input type="text" id="jInit" placeholder="____" oninput="autoResize(this)">;<input type="text" id="jScope" placeholder="____" oninput="autoResize(this)">;<input type="text" id="jUpdate" placeholder="____" oninput="autoResize(this)">) {
-                System.out.print("*");
-            }
-            System.out.println();
-        }
+        <input type="text" id="iInit" placeholder="____" oninput="autoResize(this)">// 输出 "Password"
     }
 }
 </pre>
