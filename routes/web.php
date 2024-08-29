@@ -74,3 +74,6 @@ Route::get('idcardgame', function () {
 Route::get('password', function () {
     return view('game.country2.password');
 });
+Route::get('level2', function () {
+    return view('level2');
+});
