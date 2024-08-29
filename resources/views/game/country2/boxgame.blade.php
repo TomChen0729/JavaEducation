@@ -341,13 +341,9 @@
             <div class="close-btn" onclick="togglePopup1()">&times;</div>
             <div class="pop">
                 <h1>遊戲說明</h1>
-                <p><strong>解鎖寶箱</strong><br><hr></p>
+                <p><strong>{{ $boxgameQuestion->gamename }}</strong><br><hr></p>
                 <p>
-                    在冒險的路上總是會遇到很多奇奇怪怪的突發狀況
-                    <br>今天走在路上你突然看到一個很奇怪的寶箱擋在中間。
-                    <br>好奇心作祟，你就是手賤想打開。但是不管奪用力，寶箱都無法順利打開
-                    <br>在上面有一串奇怪的星星階層，你突然想到如果把星星都點亮或許就能打開寶箱
-                    <br>來試試看吧！！勇者，只要打開了，就能夠一年不愁吃穿
+                    {{ $boxgameQuestion -> game_explanation }}
                 </p>
             </div>
         </div>
@@ -384,7 +380,7 @@
         <div class="row">
             <div class="col-md-6 left-container">
                 <div class="question">
-                    <p>要打開寶箱，必須使用 * 點亮三角形鎖頭<br>請在右方程式碼區，使用巢狀for迴圈來解鎖寶箱</p>
+                    <p>{{ $boxgameQuestion -> questions }}</p>
                 </div>
                 <div id="treasure-box">
                     <!-- <img class="img" id="randomImg" src="/images/boxes/triangle.png" alt=""> -->
@@ -395,18 +391,7 @@
             <div class="col-md-6 right-container">
                 <div class="code-container">
 <pre>
-public class StarPatterns {
-    public static void main(String[] args) {
-        int n = 3; // 階層
-
-        for (<input type="text" id="iInit" placeholder="____" oninput="autoResize(this)">;<input type="text" id="iScope" placeholder="____" oninput="autoResize(this)">;<input type="text" id="iUpdate" placeholder="____" oninput="autoResize(this)">) {
-            for (<input type="text" id="jInit" placeholder="____" oninput="autoResize(this)">;<input type="text" id="jScope" placeholder="____" oninput="autoResize(this)">;<input type="text" id="jUpdate" placeholder="____" oninput="autoResize(this)">) {
-                System.out.print("*");
-            }
-            System.out.println();
-        }
-    }
-}
+{{ $boxgameQuestion -> template_code }}
 </pre>
                 </div>
                 <div class="btn-container">
