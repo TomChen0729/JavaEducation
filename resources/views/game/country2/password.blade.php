@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>boxgame</title>
+    <title>通關密碼</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/base16-dark.min.css" rel="stylesheet">
@@ -17,12 +17,10 @@
             box-sizing: border-box;
             font-family: "Poppins", sans-serif;
             text-decoration: none;
-            /* 底線去除 */
             list-style: none;
-            /* 去除清單前面的符號 */
         }
 
-        a:hover{
+        a:hover {
             color: white;
             text-decoration: none;
         }
@@ -38,17 +36,17 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding-top: 6%;
+            padding-top: 3%;
         }
 
         .first .overlay {
             position: fixed;
-            top: 0px;
-            left: 0px;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.7);
-            z-index: 1;
+            z-index: 10;
             display: none;
         }
 
@@ -60,16 +58,14 @@
             background: #323232;
             border-radius: 50px;
             width: 50%;
-            z-index: 1;
+            z-index: 10;
             padding: 20px;
-            box-sizing: border-box;
         }
 
         .first .pop {
             color: #f3bb66;
             margin: 30px;
             padding: 30px;
-            height: 100%;
             border-radius: 50px;
             border: 5px solid #e28639;
         }
@@ -81,16 +77,16 @@
             margin-bottom: 30px;
         }
 
+        .first .pop p {
+            font-size: 20px;
+        }
+
         .first .pop p strong {
             font-size: 24px;
         }
 
         .first .pop p hr {
             margin: 10px 0;
-        }
-
-        .first p{
-            font-size: 20px;
         }
 
         .first .close-btn {
@@ -117,7 +113,7 @@
             transition: all 300ms ease-in-out;
             transform: translate(-50%, -50%) scale(1);
         }
-        
+
         .header {
             position: absolute;
             width: 100%;
@@ -127,28 +123,16 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 20px 2% 0px;
-            background: rgba(186,189,205, 0.8);
-            /* 透明背景 */
-            transition: all 0.50s ease;
+            padding: 20px 2% 0;
+            background: rgba(186, 189, 205, 0.8);
+            transition: all 0.5s ease;
         }
 
         .breadcrumbs {
             letter-spacing: 5px;
-            /* 字元間距 */
             font-size: 24px;
             font-family: sans-serif;
         }
-
-        /*@keyframes animate {
-            from {
-                transform: translateX(0); 起始位置
-            }
-            to {
-                transform: translateX(50px); 結束位置
-            }
-        }*/
-
 
         .breadcrumbs__item {
             display: inline-block;
@@ -179,9 +163,7 @@
         .navbar {
             display: flex;
             align-items: center;
-            /* 確保垂直方向對齊 */
             margin-left: auto;
-            /* 讓 navbar 靠右對齊 */
         }
 
         .navbar .time {
@@ -191,8 +173,8 @@
             font-weight: bolder;
             letter-spacing: 5px;
             padding: 5px 15px;
-            margin: 0px 30px;
-            transition: all 0.50s ease;
+            margin: 0 30px;
+            transition: all 0.5s ease;
         }
 
         .navbar a {
@@ -203,8 +185,8 @@
             border: 2px solid #fff;
             border-radius: 5px;
             padding: 5px 15px;
-            margin: 0px 30px;
-            transition: all 0.50s ease;
+            margin: 0 30px;
+            transition: all 0.5s ease;
         }
 
         .navbar a:hover {
@@ -219,17 +201,11 @@
         }
 
         .main a {
-            margin-right: 25px;
-            margin-left: 10px;
+            margin: 0 25px 0 10px;
             color: var(--text-color);
             font-size: 20px;
             font-weight: 500;
-            transition: all 0.50s ease;
-        }
-
-        .user {
-            display: flex;
-            align-items: center;
+            transition: all 0.5s ease;
         }
 
         .main a:hover {
@@ -244,70 +220,61 @@
             display: none;
         }
 
-        .container-fluid{
+        .containers {
+            overflow: visible;
             margin-top: 2%;
-        }
-
-        .question {
-            width: 100%;
-            height: 120px;
-            background-color: #FFFDD3;
-            border-radius: 20px;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .question p {
-            font-size: 25px;
-            font-weight: bold;
-        }
-
-        #treasure-box {
-            margin-top: 10px;
-            width: 100%;
-            height: 400px;
-            background: url('/images/boxes/closebox1.svg') no-repeat center;
-            transition: background 0.5s;
-        }
-
-        .star{
-            white-space: pre; /* 保留空格和換行 */
-            font-family: monospace; /* 使用等寬字體 */
-            font-size: 14px;
-            width: 150px;
-            height: 200px;
             position: relative;
-            top: 68%;  
-            left: 52%;
-            transform: translate(-45%, -40%);
+            transition: transform 0.5s ease-in-out;
         }
 
-        .star.open{
-            text-shadow: 0 0 0.2em white, 0 0 0.2em white, 0 0 0.2em white;
-            transform: translate(-60%, -10%);
-        }
-
-        #treasure-box.open {
-            background: url('/images/boxes/openbox1.svg') no-repeat center;
-            width: 100%;
-            height: 500px;
-            background-size: contain;
-        }
-
-        .textarea-container {
-            width: 100%;
+        .left-container {
+            position: absolute;
+            width: 50%;
             height: 100%;
-            display: flex;
-            align-items: center;
+            top: 0;
+            transition: transform 0.5s ease-in-out;
+            left: 0;
+        }
+
+        .right-container {
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            top: 0;
+            transition: transform 0.5s ease-in-out;
+            right: 0;
+        }
+
+        .left-container button {
+            position: absolute;
+            top: 55%;   
+            left: 22%;  
+            transform: translate(-50%, -50%); 
+        }
+
+        .right-container button {
+            position: absolute;
+            top: 52%;   
+            right: 23%; 
+            transform: translate(50%, 50%); 
+        }
+
+        .move-left {
+            transform: translateX(20%);
+        }
+
+        .move-right {
+            transform: translateX(-50%);
         }
 
         .code-container {
             background-color: #f4f4f4;
-            padding: 15px;
             border-radius: 8px;
+            top: 50%;
+            right: 0;
         }
 
-        pre{
+        pre {
             font-size: 20px;
         }
 
@@ -327,7 +294,43 @@
             font-size: 18px;
             margin: 0 20px;
             border-radius: 5px;
-            margin-top:20px;
+            margin-top: 20px;
+        }
+
+        .question {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #f3bb66;
+            border-radius: 30px;
+            font-size: 25px;
+            font-weight: bold;
+            padding: 20px;
+            z-index: 3;
+        }
+
+        .right,
+        .left {
+            display: none; 
+        }
+
+        .paper{
+            left: 0;
+            border: 5px solid gray;
+        }
+
+        .row{
+            width: 100%;
+        }
+
+        .images {
+            position: relative;
+            height: 100%;
+        }
+
+        img {
+            height: 750px;
         }
     </style>
 </head>
@@ -341,9 +344,12 @@
             <div class="close-btn" onclick="togglePopup1()">&times;</div>
             <div class="pop">
                 <h1>遊戲說明</h1>
-                <p><strong>{{ $boxgameQuestion->gamename }}</strong><br><hr></p>
+                <p><strong>通關密碼</strong><br><hr></p>
                 <p>
-                    {{ $boxgameQuestion -> game_explanation }}
+                    <br>在蠻金之國與南國之間有一片神秘的森林
+                    <br>傳說中只有掌握正確通關密碼的人才能安全穿越這片森林並到達南國
+                    <br>你的任務是破解密碼並把大門密碼輸出到螢幕上
+                    <br>幫助桃樂絲一行人順利往南國前進。
                 </p>
             </div>
         </div>
@@ -359,7 +365,7 @@
                     <a href="#" class="breadcrumbs__link">遊戲種類</a>
                 </li>
                 <li class="breadcrumbs__item">
-                    <a href="#" class="breadcrumbs__link__active">解鎖寶箱</a>
+                    <a href="#" class="breadcrumbs__link__active">通關密碼</a>
                 </li>
             </ul>
 
@@ -376,30 +382,53 @@
         
     </div>
 
-    <div class="container-fluid">
+    <div class="left">
+        <div class="paper">
+            <h1>PASSWROD</h1>
+            <p>格式：</p>
+            <p>密碼：</p>
+        </div>
+    </div>
+
+    <div class="containers">
+        <div class="question">
+            <p>通關密碼需要在螢幕上顯示大門才會打開
+                <br>請點擊「密碼紙」查看需要輸出的格式及密碼
+                <br>再點擊「程式密碼鎖」使用指定格式並輸出正確密碼!
+            </p>
+        </div>
         <div class="row">
+            <div class="col-md-12 images">
+                <img src="/images/password/closedoor.svg" alt="緊閉的大門">
+            </div>
             <div class="col-md-6 left-container">
-                <div class="question">
-                    <p>{{ $boxgameQuestion -> questions }}</p>
-                </div>
-                <div id="treasure-box">
-                    <!-- <img class="img" id="randomImg" src="/images/boxes/triangle.png" alt=""> -->
-                    <div id="star" class="star"></div>
-                </div>
-                <button onclick="openBox()">打開寶箱</button>
+                <button type="button" class="btn btn-success" id="passwordPaperBtn">密碼紙</button>
             </div>
             <div class="col-md-6 right-container">
-                <div class="code-container">
-<pre>
-{{ $boxgameQuestion -> template_code }}
-</pre>
-                </div>
-                <div class="btn-container">
-                    <button id="send-code" class="btn-submit">提交</button>
-                </div>
+                <button type="button" class="btn btn-info" id="codeLockBtn">程式密碼鎖</button>
             </div>
         </div>
     </div>
+
+    <div class="right">
+        <div class="code-container">
+<pre>
+public class StarPatterns {
+    public static void main(String[] args) {
+        int n = 4; // 階層
+
+        for (<input type="text" id="iInit" placeholder="____" oninput="autoResize(this)">;<input type="text" id="iScope" placeholder="____" oninput="autoResize(this)">;<input type="text" id="iUpdate" placeholder="____" oninput="autoResize(this)">) {
+            for (<input type="text" id="jInit" placeholder="____" oninput="autoResize(this)">;<input type="text" id="jScope" placeholder="____" oninput="autoResize(this)">;<input type="text" id="jUpdate" placeholder="____" oninput="autoResize(this)">) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+    }
+}
+</pre>
+        </div>
+    </div>
+    
     <!-- JavaScript -->
     <script>
         // 畫面載入後顯示彈跳視窗
@@ -407,110 +436,36 @@
             document.getElementById("popup").classList.toggle("active");
         }
 
-        function layer() {
-            const num = [3, 5, 7]; // 可選的階層數
-            const randomNum = Math.floor(Math.random() * num.length); // 隨機選擇一個索引
-            return num[randomNum]; // 返回隨機選擇的數字
-        }
+        // 平移動畫
+        document.getElementById('passwordPaperBtn').addEventListener('click', function() {
+            const container = document.querySelector('.containers');
+            const leftDiv = document.querySelector('.left');
 
-        function triangle1() {
-            let n = layer();
-            let result = ""; // 初始化 result
-
-            for(let i = 1; i <= n; i++){
-                let star = "";
-
-                for(let j = 1; j <= n - i; j++){
-                    star += " ";
-                }
-
-                for(let j = 1; j <= 2 * i - 1; j++){
-                    star += "*";
-                }
-
-                result += star + "\n"; // 將一行星號加到 result
+            if (container.classList.contains('move-left')) {
+                container.classList.remove('move-left');
+                leftDiv.style.display = 'none'; 
+            } else {
+                container.classList.add('move-left');
+                container.classList.remove('move-right');
+                leftDiv.style.display = 'block'; 
             }
-            // 使用result一次更新DOM直接展示，而不是分段更新展示
-            document.getElementById('star').innerText = result;
-        }
-
-        function triangle2() {
-            let n = layer();
-            let result = ""; // 初始化 result
-
-            for(let i = 1;i <= n;i++){
-                let star = "";
-
-                for(let j = 1;j <= 2 * i - 1; j++){
-                    star += "*";
-                }
-
-                result += star + "\n"; // 將一行星號加到 result
-            }
-            // 使用result一次更新DOM直接展示，而不是分段更新展示
-            document.getElementById('star').innerText = result;
-        }
-
-        function triangle3() {
-            let n = layer();
-            let result = ""; // 初始化 result
-
-            for(let i = n; i >= 1; i--){
-                let star = "";
-
-                for(let j = 1; j <= n - i; j++){
-                    star += " ";
-                }
-                
-                for(let j = 1; j <= 2 * i - 1; j++){
-                    star += "*";
-                }
-
-                result += star + "\n"; // 將一行星號加到 result
-            }
-            // 使用result一次更新DOM直接展示，而不是分段更新展示
-            document.getElementById('star').innerText = result;
-        }
-
-        function triangle4() {
-            let n = layer();
-            let result = ""; // 初始化 result
-
-            for(let i = n;i >= 1;i--){
-                let star = "";
-
-                for(let j = 1;j <= 2 * i - 1; j++){
-                    star += "*";
-                }
-
-                result += star + "\n"; // 將一行星號加到 result
-            }
-            // 使用result一次更新DOM直接展示，而不是分段更新展示
-            document.getElementById('star').innerText = result;
-        }
-
-        // 隨機調用triangle1~4
-        function randomTriangle() {
-            const triangle = [triangle1, triangle2, triangle3, triangle4];
-            const randomIndex = Math.floor(Math.random() * triangle.length);
-            triangle[randomIndex]();
-        }
-
-        // 加載頁面後執行
-        document.addEventListener('DOMContentLoaded', function () {
-            randomTriangle();
         });
 
-        function openBox() {
-            const box = document.getElementById("treasure-box");
-            box.classList.add("open");
+        document.getElementById('codeLockBtn').addEventListener('click', function() {
+            const container = document.querySelector('.containers');
+            const rightDiv = document.querySelector('.right');
 
-            const stars = document.getElementById("star");
-            stars.classList.add("open");
+            if (container.classList.contains('move-right')) {
+                container.classList.remove('move-right');
+                rightDiv.style.display = 'none';
+            } else {
+                container.classList.add('move-right');
+                container.classList.remove('move-left');
+                rightDiv.style.display = 'block'; 
+            }
+        });
 
-            // const imgElement = document.getElementById("randomImg");
-            // imgElement.style.display = 'none'; 
-        }
+
 
         /* 弄一個codeMirror出來，設定佈景、語言模式
         var editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {

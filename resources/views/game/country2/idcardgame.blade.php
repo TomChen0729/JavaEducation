@@ -48,7 +48,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.7);
-            z-index: 1;
+            z-index: 10;
             display: none;
         }
 
@@ -60,7 +60,7 @@
             background: #644a47;
             border-radius: 50px;
             width: 50%;
-            z-index: 1;
+            z-index: 10;
             padding: 20px;
             box-sizing: border-box;
         }
@@ -419,7 +419,6 @@
                 <div class="bx bx-menu" id="menu-icon"></div>
             </div>
         </div>
-        
     </div>
 
     <div class="container-fluid">
@@ -445,7 +444,6 @@
                                 <p>性別：無性別</p>
                             </div>
                         </div>
-                        
                     </div>
                 </div>
                 <button onclick="playStamp()">測試蓋章動畫</button>
@@ -474,6 +472,7 @@ public class StarPatterns {
                 </div>
                 <div class="btn-container">
                     <button id="send-code" class="btn-submit">提交</button>
+                </div>
             </div>
         </div>
     </div>
