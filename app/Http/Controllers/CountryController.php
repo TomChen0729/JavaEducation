@@ -24,7 +24,8 @@ class CountryController extends Controller
         $this->gameService = $gameService;
     }
 
-    public function welcome(){
+    public function welcome()
+    {
         $this->gameService->initUserRecord();
         $this->gameService->updateUserRecord();
         $Current_User_Country = auth()->user()->country_id;
@@ -52,8 +53,7 @@ class CountryController extends Controller
                     $country_dic[$item] = 0;
                 }
             }
-        } 
-        else {
+        } else {
             // 玩家可以點選的國家圖示
             $canUseCountry = Country::where('id', '<=', $Current_User_Country)->pluck('imgPath')->toArray();
             // 玩家不可以點選的國家圖示
@@ -78,6 +78,7 @@ class CountryController extends Controller
         $this->gameService->updateUserRecord();
         // 選取這兩個欄位('role_icon', 'msg')
         // 排的順序是依照order欄位小到大
+        $countryName = Country::find($country_id);
         $currentCountryDrama = Drama::select('role_icon', 'msg')
             ->where('country_id', $country_id)
             ->orderBy('order', 'asc')->get()
@@ -89,7 +90,7 @@ class CountryController extends Controller
                 ];
             });
         $backgroundImg = Country::where('id', $country_id)->pluck('imgPath')->first();
-        return view('drama', ['dramas' => $currentCountryDrama, 'currentCountry' => (int)$country_id, 'backgroundImg' => $backgroundImg]);
+        return view('drama', ['dramas' => $currentCountryDrama, 'currentCountry' => $country_id, 'backgroundImg' => $backgroundImg, 'countryName' => $countryName->name]);
     }
 
     // 導向等級選取，帶使用者資料，檢查玩家遊戲進度
@@ -99,20 +100,24 @@ class CountryController extends Controller
         $this->gameService->initUserRecord();
         $this->gameService->updateUserRecord();
         $User_country = auth()->user()->country_id;
-        // 如果玩家最新的國家id大於等於當前國家id
-        // 帶出當前國家資訊 LV1-3
-        if ($User_country >= $country_id) {
-            // 國家底下的第一層知識卡
-            $parent_cards = CardType::where('country_id', $country_id)->get();
-        }
-        // 找當前國家最大等級
-        $currentCountryMaxLV = CardType::where('country_id', $country_id)->max('levels');
-        if (!User::where('id', auth()->user()->id)->where('country_id', $country_id)->where('levels', $currentCountryMaxLV)->exists()) {
-            $debug = 0;
-        } else {
-            $debug = 1;
-        }
+        if ($country_id == 1) {
+            // 如果玩家最新的國家id大於等於當前國家id
+            // 帶出當前國家資訊 LV1-3
+            if ($User_country >= $country_id) {
+                // 國家底下的第一層知識卡
+                $parent_cards = CardType::where('country_id', $country_id)->get();
+            }
+            // 找當前國家最大等級
+            $currentCountryMaxLV = CardType::where('country_id', $country_id)->max('levels');
+            if (!User::where('id', auth()->user()->id)->where('country_id', $country_id)->where('levels', $currentCountryMaxLV)->exists()) {
+                $debug = 0;
+            } else {
+                $debug = 1;
+            }
 
-        return view('level', ['parent_cards' => $parent_cards, 'debug' => $debug, 'currentCountry' => $country_id]);
+            return view('level', ['parent_cards' => $parent_cards, 'debug' => $debug, 'currentCountry' => $country_id]);
+        }else{
+            return view('level2', ['currentCountry' => $country_id]);
+        }
     }
 }

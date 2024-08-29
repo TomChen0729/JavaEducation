@@ -19,24 +19,40 @@ class SecCountryController extends Controller
     }
 
     // 檢查玩家沒有玩個該遊戲名稱的紀錄，如果有回傳當時參數
-    public function checkSecRecord(string $Gametype){
-
+    public function checkSecRecord(string $gameName, int $country_id){
+        $currentUserId = auth()->user()->id;
+        $secUserRecords = SecQuestion::join('sec_records', 'sec_records.sec_Qid', '=', 'sec_questions.sec_Qid')
+        ->where('country_id', $country_id)
+        ->where('user_id', $currentUserId)
+        ->where('gamename', $gameName)
+        ->get();
+        if($secUserRecords->status == 'watched' || $secUserRecords->status == 'false'){
+            return $secUserRecords->parameter;
+        }else{
+            return null;
+        }
     }
-    public function chooseGame(Request $request, string $Gametype, int $country_id)
+    public function chooseGame(Request $request, int $country_id, string $gameName)
     {
         if ($request->isMethod('get')) {
-            switch ($Gametype) {
+            switch ($gameName) {
                 // 從記錄表撈玩過的，如果最近一次有玩的參數先導入(寫一個function)
                 // 如果沒玩過或是全對的話，隨便random
-                case '寶箱遊戲':
+                case '魔法寶箱':
                     // 檢查checkSecRecord()的回傳結果
-                    if($Gametype){
+                    // if($gameName){
 
-                    }else{
+                    // }else{
 
-                    }
-                    // return view();
-                    break;
+                    // }
+                    // $this->checkSecRecord($gameName, country_id)
+                    $variable = 3 + rand(0, 2) * 2;
+                    $boxGameQuestion = SecQuestion::where('country_id',$country_id)
+                        ->where('gamename', $gameName)
+                        ->inRandomOrder()->first();
+                    $templateCode = $boxGameQuestion->template_code;
+                    $templateCode = str_replace('$variable', $variable, $templateCode);
+                    return view('game.country2.boxgame', ['boxGameQuestion' => $boxGameQuestion, 'templateCode' => $templateCode, 'variable' => $variable]);
                 case '魔法門衛':
                     // return view();
                     break;

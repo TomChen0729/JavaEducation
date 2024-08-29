@@ -103,12 +103,12 @@
                 </a>
             </div>
             <div class="button2">
-                <a href="idcardgame">
+                <a href="#">
                     <img src="/images/country2choose/idcard.svg" alt="Button">
                 </a>
             </div>
             <div class="button3">
-                <a href="boxgame">
+                <a href="{{ route('sec.GameChoose', ['country_id' => $currentCountry, 'gameName' => '魔法寶箱']) }}">
                     <img src="/images/country2choose/box.svg" alt="Button">
                 </a>
             </div>

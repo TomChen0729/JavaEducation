@@ -341,9 +341,9 @@
             <div class="close-btn" onclick="togglePopup1()">&times;</div>
             <div class="pop">
                 <h1>遊戲說明</h1>
-                <p><strong>{{ $boxgameQuestion->gamename }}</strong><br><hr></p>
+                <p><strong>{{ $boxGameQuestion -> gamename }}</strong><br><hr></p>
                 <p>
-                    {{ $boxgameQuestion -> game_explanation }}
+                    {{ $boxGameQuestion -> game_explanation }}
                 </p>
             </div>
         </div>
@@ -380,7 +380,7 @@
         <div class="row">
             <div class="col-md-6 left-container">
                 <div class="question">
-                    <p>{{ $boxgameQuestion -> questions }}</p>
+                    <p>{{ $boxGameQuestion -> questions }}</p>
                 </div>
                 <div id="treasure-box">
                     <!-- <img class="img" id="randomImg" src="/images/boxes/triangle.png" alt=""> -->
@@ -391,7 +391,7 @@
             <div class="col-md-6 right-container">
                 <div class="code-container">
 <pre>
-{{ $boxgameQuestion -> template_code }}
+{!! $templateCode !!}
 </pre>
                 </div>
                 <div class="btn-container">
@@ -512,68 +512,10 @@
             // imgElement.style.display = 'none'; 
         }
 
-        /* 弄一個codeMirror出來，設定佈景、語言模式
-        var editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
-            lineNumbers: true,
-            mode: "text/x-java",
-            theme: "base16-dark"
-        });*/
 
-        // 移除註解及移除後的空白段落
-        function removeCommentsAndEmptyLines(code) {
-            // 利用正規表達式移除註解
-            let noComments = code.replace(/\/\/.*/g, '').trim();
-            // 移除空行
-            let noEmptyLines = noComments.split('\n').filter(line => line.trim() !== '').join('\n');
-            return noEmptyLines;
-        }
 
         var submitBtn = document.getElementById('send-code');
-        // 框架code
-        var templateCode = `for(){
-            for(){
-            }
-            for(){
-            }
-        }`;
-        submitBtn.addEventListener('click', () => {
-            // 獲取編輯器內文字，在"// 程式撰寫區域"之後的值並將其分開，取目標code，並去空白
-            var userCode = editor.getValue().split('// 程式撰寫區域')[1].trim();
-            if (userCode) {
-                // 執行剛剛移除註解的函式之後再將最外面的兩個大括號去除，就是我要判讀的code
-                var cleanedCode = removeCommentsAndEmptyLines(userCode).replace('\n    }\n}', '').trim();
-                if (cleanedCode && cleanedCode !== templateCode.trim()) {
-                    // 測試用
-                    // alert(templateCode.trim());
-                    alert('您輸入的code為：\n' + cleanedCode);
-                    // 將程式碼送入演算法，或是後端的判斷，如果success，顯現相應的效果，並執行通關
-                    // 跑fetch進後端
-                    fetch('/api/receive-usercode',{
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        },
-                        body: JSON.stringify({ 
-                            userCode: cleanedCode 
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log(data);
-                        if(data.message === 'OK'){
-                            alert('答對');
-                        }
-                    })
-
-
-                } else {
-                    alert('請輸入程式碼');
-                }
-            } else {
-                alert('請輸入程式碼');
-            }
-        });
+        
 
         function autoResize(input) {
             const currentWidth = input.offsetWidth;//現在的寬度

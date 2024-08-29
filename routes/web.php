@@ -2,6 +2,7 @@
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\KnowledgeCardController;
+use App\Http\Controllers\SecCountryController;
 use App\Models\Country;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -37,7 +38,9 @@ Route::middleware([
     // 顯示知識卡詳細內容
     Route::get('/knowledgecard/{card_id}', [KnowledgeCardController::class, 'showcardcontent'])->name('showcardcontent');
     // debug出題功能
-    Route::get('debug/{country_id}', [GameController::class, 'Debug'])->name('game.debugRD');
+    Route::get('/debug/{country_id}', [GameController::class, 'Debug'])->name('game.debugRD');
+    // 國家二導向遊戲畫面的函式
+    Route::get('/country/{country_id}/gameName/{gameName}', [SecCountryController::class, 'chooseGame'])->name('sec.GameChoose');
 });
 
 //測試用

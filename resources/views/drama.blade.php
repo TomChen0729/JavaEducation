@@ -87,7 +87,14 @@
             border-radius: 50%;
         }
 
-        .tls, .badwitch, .goodwitch, .narration, .scarecrow {
+        .creeptree,
+        .greendwarf,
+        .tinman,
+        .tls,
+        .badwitch,
+        .goodwitch,
+        .narration,
+        .scarecrow {
             display: flex;
             align-items: flex-start;
             color: #eee;
@@ -123,7 +130,7 @@
             margin-left: 20px;
         }
 
-        .skip a:hover{
+        .skip a:hover {
             color: white;
         }
     </style>
@@ -134,7 +141,7 @@
     <p id='cid' style="display: none;">{{ $currentCountry }}</p>
     <div class="container" id="click-area">
         <div class="header">
-            <h3>綠野仙蹤－蠻金之國篇</h3>
+            <h3>綠野仙蹤－{{ $countryName }}篇</h3>
         </div>
 
         <div class="chat-container" id="chat-container">
@@ -158,22 +165,23 @@
         var dialogues = @json($dramas);
         const backgroundImageUrl = "{{ $backgroundImg }}";
         console.log(backgroundImageUrl);
-        document.body.style.backgroundImage = `url('/images/drama/country1/background/${backgroundImageUrl}')`;
+        document.body.style.backgroundImage = `url('/images/drama/country{{ $currentCountry }}/background/${backgroundImageUrl}')`;
         console.log(dialogues);
 
         let currentDialogueIndex = 0;
-        var c_id = parseInt(document.getElementById('cid').textContent);
         
-        console.log(c_id);
         clickArea.addEventListener('click', displayNextMessage);
 
         function displayNextMessage() {
             if (currentDialogueIndex < dialogues.length) {
-                const { sender, message } = dialogues[currentDialogueIndex];
+                const {
+                    sender,
+                    message
+                } = dialogues[currentDialogueIndex];
                 appendMessage(sender, message);
                 currentDialogueIndex++;
             } else {
-                window.location.href = `/country/${c_id}`; // 結束後跳轉過去country.index，這是他的路徑
+                window.location.href = `/country/{{ $currentCountry }}`; // 結束後跳轉過去country.index，這是他的路徑
             }
         }
 
@@ -190,26 +198,35 @@
             // 根據誰傳送訊息，機器人或user增加icon
             switch (sender) {
                 case 'tls':
-                    iconElement.style.backgroundImage = 'url("/images/drama/country1/role/tls.svg")';
+                    iconElement.style.backgroundImage = 'url("/images/drama/country{{ $currentCountry }}/role/tls.svg")';
                     break;
                 case 'scarecrow':
-                    iconElement.style.backgroundImage = 'url("/images/drama/country1/role/scarecrow.svg")';
+                    iconElement.style.backgroundImage = 'url("/images/drama/country{{ $currentCountry }}/role/scarecrow.svg")';
                     break;
                 case 'narration':
-                    iconElement.style.backgroundImage = 'url("/images/drama/country1/role/narration.svg")';
+                    iconElement.style.backgroundImage = 'url("/images/drama/country{{ $currentCountry }}/role/narration.svg")';
                     break;
                 case 'badwitch':
-                    iconElement.style.backgroundImage = 'url("/images/drama/country1/role/badwitch.svg")';
+                    iconElement.style.backgroundImage = 'url("/images/drama/country{{ $currentCountry }}/role/badwitch.svg")';
                     break;
                 case 'goodwitch':
-                    iconElement.style.backgroundImage = 'url("/images/drama/country1/role/goodwitch.svg")';
+                    iconElement.style.backgroundImage = 'url("/images/drama/country{{ $currentCountry }}/role/goodwitch.svg")';
+                    break;
+                case 'creeptree':
+                    iconElement.style.backgroundImage = 'url("/images/drama/country{{ $currentCountry }}/role/creeptree.svg")';
+                    break;
+                case 'greendwarf':
+                    iconElement.style.backgroundImage = 'url("/images/drama/country{{ $currentCountry }}/role/greendwarf.svg")';
+                    break;
+                case 'tinman':
+                    iconElement.style.backgroundImage = 'url("/images/drama/country{{ $currentCountry }}/role/tinman.svg")';
                     break;
             }
 
             chatElement.appendChild(iconElement);
             chatElement.appendChild(messageElement);
             chatLog.appendChild(chatElement);
-            
+
             // 確保頁面滾動到最新消息
             setTimeout(() => {
                 chatContainer.scrollTop = chatContainer.scrollHeight;
