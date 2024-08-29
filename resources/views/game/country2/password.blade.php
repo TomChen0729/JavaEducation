@@ -225,6 +225,7 @@
             margin-top: 2%;
             position: relative;
             transition: transform 0.5s ease-in-out;
+            z-index: 1;
         }
 
         .left-container {
