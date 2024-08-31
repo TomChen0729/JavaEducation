@@ -34,11 +34,17 @@
         .container .box-container .box{
             box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
             border-radius: 5px;
-            background: #f3e7e9;
             text-align: center;
             padding: 30px 20px;
         }
-
+        /* 使用者擁有卡片的顏色 */
+        .owned-card {
+            background-color: #ffffff;
+        }
+        /* 使用者尚未擁有卡片的顏色 */
+        .unowned-card {
+            background-color: #f3e7e9;
+        }
         .container .box-container .box h3{
             color: #444;
             font-size: 22px;
@@ -84,7 +90,10 @@
     <div class="container">
         <div class="box-container">
             @foreach($all_cards as $all_card)
-                <div class="box">
+                @php
+                    $owned = $user_cards_id->contains($all_card->id);
+                @endphp
+                <div class="box {{ $owned ? 'owned-card' : 'unowned-card' }}">
                     <h3>{{ $all_card -> name }}</h3>
                     <a href="{{ route('showcardcontent', ['card_id' => $all_card -> id]) }}" class="btn">Read More</a>
                 </div>

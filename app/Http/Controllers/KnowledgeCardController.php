@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CardType;
 use App\Models\KnowledgeCard;
+use App\Models\UserKnowledgeCard;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\FuncCall;
@@ -26,7 +27,10 @@ class KnowledgeCardController extends Controller
     // 顯示該分類底下所有的片
     public function showallcards(int $card_type_id){
         $all_cards = KnowledgeCard::where('card_type_id', $card_type_id)->get();
-        return view('knowledge.knowledge', ['all_cards' => $all_cards]);
+        // 找出使用者擁有的卡片
+        $current_user = auth()->user()->id;
+        $user_cards_id = UserKnowledgeCard::with('knowledge_card_id')->where('user_id',$current_user)->pluck('knowledge_card_id');
+        return view('knowledge.knowledge', ['all_cards' => $all_cards,'user_cards_id' => $user_cards_id]);
     }
 
 
