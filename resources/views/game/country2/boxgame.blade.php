@@ -407,14 +407,8 @@
             document.getElementById("popup").classList.toggle("active");
         }
 
-        function layer() {
-            const num = [3, 5, 7]; // 可選的階層數
-            const randomNum = Math.floor(Math.random() * num.length); // 隨機選擇一個索引
-            return num[randomNum]; // 返回隨機選擇的數字
-        }
-
         function triangle1() {
-            let n = layer();
+            let n = {{ $variable }};
             let result = ""; // 初始化 result
 
             for(let i = 1; i <= n; i++){
@@ -435,7 +429,7 @@
         }
 
         function triangle2() {
-            let n = layer();
+            let n = {{ $variable }};
             let result = ""; // 初始化 result
 
             for(let i = 1;i <= n;i++){
@@ -452,7 +446,7 @@
         }
 
         function triangle3() {
-            let n = layer();
+            let n = {{ $variable }};
             let result = ""; // 初始化 result
 
             for(let i = n; i >= 1; i--){
@@ -473,7 +467,7 @@
         }
 
         function triangle4() {
-            let n = layer();
+            let n = {{ $variable }};
             let result = ""; // 初始化 result
 
             for(let i = n;i >= 1;i--){
@@ -495,12 +489,36 @@
             const randomIndex = Math.floor(Math.random() * triangle.length);
             triangle[randomIndex]();
         }
-
+        
         // 加載頁面後執行
         document.addEventListener('DOMContentLoaded', function () {
             randomTriangle();
         });
 
+        // 呼叫目前題目，判斷三角形種類，呼叫triangle1~4
+        // document.addEventListener('DOMContentLoaded', function () {
+        //     switch ( {{$shape}} ) {
+        //         case 1:
+        //             triangle1();
+        //             break;
+        //         case 2:
+        //             triangle2();
+        //             break;
+        //         case 3:
+        //             triangle3();
+        //             break;
+        //         case 4:
+        //             triangle4();
+        //             break;
+        //         default:
+        //             break;
+        //     }
+        // });
+
+        // 點擊送出按鈕時讀取六個input中的值，並存放置陣列中
+        var submitBtn = document.getElementById('send-code');
+
+        // 開啟寶箱動畫
         function openBox() {
             const box = document.getElementById("treasure-box");
             box.classList.add("open");
@@ -511,11 +529,6 @@
             // const imgElement = document.getElementById("randomImg");
             // imgElement.style.display = 'none'; 
         }
-
-
-
-        var submitBtn = document.getElementById('send-code');
-        
 
         function autoResize(input) {
             const currentWidth = input.offsetWidth;//現在的寬度
