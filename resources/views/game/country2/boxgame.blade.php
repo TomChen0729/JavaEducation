@@ -511,11 +511,16 @@
 
             // 使用querySelectorAll選取所有type = "text"的input
             const inputs = document.querySelectorAll('input[type="text"]');
-
+            let index = 0;
             // 迴圈遍歷每個input，將值加入陣列
             inputs.forEach(input => {
+                index++;
                 inputsArray.push(input.value);
+                console.log('填寫的第' + index +'答案為' + input.value)
             });
+
+
+            // alert('你的答案' + inputsArray);
             
         });
 

@@ -103,7 +103,7 @@
                 </a>
             </div>
             <div class="button2">
-                <a href="#">
+                <a href="{{ route('sec.GameChoose', ['country_id' => $currentCountry, 'gameName' => '魔法門衛']) }}">
                     <img src="/images/country2choose/idcard.svg" alt="Button">
                 </a>
             </div>

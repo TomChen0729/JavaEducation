@@ -383,13 +383,9 @@
             <div class="close-btn" onclick="togglePopup1()">&times;</div>
             <div class="pop">
                 <h1>遊戲說明</h1>
-                <p><strong>魔法門衛</strong><br><hr></p>
+                <p><strong>{{ $idCardGameQuestion -> gamename }}</strong><br><hr></p>
                 <p>
-                    進入南國的你，發現南國士兵排查進城的人們效率太慢
-                    <br>而導致許多人需要在外面排隊至少三天三夜才能進城。
-                    <br>許多的商人會的商品會因此爛掉或變質，商人們苦不堪言。
-                    <br>你剛好看到他們在招攬專業人才「希望能想出快速通關進城的解決方法。｣
-                    <br>請發揮你的才能，幫助他們解決問題！！
+                {{ $idCardGameQuestion -> game_explanation }}
                 </p>
             </div>
         </div>
@@ -425,9 +421,7 @@
         <div class="row">
             <div class="col-md-6 left-container">
                 <div class="question">
-                    <p>使用 for 迴圈收集今日進城的身份證，並使用 if...else 判斷是否為怪物
-                        <br>怪物禁止進入城堡，其他村民和商人免費進入
-                    </p>
+                    <p>{{ $idCardGameQuestion -> questions }}</p>
                 </div>
                 <div id="idcard">
                     <img class="img" id="seal" src="/images/idcard/idcardseal.svg" alt="">
@@ -451,23 +445,7 @@
             <div class="col-md-6 right-container">
                 <div class="code-container">
 <pre>
-public class StarPatterns {
-    public static void main(String[] args) {
-        int n = 10; // 今日進城人數
-
-        for(<input type="text" id="iInit" placeholder="____" oninput="autoResize(this)">; <input type="text" id="iInit" placeholder="____" oninput="autoResize(this)">; <input type="text" id="addInit" placeholder="____" oninput="autoResize(this)">){
-            
-            // 判斷是否為怪物
-            if (x == <input type="text" id="monstarInit" placeholder="____" oninput="autoResize(this)">) {
-                <input type="text" id="noInit" placeholder="____" oninput="autoResize(this)"> // 印出禁止進入
-            }
-    
-            else {
-                <input type="text" id="freeInit" placeholder="____" oninput="autoResize(this)"> // 印出免費進入
-            }
-        }
-    }
-}
+{!! $templateCode !!}
 </pre>
                 </div>
                 <div class="btn-container">
@@ -479,6 +457,9 @@ public class StarPatterns {
     
     <!-- JavaScript -->
     <script>
+
+        var idCardsData = @json($idCardsData);
+        console.log(idCardsData);
         // 畫面載入後顯示彈跳視窗
         function togglePopup1() {
             document.getElementById("popup").classList.toggle("active");
