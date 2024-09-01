@@ -407,8 +407,10 @@
             document.getElementById("popup").classList.toggle("active");
         }
 
+        const variable = {{ $variable }};
+        const shape = {{ $boxGameQuestion -> shape }};
         function triangle1() {
-            let n = {{ $variable }};
+            let n = variable;
             let result = ""; // 初始化 result
 
             for(let i = 1; i <= n; i++){
@@ -429,7 +431,7 @@
         }
 
         function triangle2() {
-            let n = {{ $variable }};
+            let n = variable;
             let result = ""; // 初始化 result
 
             for(let i = 1;i <= n;i++){
@@ -446,7 +448,7 @@
         }
 
         function triangle3() {
-            let n = {{ $variable }};
+            let n = variable;
             let result = ""; // 初始化 result
 
             for(let i = n; i >= 1; i--){
@@ -467,7 +469,7 @@
         }
 
         function triangle4() {
-            let n = {{ $variable }};
+            let n = variable;
             let result = ""; // 初始化 result
 
             for(let i = n;i >= 1;i--){
@@ -496,24 +498,24 @@
         });
 
         // 呼叫目前題目，判斷三角形種類，呼叫triangle1~4
-        // document.addEventListener('DOMContentLoaded', function () {
-        //     switch ( {{$shape}} ) {
-        //         case 1:
-        //             triangle1();
-        //             break;
-        //         case 2:
-        //             triangle2();
-        //             break;
-        //         case 3:
-        //             triangle3();
-        //             break;
-        //         case 4:
-        //             triangle4();
-        //             break;
-        //         default:
-        //             break;
-        //     }
-        // });
+        document.addEventListener('DOMContentLoaded', function () {
+            switch ($shape) {
+                case '倒序排列':
+                    triangle1();
+                    break;
+                case '正序排列':
+                    triangle2();
+                    break;
+                case '金字塔':
+                    triangle3();
+                    break;
+                case '倒金字塔':
+                    triangle4();
+                    break;
+                default:
+                    break;
+            }
+        });
 
         // 點擊送出按鈕時讀取六個input中的值，並存放置陣列中
         var submitBtn = document.getElementById('send-code');
