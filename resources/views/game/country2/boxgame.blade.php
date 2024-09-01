@@ -407,10 +407,43 @@
             document.getElementById("popup").classList.toggle("active");
         }
 
-        const variable = {{ $variable }};
-        const shape = {{ $boxGameQuestion -> shape }};
+        var shape = '{{ $boxGameQuestion -> shape }}';
         function triangle1() {
-            let n = variable;
+            let n = {{ $variable }};
+            let result = ""; // 初始化 result
+
+            for(let i = n;i >= 1;i--){
+                let star = "";
+
+                for(let j = 1;j <= 2 * i - 1; j++){
+                    star += "*";
+                }
+
+                result += star + "\n"; // 將一行星號加到 result
+            }
+            // 使用result一次更新DOM直接展示，而不是分段更新展示
+            document.getElementById('star').innerText = result;
+        }
+
+        function triangle2() {
+            let n = {{ $variable }};
+            let result = ""; // 初始化 result
+
+            for(let i = 1;i <= n;i++){
+                let star = "";
+
+                for(let j = 1;j <= 2 * i - 1; j++){
+                    star += "*";
+                }
+
+                result += star + "\n"; // 將一行星號加到 result
+            }
+            // 使用result一次更新DOM直接展示，而不是分段更新展示
+            document.getElementById('star').innerText = result;
+        }
+
+        function triangle3() {
+            let n = {{ $variable }};
             let result = ""; // 初始化 result
 
             for(let i = 1; i <= n; i++){
@@ -430,25 +463,8 @@
             document.getElementById('star').innerText = result;
         }
 
-        function triangle2() {
-            let n = variable;
-            let result = ""; // 初始化 result
-
-            for(let i = 1;i <= n;i++){
-                let star = "";
-
-                for(let j = 1;j <= 2 * i - 1; j++){
-                    star += "*";
-                }
-
-                result += star + "\n"; // 將一行星號加到 result
-            }
-            // 使用result一次更新DOM直接展示，而不是分段更新展示
-            document.getElementById('star').innerText = result;
-        }
-
-        function triangle3() {
-            let n = variable;
+        function triangle4() {
+            let n = {{ $variable }};
             let result = ""; // 初始化 result
 
             for(let i = n; i >= 1; i--){
@@ -457,7 +473,7 @@
                 for(let j = 1; j <= n - i; j++){
                     star += " ";
                 }
-                
+
                 for(let j = 1; j <= 2 * i - 1; j++){
                     star += "*";
                 }
@@ -468,38 +484,9 @@
             document.getElementById('star').innerText = result;
         }
 
-        function triangle4() {
-            let n = variable;
-            let result = ""; // 初始化 result
-
-            for(let i = n;i >= 1;i--){
-                let star = "";
-
-                for(let j = 1;j <= 2 * i - 1; j++){
-                    star += "*";
-                }
-
-                result += star + "\n"; // 將一行星號加到 result
-            }
-            // 使用result一次更新DOM直接展示，而不是分段更新展示
-            document.getElementById('star').innerText = result;
-        }
-
-        // 隨機調用triangle1~4
-        function randomTriangle() {
-            const triangle = [triangle1, triangle2, triangle3, triangle4];
-            const randomIndex = Math.floor(Math.random() * triangle.length);
-            triangle[randomIndex]();
-        }
-        
-        // 加載頁面後執行
-        document.addEventListener('DOMContentLoaded', function () {
-            randomTriangle();
-        });
-
         // 呼叫目前題目，判斷三角形種類，呼叫triangle1~4
         document.addEventListener('DOMContentLoaded', function () {
-            switch ($shape) {
+            switch ( shape ) {
                 case '倒序排列':
                     triangle1();
                     break;
