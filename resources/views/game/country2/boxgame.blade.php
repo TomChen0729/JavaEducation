@@ -517,6 +517,18 @@
 
         // 點擊送出按鈕時讀取六個input中的值，並存放置陣列中
         var submitBtn = document.getElementById('send-code');
+        submitBtn.addEventListener('click', function() {
+            let inputsArray = [];
+
+            // 使用querySelectorAll選取所有type = "text"的input
+            const inputs = document.querySelectorAll('input[type="text"]');
+
+            // 迴圈遍歷每個input，將值加入陣列
+            inputs.forEach(input => {
+                inputsArray.push(input.value);
+            });
+            
+        });
 
         // 開啟寶箱動畫
         function openBox() {
