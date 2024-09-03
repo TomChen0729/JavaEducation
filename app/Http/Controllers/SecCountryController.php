@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PassCourseGetCard;
+use App\Models\PassCourseNeedCard;
 use App\Models\SecQuestion;
 use App\Models\SecRecord;
+use App\Models\UserKnowledgeCard;
 use App\Services\GameService;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
@@ -59,6 +62,32 @@ class SecCountryController extends Controller
 
         return $idCards;
     }
+
+    // 檢查關卡進入點
+    public function checkUserCards(int $sec_Qid){
+        // 這關需要的卡片
+        $needCards = PassCourseNeedCard::where('sec_Qid', $sec_Qid)->pluck('knowledge_card_id')->toArray();
+        // 玩家有的卡片
+        $userCards = UserKnowledgeCard::where('user_id', auth()->user()->id)->pluck('knowledge_card_id')->toArray();
+        // 如果這關需要的卡片是空的話直接回傳true
+        if($needCards == Null){
+            return true;
+        }else{ // 如果不是進行判斷
+            // 找出使用者缺少的卡片
+            $missingCards = array_diff($needCards, $userCards);
+            // 如果沒有等同於使用者可以進入關卡
+            if($missingCards == Null){
+                return true;
+            }else{ // 如果有我就要回傳他缺少的
+                return [
+                    'status' => false,
+                    'missingCards' => $missingCards
+                ];
+            }
+        }
+    }
+
+    // 根據icon導向遊戲
     public function chooseGame(Request $request, int $country_id, string $gameName)
     {
         if ($request->isMethod('get')) {
@@ -67,7 +96,8 @@ class SecCountryController extends Controller
                 // 如果沒玩過或是全對的話，隨便random
                 case '魔法寶箱':
                     // 排查
-                    // 檢查checkSecRecord()的回傳結果
+                    // 檢查是否能進入->checkUserCards($sec_Qid)
+                    // 檢查checkSecRecord($gameName, $country_id)的回傳結果
                     // 玩過
                     // if($this->checkSecRecord($gameName, $country_id)){
 
@@ -104,6 +134,18 @@ class SecCountryController extends Controller
         }
     }
 
+    // 派發知識卡的函式
+    public function giveUserCards(int $sec_Qid){
+        $randGiveCard = PassCourseGetCard::where('sec_Qid', $sec_Qid)->inRandomOrder()->first();
+        $data = [
+            'user_id' => auth()->user()->id,
+            'knowledge_card_id' => $randGiveCard->id,
+        ];
+
+        UserKnowledgeCard::insert($data);
+
+        return $randGiveCard;
+    }
 
     // 批改&紀錄
     public function checkUserAnswer(Request $request)
