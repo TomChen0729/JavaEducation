@@ -486,7 +486,7 @@
 
         // 呼叫目前題目，判斷三角形種類，呼叫triangle1~4
         document.addEventListener('DOMContentLoaded', function () {
-            switch ( shape ) {
+            switch (shape) {
                 case '倒序排列':
                     triangle1();
                     break;

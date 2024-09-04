@@ -355,12 +355,9 @@
             <div class="close-btn" onclick="togglePopup1()">&times;</div>
             <div class="pop">
                 <h1>遊戲說明</h1>
-                <p><strong>通關密碼</strong><br><hr></p>
+                <p><strong>{{ $passwordGameQuestion -> gamename }}</strong><br><hr></p>
                 <p>
-                    <br>在蠻金之國與南國之間有一片神秘的森林
-                    <br>傳說中只有掌握正確通關密碼的人才能安全穿越這片森林並到達南國
-                    <br>你的任務是破解密碼並把大門密碼輸出到螢幕上
-                    <br>幫助桃樂絲一行人順利往南國前進。
+                    {{ $passwordGameQuestion -> game_explanation }}
                 </p>
             </div>
         </div>
@@ -396,17 +393,13 @@
     <div class="left">
         <div class="paper">
             <h1>PASSWROD</h1>
-            <p>格式：</p>
-            <p>密碼：</p>
+            <p>密碼：{{ $variable }}</p>
         </div>
     </div>
 
     <div class="containers">
         <div class="question">
-            <p>通關密碼需要在螢幕上顯示大門才會打開
-                <br>請點擊「密碼紙」查看需要輸出的格式及密碼
-                <br>再點擊「程式密碼鎖」使用指定格式並輸出正確密碼!
-            </p>
+            <p>{{ $passwordGameQuestion -> questions }}</p>
         </div>
         <div class="row">
             <div class="col-md-12 images">
@@ -424,11 +417,7 @@
     <div class="right">
         <div class="code-container">
 <pre>
-public class StarPatterns {
-    public static void main(String[] args) {
-        <input type="text" id="iInit" placeholder="____" oninput="autoResize(this)">// 输出 "Password"
-    }
-}
+{!! $templateCode !!}
 </pre>
         </div>
     </div>

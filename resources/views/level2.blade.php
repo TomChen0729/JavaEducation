@@ -98,7 +98,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="button">
-                    <a href="password">
+                    <a href="{{ route('sec.GameChoose', ['country_id' => $currentCountry, 'gameName' => '通關密碼']) }}">
                     <img src="/images/country2choose/password.svg" alt="Button">
                 </a>
             </div>

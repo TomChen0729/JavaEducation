@@ -125,6 +125,15 @@ class SecCountryController extends Controller
                     $templateCode = str_replace('$variable', $variable, $templateCode);
                     $idCardsData = $this->generateID($variable);
                     return view('game.country2.idcardgame', ['idCardGameQuestion' => $idCardQuestion, 'templateCode' => $templateCode, 'variable' => $variable, 'idCardsData' => $idCardsData]);
+                
+                case '通關密碼':
+                    // 隨機產生的密碼
+                    $variable = rand(1000, 9999);
+                    $passwordGameQuestion = SecQuestion::where('country_id', $country_id)
+                    ->where('gamename', $gameName)
+                    ->inRandomOrder()->first();
+                    $templateCode = $passwordGameQuestion->template_code;
+                    return view('game.country2.password', ['passwordGameQuestion' => $passwordGameQuestion,  'variable' => $variable, 'templateCode' => $templateCode]);
                 default:
                     //
                     return response('error');
@@ -157,6 +166,8 @@ class SecCountryController extends Controller
                 case '寶箱遊戲':
                     //進一步解析userAnswer
                 case '魔法門衛':
+                    //進一步解析userAnswer
+                case '通關密碼':
                     //進一步解析userAnswer
                 default:
                     return response('沒有這個遊戲類型');
