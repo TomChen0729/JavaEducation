@@ -159,7 +159,7 @@ class SecCountryController extends Controller
     // 批改&紀錄
     public function checkUserAnswer(Request $request)
     {
-        if ($request->isMethod('post')) {
+        if ($request->isMethod('POST')) {
             // 從回傳的json解析題目資訊，因為每題的答案不一樣
             $gameName = $request->input('gameName');
             switch ($gameName) {

@@ -117,7 +117,7 @@
             transition: all 300ms ease-in-out;
             transform: translate(-50%, -50%) scale(1);
         }
-        
+
         .header {
             position: absolute;
             width: 100%;
@@ -277,7 +277,7 @@
             width: 150px;
             height: 200px;
             position: relative;
-            top: 68%;  
+            top: 68%;
             left: 52%;
             transform: translate(-45%, -40%);
         }
@@ -373,7 +373,7 @@
                 <div class="bx bx-menu" id="menu-icon"></div>
             </div>
         </div>
-        
+
     </div>
 
     <div class="container-fluid">
@@ -520,8 +520,29 @@
             });
 
 
-            // alert('你的答案' + inputsArray);
-            
+            userAnswer = inputsArray;
+            url = '/api/checkUserAnswer';
+            fetch($url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                body: JSON.stringify({
+                    user_answer: userAnswer,
+                    country_id:  currentCountry,
+                    game_type: '魔法寶箱'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message == 'correct'){
+
+                }else{
+
+                }
+            })
+
         });
 
         // 開啟寶箱動畫
@@ -533,7 +554,7 @@
             stars.classList.add("open");
 
             // const imgElement = document.getElementById("randomImg");
-            // imgElement.style.display = 'none'; 
+            // imgElement.style.display = 'none';
         }
 
         function autoResize(input) {
@@ -544,7 +565,7 @@
                 input.style.width = newWidth + 'px';  // 新寬度>現在寬度就增加寬度
             }
             else{
-                input.style.width = 80 + 'px' ;  
+                input.style.width = 80 + 'px' ;
             }
         }
     </script>

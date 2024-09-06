@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\KnowledgeCardController;
+use App\Http\Controllers\SecCountryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,11 +18,5 @@ Route::get('/matchuserecord',[GameController::class,'matchuserecord']);
 Route::get('/correctDebug', [GameController::class, 'correctDebug']);
 // show 卡片內容，在玩學習區那邊右下角彈窗的那個
 Route::get('/show-card-detail', [KnowledgeCardController::class, 'showCurrentCard']);
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    
-    
-});
+// 南國開始用來批改玩家答案的api路徑
+Route::post('/checkUserAnswer', [SecCountryController::class, 'checkUserAnswer']);
