@@ -467,14 +467,15 @@
 
 
         function autoResize(input) {
-            const currentWidth = input.offsetWidth;//現在的寬度
-            const newWidth = input.scrollWidth;//新寬度
+            const newWidth = input.scrollWidth;
+            const minWidth = 80;
 
-            if (newWidth > currentWidth) {
-                input.style.width = newWidth + 'px';  // 新寬度>現在寬度就增加寬度
-            }
-            else{
-                input.style.width = 80 + 'px' ;  
+            // 字數0時回到最小寬度
+            if (input.value === "") {
+                input.style.width = minWidth + 'px';
+            } else {
+                // 隨著字數增加寬度不小於 minWidth
+                input.style.width = Math.max(newWidth, minWidth) + 'px';
             }
         }
 
@@ -539,6 +540,28 @@
                 
             }, 500); // 預設動畫持續1秒
         }
+
+        /*測試遮變數
+        document.addEventListener('DOMContentLoaded', (event) => {
+            let isCorrect = false; // 初始還沒答對
+
+            // 監聽提交按鈕的點擊事件
+            document.getElementById('send-code').addEventListener('click', function() {
+                // 答題判斷，設置 isCorrect
+                isCorrect = true;
+
+                if (isCorrect) {
+                    // 顯示隱藏的變數
+                    const hiddenVariable = document.getElementById('hidden-variable');
+                    hiddenVariable.style.display = 'inline'; // 使用 'inline' 對齊
+
+                    // 移除括號
+                    hiddenVariable.innerHTML = hiddenVariable.innerHTML.replace(/[{}]/g, ''); 
+                }
+            });
+        });*/
+
+
 
     </script>
 </body>

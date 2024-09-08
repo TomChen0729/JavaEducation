@@ -423,6 +423,7 @@
             }
             // 使用result一次更新DOM直接展示，而不是分段更新展示
             document.getElementById('star').innerText = result;
+
         }
 
         function triangle2() {
@@ -558,16 +559,18 @@
         }
 
         function autoResize(input) {
-            const currentWidth = input.offsetWidth;//現在的寬度
-            const newWidth = input.scrollWidth;//新寬度
+            const newWidth = input.scrollWidth;
+            const minWidth = 80;
 
-            if (newWidth > currentWidth) {
-                input.style.width = newWidth + 'px';  // 新寬度>現在寬度就增加寬度
-            }
-            else{
-                input.style.width = 80 + 'px' ;
+            // 字數0時回到最小寬度
+            if (input.value === "") {
+                input.style.width = minWidth + 'px';
+            } else {
+                // 隨著字數增加寬度不小於 minWidth
+                input.style.width = Math.max(newWidth, minWidth) + 'px';
             }
         }
+
     </script>
 </body>
 
