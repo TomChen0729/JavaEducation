@@ -17,7 +17,7 @@
     }
 
     .container {
-        margin-top: 150px;
+        margin-top: 100px;
         padding: 15px 9%;
         padding-bottom: 100px;
     }
@@ -74,10 +74,55 @@
         background-color: #ea9999;
     }
 
-    /* .container .box-container .box:hover{
-            box-shadow: 0 10px 15px rgba(0,0,0,.3);
-            transform: scale(1.03);
-        } */
+    .head {
+        background-color: #a5948c;
+        border: 5px solid #d4b0a5;
+        border-radius: 20px;
+        padding: 10px;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between; /* 在左右對齊 */
+        align-items: center; /* 使內容垂直居中 */
+    }
+
+    .breadcrumbs {
+        display: inline-flex;
+        letter-spacing: 5px;
+        font-size: 20px;
+        font-family: sans-serif;
+    }
+
+    .breadcrumbs__item {
+        display: inline-block;
+    }
+
+    .breadcrumbs__item:not(:last-of-type)::after {
+        content: '\203a';
+        margin: 0 10px 0 5px;
+        color: #fff;
+    }
+
+    .breadcrumbs__link {
+        text-decoration: none;
+        color: #fff;
+        font-weight: bold;
+    }
+
+    .breadcrumbs__link:hover {
+        text-decoration: underline;
+        text-decoration: none;
+        color: gray;
+    }
+
+    .breadcrumbs__link__active {
+        text-decoration: none;
+        color: 	#B6D3DC;
+        font-weight: bold;
+    }
+
+    .breadcrumbs__link__active:hover {
+        color: #d4b0a5;
+    }
 
     @media (max-width: 768px) {
         .container {
@@ -89,6 +134,20 @@
 
 @section('content')
 <div class="container">
+    <div class="head">
+        <ul class="breadcrumbs">
+            <li class="breadcrumbs__item">
+                <a href="{{ route('showallcardtypes') }}" class="breadcrumbs__link">知識卡</a>
+            </li>
+            <li class="breadcrumbs__item">
+                <a href="#" class="breadcrumbs__link">資料型態</a>
+            </li>
+            <li class="breadcrumbs__item">
+                <a href="#" class="breadcrumbs__link__active">float</a>
+            </li>
+        </ul>
+    </div>
+
     <div class="box-container" style="display: grid; width:100%">
         @if ($current_card != null)
         <div class="box">
