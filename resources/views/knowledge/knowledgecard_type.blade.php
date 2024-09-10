@@ -95,53 +95,15 @@
             border: 5px solid #d4b0a5;
             border-radius: 20px;
             padding: 10px;
+            margin-bottom: 20px;
             display: flex;
-            justify-content: space-between; /* 在左右對齊 */
+            justify-content: end;
             align-items: center; /* 使內容垂直居中 */
-        }
-
-        .breadcrumbs {
-            display: inline-flex;
-            letter-spacing: 5px;
-            font-size: 20px;
-            font-family: sans-serif;
-        }
-
-        .breadcrumbs__item {
-            display: inline-block;
-        }
-
-        .breadcrumbs__item:not(:last-of-type)::after {
-            content: '\203a';
-            margin: 0 10px 0 5px;
-            color: #fff;
-        }
-
-        .breadcrumbs__link {
-            text-decoration: none;
-            color: #fff;
-            font-weight: bold;
-        }
-
-        .breadcrumbs__link:hover {
-            text-decoration: underline;
-            text-decoration: none;
-            color: gray;
-        }
-
-        .breadcrumbs__link__active {
-            text-decoration: none;
-            color: 	#B6D3DC;
-            font-weight: bold;
-        }
-
-        .breadcrumbs__link__active:hover {
-            color: #d4b0a5;
         }
 
         .boxes {
             display: inline-flex;
-            height: 30px;
+            height: 50px;
             cursor: pointer;
             padding: 10px 20px;
             border-radius: 30px;
@@ -153,27 +115,28 @@
 
         .boxes input {
             color: gray;
-            width: 0;
+            width: 100%;
             outline: none;
             border: none;
             font-weight: 500;
+            font-size: 20px;
             transition: width 0.8s;
             background: transparent;
-            padding: 0; 
+            padding: 0;
         }
 
         .boxes input:focus {
-            box-shadow: none; /* 移除聚焦時的陰影 */
-            outline: none; /* 移除藍框 */
+            box-shadow: none;
+            outline: none;
         }
 
-        .boxes:hover input {
-            width: 250px; /* 當用戶懸停時，展開input */
-        }
+        /* .boxes:hover input {
+            width: 250px;
+        } */
 
         .boxes a .fas {
             color: #d4b0a5;
-            font-size: 18px;
+            font-size: 20px;
             margin-left: 10px;
         }
 
@@ -188,11 +151,6 @@
 @section('content')
     <div class="container">
         <div class="head">
-            <ul class="breadcrumbs">
-                <li class="breadcrumbs__item">
-                    <a href="{{ route('showallcardtypes') }}" class="breadcrumbs__link">知識卡</a>
-                </li>
-            </ul>
             <div class="boxes">
                 <input type="text" placeholder="Search...">
                 <a href="#">

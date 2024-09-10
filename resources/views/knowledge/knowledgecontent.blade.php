@@ -75,54 +75,56 @@
     }
 
     .head {
-        background-color: #a5948c;
-        border: 5px solid #d4b0a5;
-        border-radius: 20px;
-        padding: 10px;
-        margin-bottom: 20px;
-        display: flex;
-        justify-content: space-between; /* 在左右對齊 */
-        align-items: center; /* 使內容垂直居中 */
-    }
+            background-color: #a5948c;
+            border: 5px solid #d4b0a5;
+            border-radius: 20px;
+            padding: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between; /* 在左右對齊 */
+            align-items: center; /* 使內容垂直居中 */
+        }
 
-    .breadcrumbs {
-        display: inline-flex;
-        letter-spacing: 5px;
-        font-size: 20px;
-        font-family: sans-serif;
-    }
+        .breadcrumbs {
+            display: inline-flex;
+            letter-spacing: 5px;
+            font-size: 24px;
+            font-family: sans-serif;
+        }
 
-    .breadcrumbs__item {
-        display: inline-block;
-    }
+        .breadcrumbs__item {
+            display: inline-block;
+        }
 
-    .breadcrumbs__item:not(:last-of-type)::after {
-        content: '\203a';
-        margin: 0 10px 0 5px;
-        color: #fff;
-    }
+        .breadcrumbs__item:not(:last-of-type)::after {
+            content: '\203a';
+            margin: 0 10px 0 5px;
+            font-size: 25px;
+            color: #fff;
+        }
 
-    .breadcrumbs__link {
-        text-decoration: none;
-        color: #fff;
-        font-weight: bold;
-    }
+        .breadcrumbs__link {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+        }
 
-    .breadcrumbs__link:hover {
-        text-decoration: underline;
-        text-decoration: none;
-        color: gray;
-    }
+        .breadcrumbs__link:hover {
+            text-decoration: underline;
+            text-decoration: none;
+            color: gray;
+        }
 
-    .breadcrumbs__link__active {
-        text-decoration: none;
-        color: 	#B6D3DC;
-        font-weight: bold;
-    }
+        .breadcrumbs__link__active {
+            text-decoration: none;
+            color: 	#B6D3DC;
+            font-weight: bold;
+            text-shadow: 0 10px 15px rgba(0,0,0,0.3);
+        }
 
-    .breadcrumbs__link__active:hover {
-        color: #d4b0a5;
-    }
+        .breadcrumbs__link__active:hover {
+            color: #d4b0a5;
+        }
 
     @media (max-width: 768px) {
         .container {
