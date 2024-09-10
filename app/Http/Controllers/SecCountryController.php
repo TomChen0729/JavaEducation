@@ -10,6 +10,7 @@ use App\Models\UserKnowledgeCard;
 use App\Services\GameService;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
+use Mockery\Generator\Parameter;
 
 class SecCountryController extends Controller
 {
@@ -22,6 +23,7 @@ class SecCountryController extends Controller
     }
 
     // 檢查玩家沒有玩個該遊戲名稱的紀錄，如果有回傳當時參數
+    // 檢查是否正確紀錄為空
     public function checkSecRecord(string $gameName, int $country_id){
         $currentUserId = auth()->user()->id;
         $secUserRecords = SecQuestion::join('sec_records', 'sec_records.sec_Qid', '=', 'sec_questions.sec_Qid')
@@ -29,16 +31,31 @@ class SecCountryController extends Controller
         ->where('user_id', $currentUserId)
         ->where('gamename', $gameName)
         ->get();
-        if($secUserRecords->status == 'watched' || $secUserRecords->status == 'false'){
-            return $secUserRecords->parameter;
+        // 抓使用者是否有答對的紀錄
+        if($secUserRecords->where('status', 'true')->exists()){
+            $userSecRecords = $secUserRecords->where('status', 'true')->get();
+            return $userSecRecords;
+        }
+        // 如果沒有就往下查他是否有錯誤或未作答的紀錄
+        else if($secUserRecords->where('status', 'watched')->exists() || $secUserRecords->where('status', 'false')->exists()){
+            $userSecRecords = $secUserRecords->where('status', 'watched')->get();
+            return $userSecRecords;
         }else{
             return null;
         }
     }
 
-    // 當第一次遊玩的時候要紀錄時調用
-    public function recordWatchedParameter(){
-        
+    // 當第一次遊玩的時候要紀錄時調用(僅限第一次遊玩該遊戲時調用)
+    public function recordWatchedParameter(int $sec_Qid, array $parameter){
+        $data = [
+            'user_id' => auth()->user()->id,
+            'status' => 'watched',
+            'sec_Qid' => $sec_Qid,
+            'parameter' => $parameter,
+            'created_at' => now(),
+        ];
+
+        SecRecord::insert($data);
     }
 
     // 產生身分證的function
