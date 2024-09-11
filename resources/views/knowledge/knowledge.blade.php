@@ -92,7 +92,7 @@
         .breadcrumbs {
             display: inline-flex;
             letter-spacing: 5px;
-            font-size: 20px;
+            font-size: 24px;
             font-family: sans-serif;
         }
 
@@ -103,6 +103,7 @@
         .breadcrumbs__item:not(:last-of-type)::after {
             content: '\203a';
             margin: 0 10px 0 5px;
+            font-size: 25px;
             color: #fff;
         }
 
@@ -122,6 +123,7 @@
             text-decoration: none;
             color: 	#B6D3DC;
             font-weight: bold;
+            text-shadow: 0 10px 15px rgba(0,0,0,0.3);
         }
 
         .breadcrumbs__link__active:hover {
@@ -130,7 +132,7 @@
 
         .boxes {
             display: inline-flex;
-            height: 30px;
+            height: 50px;
             cursor: pointer;
             padding: 10px 20px;
             border-radius: 30px;
@@ -142,10 +144,11 @@
 
         .boxes input {
             color: gray;
-            width: 0;
+            width: 100%;
             outline: none;
             border: none;
             font-weight: 500;
+            font-size: 20px;
             transition: width 0.8s;
             background: transparent;
             padding: 0;
@@ -156,13 +159,13 @@
             outline: none;
         }
 
-        .boxes:hover input {
+        /* .boxes:hover input {
             width: 250px;
-        }
+        } */
 
         .boxes a .fas {
             color: #d4b0a5;
-            font-size: 18px;
+            font-size: 20px;
             margin-left: 10px;
         }
 

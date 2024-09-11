@@ -260,12 +260,8 @@
             transform: translate(50%, 50%); 
         }
 
-        .move-left {
-            transform: translateX(20%);
-        }
-
         .move-right {
-            transform: translateX(-50%);
+            transform: translateX(-30%);
         }
 
         .code-container {
@@ -318,7 +314,15 @@
 
         .paper{
             left: 0;
-            border: 5px solid gray;
+            padding: 10px;
+            background-color: #fff2cc;
+        }
+
+        .paper p{
+            margin-top: 10%;
+            font-weight: bold;
+            font-size: 26px;
+            text-align: center;
         }
 
         .row{
@@ -336,12 +340,14 @@
 
         .left {
             position: absolute;
-            left:100px;
+            right: 22%;
+            top: 30%;
         }
 
         .right {
             position: absolute;
-            right:180px;
+            right: 10%;
+            top: 50%;
         }
     </style>
 </head>
@@ -390,13 +396,6 @@
         
     </div>
 
-    <div class="left">
-        <div class="paper">
-            <h1>PASSWROD</h1>
-            <p>密碼：{{ $variable }}</p>
-        </div>
-    </div>
-
     <div class="containers">
         <div class="question">
             <p>{{ $passwordGameQuestion -> questions }}</p>
@@ -405,12 +404,16 @@
             <div class="col-md-12 images">
                 <img src="/images/password/closedoor.svg" alt="緊閉的大門">
             </div>
-            <div class="col-md-6 left-container">
-                <button type="button" class="btn btn-success" id="passwordPaperBtn">密碼紙</button>
-            </div>
             <div class="col-md-6 right-container">
                 <button type="button" class="btn btn-info" id="codeLockBtn">程式密碼鎖</button>
             </div>
+        </div>
+    </div>
+
+    <div class="left">
+        <div class="paper">
+            <h1>PASSWROD</h1>
+            <p>{{ $variable }}</p>
         </div>
     </div>
 
@@ -430,31 +433,20 @@
         }
 
         // 平移動畫
-        document.getElementById('passwordPaperBtn').addEventListener('click', function() {
-            const container = document.querySelector('.containers');
-            const leftDiv = document.querySelector('.left');
-
-            if (container.classList.contains('move-left')) {
-                container.classList.remove('move-left');
-                leftDiv.style.display = 'none'; 
-            } else {
-                container.classList.add('move-left');
-                container.classList.remove('move-right');
-                leftDiv.style.display = 'block'; 
-            }
-        });
-
         document.getElementById('codeLockBtn').addEventListener('click', function() {
             const container = document.querySelector('.containers');
             const rightDiv = document.querySelector('.right');
+            const leftDiv = document.querySelector('.left');
 
             if (container.classList.contains('move-right')) {
                 container.classList.remove('move-right');
                 rightDiv.style.display = 'none';
+                leftDiv.style.display = 'none'; 
             } else {
                 container.classList.add('move-right');
                 container.classList.remove('move-left');
                 rightDiv.style.display = 'block'; 
+                leftDiv.style.display = 'block'; 
             }
         });
 
