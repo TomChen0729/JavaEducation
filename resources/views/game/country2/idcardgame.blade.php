@@ -423,6 +423,7 @@
                 <div class="question">
                     <p>{{ $idCardGameQuestion -> questions }}</p>
                 </div>
+                @foreach($idCardsData as $item)
                 <div id="idcard">
                     <img class="img" id="seal" src="/images/idcard/idcardseal.svg" alt="">
                     <div id="message"></div> <!-- 動畫顯示文字 -->
@@ -433,13 +434,14 @@
                             </div>
                             <div class="col-md-6 right-container">
                                 <h1>身分證</h1>
-                                <p>身分：怪物</p>
-                                <p>年齡：90</p>
-                                <p>性別：無性別</p>
+                                <p>身分：{{ $item['identity'] }}</p>
+                                <p>年齡：{{ $item['age'] }}</p>
+                                <p>性別：{{ $item['gender'] }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
+                @endforeach
                 <button onclick="playStamp()">測試蓋章動畫</button>
             </div>
             <div class="col-md-6 right-container">
