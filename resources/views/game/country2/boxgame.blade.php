@@ -265,7 +265,7 @@
         #treasure-box {
             margin-top: 10px;
             width: 100%;
-            height: 400px;
+            height: 500px;
             background: url('/images/boxes/closebox1.svg') no-repeat center;
             transition: background 0.5s;
         }
@@ -273,24 +273,21 @@
         .star{
             white-space: pre; /* 保留空格和換行 */
             font-family: monospace; /* 使用等寬字體 */
-            font-size: 14px;
-            width: 150px;
-            height: 200px;
+            font-size: 20px;
             position: relative;
-            top: 68%;
-            left: 52%;
-            transform: translate(-45%, -40%);
+            top: 45%;
+            left: 43%;
         }
 
         .star.open{
             text-shadow: 0 0 0.2em white, 0 0 0.2em white, 0 0 0.2em white;
-            transform: translate(-60%, -10%);
+            top: 65%;
+            left: 40%;
         }
 
         #treasure-box.open {
             background: url('/images/boxes/openbox1.svg') no-repeat center;
             width: 100%;
-            height: 500px;
             background-size: contain;
         }
 
