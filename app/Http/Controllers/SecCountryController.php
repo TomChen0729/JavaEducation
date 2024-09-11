@@ -51,10 +51,10 @@ class SecCountryController extends Controller
         ];
         //初始化四個狀態
         $data = [
-            array_merge($defaultdata,['status' => 'watched']),
-            array_merge($defaultdata,['status' => 'true']),
-            array_merge($defaultdata,['status' => 'false']),
-            array_merge($defaultdata,['status' => 'watch_again']),
+            array_merge($defaultdata,['status' => 'watched', 'counter'=>1]),
+            array_merge($defaultdata,['status' => 'true', 'counter'=>0]),
+            array_merge($defaultdata,['status' => 'false', 'counter'=>0]),
+            array_merge($defaultdata,['status' => 'watch_again', 'counter'=>0]),
         ];
         SecRecord::insert($data);
     }
@@ -119,6 +119,7 @@ class SecCountryController extends Controller
                 $variable = $parameterArray['variable'];
                 //儲存當前的題目id
                 $sec_Qid = $userRecords->first()->sec_Qid;
+                SecRecord::where('user_id', $currentUserId)->where('sec_Qid',$sec_Qid)->where('status','watched')->increment('counter');
             }
 
             switch ($gameName) {
