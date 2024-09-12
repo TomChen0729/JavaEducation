@@ -281,7 +281,7 @@
 
         .star.open{
             text-shadow: 0 0 0.2em white, 0 0 0.2em white, 0 0 0.2em white;
-            top: 65%;
+            top: 48%;
             left: 40%;
         }
 
