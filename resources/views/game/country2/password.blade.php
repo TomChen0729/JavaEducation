@@ -307,6 +307,10 @@
             z-index: 3;
         }
 
+        .hide {
+            display: none;
+        }
+
         .right,
         .left {
             display: none; 
@@ -348,6 +352,19 @@
             position: absolute;
             right: 10%;
             top: 50%;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn-container button {
+            font-size: 18px;
+            margin: 0 20px;
+            border-radius: 5px;
+            margin-top:20px;
         }
     </style>
 </head>
@@ -397,12 +414,15 @@
     </div>
 
     <div class="containers">
-        <div class="question">
+        <div class="question" id="question">
             <p>{{ $passwordGameQuestion -> questions }}</p>
         </div>
         <div class="row">
             <div class="col-md-12 images">
-                <img src="/images/password/closedoor.svg" alt="緊閉的大門">
+                <img src="/images/password/closedoor.svg" id="close" alt="緊閉的大門">
+            </div>
+            <div class="col-md-6 left-container">
+                <button type="button" class="btn btn-success" id="OpenBtn">打開大門</button>
             </div>
             <div class="col-md-6 right-container">
                 <button type="button" class="btn btn-info" id="codeLockBtn">程式密碼鎖</button>
@@ -422,6 +442,9 @@
 <pre>
 {!! $templateCode !!}
 </pre>
+        </div>
+        <div class="btn-container">
+            <button id="send-code" class="btn-submit">提交</button>
         </div>
     </div>
     
@@ -450,7 +473,14 @@
             }
         });
 
+        // 大門動畫
+        document.getElementById('OpenBtn').addEventListener('click', function() {
+            const img = document.getElementById('close');
+            const question = document.getElementById('question');
 
+            img.src = "/images/password/opendoor.svg";
+            question.classList.add('hide');
+        });
 
         /* 弄一個codeMirror出來，設定佈景、語言模式
         var editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
