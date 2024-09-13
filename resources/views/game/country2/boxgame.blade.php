@@ -244,9 +244,12 @@
             display: none;
         }
 
-        .container-fluid{
+        .container-fluid {
             margin-top: 2%;
+            padding-left: 2%;
+            padding-right: 2%;
         }
+
 
         .question {
             width: 100%;
@@ -270,9 +273,9 @@
             transition: background 0.5s;
         }
 
-        .star{
-            white-space: pre; /* 保留空格和換行 */
-            font-family: monospace; /* 使用等寬字體 */
+        /* .star{
+            white-space: pre; 
+            font-family: monospace; 
             font-size: 20px;
             position: relative;
             top: 45%;
@@ -283,6 +286,12 @@
             text-shadow: 0 0 0.2em white, 0 0 0.2em white, 0 0 0.2em white;
             top: 48%;
             left: 40%;
+        } */
+
+        #images{
+            width: 100%;
+            height: 50%;
+            margin-top: 23%;
         }
 
         #treasure-box.open {
@@ -381,7 +390,7 @@
                 </div>
                 <div id="treasure-box">
                     <!-- <img class="img" id="randomImg" src="/images/boxes/triangle.png" alt=""> -->
-                    <div id="star" class="star"></div>
+                    <img id="images" src="/images/boxes/arrange3.svg" alt="">
                 </div>
                 <button onclick="openBox()">打開寶箱</button>
             </div>
@@ -405,81 +414,80 @@
         }
 
         var shape = '{{ $boxGameQuestion -> shape }}';
+        // 倒序排列 arrange
         function triangle1() {
             let n = {{ $variable }};
-            let result = ""; // 初始化 result
-
-            for(let i = n;i >= 1;i--){
-                let star = "";
-
-                for(let j = 1;j <= 2 * i - 1; j++){
-                    star += "*";
-                }
-
-                result += star + "\n"; // 將一行星號加到 result
+            const img = document.getElementById('images');
+            switch (n) {
+                case 3:
+                    img.src = '/images/boxes/arrange3.svg';
+                    break;
+                case 5:
+                    img.src = '/images/boxes/arrange5.svg';
+                    break;
+                case 7:
+                    img.src = '/images/boxes/arrange7.svg';
+                    break;
+                default:
+                    break;
             }
-            // 使用result一次更新DOM直接展示，而不是分段更新展示
-            document.getElementById('star').innerText = result;
-
         }
 
+        // 正序排列 sort
         function triangle2() {
             let n = {{ $variable }};
-            let result = ""; // 初始化 result
-
-            for(let i = 1;i <= n;i++){
-                let star = "";
-
-                for(let j = 1;j <= 2 * i - 1; j++){
-                    star += "*";
-                }
-
-                result += star + "\n"; // 將一行星號加到 result
+            const img = document.getElementById('images');
+            switch (n) {
+                case 3:
+                    img.src = '/images/boxes/sort3.svg';
+                    break;
+                case 5:
+                    img.src = '/images/boxes/sort5.svg';
+                    break;
+                case 7:
+                    img.src = '/images/boxes/sort7.svg';
+                    break;
+                default:
+                    break;
             }
-            // 使用result一次更新DOM直接展示，而不是分段更新展示
-            document.getElementById('star').innerText = result;
         }
 
+        // 金字塔 pyramid
         function triangle3() {
             let n = {{ $variable }};
-            let result = ""; // 初始化 result
-
-            for(let i = 1; i <= n; i++){
-                let star = "";
-
-                for(let j = 1; j <= n - i; j++){
-                    star += " ";
-                }
-
-                for(let j = 1; j <= 2 * i - 1; j++){
-                    star += "*";
-                }
-
-                result += star + "\n"; // 將一行星號加到 result
+            const img = document.getElementById('images');
+            switch (n) {
+                case 3:
+                    img.src = '/images/boxes/pyramid3.svg';
+                    break;
+                case 5:
+                    img.src = '/images/boxes/pyramid5.svg';
+                    break;
+                case 7:
+                    img.src = '/images/boxes/pyramid7.svg';
+                    break;
+                default:
+                    break;
             }
-            // 使用result一次更新DOM直接展示，而不是分段更新展示
-            document.getElementById('star').innerText = result;
         }
 
+        // 倒金字塔 inverted
         function triangle4() {
             let n = {{ $variable }};
-            let result = ""; // 初始化 result
-
-            for(let i = n; i >= 1; i--){
-                let star = "";
-
-                for(let j = 1; j <= n - i; j++){
-                    star += " ";
-                }
-
-                for(let j = 1; j <= 2 * i - 1; j++){
-                    star += "*";
-                }
-
-                result += star + "\n"; // 將一行星號加到 result
+            const img = document.getElementById('images');
+            switch (n) {
+                case 3:
+                    img.src = '/images/boxes/inverted3.svg';
+                    break;
+                case 5:
+                    img.src = '/images/boxes/inverted5.svg';
+                    break;
+                case 7:
+                    img.src = '/images/boxes/inverted7.svg';
+                    break;
+                default:
+                    break;
             }
-            // 使用result一次更新DOM直接展示，而不是分段更新展示
-            document.getElementById('star').innerText = result;
         }
 
         // 呼叫目前題目，判斷三角形種類，呼叫triangle1~4
@@ -548,8 +556,8 @@
             const box = document.getElementById("treasure-box");
             box.classList.add("open");
 
-            const stars = document.getElementById("star");
-            stars.classList.add("open");
+            // const stars = document.getElementById("star");
+            // stars.classList.add("open");
 
             // const imgElement = document.getElementById("randomImg");
             // imgElement.style.display = 'none';
