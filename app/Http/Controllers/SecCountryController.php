@@ -120,93 +120,103 @@ class SecCountryController extends Controller
     public function chooseGame(Request $request, int $country_id, string $gameName)
     {
         if ($request->isMethod('get')) {
-            $currentUserId = auth()->user()->id;
-            $userRecords = $this->checkSecRecord($gameName, $country_id);
-            $variable = null;
-            if($userRecords ->isNotEmpty()){
-                //解碼json字符串類型
-                $parameterJson = $userRecords->pluck('parameter')->first();
-                $parameterArray = json_decode($parameterJson, true);
-                $variable = $parameterArray['variable'];
-                //儲存當前的題目id
-                $sec_Qid = $userRecords->first()->sec_Qid;
-                SecRecord::where('user_id', $currentUserId)->where('sec_Qid',$sec_Qid)->where('status','watched')->increment('counter');
-            }
+            // 進入checkUserCards的function，確認玩家是否能進入此關卡
+            // $checkUserCards = $this->checkUserCards($gameName);
+            // 測試用
+            $checkUserCards = true;
+            
+            if($checkUserCards === true){
+                $currentUserId = auth()->user()->id;
+                $userRecords = $this->checkSecRecord($gameName, $country_id);
+                $variable = null;
+                if($userRecords ->isNotEmpty()){
+                    //解碼json字符串類型
+                    $parameterJson = $userRecords->pluck('parameter')->first();
+                    $parameterArray = json_decode($parameterJson, true);
+                    $variable = $parameterArray['variable'];
+                    //儲存當前的題目id
+                    $sec_Qid = $userRecords->first()->sec_Qid;
+                    SecRecord::where('user_id', $currentUserId)->where('sec_Qid',$sec_Qid)->where('status','watched')->increment('counter');
+                }
 
-            switch ($gameName) {
-                    // 從記錄表撈玩過的，如果最近一次有玩的參數先導入(寫一個function)
-                    // 如果沒玩過或是全對的話，隨便random
-                case '魔法寶箱':
-                    // 排查
-                    // 檢查是否能進入->checkUserCards($sec_Qid)
-                    // 檢查checkSecRecord($gameName, $country_id)的回傳結果
-                    // 玩過
-                    // if($this->checkSecRecord($gameName, $country_id)){
-
-                    // }
-                    // // 沒玩過
-                    // else{
-                    //     // 紀錄遊戲參數
-                    //     $this->recordWatchedParameter();
-                    // }
-                    if($userRecords->isEmpty()){
-                        // 三角形層數變數
-                        $variable = 3 + rand(0, 2) * 2;
-                        $boxGameQuestion = SecQuestion::where('country_id', $country_id)
-                            ->where('gamename', $gameName)
-                            ->inRandomOrder()->first();
-                        $templateCode = $boxGameQuestion->template_code;
-                        $templateCode = str_replace('$variable', $variable, $templateCode);
-                        // 紀錄這筆資料
-                        $this->recordWatchedParameter($boxGameQuestion->id, ['variable' => $variable]);
-                        return view('game.country2.boxgame', ['boxGameQuestion' => $boxGameQuestion, 'templateCode' => $templateCode, 'variable' => $variable]);
-                    }
-                    else{
-                        $boxGameQuestion = SecQuestion::where('id', $sec_Qid)->first();
-                        $templateCode = $boxGameQuestion->template_code;
-                        $templateCode = str_replace('$variable', $variable, $templateCode);
-                        return view('game.country2.boxgame', ['boxGameQuestion' => $boxGameQuestion, 'templateCode' => $templateCode, 'variable' => $variable]);
-                    }
-                case '魔法門衛':
-                    if($userRecords->isEmpty()){
-                        $variable = rand(1, 5);
-                        $idCardQuestion = SecQuestion::where('country_id', $country_id)
-                            ->where('gamename', $gameName)
-                            ->inRandomOrder()->first();
-                        $templateCode = $idCardQuestion->template_code;
-                        $templateCode = str_replace('$variable', $variable, $templateCode);
-                        $idCardsData = $this->generateID($variable);
-                        // 紀錄這筆資料
-                        $this->recordWatchedParameter($idCardQuestion->id, ['variable' => $variable]);
-                    return view('game.country2.idcardgame', ['idCardGameQuestion' => $idCardQuestion, 'templateCode' => $templateCode, 'variable' => $variable, 'idCardsData' => $idCardsData]);
-                    }
-                    else{
-                        $idCardQuestion = SecQuestion::where('id', $sec_Qid)->first();
-                        $templateCode = $idCardQuestion->template_code;
-                        $templateCode = str_replace('$variable', $variable, $templateCode);
-                        $idCardsData = $this->generateID($variable);
+                switch ($gameName) {
+                        // 從記錄表撈玩過的，如果最近一次有玩的參數先導入(寫一個function)
+                        // 如果沒玩過或是全對的話，隨便random
+                    case '魔法寶箱':
+                        // 排查
+                        // 檢查是否能進入->checkUserCards($sec_Qid)
+                        // 檢查checkSecRecord($gameName, $country_id)的回傳結果
+                        // 玩過
+                        // if($this->checkSecRecord($gameName, $country_id)){
+    
+                        // }
+                        // // 沒玩過
+                        // else{
+                        //     // 紀錄遊戲參數
+                        //     $this->recordWatchedParameter();
+                        // }
+                        if($userRecords->isEmpty()){
+                            // 三角形層數變數
+                            $variable = 3 + rand(0, 2) * 2;
+                            $boxGameQuestion = SecQuestion::where('country_id', $country_id)
+                                ->where('gamename', $gameName)
+                                ->inRandomOrder()->first();
+                            $templateCode = $boxGameQuestion->template_code;
+                            $templateCode = str_replace('$variable', $variable, $templateCode);
+                            // 紀錄這筆資料
+                            $this->recordWatchedParameter($boxGameQuestion->id, ['variable' => $variable]);
+                            return view('game.country2.boxgame', ['boxGameQuestion' => $boxGameQuestion, 'templateCode' => $templateCode, 'variable' => $variable]);
+                        }
+                        else{
+                            $boxGameQuestion = SecQuestion::where('id', $sec_Qid)->first();
+                            $templateCode = $boxGameQuestion->template_code;
+                            $templateCode = str_replace('$variable', $variable, $templateCode);
+                            return view('game.country2.boxgame', ['boxGameQuestion' => $boxGameQuestion, 'templateCode' => $templateCode, 'variable' => $variable]);
+                        }
+                    case '魔法門衛':
+                        if($userRecords->isEmpty()){
+                            $variable = rand(1, 5);
+                            $idCardQuestion = SecQuestion::where('country_id', $country_id)
+                                ->where('gamename', $gameName)
+                                ->inRandomOrder()->first();
+                            $templateCode = $idCardQuestion->template_code;
+                            $templateCode = str_replace('$variable', $variable, $templateCode);
+                            $idCardsData = $this->generateID($variable);
+                            // 紀錄這筆資料
+                            $this->recordWatchedParameter($idCardQuestion->id, ['variable' => $variable]);
                         return view('game.country2.idcardgame', ['idCardGameQuestion' => $idCardQuestion, 'templateCode' => $templateCode, 'variable' => $variable, 'idCardsData' => $idCardsData]);
-                    }
-                case '通關密碼':
-                    if($userRecords->isEmpty()){
-                        // 隨機產生的密碼
-                        $variable = rand(1000, 9999);
-                        $passwordGameQuestion = SecQuestion::where('country_id', $country_id)
-                            ->where('gamename', $gameName)
-                            ->inRandomOrder()->first();
-                        $templateCode = $passwordGameQuestion->template_code;
-                        // 紀錄這筆資料
-                        $this->recordWatchedParameter($passwordGameQuestion->id, ['variable' => $variable]);
-                        return view('game.country2.password', ['passwordGameQuestion' => $passwordGameQuestion,  'variable' => $variable, 'templateCode' => $templateCode]);
-                    }
-                    else{
-                        $passwordGameQuestion = SecQuestion::where('id', $sec_Qid)->first();
-                        $templateCode = $passwordGameQuestion->template_code;
-                        return view('game.country2.password', ['passwordGameQuestion' => $passwordGameQuestion,  'variable' => $variable, 'templateCode' => $templateCode]);
-                    }
-                default:
-                    //
-                    return response('error');
+                        }
+                        else{
+                            $idCardQuestion = SecQuestion::where('id', $sec_Qid)->first();
+                            $templateCode = $idCardQuestion->template_code;
+                            $templateCode = str_replace('$variable', $variable, $templateCode);
+                            $idCardsData = $this->generateID($variable);
+                            return view('game.country2.idcardgame', ['idCardGameQuestion' => $idCardQuestion, 'templateCode' => $templateCode, 'variable' => $variable, 'idCardsData' => $idCardsData]);
+                        }
+                    case '通關密碼':
+                        if($userRecords->isEmpty()){
+                            // 隨機產生的密碼
+                            $variable = rand(1000, 9999);
+                            $passwordGameQuestion = SecQuestion::where('country_id', $country_id)
+                                ->where('gamename', $gameName)
+                                ->inRandomOrder()->first();
+                            $templateCode = $passwordGameQuestion->template_code;
+                            // 紀錄這筆資料
+                            $this->recordWatchedParameter($passwordGameQuestion->id, ['variable' => $variable]);
+                            return view('game.country2.password', ['passwordGameQuestion' => $passwordGameQuestion,  'variable' => $variable, 'templateCode' => $templateCode]);
+                        }
+                        else{
+                            $passwordGameQuestion = SecQuestion::where('id', $sec_Qid)->first();
+                            $templateCode = $passwordGameQuestion->template_code;
+                            return view('game.country2.password', ['passwordGameQuestion' => $passwordGameQuestion,  'variable' => $variable, 'templateCode' => $templateCode]);
+                        }
+                    default:
+                        //
+                        return response('error');
+                }
+            }
+            else{
+                return view('level2',['checkUserCards'=>$checkUserCards]);
             }
         } else {
             return response()->json(['message' => 'http method error!!']);
