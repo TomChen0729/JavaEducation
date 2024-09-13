@@ -26,14 +26,23 @@ class SecCountryController extends Controller
     // 檢查是否正確紀錄為空
     public function checkSecRecord(string $gameName, int $country_id){
         $currentUserId = auth()->user()->id;
+        // 查詢玩家是否玩過這遊戲
         $secUserRecords = SecQuestion::join('sec_records', 'sec_records.sec_Qid', '=', 'sec_questions.id')
         ->where('country_id', $country_id)
         ->where('user_id', $currentUserId)
         ->where('gamename', $gameName)
         ->get();
-        if($secUserRecords->isNotEmpty()){
+        // 如果玩家在這題有正確的紀錄時，記錄這筆資料
+        $truesecRecords= $secUserRecords->where('status', true)->where('counter','!=',0);
+        // 如果正確的紀錄不是空值，返回這筆資料
+        if($truesecRecords->isNotEmpty()){
+            return $truesecRecords;
+        }
+        // 判斷是否有玩過這遊戲，如果有則返回那些資料
+        elseif($secUserRecords->isNotEmpty()){
             return $secUserRecords;
         }
+        // 沒玩過，返回一個空集合
         else{
             return collect();
         }
