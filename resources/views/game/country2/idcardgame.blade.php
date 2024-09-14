@@ -421,7 +421,7 @@
         <div class="row">
             <div class="col-md-6 left-container">
                 <div class="question">
-                    <p>{{ $idCardGameQuestion -> questions }}</p>
+                    <p>{{ $idCardGameQuestion -> pre_story }}</p>
                 </div>
                 @foreach($idCardsData as $item)
                 <div id="idcard">

@@ -11,6 +11,7 @@ use App\Models\UserKnowledgeCard;
 use App\Services\GameService;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Mockery\Generator\Parameter;
 
 class SecCountryController extends Controller
@@ -139,8 +140,8 @@ class SecCountryController extends Controller
                     $parameterArray = json_decode($parameterJson, true);
                     $variable = $parameterArray['variable'];
                     //儲存當前的題目id
-                    $sec_Qid = $userRecords->first()->sec_Qid;
-                    SecRecord::where('user_id', $currentUserId)->where('sec_Qid',$sec_Qid)->where('status','watched')->increment('counter');
+                    $secParameterID = $userRecords->first()->secParameterID;
+                    SecRecord::where('user_id', $currentUserId)->where('secParameterID',$secParameterID)->where('status','watched')->increment('counter');
                 }
 
                 switch ($gameName) {
@@ -153,7 +154,9 @@ class SecCountryController extends Controller
                             $boxGameQuestion = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
                                 ->where('country_id', $country_id)
                                 ->where('gamename', $gameName)
+                                ->select('sec_games.game_explanation', 'sec_games.pre.story')
                                 ->inRandomOrder()->first();
+                            Log::info('data'.$boxGameQuestion);
                             $templateCode = $boxGameQuestion->template_code;
                             $templateCode = str_replace('$variable', $variable, $templateCode);
                             // 紀錄這筆資料
@@ -161,7 +164,8 @@ class SecCountryController extends Controller
                             return view('game.country2.boxgame', ['boxGameQuestion' => $boxGameQuestion, 'templateCode' => $templateCode, 'variable' => $variable]);
                         }
                         else{
-                            $boxGameQuestion = SecQuestion::where('id', $sec_Qid)->first();
+                            $boxGameQuestion = SecParameter::join('sec_games', 'sec_games.id', '=', 'sec_parameters.secGameID')
+                            ->where('sec_parameters.id', $secParameterID)->first();
                             $templateCode = $boxGameQuestion->template_code;
                             $templateCode = str_replace('$variable', $variable, $templateCode);
                             return view('game.country2.boxgame', ['boxGameQuestion' => $boxGameQuestion, 'templateCode' => $templateCode, 'variable' => $variable]);
@@ -181,7 +185,8 @@ class SecCountryController extends Controller
                         return view('game.country2.idcardgame', ['idCardGameQuestion' => $idCardQuestion, 'templateCode' => $templateCode, 'variable' => $variable, 'idCardsData' => $idCardsData]);
                         }
                         else{
-                            $idCardQuestion = SecQuestion::where('id', $sec_Qid)->first();
+                            $idCardQuestion = SecParameter::join('sec_games', 'sec_games.id', '=', 'sec_parameters.secGameID')
+                            ->where('sec_parameters.id', $secParameterID)->first();
                             $templateCode = $idCardQuestion->template_code;
                             $templateCode = str_replace('$variable', $variable, $templateCode);
                             $idCardsData = $this->generateID($variable);
@@ -201,7 +206,8 @@ class SecCountryController extends Controller
                             return view('game.country2.password', ['passwordGameQuestion' => $passwordGameQuestion,  'variable' => $variable, 'templateCode' => $templateCode]);
                         }
                         else{
-                            $passwordGameQuestion = SecQuestion::where('id', $sec_Qid)->first();
+                            $passwordGameQuestion = SecParameter::join('sec_games', 'sec_games.id', '=', 'sec_parameters.secGameID')
+                            ->where('sec_parameters.id', $secParameterID)->first();
                             $templateCode = $passwordGameQuestion->template_code;
                             return view('game.country2.password', ['passwordGameQuestion' => $passwordGameQuestion,  'variable' => $variable, 'templateCode' => $templateCode]);
                         }

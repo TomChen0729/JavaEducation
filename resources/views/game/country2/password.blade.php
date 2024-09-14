@@ -415,7 +415,7 @@
 
     <div class="containers">
         <div class="question" id="question">
-            <p>{{ $passwordGameQuestion -> questions }}</p>
+            <p>{{ $passwordGameQuestion -> pre_story }}</p>
         </div>
         <div class="row">
             <div class="col-md-12 images">

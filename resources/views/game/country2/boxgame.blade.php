@@ -253,7 +253,7 @@
 
         .question {
             width: 100%;
-            height: 120px;
+            height: 30%;
             background-color: #FFFDD3;
             border-radius: 20px;
             padding: 20px;
@@ -386,7 +386,7 @@
         <div class="row">
             <div class="col-md-6 left-container">
                 <div class="question">
-                    <p>{{ $boxGameQuestion -> questions }}</p>
+                    <p>{{ $boxGameQuestion -> pre_story }}</p>
                 </div>
                 <div id="treasure-box">
                     <!-- <img class="img" id="randomImg" src="/images/boxes/triangle.png" alt=""> -->
