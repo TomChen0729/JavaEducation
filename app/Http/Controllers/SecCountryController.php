@@ -31,6 +31,7 @@ class SecCountryController extends Controller
         ->where('user_id', $currentUserId)
         ->where('gamename', $gameName)
         ->get();
+        // 如果是隊的情況下需要返回題目參數、及玩家作答正確時的結果
         if($secUserRecords->isNotEmpty()){
             return $secUserRecords;
         }

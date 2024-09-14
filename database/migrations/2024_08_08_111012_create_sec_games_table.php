@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sec_questions', function (Blueprint $table) {
+        Schema::create('sec_games', function (Blueprint $table) {
             $table->id();
             $table->foreignId('country_id');
             $table->string('gamename', 255);
-            $table->text('questions');
-            $table->text('template_code');
+            $table->text('pre_story');
             $table->text('game_explanation');
             $table->timestamps();
         });
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sec_questions');
+        Schema::dropIfExists('sec_games');
     }
 };

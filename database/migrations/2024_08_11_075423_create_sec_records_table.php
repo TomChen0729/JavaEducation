@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('sec_records', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->foreignId('sec_Qid');
+            $table->foreignId('secParameterID');
             $table->time('time')->default('00:00:00');
             $table->string('parameter');
             $table->enum('status', ['watched', 'false', 'true', 'watch_again'])->default('watched');

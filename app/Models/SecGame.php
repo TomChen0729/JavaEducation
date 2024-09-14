@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SecAnswer extends Model
+class SecGame extends Model
 {
     use HasFactory;
-    protected $table = 'sec_anwers';
+
+    protected $table = 'sec_games';
     protected $guarded = [];
 }

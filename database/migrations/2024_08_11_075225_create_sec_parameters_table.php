@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('sec_questions', function (Blueprint $table) {
-            //
-            $table->string('shape')->nullable();
+        Schema::create('sec_parameters', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('secGameID');
+            $table->text('template_code');
+            $table->timestamps();
         });
     }
 
@@ -22,9 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('sec_questions', function (Blueprint $table) {
-            //
-            $table->dropColumn('shape');
-        });
+        Schema::dropIfExists('sec_parameters');
     }
 };
