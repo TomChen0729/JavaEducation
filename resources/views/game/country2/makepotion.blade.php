@@ -377,13 +377,39 @@
             align-items: center;
         }
 
-        #img-container img {
-            width: 500px;
+        #img-container #pot {
+            position: relative;
+            margin-top: 20%;
+            width: 800px;
             height: auto; 
         }
 
+        #img-container #stick {
+            top: 20%;
+            right: 25%;
+            position: absolute;
+            width: 400px;
+            height: auto; 
+            animation: animate 5s linear infinite;
+        }
 
-        
+        @keyframes animate {
+            0% {
+                transform: translate(30%, 0); /* 開始於圓形的右邊 */
+            }
+            25% {
+                transform: translate(0, 5%); /* 圓形的下方 */
+            }
+            50% {
+                transform: translate(-30%, 0); /* 圓形的左邊 */
+            }
+            75% {
+                transform: translate(0, -10%); /* 圓形的上方 */
+            }
+            100% {
+                transform: translate(30%, 0); /* 回到右邊 */
+            }
+        }
     </style>
 </head>
 
@@ -399,7 +425,6 @@
                 <p><strong>調配藥水</strong><br><hr></p>
                 <p>
                     桃樂絲一行人從蠻金之國到蘋果樹林這都沒有涉入食物，過度飢餓導致無力繼續前進，請幫助他們調配出治癒藥水，能夠回復體力並不會再度飢餓
-
                 </p>
             </div>
         </div>
@@ -469,7 +494,8 @@ public class Main {
 
                 <div class="col-md-6 right-container">
                     <div id="img-container">
-                        <img src="/images/potion/pot.svg" alt="pot">
+                        <img id="pot" src="/images/potion/pot.svg" alt="pot">
+                        <img id="stick" src="/images/potion/stick.svg" alt="stick">
                     </div>
                 </div>
             </div>
@@ -492,53 +518,6 @@ public class Main {
             let noEmptyLines = noComments.split('\n').filter(line => line.trim() !== '').join('\n');
             return noEmptyLines;
         }
-
-        var submitBtn = document.getElementById('send-code');
-        // 框架code
-        var templateCode = `for(){
-            for(){
-            }
-            for(){
-            }
-        }`;
-        submitBtn.addEventListener('click', () => {
-            // 獲取編輯器內文字，在"// 程式撰寫區域"之後的值並將其分開，取目標code，並去空白
-            var userCode = editor.getValue().split('// 程式撰寫區域')[1].trim();
-            if (userCode) {
-                // 執行剛剛移除註解的函式之後再將最外面的兩個大括號去除，就是我要判讀的code
-                var cleanedCode = removeCommentsAndEmptyLines(userCode).replace('\n    }\n}', '').trim();
-                if (cleanedCode && cleanedCode !== templateCode.trim()) {
-                    // 測試用
-                    // alert(templateCode.trim());
-                    alert('您輸入的code為：\n' + cleanedCode);
-                    // 將程式碼送入演算法，或是後端的判斷，如果success，顯現相應的效果，並執行通關
-                    // 跑fetch進後端
-                    fetch('/api/receive-usercode',{
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        },
-                        body: JSON.stringify({ 
-                            userCode: cleanedCode 
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log(data);
-                        if(data.message === 'OK'){
-                            alert('答對');
-                        }
-                    })
-
-
-                } else {
-                    alert('請輸入程式碼');
-                }
-            } else {
-                alert('請輸入程式碼');
-            }
-        });
 
         function autoResize(input) {
             const newWidth = input.scrollWidth;
