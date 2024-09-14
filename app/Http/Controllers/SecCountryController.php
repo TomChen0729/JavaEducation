@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\PassCourseGetCard;
 use App\Models\PassCourseNeedCard;
-use App\Models\SecQuestion;
+use App\Models\SecGame;
+use App\Models\SecParameter;
 use App\Models\SecRecord;
 use App\Models\UserKnowledgeCard;
 use App\Services\GameService;
@@ -27,7 +28,9 @@ class SecCountryController extends Controller
     public function checkSecRecord(string $gameName, int $country_id){
         $currentUserId = auth()->user()->id;
         // 查詢玩家是否玩過這遊戲
-        $secUserRecords = SecQuestion::join('sec_records', 'sec_records.sec_Qid', '=', 'sec_questions.id')
+        // sec_games先串sec_parameters，再串sec_records
+        $secUserRecords = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
+        ->join('sec_records', 'sec_records.secParameterID', '=', 'sec_parameters.id')
         ->where('country_id', $country_id)
         ->where('user_id', $currentUserId)
         ->where('gamename', $gameName)
@@ -49,11 +52,11 @@ class SecCountryController extends Controller
     }
 
     // 當第一次遊玩的時候要紀錄時調用(僅限第一次遊玩該遊戲時調用)
-    public function recordWatchedParameter(int $sec_Qid, array $parameter){
+    public function recordWatchedParameter(int $secParameterID, array $parameter){
         //基礎的資料
         $defaultdata = [
             'user_id' => auth()->user()->id,
-            'sec_Qid' => $sec_Qid,
+            'secParameterID' => $secParameterID,
             'parameter' => json_encode($parameter),
             'created_at' => now(),
             'updated_at' => now(),
@@ -92,10 +95,10 @@ class SecCountryController extends Controller
     }
 
     // 檢查關卡進入點
-    public function checkUserCards(int $sec_Qid)
+    public function checkUserCards(int $secGameID)
     {
         // 這關需要的卡片
-        $needCards = PassCourseNeedCard::where('sec_Qid', $sec_Qid)->pluck('knowledge_card_id')->toArray();
+        $needCards = PassCourseNeedCard::where('secGameID', $secGameID)->pluck('knowledge_card_id')->toArray();
         // 玩家有的卡片
         $userCards = UserKnowledgeCard::where('user_id', auth()->user()->id)->pluck('knowledge_card_id')->toArray();
         // 如果這關需要的卡片是空的話直接回傳true
@@ -123,6 +126,7 @@ class SecCountryController extends Controller
             // 進入checkUserCards的function，確認玩家是否能進入此關卡
             // $checkUserCards = $this->checkUserCards($gameName);
             // 測試用
+            $currentSecGameID = SecGame::where('gamename', $gameName)->pluck('id');
             $checkUserCards = true;
             
             if($checkUserCards === true){
@@ -143,22 +147,11 @@ class SecCountryController extends Controller
                         // 從記錄表撈玩過的，如果最近一次有玩的參數先導入(寫一個function)
                         // 如果沒玩過或是全對的話，隨便random
                     case '魔法寶箱':
-                        // 排查
-                        // 檢查是否能進入->checkUserCards($sec_Qid)
-                        // 檢查checkSecRecord($gameName, $country_id)的回傳結果
-                        // 玩過
-                        // if($this->checkSecRecord($gameName, $country_id)){
-    
-                        // }
-                        // // 沒玩過
-                        // else{
-                        //     // 紀錄遊戲參數
-                        //     $this->recordWatchedParameter();
-                        // }
                         if($userRecords->isEmpty()){
                             // 三角形層數變數
                             $variable = 3 + rand(0, 2) * 2;
-                            $boxGameQuestion = SecQuestion::where('country_id', $country_id)
+                            $boxGameQuestion = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
+                                ->where('country_id', $country_id)
                                 ->where('gamename', $gameName)
                                 ->inRandomOrder()->first();
                             $templateCode = $boxGameQuestion->template_code;
@@ -176,9 +169,10 @@ class SecCountryController extends Controller
                     case '魔法門衛':
                         if($userRecords->isEmpty()){
                             $variable = rand(1, 5);
-                            $idCardQuestion = SecQuestion::where('country_id', $country_id)
-                                ->where('gamename', $gameName)
-                                ->inRandomOrder()->first();
+                            $idCardQuestion = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
+                            ->where('country_id', $country_id)
+                            ->where('gamename', $gameName)
+                            ->inRandomOrder()->first();
                             $templateCode = $idCardQuestion->template_code;
                             $templateCode = str_replace('$variable', $variable, $templateCode);
                             $idCardsData = $this->generateID($variable);
@@ -197,9 +191,10 @@ class SecCountryController extends Controller
                         if($userRecords->isEmpty()){
                             // 隨機產生的密碼
                             $variable = rand(1000, 9999);
-                            $passwordGameQuestion = SecQuestion::where('country_id', $country_id)
-                                ->where('gamename', $gameName)
-                                ->inRandomOrder()->first();
+                            $passwordGameQuestion = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
+                            ->where('country_id', $country_id)
+                            ->where('gamename', $gameName)
+                            ->inRandomOrder()->first();
                             $templateCode = $passwordGameQuestion->template_code;
                             // 紀錄這筆資料
                             $this->recordWatchedParameter($passwordGameQuestion->id, ['variable' => $variable]);
@@ -225,9 +220,9 @@ class SecCountryController extends Controller
     }
 
     // 派發知識卡的函式
-    public function giveUserCards(int $sec_Qid)
+    public function giveUserCards(int $secGameID)
     {
-        $randGiveCard = PassCourseGetCard::where('sec_Qid', $sec_Qid)->inRandomOrder()->first();
+        $randGiveCard = PassCourseGetCard::where('secGameID', $secGameID)->inRandomOrder()->first();
         $data = [
             'user_id' => auth()->user()->id,
             'knowledge_card_id' => $randGiveCard->id,

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('pass_course_get_cards', function (Blueprint $table) {
             //
-            $table->renameColumn('levels', 'sec_Qid');
+            $table->renameColumn('levels', 'secGameID');
         });
     }
 
@@ -24,7 +24,7 @@ return new class extends Migration
     {
         Schema::table('pass_course_get_cards', function (Blueprint $table) {
             //
-            $table->renameColumn('sec_Qid', 'levels');
+            $table->renameColumn('secGameID', 'levels');
         });
     }
 };
