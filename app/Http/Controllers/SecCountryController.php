@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KnowledgeCard;
 use App\Models\PassCourseGetCard;
 use App\Models\PassCourseNeedCard;
 use App\Models\SecGame;
@@ -127,9 +128,8 @@ class SecCountryController extends Controller
             // 進入checkUserCards的function，確認玩家是否能進入此關卡
             // $checkUserCards = $this->checkUserCards($gameName);
             // 測試用
-            $currentSecGameID = SecGame::where('gamename', $gameName)->pluck('id');
-            $checkUserCards = true;
-            
+            $currentSecGameID = SecGame::where('gamename', $gameName)->pluck('id')->first();
+            $checkUserCards = $this -> checkUserCards($currentSecGameID);
             if($checkUserCards === true){
                 $currentUserId = auth()->user()->id;
                 $userRecords = $this->checkSecRecord($gameName, $country_id);
@@ -217,7 +217,10 @@ class SecCountryController extends Controller
                 }
             }
             else{
-                return view('level2',['checkUserCards'=>$checkUserCards]);
+                $userNeedToGetCards = KnowledgeCard::whereIn('id',$checkUserCards['missingCards'])->pluck('name')->toArray();
+                Log::info($userNeedToGetCards);
+                return view('level2',['userNeedToGetCards'=> $userNeedToGetCards, 'currentCountry' => $country_id]);
+                // return redirect()->route('level2')->with(['userNeedToGetCards'=> $userNeedToGetCards, 'currentCountry' => $country_id]);
             }
         } else {
             return response()->json(['message' => 'http method error!!']);

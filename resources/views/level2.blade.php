@@ -84,7 +84,11 @@
             left: 75%;
         }
 
-
+        .userNeedCards{
+            background-color: white;
+            height: 200px;
+            width: 200px;
+        }
 
     </style>
 </head>
@@ -93,7 +97,13 @@
     <div class="header">
 
     </div>
-
+    @if($userNeedToGetCards !=null)
+        <div class="userNeedCards">
+            @foreach ($userNeedToGetCards as $item)
+                <p>你缺少{{ $item }}知識卡</p>
+            @endforeach
+        </div>
+    @endif
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -143,5 +153,6 @@
         
     </div>
 </body>
-
+<script>
+</script>
 </html>

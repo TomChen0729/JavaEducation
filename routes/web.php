@@ -79,7 +79,7 @@ Route::get('password', function () {
 });
 Route::get('level2', function () {
     return view('level2');
-});
+})->name('level2');
 Route::get('makepotion', function () {
     return view('game.country2.makepotion');
 });
