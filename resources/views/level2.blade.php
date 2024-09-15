@@ -98,7 +98,7 @@
 
     </div>
     @if(!empty($userNeedToGetCards))
-        <div class="userNeedCards">
+        <div class="userNeedCards" id="userNeedCards">
             @foreach ($userNeedToGetCards as $item)
                 <p>你缺少{{ $item }}知識卡</p>
             @endforeach
@@ -154,5 +154,17 @@
     </div>
 </body>
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+    var userNeedCards = document.getElementById('userNeedCards');
+    if (userNeedCards) {
+        setTimeout(function() {
+            userNeedCards.style.transition = 'opacity 0.5s';
+            userNeedCards.style.opacity = '0';
+            setTimeout(function() {
+                userNeedCards.style.display = 'none';  // 淡出完成後隱藏元素並移除空間
+            }, 500);  // 淡出時間需要和過渡時間一致
+        }, 1000);  // 1秒後淡出
+    }
+});
 </script>
 </html>
