@@ -390,39 +390,40 @@
             position: absolute;
             width: 400px;
             height: auto; 
-            animation: animate 5s linear infinite;
+            animation: animate 6s linear infinite normal;
         }
 
         @keyframes animate {
             0% {
-                transform: translate(30%, 0); /* 開始於圓形的右邊 */
+                transform: translate(20%, -5%); /* 開始於圓形的右邊 */
             }
             25% {
-                transform: translate(0, 5%); /* 圓形的下方 */
+                transform: translate(0, 0); /* 圓形的下方 */
             }
             50% {
-                transform: translate(-30%, 0); /* 圓形的左邊 */
+                transform: translate(-40%, -5%); /* 圓形的左邊 */
             }
             75% {
                 transform: translate(0, -10%); /* 圓形的上方 */
             }
             100% {
-                transform: translate(30%, 0); /* 回到右邊 */
+                transform: translate(20%, -5%); /* 回到右邊 */
             }
         }
 
         #img-container #heal{
-            /* opacity: 0; */
-            /* top從-100px => 50px，opacity透明(0) => 不透明(1)，動畫持續0.5秒，速度曲線 => ease-in-out */
-            /* transition: top 0.5s ease-in-out, opacity 0.5s ease-in-out; */
+            top: 30%;
+            opacity: 0;
+            /* top從-100px => 50px，opacity透明(0) => 不透明(1)，動畫持續2秒，速度曲線 => ease-in-out */
+            transition: top 2s ease-in-out, opacity 3s ease-in-out;
             height: 30%;
             position: absolute;
             z-index: 10; /*最上層*/
         }
 
         #img-container #heal.show{
-            top: 10px; /* 蓋章飛入後的位置 */
-            /* opacity: 1; */
+            top: 10px; 
+            opacity: 1;
         }
     </style>
 </head>
