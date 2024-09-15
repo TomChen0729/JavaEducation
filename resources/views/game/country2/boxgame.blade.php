@@ -521,31 +521,32 @@
             // 迴圈遍歷每個input，將值加入陣列
             inputs.forEach(input => {
                 index++;
-                inputsArray.push(input.value);
+                inputsArray.push({order: index, userAnswer: input.value});
                 console.log('填寫的第' + index +'答案為' + input.value)
             });
 
-
+            var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             userAnswer = inputsArray;
-            url = '/api/checkUserAnswer';
-            fetch($url, {
+            console.log(userAnswer);
+            // url = '/api/checkUserAnswer';
+            fetch('/api/checkUserAnswer', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': csrfToken
                 },
                 body: JSON.stringify({
-                    user_answer: userAnswer,
-                    country_id:  currentCountry,
-                    game_type: '魔法寶箱'
+                    userAnswer: userAnswer,
+                    parameter_id:  shape,
+                    gameName: '魔法寶箱'
                 })
             })
             .then(response => response.json())
             .then(data => {
                 if (data.message == 'correct'){
-
+                    alert('答對');
                 }else{
-
+                    alert('答錯');
                 }
             })
 
