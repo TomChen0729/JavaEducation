@@ -144,19 +144,10 @@ class SecCountryController extends Controller
                 $currentUserId = auth()->user()->id;
                 $userRecords = $this->checkSecRecord($gameName, $country_id);
                 $variable = null;
-                if ($userRecords->isNotEmpty()) {
-                    //解碼json字符串類型
-                    $parameterJson = $userRecords->pluck(value: 'parameter')->first();
-                    $parameterArray = json_decode($parameterJson, true);
-                    $variable = $parameterArray['variable'];
-                    //儲存當前的題目id
-                    $secParameterID = $userRecords->first()->secParameterID;
-                    SecRecord::where('user_id', $currentUserId)->where('secParameterID', $secParameterID)->where('status', 'watched')->increment('counter');
-                }
 
                 switch ($gameName) {
-                        // 從記錄表撈玩過的，如果最近一次有玩的參數先導入(寫一個function)
-                        // 如果沒玩過或是全對的話，隨便random
+                    // 從記錄表撈玩過的，如果最近一次有玩的參數先導入(寫一個function)
+                    // 如果沒玩過或是全對的話，隨便random
                     case '魔法寶箱':
                         if ($userRecords->isEmpty()) {
                             // 三角形層數變數
@@ -172,6 +163,13 @@ class SecCountryController extends Controller
                             $this->recordWatchedParameter($boxGameQuestion->id, ['variable' => $variable]);
                             return view('game.country2.boxgame', ['boxGameQuestion' => $boxGameQuestion, 'templateCode' => $templateCode, 'variable' => $variable]);
                         } else {
+                            //解碼json字符串類型
+                            $parameterJson = $userRecords->pluck(value: 'parameter')->first();
+                            $parameterArray = json_decode($parameterJson, true);
+                            $variable = $parameterArray['variable'];
+                            //儲存當前的題目id
+                            $secParameterID = $userRecords->first()->secParameterID;
+                            SecRecord::where('user_id', $currentUserId)->where('secParameterID', $secParameterID)->where('status', 'watched')->increment('counter');
                             $boxGameQuestion = SecGame::join('sec_parameters', 'sec_games.id', '=', 'sec_parameters.secGameID')
                                 ->where('sec_parameters.id', $secParameterID)->first();
                             $templateCode = $boxGameQuestion->template_code;
@@ -192,11 +190,17 @@ class SecCountryController extends Controller
                             $this->recordWatchedParameter($idCardQuestion->id, ['variable' => $variable, 'idCardsData' => $idCardsData]);
                             return view('game.country2.idcardgame', ['idCardGameQuestion' => $idCardQuestion, 'templateCode' => $templateCode, 'variable' => $variable, 'idCardsData' => $idCardsData]);
                         } else {
+                            //解碼json字符串類型
+                            $parameterJson = $userRecords->pluck(value: 'parameter')->first();
+                            $parameterArray = json_decode($parameterJson, true);
+                            $variable = $parameterArray['variable'];
+                            $idCardsData = $parameterArray['idCardsData'];
+                            //儲存當前的題目id
+                            $secParameterID = $userRecords->first()->secParameterID;
                             $idCardQuestion = SecGame::join('sec_parameters', 'sec_games.id', '=', 'sec_parameters.secGameID')
                                 ->where('sec_parameters.id', $secParameterID)->first();
                             $templateCode = $idCardQuestion->template_code;
                             $templateCode = str_replace('$variable', $variable, $templateCode);
-                            $idCardsData = $this->generateID($variable);
                             return view('game.country2.idcardgame', ['idCardGameQuestion' => $idCardQuestion, 'templateCode' => $templateCode, 'variable' => $variable, 'idCardsData' => $idCardsData]);
                         }
                     case '通關密碼':
@@ -210,12 +214,18 @@ class SecCountryController extends Controller
                             $templateCode = $passwordGameQuestion->template_code;
                             // 紀錄這筆資料
                             $this->recordWatchedParameter($passwordGameQuestion->id, ['variable' => $variable]);
-                            return view('game.country2.password', ['passwordGameQuestion' => $passwordGameQuestion,  'variable' => $variable, 'templateCode' => $templateCode]);
+                            return view('game.country2.password', ['passwordGameQuestion' => $passwordGameQuestion, 'variable' => $variable, 'templateCode' => $templateCode]);
                         } else {
+                            //解碼json字符串類型
+                            $parameterJson = $userRecords->pluck(value: 'parameter')->first();
+                            $parameterArray = json_decode($parameterJson, true);
+                            $variable = $parameterArray['variable'];
+                            //儲存當前的題目id
+                            $secParameterID = $userRecords->first()->secParameterID;
                             $passwordGameQuestion = SecGame::join('sec_parameters', 'sec_games.id', '=', 'sec_parameters.secGameID')
                                 ->where('sec_parameters.id', $secParameterID)->first();
                             $templateCode = $passwordGameQuestion->template_code;
-                            return view('game.country2.password', ['passwordGameQuestion' => $passwordGameQuestion,  'variable' => $variable, 'templateCode' => $templateCode]);
+                            return view('game.country2.password', ['passwordGameQuestion' => $passwordGameQuestion, 'variable' => $variable, 'templateCode' => $templateCode]);
                         }
                     default:
                         //
@@ -261,9 +271,9 @@ class SecCountryController extends Controller
                         return response()->json(['message' => 'wrongANS']);
                     }
                 case '魔法門衛':
-                    //進一步解析userAnswer
+                //進一步解析userAnswer
                 case '通關密碼':
-                    //進一步解析userAnswer
+                //進一步解析userAnswer
                 default:
                     return response('沒有這個遊戲類型');
             }
