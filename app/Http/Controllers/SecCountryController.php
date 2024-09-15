@@ -257,7 +257,7 @@ class SecCountryController extends Controller
 
         UserKnowledgeCard::insert($data);
 
-        // return $randGiveCard;
+        return $randGiveCard;
     }
 
     // 批改&紀錄
