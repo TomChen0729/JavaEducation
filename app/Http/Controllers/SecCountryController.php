@@ -30,12 +30,18 @@ class SecCountryController extends Controller
     public function checkSecRecord(string $gameName, int $country_id){
         $currentUserId = auth()->user()->id;
         // 查詢玩家是否玩過這遊戲
+        // 找出這個gamename的所有parameterID
+        $allParameterIDInCurrentGame = SecParameter::join('sec_games', 'sec_parameters.secGameID', '=', 'sec_games.id')
+        ->where('sec_games.gamename', $gameName)
+        ->pluck('sec_parameters.id')
+        ->toArray();
+
         // sec_games先串sec_parameters，再串sec_records
         $secUserRecords = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
         ->join('sec_records', 'sec_records.secParameterID', '=', 'sec_parameters.id')
-        ->where('country_id', $country_id)
-        ->where('user_id', $currentUserId)
-        ->where('gamename', $gameName)
+        ->where('sec_games.country_id', $country_id)
+        ->where('sec_records.user_id', $currentUserId)
+        ->whereIn('sec_records.secParameterID', $allParameterIDInCurrentGame)
         ->get();
         // 如果玩家在這題有正確的紀錄時，記錄這筆資料
         $truesecRecords= $secUserRecords->where('status', true)->where('counter','!=',0);
@@ -81,7 +87,7 @@ class SecCountryController extends Controller
 
         $idCards = [];
         // array_rand()是return陣列的index
-        for ($i = 0; $i <= $quantity; $i++) {
+        for ($i = 0; $i < $quantity; $i++) {
             $gender = $genders[array_rand($genders)];
             $identity = $identities[array_rand($identities)];
             $age = rand(20, 50);
@@ -121,6 +127,7 @@ class SecCountryController extends Controller
         }
     }
 
+    // 如果有使用join去查詢，要記得查表順序第一張表串第二張表返回的collection的id會是第二張的id不是第一張的id
     // 根據icon導向遊戲
     public function chooseGame(Request $request, int $country_id, string $gameName)
     {
@@ -129,14 +136,15 @@ class SecCountryController extends Controller
             // $checkUserCards = $this->checkUserCards($gameName);
             // 測試用
             $currentSecGameID = SecGame::where('gamename', $gameName)->pluck('id')->first();
-            $checkUserCards = $this -> checkUserCards($currentSecGameID);
+            // $checkUserCards = $this -> checkUserCards($currentSecGameID);
+            $checkUserCards = true;
             if($checkUserCards === true){
                 $currentUserId = auth()->user()->id;
                 $userRecords = $this->checkSecRecord($gameName, $country_id);
                 $variable = null;
                 if($userRecords ->isNotEmpty()){
                     //解碼json字符串類型
-                    $parameterJson = $userRecords->pluck('parameter')->first();
+                    $parameterJson = $userRecords->pluck(value: 'parameter')->first();
                     $parameterArray = json_decode($parameterJson, true);
                     $variable = $parameterArray['variable'];
                     //儲存當前的題目id
@@ -154,7 +162,6 @@ class SecCountryController extends Controller
                             $boxGameQuestion = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
                                 ->where('country_id', $country_id)
                                 ->where('gamename', $gameName)
-                                ->select('sec_games.game_explanation', 'sec_games.pre.story')
                                 ->inRandomOrder()->first();
                             Log::info('data'.$boxGameQuestion);
                             $templateCode = $boxGameQuestion->template_code;
@@ -164,7 +171,7 @@ class SecCountryController extends Controller
                             return view('game.country2.boxgame', ['boxGameQuestion' => $boxGameQuestion, 'templateCode' => $templateCode, 'variable' => $variable]);
                         }
                         else{
-                            $boxGameQuestion = SecParameter::join('sec_games', 'sec_games.id', '=', 'sec_parameters.secGameID')
+                            $boxGameQuestion = SecGame::join('sec_parameters', 'sec_games.id', '=', 'sec_parameters.secGameID')
                             ->where('sec_parameters.id', $secParameterID)->first();
                             $templateCode = $boxGameQuestion->template_code;
                             $templateCode = str_replace('$variable', $variable, $templateCode);
@@ -181,11 +188,11 @@ class SecCountryController extends Controller
                             $templateCode = str_replace('$variable', $variable, $templateCode);
                             $idCardsData = $this->generateID($variable);
                             // 紀錄這筆資料
-                            $this->recordWatchedParameter($idCardQuestion->id, ['variable' => $variable]);
+                            $this->recordWatchedParameter($idCardQuestion->id, ['variable' => $variable, 'idCardsData' => $idCardsData]);
                         return view('game.country2.idcardgame', ['idCardGameQuestion' => $idCardQuestion, 'templateCode' => $templateCode, 'variable' => $variable, 'idCardsData' => $idCardsData]);
                         }
                         else{
-                            $idCardQuestion = SecParameter::join('sec_games', 'sec_games.id', '=', 'sec_parameters.secGameID')
+                            $idCardQuestion = SecGame::join('sec_parameters', 'sec_games.id', '=', 'sec_parameters.secGameID')
                             ->where('sec_parameters.id', $secParameterID)->first();
                             $templateCode = $idCardQuestion->template_code;
                             $templateCode = str_replace('$variable', $variable, $templateCode);
@@ -206,7 +213,7 @@ class SecCountryController extends Controller
                             return view('game.country2.password', ['passwordGameQuestion' => $passwordGameQuestion,  'variable' => $variable, 'templateCode' => $templateCode]);
                         }
                         else{
-                            $passwordGameQuestion = SecParameter::join('sec_games', 'sec_games.id', '=', 'sec_parameters.secGameID')
+                            $passwordGameQuestion = SecGame::join('sec_parameters', 'sec_games.id', '=', 'sec_parameters.secGameID')
                             ->where('sec_parameters.id', $secParameterID)->first();
                             $templateCode = $passwordGameQuestion->template_code;
                             return view('game.country2.password', ['passwordGameQuestion' => $passwordGameQuestion,  'variable' => $variable, 'templateCode' => $templateCode]);
@@ -220,7 +227,6 @@ class SecCountryController extends Controller
                 $userNeedToGetCards = KnowledgeCard::whereIn('id',$checkUserCards['missingCards'])->pluck('name')->toArray();
                 Log::info($userNeedToGetCards);
                 return view('level2',['userNeedToGetCards'=> $userNeedToGetCards, 'currentCountry' => $country_id]);
-                // return redirect()->route('level2')->with(['userNeedToGetCards'=> $userNeedToGetCards, 'currentCountry' => $country_id]);
             }
         } else {
             return response()->json(['message' => 'http method error!!']);

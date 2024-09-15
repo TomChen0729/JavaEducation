@@ -413,10 +413,13 @@
             document.getElementById("popup").classList.toggle("active");
         }
 
-        var shape = '{{ $boxGameQuestion -> shape }}';
+        var shape = parseInt('{{ $boxGameQuestion -> id }}');
+        var n = parseInt('{{ $variable }}');
+        console.log('parameterID:' + shape);
+        console.log('variable:'+ n);
+
         // 倒序排列 arrange
-        function triangle1() {
-            let n = {{ $variable }};
+        function triangle1(n) {
             const img = document.getElementById('images');
             switch (n) {
                 case 3:
@@ -434,8 +437,7 @@
         }
 
         // 正序排列 sort
-        function triangle2() {
-            let n = {{ $variable }};
+        function triangle2(n) {
             const img = document.getElementById('images');
             switch (n) {
                 case 3:
@@ -453,8 +455,7 @@
         }
 
         // 金字塔 pyramid
-        function triangle3() {
-            let n = {{ $variable }};
+        function triangle3(n) {
             const img = document.getElementById('images');
             switch (n) {
                 case 3:
@@ -472,8 +473,7 @@
         }
 
         // 倒金字塔 inverted
-        function triangle4() {
-            let n = {{ $variable }};
+        function triangle4(n) {
             const img = document.getElementById('images');
             switch (n) {
                 case 3:
@@ -493,17 +493,17 @@
         // 呼叫目前題目，判斷三角形種類，呼叫triangle1~4
         document.addEventListener('DOMContentLoaded', function () {
             switch (shape) {
-                case '倒序排列':
-                    triangle1();
+                case 2:
+                    triangle1(n);
                     break;
-                case '正序排列':
-                    triangle2();
+                case 3:
+                    triangle2(n);
                     break;
-                case '金字塔':
-                    triangle3();
+                case 4:
+                    triangle3(n);
                     break;
-                case '倒金字塔':
-                    triangle4();
+                case 5:
+                    triangle4(n);
                     break;
                 default:
                     break;
