@@ -249,7 +249,7 @@
 
         .question {
             width: 100%;
-            height: 120px;
+            height: 20%;
             background-color: #FFFDD3;
             border-radius: 20px;
             padding: 20px;
@@ -483,47 +483,63 @@
 
         // DOMContentLoaded事件在文件的HTML被完全載入和解析後觸發(不必等待樣式表、圖像和子框架的完成加載)
         document.addEventListener('DOMContentLoaded', function(){
-            // 隨機更換身分證
-            const img = [
-                '/images/idcard/boyvillager.svg',
-                '/images/idcard/businessman.svg',
-                '/images/idcard/businesswoman.svg',
-                '/images/idcard/girlvillager.svg',
-                '/images/idcard/monster.svg'
-            ];
+            // 遍歷，替換對應的圖片
+            idCardsData.forEach(function(item, index) {
+                let imgElement = document.getElementById('idcards'); // 要替換的圖片元素
+                let messageElement = document.getElementById('message');
+                let img;
 
-            // 依據隨機身分證顯示文字
-            const messages = {
+                if (item.gender === '女') {
+                    switch (item.identity) {
+                        case '商人':
+                            img = '/images/idcard/businesswoman.svg';
+                            break;
+                        case '居民':
+                            img = '/images/idcard/girlvillager.svg';
+                            break;
+                        case '怪物':
+                            img = '/images/idcard/gmonster.svg';
+                            break;
+                        default:
+                            img = ''; 
+                    }
+                } else {
+                    switch (item.identity) {
+                        case '商人':
+                            img = '/images/idcard/businessman.svg';
+                            break;
+                        case '居民':
+                            img = '/images/idcard/boyvillager.svg';
+                            break;
+                        case '怪物':
+                            img = '/images/idcard/monster.svg';
+                            break;
+                        default:
+                            img = ''; 
+                    }
+                }
+
+                // 依據隨機身分證顯示文字
+                const messages = {
                     '/images/idcard/monster.svg': { text: '禁止進入', color: 'red', border: '5px solid red' },
+                    '/images/idcard/gmonster.svg': { text: '禁止進入', color: 'red', border: '5px solid red' },
                     '/images/idcard/boyvillager.svg': { text: '免費進入', color: 'green', border: '5px solid green' },
                     '/images/idcard/businessman.svg': { text: '免費進入', color: 'green', border: '5px solid green' },
                     '/images/idcard/businesswoman.svg': { text: '免費進入', color: 'green', border: '5px solid green' },
                     '/images/idcard/girlvillager.svg': { text: '免費進入', color: 'green', border: '5px solid green' }
-            };
+                };
 
-            function getRandom() {
-                const randomIndex = Math.floor(Math.random() * img.length);
-                // [randomIndex]返回數字，不是返回函數，返回函數的寫法 => img[randomIndex]();
-                return img[randomIndex];
-            }
-
-            function change() {
-                const imgElement = document.getElementById('idcards');
-                const messageElement = document.getElementById('message');
-                // 隨機身分證 => [0][1][2]
-                const selectedImg = getRandom();
-                // 更改身分證圖片
-                imgElement.src = selectedImg;
-                // 用身分證圖片顯示對應文字顏色邊框
-                const messageData = messages[selectedImg];
-                messageElement.textContent = messageData.text;
-                messageElement.style.color = messageData.color;
-                messageElement.style.border = messageData.border;
-            }
-
-            // 變換身分證
-            change();
-
+                // 設定我們選中的圖片
+                if (imgElement) {
+                    imgElement.src = img;
+                    const messageData = messages[img];
+                    if (messageData && messageElement) {
+                        messageElement.textContent = messageData.text;
+                        messageElement.style.color = messageData.color;
+                        messageElement.style.border = messageData.border;
+                    }
+                }
+            });
         });
 
         // 蓋章動畫
