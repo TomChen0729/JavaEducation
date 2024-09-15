@@ -518,18 +518,30 @@
             // 使用querySelectorAll選取所有type = "text"的input
             const inputs = document.querySelectorAll('input[type="text"]');
             let index = 0;
+
+            let allFilled = true; // 用來檢查是否所有input都有填值
+
+
             // 迴圈遍歷每個input，將值加入陣列
             inputs.forEach(input => {
                 index++;
+                if (input.value.trim() === '') {
+                    allFilled = false; // 如果有一個input的值是空的，將allFilled設為false
+                }
                 inputsArray.push({order: index, userAnswer: input.value});
                 console.log('填寫的第' + index +'答案為' + input.value)
             });
 
+            if (!allFilled) {
+                alert('你還有空格未填入答案');
+                return; // 如果有未填的答案，則不進入fetch
+            }
+
             var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             userAnswer = inputsArray;
             console.log(userAnswer);
-            // url = '/api/checkUserAnswer';
-            fetch('/api/checkUserAnswer', {
+            url = '/api/checkUserAnswer';
+            fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -538,13 +550,18 @@
                 body: JSON.stringify({
                     userAnswer: userAnswer,
                     parameter_id:  shape,
-                    gameName: '魔法寶箱'
+                    gameName: '魔法寶箱',
+                    currentUser: parseInt('{{ auth()->user()->id }}')
                 })
             })
             .then(response => response.json())
             .then(data => {
                 if (data.message == 'correct'){
                     alert('答對');
+                }else if(data.message == 'wrongAns'){
+                    console.log(data.wrongIndex);
+                }else if (data.message == 'Null'){
+                    alert('請填入答案');
                 }else{
                     alert('答錯');
                 }
@@ -588,7 +605,7 @@
                 input.style.width = minWidth + 'px';
             } else {
                 // 隨著字數增加寬度不小於 minWidth
-                input.style.width = Math.max(newWidth, minWidth) + 'px';
+                input.style.width = (Math.max(newWidth, minWidth)+10) + 'px';
             }
         }
 

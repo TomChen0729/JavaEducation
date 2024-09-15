@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\KnowledgeCard;
 use App\Models\PassCourseGetCard;
 use App\Models\PassCourseNeedCard;
+use App\Models\SecAnswer;
 use App\Models\SecGame;
 use App\Models\SecParameter;
 use App\Models\SecRecord;
@@ -242,17 +243,21 @@ class SecCountryController extends Controller
     }
 
     // 派發知識卡的函式
-    public function giveUserCards(int $secGameID)
+    public function giveUserCards(int $secGameID, int $currentUID)
     {
         $randGiveCard = PassCourseGetCard::where('secGameID', $secGameID)->inRandomOrder()->first();
+        Log::info($randGiveCard);
         $data = [
-            'user_id' => auth()->user()->id,
-            'knowledge_card_id' => $randGiveCard->id,
+            'user_id' => $currentUID,
+            'knowledge_card_id' => $randGiveCard->knowledge_card_id,
+            'watchtime' => '00:00:00',
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
 
         UserKnowledgeCard::insert($data);
 
-        return $randGiveCard;
+        // return $randGiveCard;
     }
 
     // 批改&紀錄
@@ -261,15 +266,45 @@ class SecCountryController extends Controller
         if ($request->isMethod('POST')) {
             // 從回傳的json解析題目資訊，因為每題的答案不一樣
             $gameName = $request->input('gameName');
+            $currentUser = $request->input('currentUser');
+            Log::info($currentUser);
+            // 存返回錯誤的index
+            $wrongIndexArray = [];
             switch ($gameName) {
                 case '魔法寶箱':
                     //進一步解析userAnswer
                     $userAnswer = $request->input('userAnswer');
-                    // 如過userAnswer不為空的話，逐一對答案
+                    // 如過userAnswer不為空的話，逐一對答案，即為有答案的話
                     if (!empty($userAnswer)) {
-                        return response()->json(['message' => 'correct']);
+                        $parameterID = $request->input('parameter_id');
+                        // 抓答案出來
+                        $answerData = $this->pluckAnswer($parameterID);
+                        // 答案與玩家輸入的答案長度若一致
+                        if(count($answerData) == count($userAnswer)){
+                            foreach($answerData as $ansData){         
+                                foreach($userAnswer as $userAns){
+                                    if ($userAns['order'] == $ansData['order']) {
+                                        if(preg_match('/'.str_replace('\\\\', '\\', $ansData['ans_patterns']).'/', $userAns['userAnswer'])){
+                                            // 匹配成功就跳出內層迴圈繼續對下一個使用者的答案
+                                            break;
+                                        }else{
+                                            array_push($wrongIndexArray, $userAns['order']);
+                                        }
+                                    }
+                                }
+                            }
+
+                            if(!empty($wrongIndexArray)){
+                                return response()->json(['message' => 'wrongAns', 'wrongIndex' => $wrongIndexArray]);
+                            }else{
+                                return response()->json(['message' => 'correct']);
+                            }
+                        }else{
+                            return response()->json(['message' => 'Error']);
+                        }
+                        
                     } else {
-                        return response()->json(['message' => 'wrongANS']);
+                        return response()->json(['message' => 'Null']);
                     }
                 case '魔法門衛':
                 //進一步解析userAnswer
@@ -281,5 +316,21 @@ class SecCountryController extends Controller
         } else {
             return response()->json(['message' => 'http method error!!']);
         }
+    }
+
+
+    public function pluckAnswer(int $secParameterID){
+        if(!empty($secParameterID)){
+            $answerData = SecAnswer::where('secParameterID', $secParameterID)->get();
+            if(!empty($answerData)){
+                Log::info('ans'.$answerData);
+                return $answerData;
+            }else{
+                return Null;
+            }
+        }else{
+            return Null;
+        }
+        
     }
 }
