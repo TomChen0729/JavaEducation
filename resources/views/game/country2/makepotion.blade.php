@@ -410,6 +410,20 @@
                 transform: translate(30%, 0); /* 回到右邊 */
             }
         }
+
+        #img-container #heal{
+            /* opacity: 0; */
+            /* top從-100px => 50px，opacity透明(0) => 不透明(1)，動畫持續0.5秒，速度曲線 => ease-in-out */
+            /* transition: top 0.5s ease-in-out, opacity 0.5s ease-in-out; */
+            height: 30%;
+            position: absolute;
+            z-index: 10; /*最上層*/
+        }
+
+        #img-container #heal.show{
+            top: 10px; /* 蓋章飛入後的位置 */
+            /* opacity: 1; */
+        }
     </style>
 </head>
 
@@ -496,7 +510,9 @@ public class Main {
                     <div id="img-container">
                         <img id="pot" src="/images/potion/pot.svg" alt="pot">
                         <img id="stick" src="/images/potion/stick.svg" alt="stick">
+                        <img class="img" id="heal" src="/images/potion/heal.svg" alt="">
                     </div>
+                    <button onclick="play()">測試動畫</button>
                 </div>
             </div>
         </div>
@@ -510,31 +526,12 @@ public class Main {
             document.getElementById("popup").classList.toggle("active");
         }
 
-        // 移除註解及移除後的空白段落
-        function removeCommentsAndEmptyLines(code) {
-            // 利用正規表達式移除註解
-            let noComments = code.replace(/\/\/.*/g, '').trim();
-            // 移除空行
-            let noEmptyLines = noComments.split('\n').filter(line => line.trim() !== '').join('\n');
-            return noEmptyLines;
-        }
+        // 產出治癒藥水動畫
+        function play() {
+            const healElement = document.getElementById('heal');
 
-        function autoResize(input) {
-            const newWidth = input.scrollWidth;
-            const minWidth = 80;
-
-            // 字數0時回到最小寬度
-            if (input.value === "") {
-                input.style.width = minWidth + 'px';
-            } else {
-                // 隨著字數增加寬度不小於 minWidth
-                input.style.width = Math.max(newWidth, minWidth) + 'px';
-            }
-        }
-
-        function toggleMinimize() {
-            const question = document.getElementById('question');
-            question.classList.toggle('minimized'); // 切換最小化
+            // 開始動畫
+            healElement.classList.add('show');
         }
     </script>
 </body>
