@@ -255,6 +255,7 @@ class SecCountryController extends Controller
                 case '魔法寶箱':
                     //進一步解析userAnswer
                     $userAnswer = $request->input('userAnswer');
+                    // 如過userAnswer不為空的話，逐一對答案
                     if (!empty($userAnswer)) {
                         return response()->json(['message' => 'correct']);
                     } else {
