@@ -556,6 +556,21 @@
             const box = document.getElementById("treasure-box");
             box.classList.add("open");
 
+            const img = document.getElementById("images");
+            const light = img.src;
+            // 用正規表達式，找出檔名位置
+            // var fileNameRegex = /\/images\/boxes\/(.+)\.svg/;
+            // 用split分割成陣列，再用pop取出陣列中最後的元素，將.svg替換成空字串
+            var fileName = light.split('/').pop().replace('.svg', '');
+            if (fileName) {
+                // 檔名加入light
+                var newFileName = 'light' + fileName;
+                // 更新圖片連結
+                img.src = '/images/boxes/' + newFileName + '.svg';
+            } else {
+                console.log('無法解析圖片檔名');
+            }
+
             // const stars = document.getElementById("star");
             // stars.classList.add("open");
 
