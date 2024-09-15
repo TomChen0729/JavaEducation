@@ -97,7 +97,7 @@
     <div class="header">
 
     </div>
-    @if($userNeedToGetCards !=null)
+    @if(!empty($userNeedToGetCards))
         <div class="userNeedCards">
             @foreach ($userNeedToGetCards as $item)
                 <p>你缺少{{ $item }}知識卡</p>
