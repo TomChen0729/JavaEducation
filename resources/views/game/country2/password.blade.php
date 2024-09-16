@@ -344,13 +344,13 @@
 
         .left {
             position: absolute;
-            right: 22%;
+            right: 14%;
             top: 30%;
         }
 
         .right {
             position: absolute;
-            right: 10%;
+            right: 2%;
             top: 50%;
         }
 
