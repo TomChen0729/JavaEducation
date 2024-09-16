@@ -459,8 +459,10 @@
     
     <!-- JavaScript -->
     <script>
-
         var idCardsData = @json($idCardsData);
+        var parameter_id = parseInt('{{ $idCardGameQuestion->id }}');
+
+        console.log('parameter_id:' + parameter_id);
         console.log(idCardsData);
         // 畫面載入後顯示彈跳視窗
         function togglePopup1() {
@@ -559,6 +561,67 @@
             }, 500); // 預設動畫持續1秒
         }
 
+
+        // 點擊送出按鈕時讀取六個input中的值，並存放置陣列中
+        var submitBtn = document.getElementById('send-code');
+        submitBtn.addEventListener('click', function() {
+            let inputsArray = [];
+
+            // 使用querySelectorAll選取所有type = "text"的input
+            const inputs = document.querySelectorAll('input[type="text"]');
+            let index = 0;
+
+            let allFilled = true; // 用來檢查是否所有input都有填值
+
+
+            // 迴圈遍歷每個input，將值加入陣列
+            inputs.forEach(input => {
+                index++;
+                if (input.value.trim() === '') {
+                    allFilled = false; // 如果有一個input的值是空的，將allFilled設為false
+                }
+                inputsArray.push({order: index, userAnswer: input.value});
+                console.log('填寫的第' + index +'答案為' + input.value)
+            });
+
+            if (!allFilled) {
+                alert('你還有空格未填入答案');
+                return; // 如果有未填的答案，則不進入fetch
+            }
+
+            var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            userAnswer = inputsArray;
+            console.log(userAnswer);
+            url = '/api/checkUserAnswer';
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                body: JSON.stringify({
+                    userAnswer: userAnswer,
+                    parameter_id:  parameter_id,
+                    gameName: '魔法門衛',
+                    currentUser: parseInt('{{ auth()->user()->id }}')
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message == 'correct'){
+                    alert('答對');
+                }else if(data.message == 'wrongAns'){
+                    console.log(data.wrongIndex);
+                }else if (data.message == 'Null'){
+                    alert('請填入答案');
+                }else{
+                    alert('答錯');
+                }
+            })
+
+        });
+
+
         /*測試遮變數
         document.addEventListener('DOMContentLoaded', (event) => {
             let isCorrect = false; // 初始還沒答對
@@ -578,7 +641,6 @@
                 }
             });
         });*/
-
 
 
     </script>

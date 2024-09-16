@@ -308,8 +308,74 @@ class SecCountryController extends Controller
                     }
                 case '魔法門衛':
                 //進一步解析userAnswer
+                $userAnswer = $request->input('userAnswer');
+                // 如過userAnswer不為空的話，逐一對答案，即為有答案的話
+                if (!empty($userAnswer)) {
+                    $parameterID = $request->input('parameter_id');
+                    // 抓答案出來
+                    $answerData = $this->pluckAnswer($parameterID);
+                    // 答案與玩家輸入的答案長度若一致
+                    if(count($answerData) == count($userAnswer)){
+                        foreach($answerData as $ansData){         
+                            foreach($userAnswer as $userAns){
+                                if ($userAns['order'] == $ansData['order']) {
+                                    if(preg_match('/'.str_replace('\\\\', '\\', $ansData['ans_patterns']).'/', $userAns['userAnswer'])){
+                                        // 匹配成功就跳出內層迴圈繼續對下一個使用者的答案
+                                        break;
+                                    }else{
+                                        array_push($wrongIndexArray, $userAns['order']);
+                                    }
+                                }
+                            }
+                        }
+
+                        if(!empty($wrongIndexArray)){
+                            return response()->json(['message' => 'wrongAns', 'wrongIndex' => $wrongIndexArray]);
+                        }else{
+                            return response()->json(['message' => 'correct']);
+                        }
+                    }else{
+                        return response()->json(['message' => 'Error']);
+                    }
+                    
+                } else {
+                    return response()->json(['message' => 'Null']);
+                }
                 case '通關密碼':
                 //進一步解析userAnswer
+                $userAnswer = $request->input('userAnswer');
+                // 如過userAnswer不為空的話，逐一對答案，即為有答案的話
+                if (!empty($userAnswer)) {
+                    $parameterID = $request->input('parameter_id');
+                    // 抓答案出來
+                    $answerData = $this->pluckAnswer($parameterID);
+                    // 答案與玩家輸入的答案長度若一致
+                    if(count($answerData) == count($userAnswer)){
+                        foreach($answerData as $ansData){         
+                            foreach($userAnswer as $userAns){
+                                if ($userAns['order'] == $ansData['order']) {
+                                    if(preg_match('/'.str_replace('\\\\', '\\', $ansData['ans_patterns']).'/', $userAns['userAnswer'])){
+                                        // 匹配成功就跳出內層迴圈繼續對下一個使用者的答案
+                                        break;
+                                    }else{
+                                        array_push($wrongIndexArray, $userAns['order']);
+                                    }
+                                }
+                            }
+                        }
+
+                        if(!empty($wrongIndexArray)){
+                            return response()->json(['message' => 'wrongAns', 'wrongIndex' => $wrongIndexArray]);
+                        }else{
+                            return response()->json(['message' => 'correct']);
+                        }
+                    }else{
+                        return response()->json(['message' => 'Error']);
+                    }
+                    
+                } else {
+                    return response()->json(['message' => 'Null']);
+                }
                 default:
                     return response('沒有這個遊戲類型');
             }

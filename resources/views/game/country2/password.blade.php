@@ -248,16 +248,16 @@
 
         .left-container button {
             position: absolute;
-            top: 55%;   
-            left: 22%;  
-            transform: translate(-50%, -50%); 
+            top: 55%;
+            left: 22%;
+            transform: translate(-50%, -50%);
         }
 
         .right-container button {
             position: absolute;
-            top: 52%;   
-            right: 23%; 
-            transform: translate(50%, 50%); 
+            top: 52%;
+            right: 23%;
+            transform: translate(50%, 50%);
         }
 
         .move-right {
@@ -313,23 +313,23 @@
 
         .right,
         .left {
-            display: none; 
+            display: none;
         }
 
-        .paper{
+        .paper {
             left: 0;
             padding: 10px;
             background-color: #fff2cc;
         }
 
-        .paper p{
+        .paper p {
             margin-top: 10%;
             font-weight: bold;
             font-size: 26px;
             text-align: center;
         }
 
-        .row{
+        .row {
             width: 100%;
         }
 
@@ -364,7 +364,7 @@
             font-size: 18px;
             margin: 0 20px;
             border-radius: 5px;
-            margin-top:20px;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -378,7 +378,9 @@
             <div class="close-btn" onclick="togglePopup1()">&times;</div>
             <div class="pop">
                 <h1>遊戲說明</h1>
-                <p><strong>{{ $passwordGameQuestion -> gamename }}</strong><br><hr></p>
+                <p><strong>{{ $passwordGameQuestion -> gamename }}</strong><br>
+                    <hr>
+                </p>
                 <p>
                     {{ $passwordGameQuestion -> game_explanation }}
                 </p>
@@ -410,7 +412,7 @@
                 <div class="bx bx-menu" id="menu-icon"></div>
             </div>
         </div>
-        
+
     </div>
 
     <div class="containers">
@@ -439,7 +441,7 @@
 
     <div class="right">
         <div class="code-container">
-<pre>
+            <pre>
 {!! $templateCode !!}
 </pre>
         </div>
@@ -447,9 +449,11 @@
             <button id="send-code" class="btn-submit">提交</button>
         </div>
     </div>
-    
+
     <!-- JavaScript -->
     <script>
+        var parameter_id = parseInt('{{ $passwordGameQuestion->id }}');
+        console.log('parameter_id:' + parameter_id);
         // 畫面載入後顯示彈跳視窗
         function togglePopup1() {
             document.getElementById("popup").classList.toggle("active");
@@ -464,12 +468,12 @@
             if (container.classList.contains('move-right')) {
                 container.classList.remove('move-right');
                 rightDiv.style.display = 'none';
-                leftDiv.style.display = 'none'; 
+                leftDiv.style.display = 'none';
             } else {
                 container.classList.add('move-right');
                 container.classList.remove('move-left');
-                rightDiv.style.display = 'block'; 
-                leftDiv.style.display = 'block'; 
+                rightDiv.style.display = 'block';
+                leftDiv.style.display = 'block';
             }
         });
 
@@ -482,67 +486,66 @@
             question.classList.add('hide');
         });
 
-        /* 弄一個codeMirror出來，設定佈景、語言模式
-        var editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
-            lineNumbers: true,
-            mode: "text/x-java",
-            theme: "base16-dark"
-        });*/
-
-        // 移除註解及移除後的空白段落
-        function removeCommentsAndEmptyLines(code) {
-            // 利用正規表達式移除註解
-            let noComments = code.replace(/\/\/.*/g, '').trim();
-            // 移除空行
-            let noEmptyLines = noComments.split('\n').filter(line => line.trim() !== '').join('\n');
-            return noEmptyLines;
-        }
-
+        // 點擊送出按鈕時讀取六個input中的值，並存放置陣列中
         var submitBtn = document.getElementById('send-code');
-        // 框架code
-        var templateCode = `for(){
-            for(){
-            }
-            for(){
-            }
-        }`;
-        submitBtn.addEventListener('click', () => {
-            // 獲取編輯器內文字，在"// 程式撰寫區域"之後的值並將其分開，取目標code，並去空白
-            var userCode = editor.getValue().split('// 程式撰寫區域')[1].trim();
-            if (userCode) {
-                // 執行剛剛移除註解的函式之後再將最外面的兩個大括號去除，就是我要判讀的code
-                var cleanedCode = removeCommentsAndEmptyLines(userCode).replace('\n    }\n}', '').trim();
-                if (cleanedCode && cleanedCode !== templateCode.trim()) {
-                    // 測試用
-                    // alert(templateCode.trim());
-                    alert('您輸入的code為：\n' + cleanedCode);
-                    // 將程式碼送入演算法，或是後端的判斷，如果success，顯現相應的效果，並執行通關
-                    // 跑fetch進後端
-                    fetch('/api/receive-usercode',{
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        },
-                        body: JSON.stringify({ 
-                            userCode: cleanedCode 
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log(data);
-                        if(data.message === 'OK'){
-                            alert('答對');
-                        }
-                    })
+        submitBtn.addEventListener('click', function() {
+            let inputsArray = [];
+
+            // 使用querySelectorAll選取所有type = "text"的input
+            const inputs = document.querySelectorAll('input[type="text"]');
+            let index = 0;
+
+            let allFilled = true; // 用來檢查是否所有input都有填值
 
 
-                } else {
-                    alert('請輸入程式碼');
+            // 迴圈遍歷每個input，將值加入陣列
+            inputs.forEach(input => {
+                index++;
+                if (input.value.trim() === '') {
+                    allFilled = false; // 如果有一個input的值是空的，將allFilled設為false
                 }
-            } else {
-                alert('請輸入程式碼');
+                inputsArray.push({
+                    order: index,
+                    userAnswer: input.value
+                });
+                console.log('填寫的第' + index + '答案為' + input.value)
+            });
+
+            if (!allFilled) {
+                alert('你還有空格未填入答案');
+                return; // 如果有未填的答案，則不進入fetch
             }
+
+            var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            userAnswer = inputsArray;
+            console.log(userAnswer);
+            url = '/api/checkUserAnswer';
+            fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    body: JSON.stringify({
+                        userAnswer: userAnswer,
+                        parameter_id: parameter_id,
+                        gameName: '通關密碼',
+                        currentUser: parseInt('{{ auth()->user()->id }}')
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message == 'correct') {
+                        alert('答對');
+                    } else if (data.message == 'wrongAns') {
+                        console.log(data.wrongIndex);
+                    } else if (data.message == 'Null') {
+                        alert('請填入答案');
+                    } else {
+                        alert('答錯');
+                    }
+                })
+
         });
 
         function autoResize(input) {
