@@ -534,6 +534,20 @@ public class Main {
             // 開始動畫
             healElement.classList.add('show');
         }
+
+        //input格子縮放
+        function autoResize(input) {
+            const newWidth = input.scrollWidth;
+            const minWidth = 80;
+
+            // 字數0時回到最小寬度
+            if (input.value === "") {
+                input.style.width = minWidth + 'px';
+            } else {
+                // 隨著字數增加寬度不小於 minWidth
+                input.style.width = Math.max(newWidth, minWidth) + 'px';
+            }
+        }
     </script>
 </body>
 
