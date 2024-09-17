@@ -249,7 +249,7 @@
 
         .question {
             width: 100%;
-            height: 20%;
+            height: 10%;
             background-color: #FFFDD3;
             border-radius: 20px;
             padding: 20px;
@@ -261,7 +261,7 @@
             font-weight: bold;
         }
 
-        #seal{
+        .seal{
             top: -100px; /* 蓋章動畫起始位置在畫面上方 */
             opacity: 0;
             /* top從-100px => 50px，opacity透明(0) => 不透明(1)，動畫持續0.5秒，速度曲線 => ease-in-out */
@@ -272,12 +272,12 @@
             z-index: 10; /*最上層*/
         }
 
-        #seal.show{
+        .seal.show{
             top: 10px; /* 蓋章飛入後的位置 */
             opacity: 1;
         }
 
-        #message{
+        .message{
             top: 30%;
             left: 25%;
             opacity: 0;
@@ -292,7 +292,7 @@
             transform: rotate(-10deg);
         }
 
-        #message.open{
+        .message.open{
             opacity: 1;
         }
         
@@ -425,12 +425,12 @@
                 </div>
                 @foreach($idCardsData as $item)
                 <div id="idcard">
-                    <img class="img" id="seal" src="/images/idcard/idcardseal.svg" alt="">
-                    <div id="message"></div> <!-- 動畫顯示文字 -->
+                    <img class="seal" id="seal-{{ $loop->index }}" src="/images/idcard/idcardseal.svg" alt="">
+                    <div class="message" id="message-{{ $loop->index }}"></div> <!-- 動畫顯示文字 -->
                     <div class="card">
                         <div class="row">
-                            <div class="col-md-6 left-container">
-                                <img id="idcards" src="/images/idcard/boyvillager.svg" alt="證件照">
+                            <div class="col-md-6 left-container" id="idcards">
+                            <img id="idcard-img-{{ $loop->index }}" src="" alt="證件照">
                             </div>
                             <div class="col-md-6 right-container">
                                 <h1>身分證</h1>
@@ -442,7 +442,6 @@
                     </div>
                 </div>
                 @endforeach
-                <button onclick="playStamp()">測試蓋章動畫</button>
             </div>
             <div class="col-md-6 right-container">
                 <div class="code-container">
@@ -459,11 +458,7 @@
     
     <!-- JavaScript -->
     <script>
-        var idCardsData = @json($idCardsData);
-        var parameter_id = parseInt('{{ $idCardGameQuestion->id }}');
-
-        console.log('parameter_id:' + parameter_id);
-        console.log(idCardsData);
+        
         // 畫面載入後顯示彈跳視窗
         function togglePopup1() {
             document.getElementById("popup").classList.toggle("active");
@@ -485,12 +480,21 @@
 
         // DOMContentLoaded事件在文件的HTML被完全載入和解析後觸發(不必等待樣式表、圖像和子框架的完成加載)
         document.addEventListener('DOMContentLoaded', function(){
-            // 遍歷，替換對應的圖片
-            idCardsData.forEach(function(item, index) {
-                let imgElement = document.getElementById('idcards'); // 要替換的圖片元素
-                let messageElement = document.getElementById('message');
-                let img;
+            // 後端傳資料給前端
+            var idCardsData = @json($idCardsData);
+            var parameter_id = parseInt('{{ $idCardGameQuestion->id }}');
+            console.log('parameter_id:' + parameter_id);
+            console.log(idCardsData);
 
+            // 遍歷，替換對應的圖片、文字、印章
+            idCardsData.forEach(function(item, index) {
+                const imgElement = document.getElementById(`idcard-img-${index}`); // 動態獲取每個卡片的 img 元素
+                const messageElement = document.getElementById(`message-${index}`); // 動態獲取 message 元素
+                const sealElement = document.getElementById(`seal-${index}`); // 動態獲取 seal
+                let img = '';
+                let messageData = {};
+
+                // 根據性別和身分設置證件照
                 if (item.gender === '女') {
                     switch (item.identity) {
                         case '商人':
@@ -503,7 +507,7 @@
                             img = '/images/idcard/gmonster.svg';
                             break;
                         default:
-                            img = ''; 
+                        img = '';
                     }
                 } else {
                     switch (item.identity) {
@@ -517,37 +521,38 @@
                             img = '/images/idcard/monster.svg';
                             break;
                         default:
-                            img = ''; 
+                            img = '';
                     }
                 }
 
-                // 依據隨機身分證顯示文字
-                const messages = {
-                    '/images/idcard/monster.svg': { text: '禁止進入', color: 'red', border: '5px solid red' },
-                    '/images/idcard/gmonster.svg': { text: '禁止進入', color: 'red', border: '5px solid red' },
-                    '/images/idcard/boyvillager.svg': { text: '免費進入', color: 'green', border: '5px solid green' },
-                    '/images/idcard/businessman.svg': { text: '免費進入', color: 'green', border: '5px solid green' },
-                    '/images/idcard/businesswoman.svg': { text: '免費進入', color: 'green', border: '5px solid green' },
-                    '/images/idcard/girlvillager.svg': { text: '免費進入', color: 'green', border: '5px solid green' }
-                };
+                // 根據身分設置對應的 message
+                if (item.identity === '怪物') {
+                    messageData = { text: '禁止進入', color: 'red', border: '5px solid red' };
+                } else {
+                    messageData = { text: '免費進入', color: 'green', border: '5px solid green' };
+                }
 
-                // 設定我們選中的圖片
+                // 更新圖片
                 if (imgElement) {
                     imgElement.src = img;
-                    const messageData = messages[img];
-                    if (messageData && messageElement) {
-                        messageElement.textContent = messageData.text;
-                        messageElement.style.color = messageData.color;
-                        messageElement.style.border = messageData.border;
-                    }
                 }
+
+                // 更新 message
+                if (messageElement) {
+                    messageElement.textContent = messageData.text;
+                    messageElement.style.color = messageData.color;
+                    messageElement.style.border = messageData.border;
+                }
+
+                // 觸發蓋章動畫，答案正確放這個
+                // playStamp(index);
             });
         });
 
-        // 蓋章動畫
-        function playStamp() {
-            const sealElement = document.getElementById('seal');
-            const messageElement = document.getElementById('message');
+        // 蓋章動畫，根據 index 觸發動畫
+        function playStamp(index) {
+            const sealElement = document.getElementById(`seal-${index}`);
+            const messageElement = document.getElementById(`message-${index}`);
 
             // 開始動畫
             sealElement.classList.add('show');
@@ -558,7 +563,7 @@
                 messageElement.classList.add('open');
                 sealElement.classList.remove('show');
                 
-            }, 500); // 預設動畫持續1秒
+            }, 500); // 預設動畫持續0.5秒
         }
 
 
