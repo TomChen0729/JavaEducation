@@ -259,7 +259,22 @@ class SecCountryController extends Controller
 
         return $randGiveCard;
     }
-
+    public function CorrectUserRecord(int $userid,int $parameterid){
+        $CorrectUserRecord = SecRecord::where('user_id',$userid)->where('secParameterID',$parameterid)->where('status','true')->first();
+        $CorrectUserRecord->counter+=1;
+        $CorrectUserRecord->save();
+        $WatchedtUserRecord = SecRecord::where('user_id',$userid)->where('secParameterID',$parameterid)->where('status','watched')->first();
+        $WatchedtUserRecord->counter-=1;
+        $WatchedtUserRecord->save();
+    }
+    public function WrongUserRecord(int $userid,int $parameterid){
+        $WrongUserRecord = SecRecord::where('user_id',$userid)->where('secParameterID',$parameterid)->where('status','false')->first();
+        $WrongUserRecord->counter+=1;
+        $WrongUserRecord->save();
+        $WatchedtUserRecord = SecRecord::where('user_id',$userid)->where('secParameterID',$parameterid)->where('status','watched')->first();
+        $WatchedtUserRecord->counter-=1;
+        $WatchedtUserRecord->save();
+    }
     // 批改&紀錄
     public function checkUserAnswer(Request $request)
     {
@@ -295,8 +310,10 @@ class SecCountryController extends Controller
                             }
 
                             if(!empty($wrongIndexArray)){
+                                $this->WrongUserRecord($currentUser,$parameterID);
                                 return response()->json(['message' => 'wrongAns', 'wrongIndex' => $wrongIndexArray]);
                             }else{
+                                $this->CorrectUserRecord($currentUser,$parameterID);
                                 return response()->json(['message' => 'correct']);
                             }
                         }else{
@@ -330,8 +347,10 @@ class SecCountryController extends Controller
                         }
 
                         if(!empty($wrongIndexArray)){
+                            $this->WrongUserRecord($currentUser,$parameterID);
                             return response()->json(['message' => 'wrongAns', 'wrongIndex' => $wrongIndexArray]);
                         }else{
+                            $this->CorrectUserRecord($currentUser,$parameterID);
                             return response()->json(['message' => 'correct']);
                         }
                     }else{
@@ -365,8 +384,10 @@ class SecCountryController extends Controller
                         }
 
                         if(!empty($wrongIndexArray)){
+                            $this->WrongUserRecord($currentUser,$parameterID);
                             return response()->json(['message' => 'wrongAns', 'wrongIndex' => $wrongIndexArray]);
                         }else{
+                            $this->CorrectUserRecord($currentUser,$parameterID);
                             return response()->json(['message' => 'correct']);
                         }
                     }else{
