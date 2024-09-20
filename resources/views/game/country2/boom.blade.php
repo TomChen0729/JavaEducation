@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>調配藥水</title>
+    <title>密碼解碼</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/base16-dark.min.css" rel="stylesheet">
@@ -126,7 +126,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 20px 2% 0;
-            background: rgba(186, 189, 205, 0.8);
+            background: rgba(88, 69, 70, 0.8);
             transition: all 0.5s ease;
         }
 
@@ -158,7 +158,7 @@
 
         .breadcrumbs__link__active {
             text-decoration: none;
-            color: #3E5D53;
+            color: #2B060A;
             font-weight: bold;
         }
 
@@ -225,19 +225,24 @@
         .container-fluid {
             width:100%;
             overflow: visible;
-            margin-top: 2%;
+            margin-top: -3%;
             position: relative;
             transition: transform 0.5s ease-in-out;
             z-index: 1;
-            height:100vh;
+            height:auto;
+            background-color:#F2D5B5;
+        }
+
+        .left-container{
+            margin-top:5%;
+        }
+
+        .right-container{
+            margin-top:5%;
         }
 
         .row {
             height:100%;
-        }
-
-        .left-container {
-            background-color:#BFBDA0;
         }
 
         .question {
@@ -246,78 +251,108 @@
             border-radius: 20px;
             padding: 20px;
             text-align: left;
-            margin-top:5%;
-            margin-bottom:-10%;
+            margin-top:2%;
             transition: max-height 0.3s ease;
         }
 
         .question h5 {
             font-weight: bold;
-            color:white;
+            color:#4F4842;
         }
 
-        .team {
-            padding: 2em 0 2em 2.5em;
-            margin: 0;
-            margin-top:-5%;
-        }
-
-        .member {
-            margin: 1.5em 0 0.5em;
-            padding: 0.73em;
-            background: linear-gradient(
-                83deg,
-                var(--yellow) 0 97%,
-                #fff0 calc(97% + 1px) 100%
-            );
+        .paper {
             position: relative;
-            list-style: none;
-            display: inline-block;
-            transform: scale(0.85);
-            transform: scale(1);
-            filter: drop-shadow(0px 20px 10px #0008);
+            line-height: 25px;
+            width: 550px;
+            height: 150px;
+            background-color: white;
+            margin: 0 auto;
+            box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, margin 0.3s;
         }
 
-        .thumb {
-            width: 13vmin;
-            height: 13vmin;
-            float: left;
-            margin-right: 1.25em;
-            background: linear-gradient(
-                var(--deg),
-                var(--dark) 0 70%,
-                var(--yellow) 0% 100%
-            );
-            transform: rotate(-4deg);
-            border-radius: 0.25em;
-            overflow: hidden;
-            margin-left: -3em;
-            padding: 0.5em;
-            padding: 0.1em;
-            transform: rotate(-1deg);
-            --deg: -89deg;
-        }
-
-        .thumb img {
-            width: 100%;
+        .paper:before {
+            content: "";
+            position: absolute;
             height: 100%;
-            border-radius: 0.25em;
-            filter: grayscale(1);
-            background: var(--dark);
-            filter: none;
+            width: 2px;
+            background: rgba(255, 0, 0, 0.3);
+            margin-left: 48px;
+            z-index: 2;
         }
 
-        .description h3 {
+        .lines {
+            overflow-y:scroll;
+            top: 50px;
+            position: relative;
+            box-sizing: content-box;
+            height: 100px;
+            padding-right: 8px;
+            padding-left: 56px;
+            background-image: repeating-linear-gradient(
+                white 0px,
+                white 23.5px,
+                steelblue 25px
+            );
+
+            ul {
+                margin: 0;
+            }
+        }
+
+        .holes {
+            position: absolute;
+            height: 100%;
+            width: 48px;
+            margin-top: 1px;
+            margin-bottom: 1px;
+            top: 0;
+            left: 0;
+        }
+
+        .holes .hole {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: gainsboro;
+            left: 12.5px;
+            box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2) inset;
+        }
+
+        .holes .hole:nth-child(1) {
+            top: 20px;
+        }
+
+        .holes .hole:nth-child(2) {
+            top: 100px;
+        }
+
+        .control-buttons {
+            text-align: right;
+            padding: 5px;
+            margin-bottom:-55px;
+        }
+
+        .minbtn{
+            background-color:#ADD8E6;
+            color:white;
+            border-radius:8px;
             font-weight:bold;
+            font-size:24px;
+            border:none;
         }
-
-        .description p {
-            font-size:20px;
-            padding: 0 2em;
-            margin-bottom: 1em;
+        
+        .img-container{
+            background-color:#6D6875;
+            margin-left:2%;
+            margin-top:2%;
+            margin-left:2%;
         }
 
         .container-code {
+            overflow-y:scroll;
+            height:70%;
             width: 94%;
             background-color: #f4f4f4;
             border-radius: 8px;
@@ -338,8 +373,8 @@
 
         .btn-container {
             position: absolute;
-            right: 60px;
-            bottom: 80px;
+            right: 40px;
+            margin-top:-20%;
         }
 
         .btn-submit{
@@ -351,71 +386,7 @@
             border-radius: 5px;
 
         }
-
-        .right-container {
-            background-color:#5F5F5F;
-            display: flex;
-            justify-content: center;  
-            align-items: center; 
-            height: auto;             
-        }
-
-        #img-container {
-            width: 100%;
-            height: auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #img-container #pot {
-            position: relative;
-            margin-top: 20%;
-            width: 800px;
-            height: auto; 
-        }
-
-        #img-container #stick {
-            top: 20%;
-            right: 25%;
-            position: absolute;
-            width: 400px;
-            height: auto; 
-            animation: animate 6s linear infinite normal;
-        }
-
-        @keyframes animate {
-            0% {
-                transform: translate(20%, -5%); /* 開始於圓形的右邊 */
-            }
-            25% {
-                transform: translate(0, 0); /* 圓形的下方 */
-            }
-            50% {
-                transform: translate(-40%, -5%); /* 圓形的左邊 */
-            }
-            75% {
-                transform: translate(0, -10%); /* 圓形的上方 */
-            }
-            100% {
-                transform: translate(20%, -5%); /* 回到右邊 */
-            }
-        }
-
-        #img-container #heal{
-            top: 30%;
-            opacity: 0;
-            /* top從-100px => 50px，opacity透明(0) => 不透明(1)，動畫持續2秒，速度曲線 => ease-in-out */
-            transition: top 2s ease-in-out, opacity 3s ease-in-out;
-            height: 30%;
-            position: absolute;
-            z-index: 10; /*最上層*/
-        }
-
-        #img-container #heal.show{
-            top: 10px; 
-            opacity: 1;
-        }
+        
     </style>
 </head>
 
@@ -428,9 +399,9 @@
             <div class="close-btn" onclick="togglePopup1()">&times;</div>
             <div class="pop">
                 <h1>遊戲說明</h1>
-                <p><strong>調配藥水</strong><br><hr></p>
+                <p><strong>密碼解碼</strong><br><hr></p>
                 <p>
-                    桃樂絲一行人從蠻金之國到蘋果樹林這都沒有涉入食物，過度飢餓導致無力繼續前進，請幫助他們調配出治癒藥水，能夠回復體力並不會再度飢餓
+                桃樂絲一行人要從蘋果怪樹林前往村莊的路途中，遇到了傳說中的詛咒的神廟，其內部隱藏著改變命運的錦囊；想要進入這座神廟的唯一方法是解開一道古老的謎題。這個謎題必須將一串神秘的數字倒敘排列，才會開啟神廟大門。桃樂絲一行人想要進去探險考古，請幫助他們打開神廟大門吧!
                 </p>
             </div>
         </div>
@@ -446,7 +417,7 @@
                     <a href="#" class="breadcrumbs__link">遊戲種類</a>
                 </li>
                 <li class="breadcrumbs__item">
-                    <a href="#" class="breadcrumbs__link__active">調配藥水</a>
+                    <a href="#" class="breadcrumbs__link__active">密碼解碼</a>
                 </li>
             </ul>
 
@@ -465,46 +436,78 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6 left-container">
+            <div class="col-md-6 left-container" id="left-container">
                 <div class="question" id="question">
-                <h5>桃樂絲一行人過度飢餓，無法繼續前進。你需要幫助他們隨機獲得一個藥水配方，並使用 if 條件語句成功調製治癒藥水。</h5>
-                    <ul class="team">
-                        <li class="member co-funder">
-                            <div class="thumb"><img src="/images/potion/heal.svg"></div>
-                            <div class="description">
-                                <h3>配方表</h3>
-                                <p>材料一 (material1) 需大於等於 20 且小於 50，並且材料二(material2) 小於 30。</p>
-                            </div>
-                        </li>
-                    </ul>
+                    <h5>桃樂絲一行人在詛咒的神廟前遇到了古老的謎題。隨機生成一個三位數，並使用 while 迴圈逐一提取數字位，根據以下規則進行解碼。解碼後的三個數字相加就是神廟的密碼，幫助他們打開大門進行探險！</h5>
                 </div>
-                <div  class="container-code" id="code">
+                <div class="paper" id="paper">
+                    <div class="control-buttons">
+                        <button class="minbtn" onclick="toggleMinimize()">－</button>
+                    </div>
+                    <div class="lines" id="lines">
+                        <strong>解碼規則</strong>
+                        <ul>
+                            <li>百位數字：
+                                <ul>
+                                    <li>如果百位數字是奇數，則將百位數*2</li>
+                                    <li>如果百位數字是偶數，則將百位數/2 </li>
+                                </ul>
+                            </li>
+                            <li>十位數字：
+                                <ul>
+                                    <li>如果十位數字是奇數，則將十位數/2</li>
+                                    <li>如果十位數字是偶數，則將十位數*3</li>
+                                </ul>
+                            </li>
+                            <li>個位數字：
+                                <ul>
+                                    <li>如果個位數字>=5，則將個位數-3</li>
+                                    <li>如果個位數 < 5將，則將個位數+3</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="holes" id="holes">
+                        <div class="hole"></div>
+                        <div class="hole"></div>
+                    </div>
+                </div>
+                <div class="img-container" id="img-container">
+                    <img id="pot" src="/images/boom/boom.svg" alt="pot">
+                </div>
+                    <button onclick="play()">測試動畫</button>
+            </div>
+
+                <div class="col-md-6 right-container" id="right-container">
+                    <div  class="container-code" id="code">
 <pre>
 public class Main {
     public static void main(String[] args) {
-        int material1 = 30;
-        int material2 = 20;
+        int number = 456;
+        int position = 1;
+        int result = 0; 
 
-        // 判斷治癒藥水的配方條件
-        if (<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">) {
-            System.out.println("治癒藥水的配方條件成立。");
+        // 使用 while 迴圈將數字的每一位提取出來並進行處理
+        while (<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">) {
+            int digit = number % 10;
+
+            if (<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">) { // 個位數字
+                if (<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">) {
+                    result += (<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">);
+                } else {
+                    result += (<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">);
+                }
+            }
         }
+
+        System.out.println("解碼後的密碼: " + result);
     }
 }
 </pre>
-                    <div class="btn-container">
-                        <button id="send-code" class="btn-submit">提交</button>
+                        <div class="btn-container">
+                            <button id="send-code" class="btn-submit">提交</button>
+                        </div>
                     </div>
-                </div>
-            </div>
-
-                <div class="col-md-6 right-container">
-                    <div id="img-container">
-                        <img id="pot" src="/images/potion/pot.svg" alt="pot">
-                        <img id="stick" src="/images/potion/stick.svg" alt="stick">
-                        <img class="img" id="heal" src="/images/potion/heal.svg" alt="">
-                    </div>
-                    <button onclick="play()">測試動畫</button>
                 </div>
             </div>
         </div>
@@ -516,14 +519,6 @@ public class Main {
         // 畫面載入後顯示彈跳視窗
         function togglePopup1() {
             document.getElementById("popup").classList.toggle("active");
-        }
-
-        // 產出治癒藥水動畫
-        function play() {
-            const healElement = document.getElementById('heal');
-
-            // 開始動畫
-            healElement.classList.add('show');
         }
 
         //input格子縮放
@@ -539,6 +534,24 @@ public class Main {
                 input.style.width = Math.max(newWidth, minWidth) + 'px';
             }
         }
+
+        //最小化
+        function toggleMinimize() {
+            const paper = document.getElementById('paper');
+            const lines = document.getElementById('lines');
+            const holes = document.getElementById('holes');
+            
+            if (lines.style.display === 'none') {
+                lines.style.display = 'block';
+                paper.style.height = '150px';
+                holes.style.display ='block';
+                
+            } else {
+                lines.style.display = 'none';
+                paper.style.height = '40px';
+                holes.style.display ='none';
+            }
+    }
     </script>
 </body>
 

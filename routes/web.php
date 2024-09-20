@@ -83,3 +83,6 @@ Route::get('level2', function () {
 Route::get('makepotion', function () {
     return view('game.country2.makepotion');
 });
+Route::get('boom', function () {
+    return view('game.country2.boom');
+});
