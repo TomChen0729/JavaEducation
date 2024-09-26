@@ -126,7 +126,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 20px 2% 0;
-            background: rgba(186, 189, 205, 0.8);
+            background: rgba(255, 193, 7, 0.8);
             transition: all 0.5s ease;
         }
 
@@ -158,7 +158,7 @@
 
         .breadcrumbs__link__active {
             text-decoration: none;
-            color: #3E5D53;
+            color: #3F3E3B;
             font-weight: bold;
         }
 
@@ -225,7 +225,7 @@
         .container-fluid {
             width:100%;
             overflow: visible;
-            margin-top: 2%;
+            margin-top: -3%;
             position: relative;
             transition: transform 0.5s ease-in-out;
             z-index: 1;
@@ -246,7 +246,7 @@
             border-radius: 20px;
             padding: 20px;
             text-align: left;
-            margin-top:5%;
+            margin-top:13%;
             margin-bottom:-10%;
             transition: max-height 0.3s ease;
         }
@@ -339,7 +339,7 @@
         .btn-container {
             position: absolute;
             right: 60px;
-            bottom: 80px;
+            bottom: 40px;
         }
 
         .btn-submit{

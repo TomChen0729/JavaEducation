@@ -481,28 +481,28 @@
                 <div class="col-md-6 right-container" id="right-container">
                     <div  class="container-code" id="code">
 <pre>
-public class Main {
-    public static void main(String[] args) {
-        int number = 456;
-        int position = 1;
-        int result = 0; 
+    public class Main {
+        public static void main(String[] args) {
+            int number = 456;
+            int position = 1;
+            int result = 0; 
 
-        // 使用 while 迴圈將數字的每一位提取出來並進行處理
-        while (<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">) {
-            int digit = number % 10;
+            // 使用 while 迴圈將數字的每一位提取出來並進行處理
+            while (<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">) {
+                int digit = number % 10;
 
-            if (<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">) { // 個位數字
-                if (<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">) {
-                    result += (<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">);
-                } else {
-                    result += (<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">);
+                if (<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">) { // 個位數字
+                    if (<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">) {
+                        result += (<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">);
+                    } else {
+                        result += (<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">);
+                    }
                 }
             }
-        }
 
-        System.out.println("解碼後的密碼: " + result);
+            System.out.println("解碼後的密碼: " + result);
+        }
     }
-}
 </pre>
                         <div class="btn-container">
                             <button id="send-code" class="btn-submit">提交</button>
