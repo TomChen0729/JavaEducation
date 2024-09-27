@@ -86,3 +86,6 @@ Route::get('makepotion', function () {
 Route::get('boom', function () {
     return view('game.country2.boom');
 });
+Route::get('apple', function () {
+    return view('game.country2.apple');
+});

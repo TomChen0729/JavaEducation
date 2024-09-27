@@ -39,6 +39,7 @@
             justify-content: center;
             align-items: center;
             padding-top: 6%;
+            background-color:#C4DAD2;
         }
 
         .first .overlay {
@@ -128,7 +129,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 20px 2% 0px;
-            background: rgba(186,189,205, 0.8);
+            background: rgba(106,156,137, 0.8);
             /* 透明背景 */
             transition: all 0.50s ease;
         }
@@ -171,7 +172,7 @@
 
         .breadcrumbs__link__active {
             text-decoration: none;
-            color: #3E5D53;
+            color: #16423C;
             font-weight: bold;
         }
 
@@ -244,20 +245,25 @@
         }
 
         .container-fluid{
-            margin-top: 2%;
+            width:100%;
+            height:100vh;
         }
 
         .question {
-            width: 100%;
-            height: 10%;
-            background-color: #FFFDD3;
-            border-radius: 20px;
-            padding: 20px;
-            text-align: center;
+            margin-left:10%;
+            width: 80%;
+            height: auto;
+            background-color: #80d5a6;
+            border: 5px dashed mediumseagreen;
+            padding: 25px;
+            box-shadow: 0 0 0 2.5px #226741, 0 0 0 12.5px #fff, inset 0 0 0 2.5px #226741, 0 5px 10px 15px rgba(0, 0, 0, 0.5), inset 0 0 0 6px #fff, inset 0 0 100vw 100vw beige;
+            color:mediumseagreen;
+            text-shadow:0 2px #fff;
+            text-align: left;
         }
 
         .question p {
-            font-size: 25px;
+            font-size: 20px;
             font-weight: bold;
         }
 
@@ -298,18 +304,26 @@
         
         #idcard {
             display: flex;
-            justify-content: center;
-            align-items: center;
+            justify-content: left;
+            align-items: left;
             padding: 30px;
             position: relative;
+        }
+
+        .idcardbg{
+            background-image: url('/images/idcard/idcardbg.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin-top:5%;
         }
 
         .card{
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 700px;
-            height: 350px;
+            width: 40%;
+            height: auto;
             padding: 30px;
             border: 1px solid blue;
             border-radius: 30px;
@@ -330,7 +344,7 @@
 
         .card h1{
             padding: 10px;
-            font-size: 40px;
+            font-size: 20px;
             font-weight: bold;
             text-align: center;
             background-color: #999999;
@@ -340,13 +354,17 @@
         .card p{
             margin: 0;
             padding: 0;
-            font-size: 40px;
+            font-size: 20px;
             font-weight: bold;
         }
 
         .code-container {
+            margin-left:5%;
             background-color: #f4f4f4;
             border-radius: 8px;
+            width:90%;
+            height:auto;
+            padding:20px;
         }
 
         pre{
@@ -357,6 +375,16 @@
             width: 80px;
             text-align: center;
             transition: width 0.2s ease;
+        }
+
+        .btn-submit{
+            background-color:red;
+            width:80px;
+            height:35px;
+            border:none;
+            color:white;
+            border-radius: 5px;
+
         }
 
         .btn-container {
@@ -420,9 +448,12 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6 left-container">
-                <div class="question">
-                    <p>{{ $idCardGameQuestion -> pre_story }}</p>
+                <div class="box">
+                    <div class="question">
+                        <p>{{ $idCardGameQuestion -> pre_story }}</p>
+                    </div>
                 </div>
+                <div class="idcardbg">
                 @foreach($idCardsData as $item)
                 <div id="idcard">
                     <img class="seal" id="seal-{{ $loop->index }}" src="/images/idcard/idcardseal.svg" alt="">
@@ -432,7 +463,7 @@
                             <div class="col-md-6 left-container" id="idcards">
                             <img id="idcard-img-{{ $loop->index }}" src="" alt="證件照">
                             </div>
-                            <div class="col-md-6 right-container">
+                            <div class="col-md-6 left-container">
                                 <h1>身分證</h1>
                                 <p>身分：{{ $item['identity'] }}</p>
                                 <p>年齡：{{ $item['age'] }}</p>
@@ -443,6 +474,7 @@
                 </div>
                 @endforeach
             </div>
+        </div>
             <div class="col-md-6 right-container">
                 <div class="code-container">
 <pre>
@@ -452,6 +484,7 @@
                 <div class="btn-container">
                     <button id="send-code" class="btn-submit">提交</button>
                 </div>
+            </div>
             </div>
         </div>
     </div>

@@ -39,6 +39,7 @@
             justify-content: center;
             align-items: center;
             padding-top: 6%;
+            background-color:#F5DEB3;
         }
 
         .first .overlay {
@@ -128,7 +129,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 20px 2% 0px;
-            background: rgba(186,189,205, 0.8);
+            background: rgba(121,87,87, 0.8);
             /* 透明背景 */
             transition: all 0.50s ease;
         }
@@ -172,7 +173,7 @@
 
         .breadcrumbs__link__active {
             text-decoration: none;
-            color: #3E5D53;
+            color: #3B3030;
             font-weight: bold;
         }
 
@@ -253,11 +254,21 @@
 
         .question {
             width: 100%;
-            height: 30%;
-            background-color: #FFFDD3;
-            border-radius: 20px;
-            padding: 20px;
-            text-align: center;
+            height: auto;
+            background: #fff;
+            font-size: 20px;
+            line-height: 30px;
+            font-weight: bold;
+            color: #8B4513;
+            padding: 40px;
+            box-shadow: inset #5D4037 0 0 0 5px,
+                        inset #6D4C41 0 0 0 1px, 
+                        inset #795548 0 0 0 10px,
+                        inset #8D6E63 0 0 0 11px, 
+                        inset #A1887F 0 0 0 16px,
+                        inset #BCAAA4 0 0 0 17px,
+                        inset #D7CCC8 0 0 0 21px,
+                        inset #EDE0D4 0 0 0 22px;
         }
 
         .question p {
