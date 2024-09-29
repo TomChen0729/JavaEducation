@@ -316,9 +316,16 @@
         }
 
         
-        .img-container{
+        #img-container{
             margin-left:2%;
-            border: 1px solid black;
+            height:70%;
+            width: 100%;
+            background: url('/images/apple/badapple.svg') no-repeat center;
+            transition: background 0.5s;
+        }
+
+        #img-container.open{
+            background: url('/images/apple/goodapple.svg') no-repeat center;
         }
 
         .container-code {
@@ -415,7 +422,7 @@
         <div class="row">
             <div class="col-md-6 left-container" id="left-container">
                 <div class="img-container" id="img-container">
-                    <img id="apple" src="/images/apple/badapple.svg" alt="apple">
+                    <!-- <img id="apple" src="/images/apple/badapple.svg" alt="apple"> -->
                 </div>
                     <button onclick="play()">測試動畫</button>
             </div>
@@ -477,6 +484,12 @@
                 // 隨著字數增加寬度不小於 minWidth
                 input.style.width = Math.max(newWidth, minWidth) + 'px';
             }
+        }
+
+        // 動畫
+        function play() {
+            const apple = document.getElementById('img-container');
+            apple.classList.add('open');
         }
     </script>
 </body>
