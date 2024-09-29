@@ -342,13 +342,56 @@
             font-size:24px;
             border:none;
         }
-        
-        .img-container{
-            background-color:#6D6875;
+
+        #img-container{
             margin-left:2%;
             margin-top:2%;
             margin-left:2%;
+            height: 50%;
+            width: 100%;
+            background: url('/images/boom/boom.svg') no-repeat center;
+            background-size: contain;
+            transition: background 0.5s;
+            position: relative;
+            z-index: 1;
         }
+
+        #img-container.open{
+            background: url('/images/boom/bag.svg') no-repeat center;
+            background-size: contain;
+        }
+
+        .star{
+            position: absolute;
+            z-index: 5;
+            width: 100%;
+            height: 30%;
+            top: 20%;
+            left: 30%;
+            transform: translateX(-50%);
+            background: url('/images/boom/star.svg') no-repeat center;
+            background-size: contain;
+            animation: bounce 1.5s ease-in-out forwards;
+        }
+
+        @keyframes bounce {
+            0% {
+                transform: translateX(-50%) translateY(0);
+            }
+            30% {
+                transform: translateX(-50%) translateY(-50px);
+            }
+            50% {
+                transform: translateX(-50%) translateY(0);
+            }
+            70% {
+                transform: translateX(-50%) translateY(-30px);
+            }
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
 
         .container-code {
             overflow-y:scroll;
@@ -473,7 +516,7 @@
                     </div>
                 </div>
                 <div class="img-container" id="img-container">
-                    <img id="pot" src="/images/boom/boom.svg" alt="pot">
+                    <!-- <img id="pot" src="/images/boom/boom.svg" alt="pot"> -->
                 </div>
                     <button onclick="play()">測試動畫</button>
             </div>
@@ -551,7 +594,17 @@
                 paper.style.height = '40px';
                 holes.style.display ='none';
             }
-    }
+        }
+
+        // 動畫
+        function play() {
+            const apple = document.getElementById('img-container');
+            apple.classList.add('open');
+
+            const star = document.createElement('div');
+            star.classList.add('star');
+            apple.appendChild(star); // 放到container裡面
+        }
     </script>
 </body>
 
