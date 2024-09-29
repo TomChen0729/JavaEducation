@@ -428,9 +428,9 @@
             <div class="close-btn" onclick="togglePopup1()">&times;</div>
             <div class="pop">
                 <h1>遊戲說明</h1>
-                <p><strong>調配藥水</strong><br><hr></p>
+                <p><strong>{{ $makepotionQuestion -> gamename }}</strong><br><hr></p>
                 <p>
-                    桃樂絲一行人從蠻金之國到蘋果樹林這都沒有涉入食物，過度飢餓導致無力繼續前進，請幫助他們調配出治癒藥水，能夠回復體力並不會再度飢餓
+                    {{ $makepotionQuestion -> game_explanation }}
                 </p>
             </div>
         </div>
@@ -467,7 +467,7 @@
         <div class="row">
             <div class="col-md-6 left-container">
                 <div class="question" id="question">
-                <h5>桃樂絲一行人過度飢餓，無法繼續前進。你需要幫助他們隨機獲得一個藥水配方，並使用 if 條件語句成功調製治癒藥水。</h5>
+                <h5>{{ $makepotionQuestion -> pre_story }}</h5>
                     <ul class="team">
                         <li class="member co-funder">
                             <div class="thumb"><img src="/images/potion/heal.svg"></div>
@@ -480,17 +480,7 @@
                 </div>
                 <div  class="container-code" id="code">
 <pre>
-public class Main {
-    public static void main(String[] args) {
-        int material1 = 30;
-        int material2 = 20;
-
-        // 判斷治癒藥水的配方條件
-        if (<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">) {
-            System.out.println("治癒藥水的配方條件成立。");
-        }
-    }
-}
+{!! $templateCode !!}
 </pre>
                     <div class="btn-container">
                         <button id="send-code" class="btn-submit">提交</button>
@@ -513,6 +503,7 @@ public class Main {
     
     <!-- JavaScript -->
     <script>
+        var parameter_id = parseInt('{{ $makepotionQuestion->id }}');
         // 畫面載入後顯示彈跳視窗
         function togglePopup1() {
             document.getElementById("popup").classList.toggle("active");
@@ -539,6 +530,68 @@ public class Main {
                 input.style.width = Math.max(newWidth, minWidth) + 'px';
             }
         }
+
+        // 點擊送出按鈕時讀取input中的值，並存放置陣列中
+        var submitBtn = document.getElementById('send-code');
+        submitBtn.addEventListener('click', function() {
+            let inputsArray = [];
+
+            // 使用querySelectorAll選取所有type = "text"的input
+            const inputs = document.querySelectorAll('input[type="text"]');
+            let index = 0;
+
+            let allFilled = true; // 用來檢查是否所有input都有填值
+
+
+            // 迴圈遍歷每個input，將值加入陣列
+            inputs.forEach(input => {
+                index++;
+                if (input.value.trim() === '') {
+                    allFilled = false; // 如果有一個input的值是空的，將allFilled設為false
+                }
+                inputsArray.push({
+                    order: index,
+                    userAnswer: input.value
+                });
+                console.log('填寫的第' + index + '答案為' + input.value)
+            });
+
+            if (!allFilled) {
+                alert('你還有空格未填入答案');
+                return; // 如果有未填的答案，則不進入fetch
+            }
+
+            var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            userAnswer = inputsArray;
+            console.log(userAnswer);
+            url = '/api/checkUserAnswer';
+            fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    body: JSON.stringify({
+                        userAnswer: userAnswer,
+                        parameter_id: parameter_id,
+                        gameName: '調配藥水',
+                        currentUser: parseInt('{{ auth()->user()->id }}')
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message == 'correct') {
+                        alert('答對');
+                    } else if (data.message == 'wrongAns') {
+                        console.log(data.wrongIndex);
+                    } else if (data.message == 'Null') {
+                        alert('請填入答案');
+                    } else {
+                        alert('答錯');
+                    }
+                })
+
+        });
     </script>
 </body>
 

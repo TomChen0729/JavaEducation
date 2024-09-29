@@ -369,9 +369,9 @@
             <div class="close-btn" onclick="togglePopup1()">&times;</div>
             <div class="pop">
                 <h1>遊戲說明</h1>
-                <p><strong>魔林解密</strong><br><hr></p>
+                <p><strong>{{ $appleQuestion -> gamename }}</strong><br><hr></p>
                 <p>
-                繼續往前，桃樂絲一行人迎面遇上了一位神秘的南國魔法師，擋在蘋果怪樹林的入口處。魔法師告訴他們：“在林中，有一段路徑被一群蘋果怪所守護。這些怪物並不會輕易讓路，除非你能找到一個規律。只有當你們找到這些數字，怪物才會允許你們通過。” 請幫助桃樂絲完成任務，讓他們能安全通過蘋果怪樹林！
+                {{ $appleQuestion -> game_explanation }}
                 </p>
             </div>
         </div>
@@ -408,7 +408,7 @@
         <div class="question">
             <div class="box">
                 <div class="box-inner">
-                    <p>在蘋果怪樹林深處，魔法師施展了一個神秘的咒語，隨機選出了一個基準數字作為通行的關鍵。接著，又產生了一個特殊數字，作為森林守護者的試煉。你必須在這兩個數字之間，找出符合特定範圍的質數，才能破解魔林的謎題，幫助桃樂絲一行人繼續前進！</p>
+                    <p>{{ $appleQuestion -> pre_story }}</p>
                 </div>
             </div>
         </div>
@@ -423,30 +423,7 @@
                 <div class="col-md-6 right-container" id="right-container">
                     <div  class="container-code" id="code">
 <pre>
-    public class Main {
-        public static void main(String[] args) {
-            int n = 83;
-            int a = 37;
-
-            for(<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">;<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">;<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">) {
-                boolean isPrime = true; // 假設 i 是質數
-
-                for(<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">;<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">;<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">)
-                {
-                    if(<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">)
-                    {
-                        // 如果可以被整除，i 不是質數
-                        isPrime = false;
-                        break; // 不需要繼續檢查
-                    }
-                }
-                // 如果是質數並且小於 a，則印出
-                if(<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">) {
-                    System.out.printf("%d\t", i);
-                }
-            }
-        }
-    }
+{!! $templateCode !!}
 </pre>
                     <div class="btn-container">
                             <button id="send-code" class="btn-submit">提交</button>
@@ -460,6 +437,7 @@
     
     <!-- JavaScript -->
     <script>
+        var parameter_id = parseInt('{{ $appleQuestion->id }}');
         // 畫面載入後顯示彈跳視窗
         function togglePopup1() {
             document.getElementById("popup").classList.toggle("active");
@@ -478,6 +456,67 @@
                 input.style.width = Math.max(newWidth, minWidth) + 'px';
             }
         }
+        // 點擊送出按鈕時讀取input中的值，並存放置陣列中
+        var submitBtn = document.getElementById('send-code');
+        submitBtn.addEventListener('click', function() {
+            let inputsArray = [];
+
+            // 使用querySelectorAll選取所有type = "text"的input
+            const inputs = document.querySelectorAll('input[type="text"]');
+            let index = 0;
+
+            let allFilled = true; // 用來檢查是否所有input都有填值
+
+
+            // 迴圈遍歷每個input，將值加入陣列
+            inputs.forEach(input => {
+                index++;
+                if (input.value.trim() === '') {
+                    allFilled = false; // 如果有一個input的值是空的，將allFilled設為false
+                }
+                inputsArray.push({
+                    order: index,
+                    userAnswer: input.value
+                });
+                console.log('填寫的第' + index + '答案為' + input.value)
+            });
+
+            if (!allFilled) {
+                alert('你還有空格未填入答案');
+                return; // 如果有未填的答案，則不進入fetch
+            }
+
+            var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            userAnswer = inputsArray;
+            console.log(userAnswer);
+            url = '/api/checkUserAnswer';
+            fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    body: JSON.stringify({
+                        userAnswer: userAnswer,
+                        parameter_id: parameter_id,
+                        gameName: '調配藥水',
+                        currentUser: parseInt('{{ auth()->user()->id }}')
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message == 'correct') {
+                        alert('答對');
+                    } else if (data.message == 'wrongAns') {
+                        console.log(data.wrongIndex);
+                    } else if (data.message == 'Null') {
+                        alert('請填入答案');
+                    } else {
+                        alert('答錯');
+                    }
+                })
+
+        });
     </script>
 </body>
 

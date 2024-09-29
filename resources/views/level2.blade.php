@@ -123,12 +123,14 @@
                 </a>
             </div>
             <div class="button4">
-                <a href="#">
+                <!--測試用-->
+                <a href="{{ route('sec.GameChoose', ['country_id' => $currentCountry, 'gameName' => '調配藥水']) }}">
                     <img src="/images/country2choose/gem.svg" alt="Button">
                 </a>
             </div>
             <div class="button5">
-                <a href="#">
+                <!--測試用-->
+                <a href="{{ route('sec.GameChoose', ['country_id' => $currentCountry, 'gameName' => '魔林解密']) }}">
                     <img src="/images/country2choose/cave.svg" alt="Button">
                 </a>
             </div>

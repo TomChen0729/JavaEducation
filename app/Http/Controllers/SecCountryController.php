@@ -228,6 +228,52 @@ class SecCountryController extends Controller
                             $templateCode = $passwordGameQuestion->template_code;
                             return view('game.country2.password', ['passwordGameQuestion' => $passwordGameQuestion, 'variable' => $variable, 'templateCode' => $templateCode]);
                         }
+                    case'調配藥水':
+                        if($userRecords->isEmpty()){
+                            $variable = rand(1, 1);
+                            $makepotionQuestion = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
+                                ->where('country_id', $country_id)
+                                ->where('gamename', $gameName)
+                                ->inRandomOrder()->first();
+                            $templateCode = $makepotionQuestion->template_code;
+                            // 紀錄這筆資料
+                            $this->recordWatchedParameter($makepotionQuestion->id, ['variable' => $variable]);
+                            return view('game.country2.makepotion', ['makepotionQuestion' => $makepotionQuestion, 'variable' => $variable, 'templateCode' => $templateCode]);
+                        }else{
+                            //解碼json字符串類型
+                            $parameterJson = $userRecords->pluck(value: 'parameter')->first();
+                            $parameterArray = json_decode($parameterJson, true);
+                            $variable = $parameterArray['variable'];
+                            //儲存當前的題目id
+                            $secParameterID = $userRecords->first()->secParameterID;
+                            $makepotionQuestion = SecGame::join('sec_parameters', 'sec_games.id', '=', 'sec_parameters.secGameID')
+                                ->where('sec_parameters.id', $secParameterID)->first();
+                            $templateCode = $makepotionQuestion->template_code;
+                            return view('game.country2.makepotion', ['makepotionQuestion' => $makepotionQuestion, 'variable' => $variable, 'templateCode' => $templateCode]);                            
+                        }
+                    case '魔林解密':
+                        if($userRecords->isEmpty()){
+                            $variable = rand(50, 100);
+                            $appleQuestion = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
+                                ->where('country_id', $country_id)
+                                ->where('gamename', $gameName)
+                                ->inRandomOrder()->first();
+                            $templateCode = $appleQuestion->template_code;
+                            // 紀錄這筆資料
+                            $this->recordWatchedParameter($appleQuestion->id, ['variable' => $variable]);
+                            return view('game.country2.apple', ['appleQuestion' => $appleQuestion, 'variable' => $variable, 'templateCode' => $templateCode]);
+                        }else{
+                            //解碼json字符串類型
+                            $parameterJson = $userRecords->pluck(value: 'parameter')->first();
+                            $parameterArray = json_decode($parameterJson, true);
+                            $variable = $parameterArray['variable'];
+                            //儲存當前的題目id
+                            $secParameterID = $userRecords->first()->secParameterID;
+                            $appleQuestion = SecGame::join('sec_parameters', 'sec_games.id', '=', 'sec_parameters.secGameID')
+                                ->where('sec_parameters.id', $secParameterID)->first();
+                            $templateCode = $appleQuestion->template_code;
+                            return view('game.country2.apple', ['appleQuestion' => $appleQuestion, 'variable' => $variable, 'templateCode' => $templateCode]);                            
+                        }
                     default:
                         //
                         return response('error');
@@ -397,10 +443,48 @@ class SecCountryController extends Controller
                 } else {
                     return response()->json(['message' => 'Null']);
                 }
+                case'調配藥水':
+                //進一步解析userAnswer
+                $userAnswer = $request->input('userAnswer');
+                // 如過userAnswer不為空的話，逐一對答案，即為有答案的話
+                if (!empty($userAnswer)) {
+                    $parameterID = $request->input('parameter_id');
+                    // 抓答案出來
+                    $answerData = $this->pluckAnswer($parameterID);
+                    // 答案與玩家輸入的答案長度若一致
+                    if(count($answerData) == count($userAnswer)){
+                        foreach($answerData as $ansData){         
+                            foreach($userAnswer as $userAns){
+                                if ($userAns['order'] == $ansData['order']) {
+                                    if(preg_match('/'.str_replace('\\\\', '\\', $ansData['ans_patterns']).'/', $userAns['userAnswer'])){
+                                        // 匹配成功就跳出內層迴圈繼續對下一個使用者的答案
+                                        break;
+                                    }else{
+                                        array_push($wrongIndexArray, $userAns['order']);
+                                    }
+                                }
+                            }
+                        }
+
+                        if(!empty($wrongIndexArray)){
+                            $this->WrongUserRecord($currentUser,$parameterID);
+                            return response()->json(['message' => 'wrongAns', 'wrongIndex' => $wrongIndexArray]);
+                        }else{
+                            $this->CorrectUserRecord($currentUser,$parameterID);
+                            return response()->json(['message' => 'correct']);
+                        }
+                    }else{
+                        return response()->json(['message' => 'Error']);
+                    }
+                    
+                } else {
+                    return response()->json(['message' => 'Null']);
+                }
                 default:
                     return response('沒有這個遊戲類型');
             }
-        } else {
+        } 
+        else {
             return response()->json(['message' => 'http method error!!']);
         }
     }
