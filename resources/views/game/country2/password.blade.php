@@ -124,7 +124,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 20px 2% 0;
-            background: rgba(186, 189, 205, 0.8);
+            background: rgba(218, 131, 89, 0.8);
             transition: all 0.5s ease;
         }
 
@@ -156,7 +156,7 @@
 
         .breadcrumbs__link__active {
             text-decoration: none;
-            color: #3E5D53;
+            color: #705C53;
             font-weight: bold;
         }
 
@@ -316,19 +316,6 @@
             display: none;
         }
 
-        .paper {
-            left: 0;
-            padding: 10px;
-            background-color: #fff2cc;
-        }
-
-        .paper p {
-            margin-top: 10%;
-            font-weight: bold;
-            font-size: 26px;
-            text-align: center;
-        }
-
         .row {
             width: 100%;
         }
@@ -345,7 +332,7 @@
         .left {
             position: absolute;
             right: 14%;
-            top: 30%;
+            top: 25%;
         }
 
         .right {
@@ -366,6 +353,49 @@
             border-radius: 5px;
             margin-top: 20px;
         }
+
+        .paper ul {
+            list-style: none;
+            font-size: 24px;
+            color: midnightblue;
+        }
+
+        .paper {
+            margin-left:25%;
+            width:100%;
+            font-size: 36px;
+            min-height: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color:#D1BB9E;
+            background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0.3));
+        }
+
+        .paper h1 {
+            color: saddlebrown;
+            position: relative;
+            display: flex;
+            align-items: center;
+            font-size: 36px;
+        }
+
+        .paper h1::before,
+        .paper h1::after{
+            content: '';
+            display: block;
+            width: 5rem;
+            height: 2px;
+            background-color: currentColor;
+            margin: 0 1rem;
+        }
+
+        .big{
+            background-color: lightgreen;
+			padding: 1.6rem 2rem;
+			padding-bottom: 3rem;
+        }
+
     </style>
 </head>
 
@@ -435,7 +465,9 @@
     <div class="left">
         <div class="paper">
             <h1>PASSWROD</h1>
-            <p>{{ $variable }}</p>
+            <ul>
+                <li class="big">{{ $variable }}</li>
+            <ul>
         </div>
     </div>
 
