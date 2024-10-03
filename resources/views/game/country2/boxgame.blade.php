@@ -322,6 +322,7 @@
             background-color: #f4f4f4;
             padding: 15px;
             border-radius: 8px;
+            padding:0px 0px 0px 40px;
         }
 
         pre{

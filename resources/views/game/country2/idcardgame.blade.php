@@ -257,7 +257,7 @@
             border: 5px dashed mediumseagreen;
             padding: 25px;
             box-shadow: 0 0 0 2.5px #226741, 0 0 0 12.5px #fff, inset 0 0 0 2.5px #226741, 0 5px 10px 15px rgba(0, 0, 0, 0.5), inset 0 0 0 6px #fff, inset 0 0 100vw 100vw beige;
-            color:mediumseagreen;
+            color:#006B3C;
             text-shadow:0 2px #fff;
             text-align: left;
         }
@@ -364,7 +364,7 @@
             border-radius: 8px;
             width:90%;
             height:auto;
-            padding:20px;
+            padding:0px 0px 0px 40px;
         }
 
         pre{

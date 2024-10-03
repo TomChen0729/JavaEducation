@@ -274,12 +274,12 @@
 
         .box:before {
             left: 11%;
-            top:11.3%;
+            top:11%;
         }
 
         .box:after {
             right: 11%;
-            top:11.3%;
+            top:11%;
         }
 
         .box .box-inner {
@@ -335,6 +335,7 @@
             background-color: #f4f4f4;
             border-radius: 8px;
             margin-left:3%;
+            padding:0px 0px 0px 40px;
             
         }
 

@@ -254,6 +254,7 @@
         .question h5 {
             font-weight: bold;
             color:white;
+            font-size:24px;
         }
 
         .team {
@@ -323,6 +324,7 @@
             border-radius: 8px;
             margin-left:3%;
             margin-top:8%;
+            padding:0px 0px 0px 40px;
             
         }
 
