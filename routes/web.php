@@ -89,3 +89,6 @@ Route::get('boom', function () {
 Route::get('apple', function () {
     return view('game.country2.apple');
 });
+Route::get('oil', function () {
+    return view('game.country2.oil');
+});
