@@ -230,49 +230,76 @@ class SecCountryController extends Controller
                         }
                     case'調配藥水':
                         if($userRecords->isEmpty()){
-                            $variable = rand(1, 1);
+                            $variable1 = rand(1, 50);
+                            $variable2 = rand(1, 50);
+                            //合併儲存到parameter
+                            $variable = $variable1.',' . $variable2;
                             $makepotionQuestion = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
                                 ->where('country_id', $country_id)
                                 ->where('gamename', $gameName)
                                 ->inRandomOrder()->first();
-                            $templateCode = $makepotionQuestion->template_code;
+                            // 拆template_code跟配方表
+                            $template_Code = $makepotionQuestion->template_code;
+                            $templateCodeArray = explode('|', $template_Code);
+                            $templateCode = $templateCodeArray[0];
+                            $formula = $templateCodeArray [1];
+                            $templateCode = str_replace('$variable1', $variable1, $templateCode);
+                            $templateCode = str_replace('$variable2', $variable2, $templateCode);     
                             // 紀錄這筆資料
                             $this->recordWatchedParameter($makepotionQuestion->id, ['variable' => $variable]);
-                            return view('game.country2.makepotion', ['makepotionQuestion' => $makepotionQuestion, 'variable' => $variable, 'templateCode' => $templateCode]);
+                            return view('game.country2.makepotion', ['makepotionQuestion' => $makepotionQuestion, 'variable1' => $variable1,'variable2' => $variable2,'formula' => $formula, 'templateCode' => $templateCode]);
                         }else{
                             //解碼json字符串類型
                             $parameterJson = $userRecords->pluck(value: 'parameter')->first();
                             $parameterArray = json_decode($parameterJson, true);
                             $variable = $parameterArray['variable'];
+                            $variablesArray = explode(',', $variable);
+                            $variable1 = $variablesArray[0];
+                            $variable2 = $variablesArray[1];
                             //儲存當前的題目id
                             $secParameterID = $userRecords->first()->secParameterID;
                             $makepotionQuestion = SecGame::join('sec_parameters', 'sec_games.id', '=', 'sec_parameters.secGameID')
                                 ->where('sec_parameters.id', $secParameterID)->first();
-                            $templateCode = $makepotionQuestion->template_code;
-                            return view('game.country2.makepotion', ['makepotionQuestion' => $makepotionQuestion, 'variable' => $variable, 'templateCode' => $templateCode]);                            
+                            $template_Code = $makepotionQuestion->template_code;
+                            $templateCodeArray = explode('|', $template_Code);
+                            $templateCode = $templateCodeArray[0];
+                            $formula = $templateCodeArray [1];
+                            $templateCode = str_replace('$variable1', $variable1, $templateCode);
+                            $templateCode = str_replace('$variable2', $variable2, $templateCode);
+                            return view('game.country2.makepotion', ['makepotionQuestion' => $makepotionQuestion, 'variable1' => $variable1,'variable2' => $variable2,'formula' => $formula, 'templateCode' => $templateCode]);                            
                         }
                     case '魔林解密':
                         if($userRecords->isEmpty()){
-                            $variable = rand(50, 100);
+                            $variable1 = rand(50, 100);
+                            $variable2 = rand(50, 100);
+                            $variable = $variable1 . ',' . $variable2;
                             $appleQuestion = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
                                 ->where('country_id', $country_id)
                                 ->where('gamename', $gameName)
                                 ->inRandomOrder()->first();
                             $templateCode = $appleQuestion->template_code;
+                            $templateCode = str_replace('$variable1', $variable1, $templateCode);
+                            $templateCode = str_replace('$variable2', $variable2, $templateCode);
                             // 紀錄這筆資料
                             $this->recordWatchedParameter($appleQuestion->id, ['variable' => $variable]);
-                            return view('game.country2.apple', ['appleQuestion' => $appleQuestion, 'variable' => $variable, 'templateCode' => $templateCode]);
+                            return view('game.country2.apple', ['appleQuestion' => $appleQuestion, 'variable1' => $variable1,'variable2' => $variable2, 'templateCode' => $templateCode]);
                         }else{
                             //解碼json字符串類型
                             $parameterJson = $userRecords->pluck(value: 'parameter')->first();
                             $parameterArray = json_decode($parameterJson, true);
                             $variable = $parameterArray['variable'];
+                            //拆開variable
+                            $variablesArray = explode(',', $variable);
+                            $variable1 = $variablesArray[0];
+                            $variable2 = $variablesArray[1];
                             //儲存當前的題目id
                             $secParameterID = $userRecords->first()->secParameterID;
                             $appleQuestion = SecGame::join('sec_parameters', 'sec_games.id', '=', 'sec_parameters.secGameID')
                                 ->where('sec_parameters.id', $secParameterID)->first();
                             $templateCode = $appleQuestion->template_code;
-                            return view('game.country2.apple', ['appleQuestion' => $appleQuestion, 'variable' => $variable, 'templateCode' => $templateCode]);                            
+                            $templateCode = str_replace('$variable1', $variable1, $templateCode);
+                            $templateCode = str_replace('$variable2', $variable2, $templateCode);
+                            return view('game.country2.apple', ['appleQuestion' => $appleQuestion, 'variable1' => $variable1,'variable2' => $variable2, 'templateCode' => $templateCode]);                            
                         }
                     default:
                         //

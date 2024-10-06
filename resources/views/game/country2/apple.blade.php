@@ -451,6 +451,7 @@
             document.getElementById("popup").classList.toggle("active");
         }
 
+
         //input格子縮放
         function autoResize(input) {
             const newWidth = input.scrollWidth;
