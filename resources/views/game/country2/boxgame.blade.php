@@ -276,10 +276,24 @@
             font-weight: bold;
         }
 
+        .boxbg{
+            position: relative;
+            width:100%;
+            height:80%;
+            background-image: url('/images/boxes/boxbg.svg');
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat;
+            margin-top:3%;
+        }
+
         #treasure-box {
+            position:absolute;
+            left:30%;
+            top:35%;
             margin-top: 10px;
-            width: 100%;
-            height: 500px;
+            width: 40%;
+            height: auto;
             background: url('/images/boxes/closebox1.svg') no-repeat center;
             transition: background 0.5s;
         }
@@ -306,8 +320,12 @@
         }
 
         #treasure-box.open {
+            position:absolute;
+            left:30%;
+            top:35%;
             background: url('/images/boxes/openbox1.svg') no-repeat center;
-            width: 100%;
+            width: 40%;
+            height:auto;
             background-size: contain;
         }
 
@@ -400,9 +418,11 @@
                 <div class="question">
                     <p>{{ $boxGameQuestion -> pre_story }}</p>
                 </div>
-                <div id="treasure-box">
-                    <!-- <img class="img" id="randomImg" src="/images/boxes/triangle.png" alt=""> -->
-                    <img id="images" src="/images/boxes/arrange3.svg" alt="">
+                <div class="boxbg">
+                    <div id="treasure-box">
+                        <!-- <img class="img" id="randomImg" src="/images/boxes/triangle.png" alt=""> -->
+                        <img id="images" src="/images/boxes/arrange3.svg" alt="">
+                    </div>
                 </div>
                 <button onclick="openBox()">打開寶箱</button>
             </div>
