@@ -481,7 +481,7 @@
                             <div class="thumb"><img src="/images/potion/heal.svg"></div>
                             <div class="description">
                                 <h3>配方表</h3>
-                                <p>材料一 (material1) 需大於等於 20 且小於 50，並且材料二(material2) 小於 30。</p>
+                                <p>{{ $formula }}</p>
                             </div>
                         </li>
                     </ul>
