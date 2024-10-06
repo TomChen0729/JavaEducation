@@ -143,11 +143,13 @@ class SecCountryController extends Controller
                 $currentUserId = auth()->user()->id;
                 $record = $this->checkSecRecord($gameName, $country_id);
                 $userRecords = $record['record'];
-                if (isset($record['record'])) {
-                    $userAnswersJson = $userRecords->pluck('user_answer')->toArray();
-                    $userAnswers = json_decode(trim($userAnswersJson[0]), true);
-                }
                 $result = $record['result'];
+                if($result == 'truerecord'){
+                    if (isset($record['record'])) {
+                        $userAnswersJson = $userRecords->pluck('user_answer')->toArray();
+                        $userAnswers = json_decode(trim($userAnswersJson[0]), true);
+                }}
+                
                 $variable = null;
 
                 switch ($gameName) {
