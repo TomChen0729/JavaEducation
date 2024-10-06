@@ -442,24 +442,22 @@
     <script>
         var userAnswersandOrder = {!! json_encode($userAnswers) !!};
         console.log('正確答案：', userAnswersandOrder);
-
-        // 提取 userAnswer 可以直接使用的陣列
+        if (userAnswersandOrder.length > 0) {
         var userAnswers = userAnswersandOrder.map(function(answer) {
         return answer.userAnswer; 
         });
         console.log(userAnswers);
         document.addEventListener('DOMContentLoaded', function () {
-        // 遍历所有的 input[type="text"]
+        // 尋找template_code的格子
         const inputs = document.querySelectorAll('input[type="text"]');
-        
-        // 将用户答案填入对应的输入框
+        //填入答案
         inputs.forEach((input, index) => {
             if (userAnswers[index]) {
                 input.value = userAnswers[index];
                 autoResize(input); 
             }
         });
-        });
+        });}
 
 
         // 畫面載入後顯示彈跳視窗
