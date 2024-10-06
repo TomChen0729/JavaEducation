@@ -640,7 +640,7 @@
                 input.style.width = (Math.max(newWidth, minWidth)+10) + 'px';
             }
         }
-        var userAnswersandOrder = {!! json_encode(!empty($userAnswers)? $userAnswers : [] )!!};
+        var userAnswersandOrder = <?php echo json_encode(!empty($userAnswers) ? $userAnswers : []); ?>;
         console.log('正確答案：', userAnswersandOrder);
         if (userAnswersandOrder.length > 0) {
         var userAnswers = userAnswersandOrder.map(function(answer) {
