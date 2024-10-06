@@ -420,11 +420,32 @@
     </div>
     <!-- JavaScript -->
     <script>
+        var userAnswersandOrder = {!! json_encode($userAnswers) !!};
+        console.log('正確答案：', userAnswersandOrder);
+
+        // 提取 userAnswer 可以直接使用的陣列
+        var userAnswers = userAnswersandOrder.map(function(answer) {
+        return answer.userAnswer; 
+        });
+        console.log(userAnswers);
+        document.addEventListener('DOMContentLoaded', function () {
+        // 遍历所有的 input[type="text"]
+        const inputs = document.querySelectorAll('input[type="text"]');
+        
+        // 将用户答案填入对应的输入框
+        inputs.forEach((input, index) => {
+            if (userAnswers[index]) {
+                input.value = userAnswers[index];
+                autoResize(input); 
+            }
+        });
+        });
+
+
         // 畫面載入後顯示彈跳視窗
         function togglePopup1() {
             document.getElementById("popup").classList.toggle("active");
         }
-
         var shape = parseInt('{{ $boxGameQuestion -> id }}');
         var n = parseInt('{{ $variable }}');
         console.log('parameterID:' + shape);

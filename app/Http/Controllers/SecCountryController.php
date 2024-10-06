@@ -46,18 +46,16 @@ class SecCountryController extends Controller
             ->whereIn('sec_records.secParameterID', $allParameterIDInCurrentGame)
             ->get();
         // 如果玩家在這題有正確的紀錄時，記錄這筆資料
-        $truesecRecords = $secUserRecords->where('status', true)->where('counter', '!=', 0);
+        $truesecRecords = $secUserRecords->where('status', 'true')->whereNotNull('user_answer');
         // 如果正確的紀錄不是空值，返回這筆資料
         if ($truesecRecords->isNotEmpty()) {
-            return $truesecRecords;
-        }
+            return ['record' => $truesecRecords,'result'=>'truerecord'];}
         // 判斷是否有玩過這遊戲，如果有則返回那些資料
         elseif ($secUserRecords->isNotEmpty()) {
-            return $secUserRecords;
-        }
+            return ['record' => $secUserRecords,'result'=>'haverecord'];}
         // 沒玩過，返回一個空集合
         else {
-            return collect();
+            return ['record' => collect(),'result'=>'norecord'];
         }
     }
 
@@ -143,7 +141,13 @@ class SecCountryController extends Controller
             $checkUserCards = true;
             if ($checkUserCards === true) {
                 $currentUserId = auth()->user()->id;
-                $userRecords = $this->checkSecRecord($gameName, $country_id);
+                $record = $this->checkSecRecord($gameName, $country_id);
+                $userRecords = $record['record'];
+                if (isset($record['record'])) {
+                    $userAnswersJson = $userRecords->pluck('user_answer')->toArray();
+                    $userAnswers = json_decode(trim($userAnswersJson[0]), true);
+                }
+                $result = $record['result'];
                 $variable = null;
 
                 switch ($gameName) {
@@ -163,7 +167,22 @@ class SecCountryController extends Controller
                             // 紀錄這筆資料
                             $this->recordWatchedParameter($boxGameQuestion->id, ['variable' => $variable]);
                             return view('game.country2.boxgame', ['boxGameQuestion' => $boxGameQuestion, 'templateCode' => $templateCode, 'variable' => $variable]);
-                        } else {
+                        } else if  ($result == 'truerecord'){
+                            //解碼json字符串類型
+                            $parameterJson = $userRecords->pluck(value: 'parameter')->first();
+                            $parameterArray = json_decode($parameterJson, true);
+                            $variable = $parameterArray['variable'];
+                            //儲存當前的題目id
+                            $secParameterID = $userRecords->first()->secParameterID;
+                            //儲存該玩家的正確答案
+                            SecRecord::where('user_id', $currentUserId)->where('secParameterID', $secParameterID)->where('status', 'watched')->increment('counter');
+                            $boxGameQuestion = SecGame::join('sec_parameters', 'sec_games.id', '=', 'sec_parameters.secGameID')
+                                ->where('sec_parameters.id', $secParameterID)->first();
+                            $templateCode = $boxGameQuestion->template_code;
+                            $templateCode = str_replace('$variable', $variable, $templateCode);
+                            return view('game.country2.boxgame', ['boxGameQuestion' => $boxGameQuestion, 'templateCode' => $templateCode, 'variable' => $variable,'userAnswers' => $userAnswers]);
+                        }
+                        else {
                             //解碼json字符串類型
                             $parameterJson = $userRecords->pluck(value: 'parameter')->first();
                             $parameterArray = json_decode($parameterJson, true);
@@ -332,9 +351,10 @@ class SecCountryController extends Controller
 
         return $randGiveCard;
     }
-    public function CorrectUserRecord(int $userid,int $parameterid){
+    public function CorrectUserRecord(int $userid,int $parameterid,  $useranswer){
         $CorrectUserRecord = SecRecord::where('user_id',$userid)->where('secParameterID',$parameterid)->where('status','true')->first();
         $CorrectUserRecord->counter+=1;
+        $CorrectUserRecord->user_answer = json_encode($useranswer);
         $CorrectUserRecord->save();
         $WatchedtUserRecord = SecRecord::where('user_id',$userid)->where('secParameterID',$parameterid)->where('status','watched')->first();
         $WatchedtUserRecord->counter-=1;
@@ -386,7 +406,7 @@ class SecCountryController extends Controller
                                 $this->WrongUserRecord($currentUser,$parameterID);
                                 return response()->json(['message' => 'wrongAns', 'wrongIndex' => $wrongIndexArray]);
                             }else{
-                                $this->CorrectUserRecord($currentUser,$parameterID);
+                                $this->CorrectUserRecord($currentUser,$parameterID, $userAnswer);
                                 return response()->json(['message' => 'correct']);
                             }
                         }else{
@@ -423,7 +443,7 @@ class SecCountryController extends Controller
                             $this->WrongUserRecord($currentUser,$parameterID);
                             return response()->json(['message' => 'wrongAns', 'wrongIndex' => $wrongIndexArray]);
                         }else{
-                            $this->CorrectUserRecord($currentUser,$parameterID);
+                            $this->CorrectUserRecord($currentUser,$parameterID, $userAnswer);
                             return response()->json(['message' => 'correct']);
                         }
                     }else{
@@ -460,7 +480,7 @@ class SecCountryController extends Controller
                             $this->WrongUserRecord($currentUser,$parameterID);
                             return response()->json(['message' => 'wrongAns', 'wrongIndex' => $wrongIndexArray]);
                         }else{
-                            $this->CorrectUserRecord($currentUser,$parameterID);
+                            $this->CorrectUserRecord($currentUser,$parameterID, $userAnswer);
                             return response()->json(['message' => 'correct']);
                         }
                     }else{
@@ -497,7 +517,7 @@ class SecCountryController extends Controller
                             $this->WrongUserRecord($currentUser,$parameterID);
                             return response()->json(['message' => 'wrongAns', 'wrongIndex' => $wrongIndexArray]);
                         }else{
-                            $this->CorrectUserRecord($currentUser,$parameterID);
+                            $this->CorrectUserRecord($currentUser,$parameterID, $userAnswer);
                             return response()->json(['message' => 'correct']);
                         }
                     }else{
