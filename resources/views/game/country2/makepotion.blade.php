@@ -359,7 +359,11 @@
             display: flex;
             justify-content: center;  
             align-items: center; 
-            height: auto;             
+            height: auto;
+            background-image: url('/images/potion/potionbg.svg');
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat;             
         }
 
         #img-container {
@@ -372,16 +376,17 @@
 
         #img-container #pot {
             position: relative;
-            margin-top: 20%;
-            width: 800px;
+            margin-top: 50%;
+            margin-left:25%;
+            width: 500px;
             height: auto; 
         }
 
         #img-container #stick {
-            top: 20%;
-            right: 25%;
+            top: 46%;
+            right: 20%;
             position: absolute;
-            width: 400px;
+            width: 300px;
             height: auto; 
             animation: animate 6s linear infinite normal;
         }
@@ -405,17 +410,18 @@
         }
 
         #img-container #heal{
-            top: 30%;
+            top: 55%;
+            right:30%;
             opacity: 0;
             /* top從-100px => 50px，opacity透明(0) => 不透明(1)，動畫持續2秒，速度曲線 => ease-in-out */
             transition: top 2s ease-in-out, opacity 3s ease-in-out;
-            height: 30%;
+            height: 15%;
             position: absolute;
             z-index: 10; /*最上層*/
         }
 
         #img-container #heal.show{
-            top: 10px; 
+            top: 25%; 
             opacity: 1;
         }
     </style>
