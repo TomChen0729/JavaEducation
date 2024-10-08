@@ -121,9 +121,9 @@ class CountryController extends Controller
             return view('level', ['parent_cards' => $parent_cards, 'debug' => $debug, 'currentCountry' => $country_id]);
         }else{
             // 因為通關密碼沒有需要能力檢查的部分，要額外處理
-            // 已有通關紀錄「已通關狀態」也要處理(未完成)
+            // 已有通關紀錄「已通關狀態」也要處理
             // 直接檢查玩家持有卡片，用來檢查她在level2可以玩甚麼關卡，並且賦予遊戲icon狀態(有三種)
-            // 可以玩、不可玩、已通關
+            // 可以玩(true)、不可玩(false)、已通關("pass")
 
             // sec_games先串sec_parameters，再串sec_records
             $PassSecGameData = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
