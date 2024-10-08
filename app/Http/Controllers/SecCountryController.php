@@ -28,13 +28,13 @@ class SecCountryController extends Controller
 
     // 檢查玩家沒有玩個該遊戲名稱的紀錄，如果有回傳當時參數
     // 檢查是否正確紀錄為空
-    public function checkSecRecord(string $gameName, int $country_id)
+    public function checkSecRecord(int $secGameID, int $country_id)
     {
         $currentUserId = auth()->user()->id;
         // 查詢玩家是否玩過這遊戲
         // 找出這個gamename的所有parameterID
         $allParameterIDInCurrentGame = SecParameter::join('sec_games', 'sec_parameters.secGameID', '=', 'sec_games.id')
-            ->where('sec_games.gamename', $gameName)
+            ->where('sec_games.id', $secGameID)
             ->pluck('sec_parameters.id')
             ->toArray();
 
@@ -130,18 +130,18 @@ class SecCountryController extends Controller
 
     // 如果有使用join去查詢，要記得查表順序第一張表串第二張表返回的collection的id會是第二張的id不是第一張的id
     // 根據icon導向遊戲
-    public function chooseGame(Request $request, int $country_id, string $gameName)
+    public function chooseGame(Request $request, int $country_id, int $secGameID)
     {
         if ($request->isMethod('get')) {
             // 進入checkUserCards的function，確認玩家是否能進入此關卡
             // $checkUserCards = $this->checkUserCards($gameName);
             // 測試用
-            $currentSecGameID = SecGame::where('gamename', $gameName)->pluck('id')->first();
+            $currentSecGameID = SecGame::where('id', $secGameID)->pluck('id')->first();
             // $checkUserCards = $this -> checkUserCards($currentSecGameID);
             $checkUserCards = true;
             if ($checkUserCards === true) {
                 $currentUserId = auth()->user()->id;
-                $record = $this->checkSecRecord($gameName, $country_id);
+                $record = $this->checkSecRecord($secGameID, $country_id);
                 $userRecords = $record['record'];
                 $result = $record['result'];
                 if($result == 'truerecord'){
@@ -152,16 +152,16 @@ class SecCountryController extends Controller
                 
                 $variable = null;
 
-                switch ($gameName) {
+                switch ($secGameID) {
                     // 從記錄表撈玩過的，如果最近一次有玩的參數先導入(寫一個function)
                     // 如果沒玩過或是全對的話，隨便random
-                    case '魔法寶箱':
+                    case 2:
                         if ($userRecords->isEmpty()) {
                             // 三角形層數變數
                             $variable = 3 + rand(0, 2) * 2;
                             $boxGameQuestion = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
                                 ->where('country_id', $country_id)
-                                ->where('gamename', $gameName)
+                                ->where('sec_games.id', $secGameID)
                                 ->inRandomOrder()->first();
                             Log::info('data' . $boxGameQuestion);
                             $templateCode = $boxGameQuestion->template_code;
@@ -198,12 +198,12 @@ class SecCountryController extends Controller
                             $templateCode = str_replace('$variable', $variable, $templateCode);
                             return view('game.country2.boxgame', ['boxGameQuestion' => $boxGameQuestion, 'templateCode' => $templateCode, 'variable' => $variable]);
                         }
-                    case '魔法門衛':
+                    case 3:
                         if ($userRecords->isEmpty()) {
                             $variable = rand(1, 5);
                             $idCardQuestion = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
                                 ->where('country_id', $country_id)
-                                ->where('gamename', $gameName)
+                                ->where('sec_games.id', $secGameID)
                                 ->inRandomOrder()->first();
                             $templateCode = $idCardQuestion->template_code;
                             $templateCode = str_replace('$variable', $variable, $templateCode);
@@ -225,13 +225,13 @@ class SecCountryController extends Controller
                             $templateCode = str_replace('$variable', $variable, $templateCode);
                             return view('game.country2.idcardgame', ['idCardGameQuestion' => $idCardQuestion, 'templateCode' => $templateCode, 'variable' => $variable, 'idCardsData' => $idCardsData]);
                         }
-                    case '通關密碼':
+                    case 1:
                         if ($userRecords->isEmpty()) {
                             // 隨機產生的密碼
                             $variable = rand(1000, 9999);
                             $passwordGameQuestion = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
                                 ->where('country_id', $country_id)
-                                ->where('gamename', $gameName)
+                                ->where('sec_games.id', $secGameID)
                                 ->inRandomOrder()->first();
                             $templateCode = $passwordGameQuestion->template_code;
                             // 紀錄這筆資料
@@ -249,7 +249,7 @@ class SecCountryController extends Controller
                             $templateCode = $passwordGameQuestion->template_code;
                             return view('game.country2.password', ['passwordGameQuestion' => $passwordGameQuestion, 'variable' => $variable, 'templateCode' => $templateCode]);
                         }
-                    case'調配藥水':
+                    case 4:
                         if($userRecords->isEmpty()){
                             $variable1 = rand(1, 50);
                             $variable2 = rand(1, 50);
@@ -257,7 +257,7 @@ class SecCountryController extends Controller
                             $variable = $variable1.',' . $variable2;
                             $makepotionQuestion = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
                                 ->where('country_id', $country_id)
-                                ->where('gamename', $gameName)
+                                ->where('sec_games.id', $secGameID)
                                 ->inRandomOrder()->first();
                             // 拆template_code跟配方表
                             $template_Code = $makepotionQuestion->template_code;
@@ -289,14 +289,14 @@ class SecCountryController extends Controller
                             $templateCode = str_replace('$variable2', $variable2, $templateCode);
                             return view('game.country2.makepotion', ['makepotionQuestion' => $makepotionQuestion, 'variable1' => $variable1,'variable2' => $variable2,'formula' => $formula, 'templateCode' => $templateCode]);                            
                         }
-                    case '魔林解密':
+                    case 5:
                         if($userRecords->isEmpty()){
                             $variable1 = rand(50, 100);
                             $variable2 = rand(50, 100);
                             $variable = $variable1 . ',' . $variable2;
                             $appleQuestion = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
                                 ->where('country_id', $country_id)
-                                ->where('gamename', $gameName)
+                                ->where('sec_games.id', $secGameID)
                                 ->inRandomOrder()->first();
                             $templateCode = $appleQuestion->template_code;
                             $templateCode = str_replace('$variable1', $variable1, $templateCode);

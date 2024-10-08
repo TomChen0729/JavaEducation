@@ -40,7 +40,7 @@ Route::middleware([
     // debug出題功能
     Route::get('/debug/{country_id}', [GameController::class, 'Debug'])->name('game.debugRD');
     // 國家二導向遊戲畫面的函式
-    Route::get('/country/{country_id}/gameName/{gameName}', [SecCountryController::class, 'chooseGame'])->name('sec.GameChoose');
+    Route::get('/country/{country_id}/secGameID/{secGameID}', [SecCountryController::class, 'chooseGame'])->name('sec.GameChoose');
 });
 
 //測試用

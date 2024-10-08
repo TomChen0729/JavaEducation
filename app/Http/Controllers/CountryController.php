@@ -6,7 +6,10 @@ use App\Models\CardType;
 use App\Models\Country;
 use App\Models\Drama;
 use App\Models\KnowledgeCard;
+use App\Models\SecGame;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
+use App\Models\UserKnowledgeCard;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException; // 驗證資料欄位
 use App\Services\GameService;
@@ -117,7 +120,112 @@ class CountryController extends Controller
 
             return view('level', ['parent_cards' => $parent_cards, 'debug' => $debug, 'currentCountry' => $country_id]);
         }else{
-            return view('level2', ['currentCountry' => $country_id]);
+            // 因為通關密碼沒有需要能力檢查的部分，要額外處理
+            // 已有通關紀錄「已通關狀態」也要處理(未完成)
+            // 直接檢查玩家持有卡片，用來檢查她在level2可以玩甚麼關卡，並且賦予遊戲icon狀態(有三種)
+            // 可以玩、不可玩、已通關
+
+            // sec_games先串sec_parameters，再串sec_records
+            $PassSecGameData = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
+                            ->join('sec_records', 'sec_records.secParameterID', '=', 'sec_parameters.id')
+                            ->where('sec_games.country_id', $country_id)
+                            ->where('sec_records.user_id', auth()->user()->id)
+                            ->where('status', 'true')->whereNotNull('user_answer')
+                            ->select('sec_games.id as secGameID', 'sec_games.imgPath as imgPath')
+                            ->get()
+                            ->map(function($item){
+                                return[
+                                    'secGameID' => $item->secGameID,
+                                    'status' => 'pass',
+                                    'imgPath' => $item->imgPath,
+                                    'needCards' => []
+                                ];
+                            });
+            $notNeedCheckSecGameID = $PassSecGameData->pluck('secGameID')->toArray();
+            // Log::info($notNeedCheckSecGameID);
+            // Log::info("---------------------------------------");
+            // Log::info($PassSecGameData);
+            // Log::info("---------------------------------------");
+            $owedCardsInCurrentCountry = UserKnowledgeCard::join('knowledge_cards', 'knowledge_cards.id', '=', 'user_knowledge_cards.id')
+                                        ->where('user_id', auth()->user()->id)
+                                        ->where('country_id', $country_id)
+                                        ->pluck('knowledge_card_id')->toArray();
+
+            $allGamesNeedCardsInCurrentCountry = SecGame::join('pass_course_need_cards', 'pass_course_need_cards.secGameID', '=', 'sec_games.id')
+                                        ->where('country_id', $country_id)
+                                        ->whereNotIn('sec_games.id', $notNeedCheckSecGameID)
+                                        ->select('sec_games.id as secGameID', 'pass_course_need_cards.knowledge_card_id as knowledge_card_id', 'sec_games.imgPath as imgPath')
+                                        ->get()
+                                        ->groupBy('secGameID') // 依照secGameID分組
+                                        // 上面的步驟執行完資料會長像以下這樣
+                                        // [
+                                        //     2 => [
+                                        //         {"secGameID":2,"needCards":24}
+                                        //     ],
+                                        //     3 => [
+                                        //         {"secGameID":3,"needCards":24},
+                                        //         {"secGameID":3,"needCards":26}
+                                        //     ],
+                                        //     4 => [
+                                        //         {"secGameID":4,"needCards":23}
+                                        //     ],
+                                        //     5 => [
+                                        //         {"secGameID":5,"needCards":23},
+                                        //         {"secGameID":5,"needCards":24}
+                                        //     ]
+                                        //     // ... 其他資料
+                                        // ]
+                                        
+                                        ->map(function($groupedItems, $secGameID){
+                                            return [
+                                                'secGameID' => $secGameID,
+                                                'needCards' => $groupedItems->pluck('knowledge_card_id')->all(),  // 把同一個secGameID的卡片抓出來弄成一個陣列
+                                                'imgPath' => $groupedItems->first()->imgPath
+                                            ];
+                                        })
+                                        ->values();  // 重新整理索引
+                                        // 執行完長這樣
+                                        // [
+                                        //     {"secGameID":2,"needCards":[24]},
+                                        //     {"secGameID":3,"needCards":[24, 26]},
+                                        //     {"secGameID":4,"needCards":[23]},
+                                        //     {"secGameID":5,"needCards":[23, 24]},
+                                        //     {"secGameID":6,"needCards":[25, 26]},
+                                        //     {"secGameID":7,"needCards":[25]},
+                                        //     {"secGameID":8,"needCards":[27, 29]},
+                                        //     {"secGameID":9,"needCards":[25, 28]}
+                                        // ]
+
+            $iconData = $allGamesNeedCardsInCurrentCountry->map(function($gameData) use ($owedCardsInCurrentCountry) {
+                
+                // 如果needCards為 null，則直接設置 canPlay 為 true
+                if (is_null($gameData['needCards']) || in_array(null, $gameData['needCards'])) {
+                    $gameData['needCards'] = []; // 將 needCards 設置為空陣列
+                    $canPlay = true;
+                    $missingCards = [];
+                } else {
+                    // 否則根據擁有的卡片判斷是否能進入
+                    $missingCards = array_diff($gameData['needCards'], $owedCardsInCurrentCountry);
+                    $canPlay = empty($missingCards); // 如果是空等於他該有的都有，返回true，反之則是false
+                }
+            
+                return [
+                    'secGameID' => $gameData['secGameID'],
+                    'status' => $canPlay,
+                    'imgPath'=>$gameData['imgPath'],
+                    'needCards' => array_values(array_diff($gameData['needCards'], $owedCardsInCurrentCountry))
+                ];
+            });
+
+            
+            
+            $iconData = collect($iconData)->merge(collect($PassSecGameData))->sortBy('secGameID')->values();
+
+
+            // Log::info($allGamesNeedCardsInCurrentCountry);
+            // Log::info($owedCardsInCurrentCountry);
+            Log::info($iconData);
+            return view('level2', ['currentCountry' => $country_id, 'iconData' => $iconData]);
         }
     }
 }

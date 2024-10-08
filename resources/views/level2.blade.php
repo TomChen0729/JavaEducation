@@ -108,47 +108,47 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="button">
-                    <a href="{{ route('sec.GameChoose', ['country_id' => $currentCountry, 'gameName' => '通關密碼']) }}">
-                    <img src="/images/country2choose/password.svg" alt="Button">
-                </a>
-            </div>
-            <div class="button2">
-                <a href="{{ route('sec.GameChoose', ['country_id' => $currentCountry, 'gameName' => '魔法門衛']) }}">
-                    <img src="/images/country2choose/idcard.svg" alt="Button">
-                </a>
-            </div>
-            <div class="button3">
-                <a href="{{ route('sec.GameChoose', ['country_id' => $currentCountry, 'gameName' => '魔法寶箱']) }}">
-                    <img src="/images/country2choose/box.svg" alt="Button">
-                </a>
-            </div>
-            <div class="button4">
-                <!--測試用-->
-                <a href="{{ route('sec.GameChoose', ['country_id' => $currentCountry, 'gameName' => '調配藥水']) }}">
-                    <img src="/images/country2choose/gem.svg" alt="Button">
-                </a>
-            </div>
-            <div class="button5">
-                <!--測試用-->
-                <a href="{{ route('sec.GameChoose', ['country_id' => $currentCountry, 'gameName' => '魔林解密']) }}">
-                    <img src="/images/country2choose/cave.svg" alt="Button">
-                </a>
-            </div>
-            <div class="button6">
-                <a href="#">
-                    <img src="/images/country2choose/sword.svg" alt="Button">
-                </a>
-            </div>
-            <div class="button7">
-                <a href="#">
-                    <img src="/images/country2choose/3doors.svg" alt="Button">
-                </a>
-            </div>
-            <div class="button8">
-                <a href="#">
-                    <img src="/images/country2choose/monster.svg" alt="Button">
-                </a>
-            </div>
+                    <a href="{{ route('sec.GameChoose', ['country_id' => $currentCountry, 'secGameID' => 1]) }}">
+                        <img src="/images/country2choose/password.svg" alt="Button">
+                    </a>
+                </div>
+                <div class="button2">
+                    <a href="{{ route('sec.GameChoose', ['country_id' => $currentCountry, 'secGameID' => 3]) }}">
+                        <img src="/images/country2choose/idcard.svg" alt="Button">
+                    </a>
+                </div>
+                <div class="button3">
+                    <a href="{{ route('sec.GameChoose', ['country_id' => $currentCountry, 'secGameID' => 2]) }}">
+                        <img src="/images/country2choose/box.svg" alt="Button">
+                    </a>
+                </div>
+                <div class="button4">
+                    <!--測試用-->
+                    <a href="{{ route('sec.GameChoose', ['country_id' => $currentCountry, 'secGameID' => 4]) }}">
+                        <img src="/images/country2choose/gem.svg" alt="Button">
+                    </a>
+                </div>
+                <div class="button5">
+                    <!--測試用-->
+                    <a href="{{ route('sec.GameChoose', ['country_id' => $currentCountry, 'secGameID' => 5]) }}">
+                        <img src="/images/country2choose/cave.svg" alt="Button">
+                    </a>
+                </div>
+                <div class="button6">
+                    <a href="#">
+                        <img src="/images/country2choose/sword.svg" alt="Button">
+                    </a>
+                </div>
+                <div class="button7">
+                    <a href="#">
+                        <img src="/images/country2choose/3doors.svg" alt="Button">
+                    </a>
+                </div>
+                <div class="button8">
+                    <a href="#">
+                        <img src="/images/country2choose/monster.svg" alt="Button">
+                    </a>
+                </div>
 
             </div>
         </div>
