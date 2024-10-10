@@ -289,11 +289,11 @@
 
         #treasure-box {
             position:absolute;
-            left:30%;
+            left:15%;
             top:35%;
             margin-top: 10px;
-            width: 40%;
-            height: auto;
+            width: 65%;
+            height: 65%;
             background: url('/images/boxes/closebox1.svg') no-repeat center;
             transition: background 0.5s;
         }
@@ -313,10 +313,14 @@
             left: 40%;
         } */
 
-        #images{
-            width: 100%;
-            height: 50%;
-            margin-top: 23%;
+        #triangle{
+            position:absolute;
+            left:11%;
+            top:32%;
+            width: 30%;
+            height: auto;
+            margin-top: 15%;
+            margin-left:20%;
         }
 
         #treasure-box.open {
@@ -419,10 +423,9 @@
                     <p>{{ $boxGameQuestion -> pre_story }}</p>
                 </div>
                 <div class="boxbg">
-                    <div id="treasure-box">
+                    <div id="treasure-box"></div>
                         <!-- <img class="img" id="randomImg" src="/images/boxes/triangle.png" alt=""> -->
-                        <img id="images" src="/images/boxes/arrange3.svg" alt="">
-                    </div>
+                        <img id="triangle" src="/images/boxes/arrange3.svg" alt="">
                 </div>
                 <button onclick="openBox()">打開寶箱</button>
             </div>
@@ -452,7 +455,7 @@
 
         // 倒序排列 arrange
         function triangle1(n) {
-            const img = document.getElementById('images');
+            const img = document.getElementById('triangle');
             switch (n) {
                 case 3:
                     img.src = '/images/boxes/arrange3.svg';
@@ -470,7 +473,7 @@
 
         // 正序排列 sort
         function triangle2(n) {
-            const img = document.getElementById('images');
+            const img = document.getElementById('triangle');
             switch (n) {
                 case 3:
                     img.src = '/images/boxes/sort3.svg';
@@ -488,7 +491,7 @@
 
         // 金字塔 pyramid
         function triangle3(n) {
-            const img = document.getElementById('images');
+            const img = document.getElementById('triangle');
             switch (n) {
                 case 3:
                     img.src = '/images/boxes/pyramid3.svg';
@@ -506,7 +509,7 @@
 
         // 倒金字塔 inverted
         function triangle4(n) {
-            const img = document.getElementById('images');
+            const img = document.getElementById('triangle');
             switch (n) {
                 case 3:
                     img.src = '/images/boxes/inverted3.svg';
@@ -606,7 +609,7 @@
             const box = document.getElementById("treasure-box");
             box.classList.add("open");
 
-            const img = document.getElementById("images");
+            const img = document.getElementById("triangle");
             const light = img.src;
             // 用正規表達式，找出檔名位置
             // var fileNameRegex = /\/images\/boxes\/(.+)\.svg/;

@@ -322,8 +322,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 40%;
-            height: auto;
+            width: 80%;
+            height: 80%;
             padding: 30px;
             border: 1px solid blue;
             border-radius: 30px;
@@ -446,48 +446,55 @@
     </div>
 
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-6 left-container">
-                <div class="box">
-                    <div class="question">
-                        <p>{{ $idCardGameQuestion -> pre_story }}</p>
-                    </div>
+    <div class="row">
+        <!-- 左側容器 -->
+        <div class="col-md-6 left-container">
+            <div class="box">
+                <div class="question">
+                    <p>{{ $idCardGameQuestion->pre_story }}</p>
                 </div>
-                <div class="idcardbg">
-                @foreach($idCardsData as $item)
-                <div id="idcard">
-                    <img class="seal" id="seal-{{ $loop->index }}" src="/images/idcard/idcardseal.svg" alt="">
-                    <div class="message" id="message-{{ $loop->index }}"></div> <!-- 動畫顯示文字 -->
-                    <div class="card">
-                        <div class="row">
-                            <div class="col-md-6 left-container" id="idcards">
-                            <img id="idcard-img-{{ $loop->index }}" src="" alt="證件照">
-                            </div>
-                            <div class="col-md-6 left-container">
-                                <h1>身分證</h1>
-                                <p>身分：{{ $item['identity'] }}</p>
-                                <p>年齡：{{ $item['age'] }}</p>
-                                <p>性別：{{ $item['gender'] }}</p>
+            </div>
+
+            <!-- 身分證卡片區域 -->
+            <div class="idcardbg">
+                <div class="row">
+                    @foreach($idCardsData as $item)
+                    <div class="col-md-6">
+                        <div id="idcard">
+                            <img class="seal" id="seal-{{ $loop->index }}" src="/images/idcard/idcardseal.svg" alt="">
+                            <div class="message" id="message-{{ $loop->index }}"></div> <!-- 動畫顯示文字 -->
+                            <div class="card">
+                                <div class="row">
+                                    <div class="col-md-6 left-container" id="idcards">
+                                        <img id="idcard-img-{{ $loop->index }}" src="" alt="證件照">
+                                    </div>
+                                    <div class="col-md-6 left-container">
+                                        <h1>身分證</h1>
+                                        <p>身分：{{ $item['identity'] }}</p>
+                                        <p>年齡：{{ $item['age'] }}</p>
+                                        <p>性別：{{ $item['gender'] }}</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    @endforeach
                 </div>
-                @endforeach
             </div>
         </div>
-            <div class="col-md-6 right-container">
-                <div class="code-container">
-<pre>
-{!! $templateCode !!}
-</pre>
-                </div>
-                <div class="btn-container">
-                    <button id="send-code" class="btn-submit">提交</button>
-                </div>
+
+        <!-- 右側容器 -->
+        <div class="col-md-6 right-container">
+            <div class="code-container">
+                <pre>{!! $templateCode !!}</pre>
             </div>
+            <div class="btn-container">
+                <button id="send-code" class="btn-submit">提交</button>
             </div>
         </div>
     </div>
+</div>
+
     
     <!-- JavaScript -->
     <script>
