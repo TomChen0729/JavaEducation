@@ -92,3 +92,6 @@ Route::get('apple', function () {
 Route::get('oil', function () {
     return view('game.country2.oil');
 });
+Route::get('fight', function () {
+    return view('game.country2.fight');
+});
