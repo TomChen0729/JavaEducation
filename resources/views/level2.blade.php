@@ -135,17 +135,17 @@
                     </a>
                 </div>
                 <div class="button6">
-                    <a href="#">
+                    <a href="{{ route('sec.GameChoose', ['country_id' => $currentCountry, 'secGameID' => 6]) }}">
                         <img src="/images/country2choose/sword.svg" alt="Button">
                     </a>
                 </div>
                 <div class="button7">
-                    <a href="#">
+                    <a href="{{ route('sec.GameChoose', ['country_id' => $currentCountry, 'secGameID' => 7]) }}">
                         <img src="/images/country2choose/3doors.svg" alt="Button">
                     </a>
                 </div>
                 <div class="button8">
-                    <a href="#">
+                    <a href="{{ route('sec.GameChoose', ['country_id' => $currentCountry, 'secGameID' => 8]) }}">
                         <img src="/images/country2choose/monster.svg" alt="Button">
                     </a>
                 </div>

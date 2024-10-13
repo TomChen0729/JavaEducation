@@ -366,9 +366,9 @@
             <div class="close-btn" onclick="togglePopup1()">&times;</div>
             <div class="pop">
                 <h1>遊戲說明</h1>
-                <p><strong>命運試煉</strong><br><hr></p>
+                <p><strong>{{ $fightQuestion -> gamename }}</strong><br><hr></p>
                 <p>
-                    正帶著錫人前往翡翠城尋找奧茲法師時，壞女巫出現了!!!她使出火之呼吸包圍了我們一行人；桃樂絲打開在詛咒神廟時所獲得的錦囊，內容詳細的記錄了對付壞女巫的辦法，但是桃樂絲只看得懂switch…case的程式碼，請改寫程式碼幫助桃樂絲讀懂錦囊的內容，打敗壞女巫!
+                {{ $fightQuestion -> pre_story }}
                 </p>
             </div>
         </div>
@@ -405,7 +405,7 @@
         <div class="row">
             <div class="col-md-6 left-container">
                 <div class="question">
-                    <p>壞女巫出現了，桃樂絲正面臨危機！她打開了錦囊，裡面記錄了對付壞女巫的辦法。然而，桃樂絲只懂得使用 switch…case 來解讀這些指示。請根據原始的 if…else if…else 程式碼，將其改寫為 switch…case，並輸出敵人的類型，幫助桃樂絲讀懂錦囊的內容，擊敗壞女巫！</p>
+                    <p>{{ $fightQuestion -> game_explanation}}</p>
                 </div>
                 <div class="fightbg">
                     <div class="fight"></div>
@@ -440,29 +440,7 @@ public class Main {
                 </div>
                 <div class="code-container" id="code-container">
 <pre>
-public class Main {
-    public static void main(String[] args) {
-        // 假設敵人類型和來自題目說明(變數)
-        int enemyType = "<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">";
-
-        // 根據敵人類型選擇攻擊狀態
-        switch (<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">) {
-            case "<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">":
-                <input type="text" id="iInit" placeholder="" oninput="autoResize(this)">;
-                break;
-            case "<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">":
-                <input type="text" id="iInit" placeholder="" oninput="autoResize(this)">;
-                break;
-            case "<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">":
-                <input type="text" id="iInit" placeholder="" oninput="autoResize(this)">;
-                break;
-            default:
-                <input type="text" id="iInit" placeholder="" oninput="autoResize(this)">;
-                break;
-        }
-        System.out.println("你的敵人為：" + enemyType);
-    }
-}
+{!! $templateCode !!}
 </pre>
                 </div>
                 <div class="btn-container">

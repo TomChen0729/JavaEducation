@@ -413,9 +413,9 @@
             <div class="close-btn" onclick="togglePopup1()">&times;</div>
             <div class="pop">
                 <h1>遊戲說明</h1>
-                <p><strong>塔中尋油</strong><br><hr></p>
+                <p><strong>{{ $oilQuestion -> gamename }}</strong><br><hr></p>
                 <p>
-                桃樂絲和稻草人前進後遇到了錫人，但是它看起來死氣沉沉。桃樂絲突然想到她之前在看書的時候有說，錫人通常都需要用油來恢復生命。請幫助桃樂絲在附近找到足夠數量的油罐，並幫忙錫人上油!!
+                {{ $oilQuestion -> pre_story }}
                 </p>
             </div>
         </div>
@@ -452,7 +452,7 @@
         <div class="question">
             <div class="question-box">
                 <div class="question-p">
-                    <p>為了幫助桃樂絲和稻草人找到足夠的油來恢復錫人的生命，你需要在附近的塔中進行尋油。隨機給你塔的層數，利用 while 迴圈從下往上跑過整層塔。每層塔根據不同的層數條件，會觸發不同的公式來增減油罐。請確保你能準確找到所需的油罐數量，幫助錫人恢復活力，繼續冒險！</p>
+                    <p>{{ $oilQuestion -> game_explanation }}</p>
                 </div>
             </div>
         </div>
@@ -475,28 +475,7 @@
                 <div class="col-md-6 right-container" id="right-container">
                     <div  class="container-code" id="code">
 <pre>
-public class Main {
-    public static void main(String[] args) {
-        int tower = 5;
-        int totalOil = 1;
-
-        System.out.println("層數: " + tower);
-
-        // 計算油塔的油罐
-        int floor = 1; // 初始化當前樓層數
-        while (<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">;) {
-            // 每層有不同的油罐公式 (條件變數)
-            if (<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">;) {
-                totalOil -= 2;  // 奇數層減少2罐油罐
-            } else {
-                totalOil *= 2;  // 偶數層雙倍油罐
-            }
-            floor++;
-        }
-
-        System.out.println("油塔油量: " + totalOil);
-    }
-}
+{!! $templateCode !!}
 </pre>
                     <div class="btn-container">
                             <button id="send-code" class="btn-submit">提交</button>

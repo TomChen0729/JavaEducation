@@ -37,8 +37,8 @@
             justify-content: center;
             align-items: center;
             padding-top: 3%;
-            height:100%;
-            
+            height: 100%;
+
         }
 
         .first .overlay {
@@ -223,26 +223,26 @@
         }
 
         .container-fluid {
-            width:100%;
+            width: 100%;
             overflow: visible;
             margin-top: -3%;
             position: relative;
             transition: transform 0.5s ease-in-out;
             z-index: 1;
-            height:auto;
-            background-color:#F2D5B5;
+            height: auto;
+            background-color: #F2D5B5;
         }
 
-        .left-container{
-            margin-top:5%;
+        .left-container {
+            margin-top: 5%;
         }
 
-        .right-container{
-            margin-top:5%;
+        .right-container {
+            margin-top: 5%;
         }
 
         .row {
-            height:100%;
+            height: 100%;
         }
 
         .question {
@@ -251,13 +251,13 @@
             border-radius: 20px;
             padding: 20px;
             text-align: left;
-            margin-top:2%;
+            margin-top: 2%;
             transition: max-height 0.3s ease;
         }
 
         .question h5 {
             font-weight: bold;
-            color:#4F4842;
+            color: #4F4842;
         }
 
         .paper {
@@ -282,18 +282,16 @@
         }
 
         .lines {
-            overflow-y:scroll;
+            overflow-y: scroll;
             top: 50px;
             position: relative;
             box-sizing: content-box;
             height: 100px;
             padding-right: 8px;
             padding-left: 56px;
-            background-image: repeating-linear-gradient(
-                white 0px,
-                white 23.5px,
-                steelblue 25px
-            );
+            background-image: repeating-linear-gradient(white 0px,
+                    white 23.5px,
+                    steelblue 25px);
 
             ul {
                 margin: 0;
@@ -331,33 +329,33 @@
         .control-buttons {
             text-align: right;
             padding: 5px;
-            margin-bottom:-55px;
+            margin-bottom: -55px;
         }
 
-        .minbtn{
-            background-color:#ADD8E6;
-            color:white;
-            border-radius:8px;
-            font-weight:bold;
-            font-size:24px;
-            border:none;
+        .minbtn {
+            background-color: #ADD8E6;
+            color: white;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 24px;
+            border: none;
         }
 
-        .boombg{
+        .boombg {
             position: relative;
-            margin-top:2%;
-            height:60%;
-            width:100%;
+            margin-top: 2%;
+            height: 60%;
+            width: 100%;
             background-image: url('/images/boom/boombg.svg');
-            background-size: cover; 
-            background-position: center; 
+            background-size: cover;
+            background-position: center;
             background-repeat: no-repeat;
         }
 
-        #img-container{
+        #img-container {
             position: absolute;
-            top:30%;
-            left:-0.5%;
+            top: 30%;
+            left: -0.5%;
             height: 30%;
             width: 100%;
             background: url('/images/boom/boom.svg') no-repeat center;
@@ -367,16 +365,16 @@
             z-index: 1;
         }
 
-        #img-container.open{
+        #img-container.open {
             background: url('/images/boom/bag.svg') no-repeat center;
             background-size: contain;
         }
 
-        .star{
+        .star {
             position: absolute;
             z-index: 5;
-            top:-50%;
-            left:50%;
+            top: -50%;
+            left: 50%;
             width: 100%;
             height: 30%;
             transform: translateX(-50%);
@@ -389,15 +387,19 @@
             0% {
                 transform: translateX(-50%) translateY(0);
             }
+
             30% {
                 transform: translateX(-50%) translateY(-50px);
             }
+
             50% {
                 transform: translateX(-50%) translateY(0);
             }
+
             70% {
                 transform: translateX(-50%) translateY(-30px);
             }
+
             100% {
                 transform: translateX(-50%) translateY(0);
             }
@@ -405,14 +407,14 @@
 
 
         .container-code {
-            overflow-y:scroll;
-            height:70%;
+            overflow-y: scroll;
+            height: 70%;
             width: 94%;
             background-color: #f4f4f4;
             border-radius: 8px;
-            margin-left:3%;
-            margin-top:8%;
-            
+            margin-left: 3%;
+            margin-top: 8%;
+
         }
 
         pre {
@@ -428,19 +430,18 @@
         .btn-container {
             position: absolute;
             right: 45%;
-            margin-top:-10%;
+            margin-top: -10%;
         }
 
-        .btn-submit{
-            background-color:red;
-            width:80px;
-            height:35px;
-            border:none;
-            color:white;
+        .btn-submit {
+            background-color: red;
+            width: 80px;
+            height: 35px;
+            border: none;
+            color: white;
             border-radius: 5px;
 
         }
-        
     </style>
 </head>
 
@@ -453,9 +454,11 @@
             <div class="close-btn" onclick="togglePopup1()">&times;</div>
             <div class="pop">
                 <h1>遊戲說明</h1>
-                <p><strong>密碼解碼</strong><br><hr></p>
+                <p><strong>{{ $decryptQuestion -> gamename }}</strong><br>
+                    <hr>
+                </p>
                 <p>
-                桃樂絲一行人要從蘋果怪樹林前往村莊的路途中，遇到了傳說中的詛咒的神廟 ，其內部隱藏著改變命運的錦囊；想要得到命運錦囊必須拆解神廟內的炸彈。拆解炸彈的唯一方法是將一串神秘的數字倒敘排列，才會得到命運錦囊。請幫助桃樂絲一行人拆解炸彈獲得命運錦囊吧!!
+                    {{ $decryptQuestion -> pre_story }}
                 </p>
             </div>
         </div>
@@ -485,14 +488,14 @@
                 <div class="bx bx-menu" id="menu-icon"></div>
             </div>
         </div>
-        
+
     </div>
 
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6 left-container" id="left-container">
                 <div class="question" id="question">
-                    <h5>隨機生成一個三位數，並使用 while 迴圈逐一提取數字位，根據以下規則進行解碼。解碼後的三個數字相加就是拆解炸彈的密碼，請冒險者幫助桃樂絲拆解炸彈，拿到命運錦囊！</h5>
+                    <h5>{{ $decryptQuestion -> game_explanation}}</h5>
                 </div>
                 <div class="paper" id="paper">
                     <div class="control-buttons">
@@ -531,45 +534,24 @@
                         <!-- <img id="pot" src="/images/boom/boom.svg" alt="pot"> -->
                     </div>
                 </div>
-                    <button onclick="play()">測試動畫</button>
+                <button onclick="play()">測試動畫</button>
             </div>
 
-                <div class="col-md-6 right-container" id="right-container">
-                    <div  class="container-code" id="code">
-<pre>
-    public class Main {
-        public static void main(String[] args) {
-            int number = 456;
-            int position = 1;
-            int result = 0; 
-
-            // 使用 while 迴圈將數字的每一位提取出來並進行處理
-            while (<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">) {
-                int digit = number % 10;
-
-                if (<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">) { // 個位數字
-                    if (<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">) {
-                        result += (<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">);
-                    } else {
-                        result += (<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">);
-                    }
-                }
-            }
-
-            System.out.println("解碼後的密碼: " + result);
-        }
-    }
+            <div class="col-md-6 right-container" id="right-container">
+                <div class="container-code" id="code">
+                    <pre>
+{!! $templateCode !!}
 </pre>
-                        <div class="btn-container">
-                            <button id="send-code" class="btn-submit">提交</button>
-                        </div>
+                    <div class="btn-container">
+                        <button id="send-code" class="btn-submit">提交</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
-    
+    </div>
+
+
     <!-- JavaScript -->
     <script>
         // 畫面載入後顯示彈跳視窗
@@ -596,16 +578,16 @@
             const paper = document.getElementById('paper');
             const lines = document.getElementById('lines');
             const holes = document.getElementById('holes');
-            
+
             if (lines.style.display === 'none') {
                 lines.style.display = 'block';
                 paper.style.height = '150px';
-                holes.style.display ='block';
-                
+                holes.style.display = 'block';
+
             } else {
                 lines.style.display = 'none';
                 paper.style.height = '40px';
-                holes.style.display ='none';
+                holes.style.display = 'none';
             }
         }
 
