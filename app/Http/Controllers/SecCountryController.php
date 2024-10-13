@@ -390,7 +390,7 @@ class SecCountryController extends Controller
                                 ->where('country_id', $country_id)
                                 ->where('sec_games.id', $secGameID)
                                 ->inRandomOrder()->first();
-                            // 拆template_code
+                            //解碼確定是哪個題目
                             $template_Code = $fightQuestion->template_code;
                             $templateCodeArray = explode('|', $template_Code);
                             $templateCode = $templateCodeArray[0];
@@ -401,15 +401,11 @@ class SecCountryController extends Controller
                             $this->recordWatchedParameter($fightQuestion->id, ['variable' => $variable]);
                             return view('game.country2.fight', ['fightQuestion' => $fightQuestion, 'variable' => $variable, 'templateCode' => $templateCode]);
                         } else {
-                            //解碼json字符串類型
-                            $parameterJson = $userRecords->pluck(value: 'parameter')->first();
-                            $parameterArray = json_decode($parameterJson, true);
-                            $variable = $parameterArray['variable'];
                             //儲存當前的題目id
                             $secParameterID = $userRecords->first()->secParameterID;
                             $fightQuestion = SecGame::join('sec_parameters', 'sec_games.id', '=', 'sec_parameters.secGameID')
                                 ->where('sec_parameters.id', $secParameterID)->first();
-                            // 拆template_code
+                            // 解碼確定是哪個題目
                             $template_Code = $fightQuestion->template_code;
                             $templateCodeArray = explode('|', $template_Code);
                             $templateCode = $templateCodeArray[0];
