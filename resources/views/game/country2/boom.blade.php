@@ -343,11 +343,22 @@
             border:none;
         }
 
-        #img-container{
-            margin-left:2%;
+        .boombg{
+            position: relative;
             margin-top:2%;
-            margin-left:2%;
-            height: 50%;
+            height:60%;
+            width:100%;
+            background-image: url('/images/boom/boombg.svg');
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat;
+        }
+
+        #img-container{
+            position: absolute;
+            top:30%;
+            left:-0.5%;
+            height: 30%;
             width: 100%;
             background: url('/images/boom/boom.svg') no-repeat center;
             background-size: contain;
@@ -364,10 +375,10 @@
         .star{
             position: absolute;
             z-index: 5;
+            top:-50%;
+            left:50%;
             width: 100%;
             height: 30%;
-            top: 20%;
-            left: 30%;
             transform: translateX(-50%);
             background: url('/images/boom/star.svg') no-repeat center;
             background-size: contain;
@@ -416,8 +427,8 @@
 
         .btn-container {
             position: absolute;
-            right: 40px;
-            margin-top:-20%;
+            right: 45%;
+            margin-top:-10%;
         }
 
         .btn-submit{
@@ -515,8 +526,10 @@
                         <div class="hole"></div>
                     </div>
                 </div>
-                <div class="img-container" id="img-container">
-                    <!-- <img id="pot" src="/images/boom/boom.svg" alt="pot"> -->
+                <div class="boombg">
+                    <div class="img-container" id="img-container">
+                        <!-- <img id="pot" src="/images/boom/boom.svg" alt="pot"> -->
+                    </div>
                 </div>
                     <button onclick="play()">測試動畫</button>
             </div>
