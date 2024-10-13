@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\KnowledgeCardController;
@@ -95,3 +96,7 @@ Route::get('oil', function () {
 Route::get('fight', function () {
     return view('game.country2.fight');
 });
+//搜尋卡片傳值進控制器
+Route::get('/search', [KnowledgeCardController::class, 'search'])->name('knowledge.search');
+//將搜尋的值跳轉到該卡片
+Route::get('/knowledgecard/{id}', [KnowledgeCardController::class, 'search'])->name('knowledge.show');
