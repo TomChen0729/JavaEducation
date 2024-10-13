@@ -361,7 +361,7 @@ class SecCountryController extends Controller
                         }
                     case 7:
                         if ($userRecords->isEmpty()) {
-                            $variable = rand(101, 999);
+                            $variable = rand(5, 15);
                             $oilQuestion = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
                                 ->where('country_id', $country_id)
                                 ->where('sec_games.id', $secGameID)
