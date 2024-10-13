@@ -515,6 +515,11 @@ public class Main {
             document.getElementById("popup").classList.toggle("active");
         }
 
+        // 動畫
+        function play() {
+            
+        }
+
         //input格子縮放
         function autoResize(input) {
             const newWidth = input.scrollWidth;
