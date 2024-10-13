@@ -363,6 +363,34 @@
             background-color:#b4e4ef;
             border:2px solid #007995;
         }
+
+        #oil{
+            position: relative;
+            top: 60%;
+            left: 20%;
+            width: 100%;
+            height: 30%;
+            opacity: 0;
+            transition: opacity 0.5s ease; 
+        }
+
+        @keyframes animate {
+            0% {
+                top: 60%;
+                left: 20%;
+            }
+            100% {
+                top: 20%;
+                right: 80%;
+                width: 100%;
+                height: 80%;
+            }
+        }
+
+        #oil.show{
+            animation: animate 1s ease-in-out forwards; /* 使用 forwards 確保動畫結束後保持最後狀態 */
+            opacity: 1; 
+        }
         
         .container-code {
             overflow-y:scroll;
@@ -459,15 +487,16 @@
         <div class="row">
             <div class="col-md-6 left-container" id="left-container">
                 <div class="img-container" id="img-container">
-                    <img class="man "id="man" src="/images/oil/sadman.svg" alt="man">
+                    <img class="man"id="man" src="/images/oil/sadman.svg" alt="man">
                     <div class="health">
                         <div class="health-container">
-                            <div class="health-bar">
+                            <div class="health-bar" id="healthBar">
                                 <div class="health-percentage health-2"></div>
                             </div>
-                            <div class="health-status"> <span>HP: 20%</span></div>
+                            <div class="health-status"> <span id="healthStatus">HP: 20%</span></div>
                         </div>
                     </div>
+                    <img id="oil" src="/images/oil/oil.svg" alt="oil">
                 </div>
                     <button onclick="play()">測試動畫</button>
             </div>
@@ -493,6 +522,30 @@
         function togglePopup1() {
             document.getElementById("popup").classList.toggle("active");
         }
+
+        // 動畫
+        function play() {
+            // 假設血量恢復至 100%
+            const healthPercentage = 100;
+            const healthBar = document.querySelector('.health-percentage');
+            const healthStatus = document.getElementById('healthStatus');
+
+            // 更新血條的寬度
+            healthBar.style.width = `${healthPercentage}%`;
+            // 更新血條顏色為綠色
+            healthBar.style.backgroundColor = '#4CAF50'; 
+            // 更新血量狀態文字
+            healthStatus.textContent = `HP: ${healthPercentage}%`;
+
+            // 換臉
+            const man = document.getElementById('man');
+            man.src = '/images/oil/happyman.svg';
+
+            // 油罐飛出
+            const oilElement = document.getElementById('oil');
+            oilElement.classList.add('show');
+        }
+
 
         //input格子縮放
         function autoResize(input) {

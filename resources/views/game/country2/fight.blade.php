@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>fight</title>
+    <title>命運試煉</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/base16-dark.min.css" rel="stylesheet">
@@ -354,6 +354,37 @@
             font-size:24px;
             border:none;
         }
+
+        .character {
+            position: absolute;
+        }
+
+        .weapon {
+            top: 55%;
+            left: 30%;
+            transform: rotate(45deg);
+            opacity: 0; /* 初始不可見 */
+            position: relative;
+        }
+
+        /* 武器動畫 */
+        @keyframes animate {
+            0% {
+                top: 55%;
+                left: 30%;
+                transform: rotate(45deg);
+            }
+            100% {
+                top: -20%;
+                left: 0;
+                transform: rotate(-45deg);
+            }
+        }
+
+        .weapon.show {
+            animation: animate 1s ease-in-out;
+            opacity: 1; /* 直接顯示 */
+        }
     </style>
 </head>
 
@@ -409,8 +440,9 @@
                 </div>
                 <div class="fightbg">
                     <div class="fight"></div>
-                        <img class="fight" src="/images/fight/witch.svg" alt="">
-                </div>
+                        <img class="character" id="character" src="/images/fight/witch.svg" alt="">
+                        <img class="weapon" id="weapon" src="/images/fight/sword.svg" alt="">
+                    </div>
                 <button onclick="play()">測試按鈕</button>
             </div>
             <div class="col-md-6 right-container">
@@ -454,6 +486,38 @@ public class Main {
         // 畫面載入後顯示彈跳視窗
         function togglePopup1() {
             document.getElementById("popup").classList.toggle("active");
+        }
+
+        // 等題目跟答案從資料庫提取出來再修正獲取的來源，跟寶箱遊戲一樣
+        function witch() {
+            const img = document.getElementById('character');
+            img.src = '/images/fight/witch.svg';
+        }
+
+        function giant() {
+            const img = document.getElementById('character');
+            img.src = '/images/fight/giant.svg';
+        }
+
+        function dragon() {
+            const img = document.getElementById('character');
+            img.src = '/images/fight/dragon.svg';
+        }
+
+        // 一開始進入時，呼叫需要攻擊的角色
+        // document.addEventListener('DOMContentLoaded', function{
+
+        // });
+
+        // 按下按鈕後立即顯示武器並開始動畫
+        function play() {
+            const weaponElement = document.getElementById('weapon');
+            weaponElement.classList.add('show');
+
+            // 重置動畫
+            setTimeout(() => {
+                weaponElement.classList.remove('show');
+            }, 1000); // 1秒後重置動畫
         }
         
         //input格子縮放
