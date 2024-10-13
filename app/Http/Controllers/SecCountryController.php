@@ -336,10 +336,49 @@ class SecCountryController extends Controller
         }
     }
 
+    // 通關密碼的密碼產生器
+    public function passwordsGenerator(string $pwdType){
+        switch ($pwdType){
+            // 產生隨機密碼字串
+            case "%s":
+                // 定義我要產生密碼的字元範圍
+                $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                // 取得上面的那個字串的長度
+                $charactersLength = strlen($characters);
+
+                // 產生隨機長度，至少為 1 且不超過$characters的長度，放1是避免產生空字串
+                $length = rand(1, $charactersLength); 
+
+                $variable = '';
+
+                for ($i = 0; $i < $length; $i ++) {
+                    $randomIndex = random_int(0, $charactersLength - 1); // 隨機取得$characters陣列中的index
+                    $variable .= $characters[$randomIndex]; // 組合起來
+                }
+
+                return $variable;
+
+            // 產生隨機四位數整數
+            case "%d":
+                $variable = rand(1000, 9999);
+                return $variable;
+            // 產生1-100的隨機小數，小數後兩位
+            case "%.2f":
+                $variable = number_format(mt_rand(100, 10000) / 100, 2);
+                break;
+            
+            
+        }
+    }
+
     // 派發知識卡的函式
     public function giveUserCards(int $secGameID, int $currentUID)
     {
-        $randGiveCard = PassCourseGetCard::where('secGameID', $secGameID)->inRandomOrder()->first();
+        // 先找出玩家已經有的卡片，以防重複插入
+        $currentUsersOwnedCards = UserKnowledgeCard::where('user_id', auth()->user()->id)->pluck('knowledge_card_id')->toArray();
+        $randGiveCard = PassCourseGetCard::where('secGameID', $secGameID)
+                        ->whereNotIn('knowledge_card_id',$currentUsersOwnedCards)
+                        ->inRandomOrder()->first();
         Log::info($randGiveCard);
         $data = [
             'user_id' => $currentUID,
