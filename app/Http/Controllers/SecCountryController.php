@@ -225,7 +225,7 @@ class SecCountryController extends Controller
                             $templateCode = str_replace('$variable', $variable, $templateCode);
                             return view('game.country2.idcardgame', ['idCardGameQuestion' => $idCardQuestion, 'templateCode' => $templateCode, 'variable' => $variable, 'idCardsData' => $idCardsData]);
                         }
-                    case 1:
+                    case 1: // 通關密碼(要修改)
                         if ($userRecords->isEmpty()) {
                             // 隨機產生的密碼
                             $variable = rand(1000, 9999);
