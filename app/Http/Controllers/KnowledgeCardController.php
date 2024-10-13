@@ -31,14 +31,16 @@ class KnowledgeCardController extends Controller
         // 找出使用者擁有的卡片
         $current_user = auth()->user()->id;
         $user_cards_id = UserKnowledgeCard::with('knowledge_card_id')->where('user_id', $current_user)->pluck('knowledge_card_id');
-        return view('knowledge.knowledge', ['all_cards' => $all_cards, 'user_cards_id' => $user_cards_id]);
+        $card_type = CardType::where('id','=',$card_type_id)->first();
+        return view('knowledge.knowledge', ['all_cards' => $all_cards, 'user_cards_id' => $user_cards_id,'card_type'=>$card_type]);
     }
 
 
     public function showcardcontent(int $card_id)
     {
         $current_card = KnowledgeCard::find($card_id);
-        return view('knowledge.knowledgecontent', ['current_card' => $current_card]);
+        $card_type = CardType::where('id','=',$current_card->card_type_id)->first();
+        return view('knowledge.knowledgecontent', ['current_card' => $current_card,'card_type'=>$card_type]);
     }
 
     // 題目知識卡
@@ -63,10 +65,10 @@ class KnowledgeCardController extends Controller
 
         // 找卡片
         $current_card = KnowledgeCard::where('name', 'LIKE', "%{$keyword}%")->first();
-
+        $card_type = CardType::where('id','=',$current_card->card_type_id)->first();
         // 如果卡片有找到的話 回傳卡片
         if ($current_card) {
-            return redirect()->route('knowledge.show', ['id' => $current_card]);
+            return redirect()->route('knowledge.show', ['id' => $current_card,'card_type'=>$card_type]);
         }
 
         // 如果沒有找到，返回找不到卡片

@@ -142,10 +142,10 @@
                 <a href="{{ route('showallcardtypes') }}" class="breadcrumbs__link">知識卡</a>
             </li>
             <li class="breadcrumbs__item">
-                <a href="#" class="breadcrumbs__link">資料型態</a>
+                <a href="#" class="breadcrumbs__link">{{ $card_type -> card_type }}</a>
             </li>
             <li class="breadcrumbs__item">
-                <a href="#" class="breadcrumbs__link__active">float</a>
+                <a href="#" class="breadcrumbs__link__active">{{ $current_card -> name}}</a>
             </li>
         </ul>
     </div>

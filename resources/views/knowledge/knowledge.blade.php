@@ -190,7 +190,7 @@
                 <a href="{{ route('showallcardtypes') }}" class="breadcrumbs__link">知識卡</a>
             </li>
             <li class="breadcrumbs__item">
-                <a href="#" class="breadcrumbs__link__active">資料型態</a>
+                <a href="#" class="breadcrumbs__link__active">{{ $card_type -> card_type }}</a>
             </li>
         </ul>
         <form action="{{ route('knowledge.search') }}" method="GET" style="display: flex; align-items: center;">
