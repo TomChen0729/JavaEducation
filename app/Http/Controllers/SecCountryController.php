@@ -11,10 +11,8 @@ use App\Models\SecParameter;
 use App\Models\SecRecord;
 use App\Models\UserKnowledgeCard;
 use App\Services\GameService;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Mockery\Generator\Parameter;
 
 class SecCountryController extends Controller
 {
@@ -113,18 +111,18 @@ class SecCountryController extends Controller
         // 玩家有的卡片
         $userCards = UserKnowledgeCard::where('user_id', auth()->user()->id)->pluck('knowledge_card_id')->toArray();
         // 如果這關需要的卡片是空的話直接回傳true
-        if ($needCards == Null) {
+        if ($needCards == null) {
             return true;
         } else { // 如果不是進行判斷
             // 找出使用者缺少的卡片
             $missingCards = array_diff($needCards, $userCards);
             // 如果沒有等同於使用者可以進入關卡
-            if ($missingCards == Null) {
+            if ($missingCards == null) {
                 return true;
             } else { // 如果有我就要回傳他缺少的
                 return [
                     'status' => false,
-                    'missingCards' => $missingCards
+                    'missingCards' => $missingCards,
                 ];
             }
         }
@@ -156,8 +154,8 @@ class SecCountryController extends Controller
                 $variable = null;
 
                 switch ($secGameID) {
-                        // 從記錄表撈玩過的，如果最近一次有玩的參數先導入(寫一個function)
-                        // 如果沒玩過或是全對的話，隨便random
+                    // 從記錄表撈玩過的，如果最近一次有玩的參數先導入(寫一個function)
+                    // 如果沒玩過或是全對的話，隨便random
                     case 2:
                         if ($userRecords->isEmpty()) {
                             // 三角形層數變數
@@ -253,9 +251,9 @@ class SecCountryController extends Controller
                         }
                     case 4:
                         if ($userRecords->isEmpty()) {
-                            $variable1 = rand(10, 100);
-                            $variable2 = rand(101, 200);
                             $variable3 = rand(10, 200);
+                            $variable2 = rand(101, $variable3);
+                            $variable1 = rand(10, $variable2);
                             //合併儲存到parameter
                             $variable = $variable1 . ',' . $variable2 . ',' . $variable3;
                             $makepotionQuestion = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
@@ -295,9 +293,11 @@ class SecCountryController extends Controller
                         }
                     case 5:
                         if ($userRecords->isEmpty()) {
-                            $variable1 = rand(50, 100);
-                            $variable2 = rand(50, 100);
-                            $variable = $variable1 . ',' . $variable2;
+                            $variable1 = rand(20, 100);
+                            $variable2 = rand(20, $variable1 - 1);
+                            $variable3 = rand(2, 20);
+                            //合併儲存到parameter
+                            $variable = $variable1 . ',' . $variable2 . ',' . $variable3;
                             $appleQuestion = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
                                 ->where('country_id', $country_id)
                                 ->where('sec_games.id', $secGameID)
@@ -305,9 +305,10 @@ class SecCountryController extends Controller
                             $templateCode = $appleQuestion->template_code;
                             $templateCode = str_replace('$variable1', $variable1, $templateCode);
                             $templateCode = str_replace('$variable2', $variable2, $templateCode);
+                            $templateCode = str_replace('$variable3', $variable3, $templateCode);
                             // 紀錄這筆資料
                             $this->recordWatchedParameter($appleQuestion->id, ['variable' => $variable]);
-                            return view('game.country2.apple', ['appleQuestion' => $appleQuestion, 'variable1' => $variable1, 'variable2' => $variable2, 'templateCode' => $templateCode]);
+                            return view('game.country2.apple', ['appleQuestion' => $appleQuestion, 'variable1' => $variable1, 'variable2' => $variable2, 'variable3' => $variable3, 'templateCode' => $templateCode]);
                         } else {
                             //解碼json字符串類型
                             $parameterJson = $userRecords->pluck(value: 'parameter')->first();
@@ -317,6 +318,7 @@ class SecCountryController extends Controller
                             $variablesArray = explode(',', $variable);
                             $variable1 = $variablesArray[0];
                             $variable2 = $variablesArray[1];
+                            $variable3 = $variablesArray[2];
                             //儲存當前的題目id
                             $secParameterID = $userRecords->first()->secParameterID;
                             $appleQuestion = SecGame::join('sec_parameters', 'sec_games.id', '=', 'sec_parameters.secGameID')
@@ -324,7 +326,8 @@ class SecCountryController extends Controller
                             $templateCode = $appleQuestion->template_code;
                             $templateCode = str_replace('$variable1', $variable1, $templateCode);
                             $templateCode = str_replace('$variable2', $variable2, $templateCode);
-                            return view('game.country2.apple', ['appleQuestion' => $appleQuestion, 'variable1' => $variable1, 'variable2' => $variable2, 'templateCode' => $templateCode]);
+                            $templateCode = str_replace('$variable3', $variable3, $templateCode);
+                            return view('game.country2.apple', ['appleQuestion' => $appleQuestion, 'variable1' => $variable1, 'variable2' => $variable2, 'variable3' => $variable3, 'templateCode' => $templateCode]);
                         }
                     case 6:
                         if ($userRecords->isEmpty()) {
@@ -395,7 +398,7 @@ class SecCountryController extends Controller
                             $templateCodeArray = explode('|', $template_Code);
                             $templateCode = $templateCodeArray[0];
                             $unpackJson = $templateCodeArray[1];
-                            $variable = json_decode('"' . $unpackJson.'"'  , true);
+                            $variable = json_decode('"' . $unpackJson . '"', true);
                             $templateCode = str_replace('$variable', $variable, $templateCode);
                             // 紀錄這筆資料
                             $this->recordWatchedParameter($fightQuestion->id, ['variable' => $variable]);
@@ -410,7 +413,7 @@ class SecCountryController extends Controller
                             $templateCodeArray = explode('|', $template_Code);
                             $templateCode = $templateCodeArray[0];
                             $unpackJson = $templateCodeArray[1];
-                            $variable = json_decode('"' . $unpackJson.'"'  , true);
+                            $variable = json_decode('"' . $unpackJson . '"', true);
                             $templateCode = str_replace('$variable', $variable, $templateCode);
                             return view('game.country2.fight', ['fightQuestion' => $fightQuestion, 'variable' => $variable, 'templateCode' => $templateCode]);
                         }
@@ -432,7 +435,7 @@ class SecCountryController extends Controller
     public function passwordsGenerator(string $pwdType)
     {
         switch ($pwdType) {
-                // 產生隨機密碼字串
+            // 產生隨機密碼字串
             case "%s":
                 // 定義我要產生密碼的字元範圍
                 $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -451,11 +454,11 @@ class SecCountryController extends Controller
 
                 return $variable;
 
-                // 產生隨機四位數整數
+            // 產生隨機四位數整數
             case "%d":
                 $variable = rand(1000, 9999);
                 return $variable;
-                // 產生1-100的隨機小數，小數後兩位
+            // 產生1-100的隨機小數，小數後兩位
             case "%.2f":
                 $variable = number_format(mt_rand(100, 10000) / 100, 2);
                 break;
@@ -483,7 +486,7 @@ class SecCountryController extends Controller
 
         return $randGiveCard;
     }
-    public function CorrectUserRecord(int $userid, int $parameterid,  $useranswer)
+    public function CorrectUserRecord(int $userid, int $parameterid, $useranswer)
     {
         $CorrectUserRecord = SecRecord::where('user_id', $userid)->where('secParameterID', $parameterid)->where('status', 'true')->first();
         $CorrectUserRecord->counter += 1;
@@ -665,7 +668,6 @@ class SecCountryController extends Controller
         }
     }
 
-
     public function pluckAnswer(int $secParameterID)
     {
         if (!empty($secParameterID)) {
@@ -674,10 +676,10 @@ class SecCountryController extends Controller
                 Log::info('ans' . $answerData);
                 return $answerData;
             } else {
-                return Null;
+                return null;
             }
         } else {
-            return Null;
+            return null;
         }
     }
 }
