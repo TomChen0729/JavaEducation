@@ -96,6 +96,9 @@ Route::get('oil', function () {
 Route::get('fight', function () {
     return view('game.country2.fight');
 });
+Route::get('fire', function () {
+    return view('game.country2.fire');
+});
 //搜尋卡片傳值進控制器
 Route::get('/search', [KnowledgeCardController::class, 'search'])->name('knowledge.search');
 //將搜尋的值跳轉到該卡片
