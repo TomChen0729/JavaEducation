@@ -264,6 +264,7 @@
         }
 
         .member {
+            width:100%;
             margin: 1.5em 0 0.5em;
             padding: 0.73em;
             background: linear-gradient(

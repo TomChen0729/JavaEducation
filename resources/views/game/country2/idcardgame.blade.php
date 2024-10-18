@@ -315,10 +315,12 @@
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
-            margin-top:5%;
+            width:100%;
+            height:100%;
         }
 
         .card{
+            margin-top:5%;
             display: flex;
             justify-content: center;
             align-items: center;

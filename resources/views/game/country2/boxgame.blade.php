@@ -279,7 +279,7 @@
         .boxbg{
             position: relative;
             width:100%;
-            height:80%;
+            height:100%;
             background-image: url('/images/boxes/boxbg.svg');
             background-size: cover; 
             background-position: center; 
