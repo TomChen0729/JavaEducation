@@ -228,12 +228,15 @@ class SecCountryController extends Controller
                     case 1: // 通關密碼(要修改)
                         if ($userRecords->isEmpty()) {
                             // 隨機產生的密碼
-                            $variable = rand(1000, 9999);
                             $passwordGameQuestion = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
                                 ->where('country_id', $country_id)
                                 ->where('sec_games.id', $secGameID)
                                 ->inRandomOrder()->first();
-                            $templateCode = $passwordGameQuestion->template_code;
+                            $template_Code = $passwordGameQuestion->template_code;
+                            $templateCodeArray = explode('|', $template_Code);
+                            $templateCode = $templateCodeArray[0];
+                            $passwordtype = $templateCodeArray[1];
+                            $variable = $this->passwordsGenerator($passwordtype);
                             // 紀錄這筆資料
                             $this->recordWatchedParameter($passwordGameQuestion->id, ['variable' => $variable]);
                             return view('game.country2.password', ['passwordGameQuestion' => $passwordGameQuestion, 'variable' => $variable, 'templateCode' => $templateCode]);
@@ -246,7 +249,9 @@ class SecCountryController extends Controller
                             $secParameterID = $userRecords->first()->secParameterID;
                             $passwordGameQuestion = SecGame::join('sec_parameters', 'sec_games.id', '=', 'sec_parameters.secGameID')
                                 ->where('sec_parameters.id', $secParameterID)->first();
-                            $templateCode = $passwordGameQuestion->template_code;
+                            $template_Code = $passwordGameQuestion->template_code;
+                            $templateCodeArray = explode('|', $template_Code);
+                            $templateCode = $templateCodeArray[0];
                             return view('game.country2.password', ['passwordGameQuestion' => $passwordGameQuestion, 'variable' => $variable, 'templateCode' => $templateCode]);
                         }
                     case 4:
@@ -440,7 +445,7 @@ class SecCountryController extends Controller
                 // 定義我要產生密碼的字元範圍
                 $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
                 // 取得上面的那個字串的長度
-                $charactersLength = strlen($characters);
+                $charactersLength = strlen(string: $characters);
 
                 // 產生隨機長度，至少為 1 且不超過$characters的長度，放1是避免產生空字串
                 $length = rand(1, $charactersLength);
