@@ -37,6 +37,10 @@
             justify-content: center;
             align-items: center;
             padding-top: 3%;
+            background-image: url('/images/password/doorbg.svg');
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat;
         }
 
         .first .overlay {
