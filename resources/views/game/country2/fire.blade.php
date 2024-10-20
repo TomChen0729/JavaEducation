@@ -22,7 +22,7 @@
             /* 去除清單前面的符號 */
         }
 
-        a:hover{
+        a:hover {
             color: white;
             text-decoration: none;
         }
@@ -39,7 +39,7 @@
             justify-content: center;
             align-items: center;
             padding-top: 6%;
-            background-color:#F4D9D0;
+            background-color: #F4D9D0;
         }
 
         .first .overlay {
@@ -90,7 +90,7 @@
             margin: 10px 0;
         }
 
-        .first p{
+        .first p {
             font-size: 20px;
         }
 
@@ -129,7 +129,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 20px 2% 0px;
-            background: rgba(199,91,122, 0.8);
+            background: rgba(199, 91, 122, 0.8);
             /* 透明背景 */
             transition: all 0.50s ease;
         }
@@ -272,56 +272,56 @@
             font-weight: bold;
         }
 
-        .firebg{
+        .firebg {
             background-image: url('/images/fire/firebg.svg');
-            background-size: cover; 
-            background-position: center; 
+            background-size: cover;
+            background-position: center;
             background-repeat: no-repeat;
-            margin-top:3%;
+            margin-top: 3%;
             position: relative;
         }
 
-        .fireman{
-            margin-bottom:-2%;
+        .fireman {
+            margin-bottom: -2%;
         }
 
         .control-buttons {
             text-align: right;
             padding: 5px;
-            margin-bottom:-55px;
+            margin-bottom: -55px;
         }
 
-        .minbtn{
-            background-color:red;
-            color:white;
-            border-radius:8px;
-            font-weight:bold;
-            font-size:24px;
-            border:none;
+        .minbtn {
+            background-color: red;
+            color: white;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 24px;
+            border: none;
         }
 
         .excode-container {
-            width:100%;
-            height:25%;
-            margin-bottom:5%;
-            overflow-y:scroll;
+            width: 100%;
+            height: 25%;
+            margin-bottom: 5%;
+            overflow-y: scroll;
             background-color: #f4f4f4;
             padding: 15px;
             border-radius: 8px;
-            padding:5px 0px 0px 40px;
+            padding: 5px 0px 0px 40px;
         }
 
         .code-container {
-            width:100%;
-            height:35%;
-            overflow-y:scroll;
+            width: 100%;
+            height: 35%;
+            overflow-y: scroll;
             background-color: #f4f4f4;
             padding: 15px;
             border-radius: 8px;
-            padding:0px 0px 0px 40px;
+            padding: 0px 0px 0px 40px;
         }
 
-        pre{
+        pre {
             font-size: 20px;
         }
 
@@ -340,13 +340,13 @@
         .btn-container button {
             margin: 0 20px;
             border-radius: 5px;
-            margin-top:20px;
-            background-color:red;
-            color:white;
-            border-radius:8px;
-            font-weight:bold;
-            font-size:24px;
-            border:none;
+            margin-top: 20px;
+            background-color: red;
+            color: white;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 24px;
+            border: none;
         }
     </style>
 </head>
@@ -360,9 +360,11 @@
             <div class="close-btn" onclick="togglePopup1()">&times;</div>
             <div class="pop">
                 <h1>遊戲說明</h1>
-                <p><strong>{{ $fireQuestion -> gamename }}</strong><br><hr></p>
+                <p><strong>{{ $fireQuestion -> gamename }}</strong><br>
+                    <hr>
+                </p>
                 <p>
-                {{ $fireQuestion -> game_explanation }}
+                    {{ $fireQuestion -> game_explanation }}
                 </p>
             </div>
         </div>
@@ -403,8 +405,8 @@
                 </div>
                 <div class="firebg">
                     <div class="fire"></div>
-                        <img class="fireman" src="/images/fire/fireman.svg" alt="">
-                    </div>
+                    <img class="fireman" src="/images/fire/fireman.svg" alt="">
+                </div>
                 <button onclick="play()">測試按鈕</button>
             </div>
             <div class="col-md-6 right-container">
@@ -412,7 +414,7 @@
                     <div class="control-buttons">
                         <button class="minbtn" onclick="toggleMinimize()">－</button>
                     </div>
-<pre>
+                    <pre>
 public class Main {
     public static void main(String[] args) {
         boolean fire = true;
@@ -429,11 +431,11 @@ public class Main {
 </pre>
                 </div>
                 <div class="code-container" id="code-container">
-<pre>
+                    <pre>
 <pre>
 {!! $templateCode !!}
 </pre>
-</pre>
+                    </pre>
                 </div>
                 <div class="btn-container">
                     <button id="send-code" class="btn-submit">提交</button>
@@ -447,7 +449,7 @@ public class Main {
         function togglePopup1() {
             document.getElementById("popup").classList.toggle("active");
         }
-        
+
         //input格子縮放
         function autoResize(input) {
             const newWidth = input.scrollWidth;
@@ -467,16 +469,97 @@ public class Main {
             const paper = document.getElementById('excode-container');
             const codeContent = paper.querySelector('pre');
             const codeContainer = document.querySelector('.code-container');
-            
+
             if (codeContent.style.display === 'none') {
                 codeContent.style.display = 'block';
-                paper.style.height = '30%'; 
+                paper.style.height = '30%';
                 codeContainer.style.height = '35%';
             } else {
                 codeContent.style.display = 'none';
                 paper.style.height = '6%';
                 codeContainer.style.height = 'auto';
             }
+        }
+        // 點擊送出按鈕時讀取input中的值，並存放置陣列中
+        var submitBtn = document.getElementById('send-code');
+        submitBtn.addEventListener('click', function() {
+            let inputsArray = [];
+            // 使用querySelectorAll選取所有type = "text"的input
+            const inputs = document.querySelectorAll('input[type="text"]');
+            let index = 0;
+            let allFilled = true; // 用來檢查是否所有input都有填值
+            // 迴圈遍歷每個input，將值加入陣列
+            inputs.forEach(input => {
+                index++;
+                if (input.value.trim() === '') {
+                    allFilled = false; // 如果有一個input的值是空的，將allFilled設為false
+                }
+                inputsArray.push({
+                    order: index,
+                    userAnswer: input.value
+                });
+                console.log('填寫的第' + index + '答案為' + input.value)
+            });
+
+            if (!allFilled) {
+                alert('你還有空格未填入答案');
+                return; // 如果有未填的答案，則不進入fetch
+            }
+
+            var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            userAnswer = inputsArray;
+            console.log(userAnswer);
+            url = '/api/checkUserAnswer';
+            fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    body: JSON.stringify({
+                        userAnswer: userAnswer,
+                        parameter_id: parameter_id,
+                        currentUser: parseInt('{{ auth()->user()->id }}')
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message == 'correct') {
+                        alert('答對');
+                    } else if (data.message == 'wrongAns') {
+                        console.log(data.wrongIndex);
+                    } else if (data.message == 'Null') {
+                        alert('請填入答案');
+                    } else {
+                        alert('答錯');
+                    }
+                })
+
+        });
+        var userAnswersandOrder = <?php echo json_encode(!empty($userAnswers) ? $userAnswers : []); ?>;
+        console.log('正確答案：', userAnswersandOrder);
+        if (userAnswersandOrder.length > 0) {
+            var userAnswers = userAnswersandOrder.map(function(answer) {
+                return answer.userAnswer;
+            });
+            console.log(userAnswers);
+            document.addEventListener('DOMContentLoaded', function() {
+                // 尋找template_code的格子
+                const inputs = document.querySelectorAll('input[type="text"]');
+                //尋找提交的按鈕
+                const submitButton = document.getElementById('send-code');
+                //填入答案
+                inputs.forEach((input, index) => {
+                    if (userAnswers[index]) {
+                        input.value = userAnswers[index];
+                        autoResize(input);
+                    }
+                });
+                // 有答案後隱藏按鈕
+                if (userAnswers.length > 0) {
+                    submitButton.style.display = 'none';
+                }
+            });
         }
     </script>
 </body>

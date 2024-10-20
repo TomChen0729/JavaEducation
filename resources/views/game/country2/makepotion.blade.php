@@ -37,8 +37,8 @@
             justify-content: center;
             align-items: center;
             padding-top: 3%;
-            height:100%;
-            
+            height: 100%;
+
         }
 
         .first .overlay {
@@ -223,21 +223,21 @@
         }
 
         .container-fluid {
-            width:100%;
+            width: 100%;
             overflow: visible;
             margin-top: -3%;
             position: relative;
             transition: transform 0.5s ease-in-out;
             z-index: 1;
-            height:100vh;
+            height: 100vh;
         }
 
         .row {
-            height:100%;
+            height: 100%;
         }
 
         .left-container {
-            background-color:#BFBDA0;
+            background-color: #BFBDA0;
         }
 
         .question {
@@ -246,32 +246,30 @@
             border-radius: 20px;
             padding: 20px;
             text-align: left;
-            margin-top:13%;
-            margin-bottom:-10%;
+            margin-top: 13%;
+            margin-bottom: -10%;
             transition: max-height 0.3s ease;
         }
 
         .question h5 {
             font-weight: bold;
-            color:white;
-            font-size:24px;
+            color: white;
+            font-size: 24px;
         }
 
         .team {
             padding: 2em 0 2em 2.5em;
             margin: 0;
-            margin-top:-5%;
+            margin-top: -5%;
         }
 
         .member {
-            width:100%;
+            width: 100%;
             margin: 1.5em 0 0.5em;
             padding: 0.73em;
-            background: linear-gradient(
-                83deg,
-                var(--yellow) 0 97%,
-                #fff0 calc(97% + 1px) 100%
-            );
+            background: linear-gradient(83deg,
+                    var(--yellow) 0 97%,
+                    #fff0 calc(97% + 1px) 100%);
             position: relative;
             list-style: none;
             display: inline-block;
@@ -285,11 +283,9 @@
             height: 13vmin;
             float: left;
             margin-right: 1.25em;
-            background: linear-gradient(
-                var(--deg),
-                var(--dark) 0 70%,
-                var(--yellow) 0% 100%
-            );
+            background: linear-gradient(var(--deg),
+                    var(--dark) 0 70%,
+                    var(--yellow) 0% 100%);
             transform: rotate(-4deg);
             border-radius: 0.25em;
             overflow: hidden;
@@ -310,11 +306,11 @@
         }
 
         .description h3 {
-            font-weight:bold;
+            font-weight: bold;
         }
 
         .description p {
-            font-size:20px;
+            font-size: 20px;
             padding: 0 2em;
             margin-bottom: 1em;
         }
@@ -323,10 +319,10 @@
             width: 94%;
             background-color: #f4f4f4;
             border-radius: 8px;
-            margin-left:3%;
-            margin-top:8%;
-            padding:0px 0px 0px 40px;
-            
+            margin-left: 3%;
+            margin-top: 8%;
+            padding: 0px 0px 0px 40px;
+
         }
 
         pre {
@@ -345,26 +341,26 @@
             bottom: 40px;
         }
 
-        .btn-submit{
-            background-color:red;
-            width:80px;
-            height:35px;
-            border:none;
-            color:white;
+        .btn-submit {
+            background-color: red;
+            width: 80px;
+            height: 35px;
+            border: none;
+            color: white;
             border-radius: 5px;
 
         }
 
         .right-container {
-            background-color:#5F5F5F;
+            background-color: #5F5F5F;
             display: flex;
-            justify-content: center;  
-            align-items: center; 
+            justify-content: center;
+            align-items: center;
             height: auto;
             background-image: url('/images/potion/potionbg.svg');
-            background-size: cover; 
-            background-position: center; 
-            background-repeat: no-repeat;             
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
         #img-container {
@@ -378,9 +374,9 @@
         #img-container #pot {
             position: relative;
             margin-top: 50%;
-            margin-left:25%;
+            margin-left: 25%;
             width: 500px;
-            height: auto; 
+            height: auto;
         }
 
         #img-container #stick {
@@ -388,41 +384,51 @@
             right: 20%;
             position: absolute;
             width: 300px;
-            height: auto; 
+            height: auto;
             animation: animate 6s linear infinite normal;
         }
 
         @keyframes animate {
             0% {
-                transform: translate(20%, -5%); /* 開始於圓形的右邊 */
+                transform: translate(20%, -5%);
+                /* 開始於圓形的右邊 */
             }
+
             25% {
-                transform: translate(0, 0); /* 圓形的下方 */
+                transform: translate(0, 0);
+                /* 圓形的下方 */
             }
+
             50% {
-                transform: translate(-40%, -5%); /* 圓形的左邊 */
+                transform: translate(-40%, -5%);
+                /* 圓形的左邊 */
             }
+
             75% {
-                transform: translate(0, -10%); /* 圓形的上方 */
+                transform: translate(0, -10%);
+                /* 圓形的上方 */
             }
+
             100% {
-                transform: translate(20%, -5%); /* 回到右邊 */
+                transform: translate(20%, -5%);
+                /* 回到右邊 */
             }
         }
 
-        #img-container #heal{
+        #img-container #heal {
             top: 55%;
-            right:30%;
+            right: 30%;
             opacity: 0;
             /* top從-100px => 50px，opacity透明(0) => 不透明(1)，動畫持續2秒，速度曲線 => ease-in-out */
             transition: top 2s ease-in-out, opacity 3s ease-in-out;
             height: 15%;
             position: absolute;
-            z-index: 10; /*最上層*/
+            z-index: 10;
+            /*最上層*/
         }
 
-        #img-container #heal.show{
-            top: 25%; 
+        #img-container #heal.show {
+            top: 25%;
             opacity: 1;
         }
     </style>
@@ -437,7 +443,9 @@
             <div class="close-btn" onclick="togglePopup1()">&times;</div>
             <div class="pop">
                 <h1>遊戲說明</h1>
-                <p><strong>{{ $makepotionQuestion -> gamename }}</strong><br><hr></p>
+                <p><strong>{{ $makepotionQuestion -> gamename }}</strong><br>
+                    <hr>
+                </p>
                 <p>
                     {{ $makepotionQuestion -> game_explanation }}
                 </p>
@@ -469,14 +477,14 @@
                 <div class="bx bx-menu" id="menu-icon"></div>
             </div>
         </div>
-        
+
     </div>
 
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6 left-container">
                 <div class="question" id="question">
-                <h5>{{ $makepotionQuestion -> pre_story }}</h5>
+                    <h5>{{ $makepotionQuestion -> pre_story }}</h5>
                     <ul class="team">
                         <li class="member co-funder">
                             <div class="thumb"><img src="/images/potion/heal.svg"></div>
@@ -487,8 +495,8 @@
                         </li>
                     </ul>
                 </div>
-                <div  class="container-code" id="code">
-<pre>
+                <div class="container-code" id="code">
+                    <pre>
 {!! $templateCode !!}
 </pre>
                     <div class="btn-container">
@@ -497,19 +505,19 @@
                 </div>
             </div>
 
-                <div class="col-md-6 right-container">
-                    <div id="img-container">
-                        <img id="pot" src="/images/potion/pot.svg" alt="pot">
-                        <img id="stick" src="/images/potion/stick.svg" alt="stick">
-                        <img class="img" id="heal" src="/images/potion/heal.svg" alt="">
-                    </div>
-                    <button onclick="play()">測試動畫</button>
+            <div class="col-md-6 right-container">
+                <div id="img-container">
+                    <img id="pot" src="/images/potion/pot.svg" alt="pot">
+                    <img id="stick" src="/images/potion/stick.svg" alt="stick">
+                    <img class="img" id="heal" src="/images/potion/heal.svg" alt="">
                 </div>
+                <button onclick="play()">測試動畫</button>
             </div>
         </div>
     </div>
-    
-    
+    </div>
+
+
     <!-- JavaScript -->
     <script>
         var parameter_id = parseInt('{{ $makepotionQuestion->id }}');
@@ -544,14 +552,10 @@
         var submitBtn = document.getElementById('send-code');
         submitBtn.addEventListener('click', function() {
             let inputsArray = [];
-
             // 使用querySelectorAll選取所有type = "text"的input
             const inputs = document.querySelectorAll('input[type="text"]');
             let index = 0;
-
             let allFilled = true; // 用來檢查是否所有input都有填值
-
-
             // 迴圈遍歷每個input，將值加入陣列
             inputs.forEach(input => {
                 index++;
@@ -583,7 +587,6 @@
                     body: JSON.stringify({
                         userAnswer: userAnswer,
                         parameter_id: parameter_id,
-                        gameName: '調配藥水',
                         currentUser: parseInt('{{ auth()->user()->id }}')
                     })
                 })
@@ -601,6 +604,31 @@
                 })
 
         });
+        var userAnswersandOrder = <?php echo json_encode(!empty($userAnswers) ? $userAnswers : []); ?>;
+        console.log('正確答案：', userAnswersandOrder);
+        if (userAnswersandOrder.length > 0) {
+            var userAnswers = userAnswersandOrder.map(function(answer) {
+                return answer.userAnswer;
+            });
+            console.log(userAnswers);
+            document.addEventListener('DOMContentLoaded', function() {
+                // 尋找template_code的格子
+                const inputs = document.querySelectorAll('input[type="text"]');
+                //尋找提交的按鈕
+                const submitButton = document.getElementById('send-code');
+                //填入答案
+                inputs.forEach((input, index) => {
+                    if (userAnswers[index]) {
+                        input.value = userAnswers[index];
+                        autoResize(input);
+                    }
+                });
+                // 有答案後隱藏按鈕
+                if (userAnswers.length > 0) {
+                    submitButton.style.display = 'none'; 
+                }
+            });
+        }
     </script>
 </body>
 

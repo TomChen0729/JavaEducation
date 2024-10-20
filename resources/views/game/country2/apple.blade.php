@@ -37,7 +37,7 @@
             justify-content: center;
             align-items: center;
             padding-top: 3%;
-            max-height:100%;
+            max-height: 100%;
         }
 
         .first .overlay {
@@ -222,33 +222,33 @@
         }
 
         .container-fluid {
-            width:100%;
+            width: 100%;
             overflow: visible;
             margin-top: -3%;
             position: relative;
             transition: transform 0.5s ease-in-out;
             z-index: 1;
-            height:auto;
-            background-color:#9DB2BF;
+            height: auto;
+            background-color: #9DB2BF;
         }
 
-        .left-container{
-            margin-top:5%;
+        .left-container {
+            margin-top: 5%;
         }
 
-        .right-container{
-            margin-top:5%;
+        .right-container {
+            margin-top: 5%;
         }
 
         .row {
-            height:100%;
+            height: 100%;
         }
 
-        .question{
-            margin-top:6%;
+        .question {
+            margin-top: 6%;
             display: flex;
             justify-content: center;
-            margin-bottom:-3%;
+            margin-bottom: -3%;
         }
 
         .box {
@@ -258,7 +258,7 @@
             border: 2px solid rgba(0, 0, 0, 0.5);
         }
 
-        .box:before, 
+        .box:before,
         .box:after {
             content: "•";
             position: absolute;
@@ -274,12 +274,12 @@
 
         .box:before {
             left: 11%;
-            top:11%;
+            top: 11%;
         }
 
         .box:after {
             right: 11%;
-            top:11%;
+            top: 11%;
         }
 
         .box .box-inner {
@@ -288,7 +288,7 @@
             padding: 40px;
         }
 
-        .box .box-inner:before, 
+        .box .box-inner:before,
         .box .box-inner:after {
             content: "•";
             position: absolute;
@@ -310,33 +310,33 @@
             right: -2px;
         }
 
-        .box p{
-            font-size:20px;
-            font-weight:bold;
+        .box p {
+            font-size: 20px;
+            font-weight: bold;
         }
 
-        
-        #img-container{
-            margin-left:2%;
-            height:70%;
+
+        #img-container {
+            margin-left: 2%;
+            height: 70%;
             width: 100%;
             background: url('/images/apple/badapple.svg') no-repeat center;
             transition: background 0.5s;
         }
 
-        #img-container.open{
+        #img-container.open {
             background: url('/images/apple/goodapple.svg') no-repeat center;
         }
 
         .container-code {
-            overflow-y:scroll;
-            height:70%;
+            overflow-y: scroll;
+            height: 70%;
             width: 94%;
             background-color: #f4f4f4;
             border-radius: 8px;
-            margin-left:3%;
-            padding:0px 0px 0px 40px;
-            
+            margin-left: 3%;
+            padding: 0px 0px 0px 40px;
+
         }
 
         pre {
@@ -352,19 +352,18 @@
         .btn-container {
             position: absolute;
             right: 40px;
-            top:75%;
+            top: 75%;
         }
 
-        .btn-submit{
-            background-color:red;
-            width:80px;
-            height:35px;
-            border:none;
-            color:white;
+        .btn-submit {
+            background-color: red;
+            width: 80px;
+            height: 35px;
+            border: none;
+            color: white;
             border-radius: 5px;
 
         }
-        
     </style>
 </head>
 
@@ -377,9 +376,11 @@
             <div class="close-btn" onclick="togglePopup1()">&times;</div>
             <div class="pop">
                 <h1>遊戲說明</h1>
-                <p><strong>{{ $appleQuestion -> gamename }}</strong><br><hr></p>
+                <p><strong>{{ $appleQuestion -> gamename }}</strong><br>
+                    <hr>
+                </p>
                 <p>
-                {{ $appleQuestion -> game_explanation }}
+                    {{ $appleQuestion -> game_explanation }}
                 </p>
             </div>
         </div>
@@ -409,7 +410,7 @@
                 <div class="bx bx-menu" id="menu-icon"></div>
             </div>
         </div>
-        
+
     </div>
 
     <div class="container-fluid">
@@ -425,24 +426,24 @@
                 <div class="img-container" id="img-container">
                     <!-- <img id="apple" src="/images/apple/badapple.svg" alt="apple"> -->
                 </div>
-                    <button onclick="play()">測試動畫</button>
+                <button onclick="play()">測試動畫</button>
             </div>
 
-                <div class="col-md-6 right-container" id="right-container">
-                    <div  class="container-code" id="code">
-<pre>
+            <div class="col-md-6 right-container" id="right-container">
+                <div class="container-code" id="code">
+                    <pre>
 {!! $templateCode !!}
 </pre>
                     <div class="btn-container">
-                            <button id="send-code" class="btn-submit">提交</button>
+                        <button id="send-code" class="btn-submit">提交</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    
-    
+
+
     <!-- JavaScript -->
     <script>
         var parameter_id = parseInt('{{ $appleQuestion->id }}');
@@ -469,14 +470,10 @@
         var submitBtn = document.getElementById('send-code');
         submitBtn.addEventListener('click', function() {
             let inputsArray = [];
-
             // 使用querySelectorAll選取所有type = "text"的input
             const inputs = document.querySelectorAll('input[type="text"]');
             let index = 0;
-
             let allFilled = true; // 用來檢查是否所有input都有填值
-
-
             // 迴圈遍歷每個input，將值加入陣列
             inputs.forEach(input => {
                 index++;
@@ -508,7 +505,6 @@
                     body: JSON.stringify({
                         userAnswer: userAnswer,
                         parameter_id: parameter_id,
-                        gameName: '調配藥水',
                         currentUser: parseInt('{{ auth()->user()->id }}')
                     })
                 })
@@ -526,6 +522,31 @@
                 })
 
         });
+        var userAnswersandOrder = <?php echo json_encode(!empty($userAnswers) ? $userAnswers : []); ?>;
+        console.log('正確答案：', userAnswersandOrder);
+        if (userAnswersandOrder.length > 0) {
+            var userAnswers = userAnswersandOrder.map(function(answer) {
+                return answer.userAnswer;
+            });
+            console.log(userAnswers);
+            document.addEventListener('DOMContentLoaded', function() {
+                // 尋找template_code的格子
+                const inputs = document.querySelectorAll('input[type="text"]');
+                //尋找提交的按鈕
+                const submitButton = document.getElementById('send-code');
+                //填入答案
+                inputs.forEach((input, index) => {
+                    if (userAnswers[index]) {
+                        input.value = userAnswers[index];
+                        autoResize(input);
+                    }
+                });
+                // 有答案後隱藏按鈕
+                if (userAnswers.length > 0) {
+                    submitButton.style.display = 'none';
+                }
+            });
+        }
 
         // 動畫
         function play() {

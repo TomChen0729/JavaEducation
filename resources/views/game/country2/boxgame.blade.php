@@ -22,7 +22,7 @@
             /* 去除清單前面的符號 */
         }
 
-        a:hover{
+        a:hover {
             color: white;
             text-decoration: none;
         }
@@ -39,7 +39,7 @@
             justify-content: center;
             align-items: center;
             padding-top: 6%;
-            background-color:#F5DEB3;
+            background-color: #F5DEB3;
         }
 
         .first .overlay {
@@ -90,7 +90,7 @@
             margin: 10px 0;
         }
 
-        .first p{
+        .first p {
             font-size: 20px;
         }
 
@@ -129,7 +129,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 20px 2% 0px;
-            background: rgba(121,87,87, 0.8);
+            background: rgba(121, 87, 87, 0.8);
             /* 透明背景 */
             transition: all 0.50s ease;
         }
@@ -262,13 +262,13 @@
             color: #8B4513;
             padding: 40px;
             box-shadow: inset #5D4037 0 0 0 5px,
-                        inset #6D4C41 0 0 0 1px, 
-                        inset #795548 0 0 0 10px,
-                        inset #8D6E63 0 0 0 11px, 
-                        inset #A1887F 0 0 0 16px,
-                        inset #BCAAA4 0 0 0 17px,
-                        inset #D7CCC8 0 0 0 21px,
-                        inset #EDE0D4 0 0 0 22px;
+                inset #6D4C41 0 0 0 1px,
+                inset #795548 0 0 0 10px,
+                inset #8D6E63 0 0 0 11px,
+                inset #A1887F 0 0 0 16px,
+                inset #BCAAA4 0 0 0 17px,
+                inset #D7CCC8 0 0 0 21px,
+                inset #EDE0D4 0 0 0 22px;
         }
 
         .question p {
@@ -276,21 +276,21 @@
             font-weight: bold;
         }
 
-        .boxbg{
+        .boxbg {
             position: relative;
-            width:100%;
-            height:100%;
+            width: 100%;
+            height: 100%;
             background-image: url('/images/boxes/boxbg.svg');
-            background-size: cover; 
-            background-position: center; 
+            background-size: cover;
+            background-position: center;
             background-repeat: no-repeat;
-            margin-top:3%;
+            margin-top: 3%;
         }
 
         #treasure-box {
-            position:absolute;
-            left:15%;
-            top:35%;
+            position: absolute;
+            left: 15%;
+            top: 35%;
             margin-top: 10px;
             width: 65%;
             height: 65%;
@@ -313,23 +313,23 @@
             left: 40%;
         } */
 
-        #triangle{
-            position:absolute;
-            left:11%;
-            top:32%;
+        #triangle {
+            position: absolute;
+            left: 11%;
+            top: 32%;
             width: 30%;
             height: auto;
             margin-top: 15%;
-            margin-left:20%;
+            margin-left: 20%;
         }
 
         #treasure-box.open {
-            position:absolute;
-            left:30%;
-            top:35%;
+            position: absolute;
+            left: 30%;
+            top: 35%;
             background: url('/images/boxes/openbox1.svg') no-repeat center;
             width: 40%;
-            height:auto;
+            height: auto;
             background-size: contain;
         }
 
@@ -344,10 +344,10 @@
             background-color: #f4f4f4;
             padding: 15px;
             border-radius: 8px;
-            padding:0px 0px 0px 40px;
+            padding: 0px 0px 0px 40px;
         }
 
-        pre{
+        pre {
             font-size: 20px;
         }
 
@@ -367,7 +367,7 @@
             font-size: 18px;
             margin: 0 20px;
             border-radius: 5px;
-            margin-top:20px;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -381,7 +381,9 @@
             <div class="close-btn" onclick="togglePopup1()">&times;</div>
             <div class="pop">
                 <h1>遊戲說明</h1>
-                <p><strong>{{ $boxGameQuestion -> gamename }}</strong><br><hr></p>
+                <p><strong>{{ $boxGameQuestion -> gamename }}</strong><br>
+                    <hr>
+                </p>
                 <p>
                     {{ $boxGameQuestion -> game_explanation }}
                 </p>
@@ -424,14 +426,14 @@
                 </div>
                 <div class="boxbg">
                     <div id="treasure-box"></div>
-                        <!-- <img class="img" id="randomImg" src="/images/boxes/triangle.png" alt=""> -->
-                        <img id="triangle" src="/images/boxes/arrange3.svg" alt="">
+                    <!-- <img class="img" id="randomImg" src="/images/boxes/triangle.png" alt=""> -->
+                    <img id="triangle" src="/images/boxes/arrange3.svg" alt="">
                 </div>
                 <button onclick="openBox()">打開寶箱</button>
             </div>
             <div class="col-md-6 right-container">
                 <div class="code-container">
-<pre>
+                    <pre>
 {!! $templateCode !!}
 </pre>
                 </div>
@@ -443,7 +445,6 @@
     </div>
     <!-- JavaScript -->
     <script>
-
         // 畫面載入後顯示彈跳視窗
         function togglePopup1() {
             document.getElementById("popup").classList.toggle("active");
@@ -451,7 +452,8 @@
         var shape = parseInt('{{ $boxGameQuestion -> id }}');
         var n = parseInt('{{ $variable }}');
         console.log('parameterID:' + shape);
-        console.log('variable:'+ n);
+        console.log('variable:' + n);
+
 
         // 倒序排列 arrange
         function triangle1(n) {
@@ -526,7 +528,7 @@
         }
 
         // 呼叫目前題目，判斷三角形種類，呼叫triangle1~4
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             switch (shape) {
                 case 2:
                     triangle1(n);
@@ -563,8 +565,11 @@
                 if (input.value.trim() === '') {
                     allFilled = false; // 如果有一個input的值是空的，將allFilled設為false
                 }
-                inputsArray.push({order: index, userAnswer: input.value});
-                console.log('填寫的第' + index +'答案為' + input.value)
+                inputsArray.push({
+                    order: index,
+                    userAnswer: input.value
+                });
+                console.log('填寫的第' + index + '答案為' + input.value)
             });
 
             if (!allFilled) {
@@ -577,30 +582,29 @@
             console.log(userAnswer);
             url = '/api/checkUserAnswer';
             fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrfToken
-                },
-                body: JSON.stringify({
-                    userAnswer: userAnswer,
-                    parameter_id:  shape,
-                    gameName: '魔法寶箱',
-                    currentUser: parseInt('{{ auth()->user()->id }}')
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    body: JSON.stringify({
+                        userAnswer: userAnswer,
+                        parameter_id: shape,
+                        currentUser: parseInt('{{ auth()->user()->id }}')
+                    })
                 })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.message == 'correct'){
-                    alert('答對');
-                }else if(data.message == 'wrongAns'){
-                    console.log(data.wrongIndex);
-                }else if (data.message == 'Null'){
-                    alert('請填入答案');
-                }else{
-                    alert('答錯');
-                }
-            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message == 'correct') {
+                        alert('答對');
+                    } else if (data.message == 'wrongAns') {
+                        console.log(data.wrongIndex);
+                    } else if (data.message == 'Null') {
+                        alert('請填入答案');
+                    } else {
+                        alert('答錯');
+                    }
+                })
 
         });
 
@@ -640,27 +644,34 @@
                 input.style.width = minWidth + 'px';
             } else {
                 // 隨著字數增加寬度不小於 minWidth
-                input.style.width = (Math.max(newWidth, minWidth)+10) + 'px';
+                input.style.width = (Math.max(newWidth, minWidth) + 10) + 'px';
             }
         }
         var userAnswersandOrder = <?php echo json_encode(!empty($userAnswers) ? $userAnswers : []); ?>;
         console.log('正確答案：', userAnswersandOrder);
         if (userAnswersandOrder.length > 0) {
-        var userAnswers = userAnswersandOrder.map(function(answer) {
-        return answer.userAnswer; 
-        });
-        console.log(userAnswers);
-        document.addEventListener('DOMContentLoaded', function () {
-        // 尋找template_code的格子
-        const inputs = document.querySelectorAll('input[type="text"]');
-        //填入答案
-        inputs.forEach((input, index) => {
-            if (userAnswers[index]) {
-                input.value = userAnswers[index];
-                autoResize(input); 
-            }
-        });
-        });}
+            var userAnswers = userAnswersandOrder.map(function(answer) {
+                return answer.userAnswer;
+            });
+            console.log(userAnswers);
+            document.addEventListener('DOMContentLoaded', function() {
+                // 尋找template_code的格子
+                const inputs = document.querySelectorAll('input[type="text"]');
+                //尋找提交的按鈕
+                const submitButton = document.getElementById('send-code');
+                //填入答案
+                inputs.forEach((input, index) => {
+                    if (userAnswers[index]) {
+                        input.value = userAnswers[index];
+                        autoResize(input);
+                    }
+                });
+                // 有答案後隱藏按鈕
+                if (userAnswers.length > 0) {
+                    submitButton.style.display = 'none';
+                }
+            });
+        }
     </script>
 </body>
 

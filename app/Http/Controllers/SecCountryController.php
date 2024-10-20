@@ -240,6 +240,19 @@ class SecCountryController extends Controller
                             // 紀錄這筆資料
                             $this->recordWatchedParameter($idCardQuestion->id, ['variable' => $variable, 'idCardsData' => $idCardsData]);
                             return view('game.country2.idcardgame', ['idCardGameQuestion' => $idCardQuestion, 'templateCode' => $templateCode, 'variable' => $variable, 'idCardsData' => $idCardsData]);
+                        } else if ($result == 'truerecord') {
+                            //解碼json字符串類型
+                            $parameterJson = $userRecords->pluck(value: 'parameter')->first();
+                            $parameterArray = json_decode($parameterJson, true);
+                            $variable = $parameterArray['variable'];
+                            $idCardsData = $parameterArray['idCardsData'];
+                            //儲存當前的題目id
+                            $secParameterID = $userRecords->first()->secParameterID;
+                            $idCardQuestion = SecGame::join('sec_parameters', 'sec_games.id', '=', 'sec_parameters.secGameID')
+                                ->where('sec_parameters.id', $secParameterID)->first();
+                            $templateCode = $idCardQuestion->template_code;
+                            $templateCode = str_replace('$variable', $variable, $templateCode);
+                            return view('game.country2.idcardgame', ['idCardGameQuestion' => $idCardQuestion, 'templateCode' => $templateCode, 'variable' => $variable, 'idCardsData' => $idCardsData, 'userAnswers' => $userAnswers]);
                         } else {
                             //解碼json字符串類型
                             $parameterJson = $userRecords->pluck(value: 'parameter')->first();
@@ -275,6 +288,26 @@ class SecCountryController extends Controller
                             // 紀錄這筆資料
                             $this->recordWatchedParameter($makepotionQuestion->id, ['variable' => $variable]);
                             return view('game.country2.makepotion', ['makepotionQuestion' => $makepotionQuestion, 'variable1' => $variable1, 'variable2' => $variable2, 'variable3' => $variable3, 'formula' => $formula, 'templateCode' => $templateCode]);
+                        } else if ($result == 'truerecord') {
+                            //解碼json字符串類型
+                            $parameterJson = $userRecords->pluck(value: 'parameter')->first();
+                            $parameterArray = json_decode($parameterJson, true);
+                            $variable = $parameterArray['variable'];
+                            $variablesArray = explode(',', $variable);
+                            $variable1 = $variablesArray[0];
+                            $variable2 = $variablesArray[1];
+                            $variable3 = $variablesArray[2];
+                            //儲存當前的題目id
+                            $secParameterID = $userRecords->first()->secParameterID;
+                            $makepotionQuestion = SecGame::join('sec_parameters', 'sec_games.id', '=', 'sec_parameters.secGameID')
+                                ->where('sec_parameters.id', $secParameterID)->first();
+                            $template_Code = $makepotionQuestion->template_code;
+                            $templateCodeArray = explode('|', $template_Code);
+                            $templateCode = $templateCodeArray[0];
+                            $formula = $templateCodeArray[1];
+                            $templateCode = str_replace('$variable1', $variable1, $templateCode);
+                            $templateCode = str_replace('$variable2', $variable2, $templateCode);
+                            return view('game.country2.makepotion', ['makepotionQuestion' => $makepotionQuestion, 'variable1' => $variable1, 'variable2' => $variable2, 'variable3' => $variable3, 'formula' => $formula, 'templateCode' => $templateCode, 'userAnswers' => $userAnswers]);
                         } else {
                             //解碼json字符串類型
                             $parameterJson = $userRecords->pluck(value: 'parameter')->first();
@@ -314,6 +347,25 @@ class SecCountryController extends Controller
                             // 紀錄這筆資料
                             $this->recordWatchedParameter($appleQuestion->id, ['variable' => $variable]);
                             return view('game.country2.apple', ['appleQuestion' => $appleQuestion, 'variable1' => $variable1, 'variable2' => $variable2, 'variable3' => $variable3, 'templateCode' => $templateCode]);
+                        } else if ($result == 'truerecord') {
+                            //解碼json字符串類型
+                            $parameterJson = $userRecords->pluck(value: 'parameter')->first();
+                            $parameterArray = json_decode($parameterJson, true);
+                            $variable = $parameterArray['variable'];
+                            //拆開variable
+                            $variablesArray = explode(',', $variable);
+                            $variable1 = $variablesArray[0];
+                            $variable2 = $variablesArray[1];
+                            $variable3 = $variablesArray[2];
+                            //儲存當前的題目id
+                            $secParameterID = $userRecords->first()->secParameterID;
+                            $appleQuestion = SecGame::join('sec_parameters', 'sec_games.id', '=', 'sec_parameters.secGameID')
+                                ->where('sec_parameters.id', $secParameterID)->first();
+                            $templateCode = $appleQuestion->template_code;
+                            $templateCode = str_replace('$variable1', $variable1, $templateCode);
+                            $templateCode = str_replace('$variable2', $variable2, $templateCode);
+                            $templateCode = str_replace('$variable3', $variable3, $templateCode);
+                            return view('game.country2.apple', ['appleQuestion' => $appleQuestion, 'variable1' => $variable1, 'variable2' => $variable2, 'variable3' => $variable3, 'templateCode' => $templateCode, 'userAnswers' => $userAnswers]);
                         } else {
                             //解碼json字符串類型
                             $parameterJson = $userRecords->pluck(value: 'parameter')->first();
@@ -350,6 +402,22 @@ class SecCountryController extends Controller
                             // 紀錄這筆資料
                             $this->recordWatchedParameter($decryptQuestion->id, ['variable' => $variable]);
                             return view('game.country2.boom', ['decryptQuestion' => $decryptQuestion, 'variable' => $variable, 'templateCode' => $templateCode]);
+                        } else if ($result == 'truerecord') {
+                            //解碼json字符串類型
+                            $parameterJson = $userRecords->pluck(value: 'parameter')->first();
+                            $parameterArray = json_decode($parameterJson, true);
+                            $variable = $parameterArray['variable'];
+                            //儲存當前的題目id
+                            $secParameterID = $userRecords->first()->secParameterID;
+                            $decryptQuestion = SecGame::join('sec_parameters', 'sec_games.id', '=', 'sec_parameters.secGameID')
+                                ->where('sec_parameters.id', $secParameterID)->first();
+                            // 拆template_code跟個十百分位
+                            $template_Code = $decryptQuestion->template_code;
+                            $templateCodeArray = explode('|', $template_Code);
+                            $templateCode = $templateCodeArray[0];
+                            $formula = $templateCodeArray[1];
+                            $templateCode = str_replace('$variable', $variable, $templateCode);
+                            return view('game.country2.boom', ['decryptQuestion' => $decryptQuestion, 'variable' => $variable, 'templateCode' => $templateCode, 'userAnswers' => $userAnswers]);
                         } else {
                             //解碼json字符串類型
                             $parameterJson = $userRecords->pluck(value: 'parameter')->first();
@@ -379,6 +447,18 @@ class SecCountryController extends Controller
                             // 紀錄這筆資料
                             $this->recordWatchedParameter($oilQuestion->id, ['variable' => $variable]);
                             return view('game.country2.oil', ['oilQuestion' => $oilQuestion, 'variable' => $variable, 'templateCode' => $templateCode]);
+                        } else if ($result == 'truerecord') {
+                            //解碼json字符串類型
+                            $parameterJson = $userRecords->pluck(value: 'parameter')->first();
+                            $parameterArray = json_decode($parameterJson, true);
+                            $variable = $parameterArray['variable'];
+                            //儲存當前的題目id
+                            $secParameterID = $userRecords->first()->secParameterID;
+                            $oilQuestion = SecGame::join('sec_parameters', 'sec_games.id', '=', 'sec_parameters.secGameID')
+                                ->where('sec_parameters.id', $secParameterID)->first();
+                            $templateCode = $oilQuestion->template_code;
+                            $templateCode = str_replace('$variable', $variable, $templateCode);
+                            return view('game.country2.oil', ['oilQuestion' => $oilQuestion, 'variable' => $variable, 'templateCode' => $templateCode, 'userAnswers' => $userAnswers]);
                         } else {
                             //解碼json字符串類型
                             $parameterJson = $userRecords->pluck(value: 'parameter')->first();
@@ -408,6 +488,19 @@ class SecCountryController extends Controller
                             // 紀錄這筆資料
                             $this->recordWatchedParameter($fightQuestion->id, ['variable' => $variable]);
                             return view('game.country2.fight', ['fightQuestion' => $fightQuestion, 'variable' => $variable, 'templateCode' => $templateCode]);
+                        } else if ($result == 'truerecord') {
+                            //儲存當前的題目id
+                            $secParameterID = $userRecords->first()->secParameterID;
+                            $fightQuestion = SecGame::join('sec_parameters', 'sec_games.id', '=', 'sec_parameters.secGameID')
+                                ->where('sec_parameters.id', $secParameterID)->first();
+                            // 解碼確定是哪個題目
+                            $template_Code = $fightQuestion->template_code;
+                            $templateCodeArray = explode('|', $template_Code);
+                            $templateCode = $templateCodeArray[0];
+                            $unpackJson = $templateCodeArray[1];
+                            $variable = json_decode('"' . $unpackJson . '"', true);
+                            $templateCode = str_replace('$variable', $variable, $templateCode);
+                            return view('game.country2.fight', ['fightQuestion' => $fightQuestion, 'variable' => $variable, 'templateCode' => $templateCode, 'userAnswers' => $userAnswers]);
                         } else {
                             //儲存當前的題目id
                             $secParameterID = $userRecords->first()->secParameterID;
@@ -435,6 +528,19 @@ class SecCountryController extends Controller
                             // 紀錄這筆資料
                             $this->recordWatchedParameter($fireQuestion->id, ['variable' => $variable]);
                             return view('game.country2.fire', ['fireQuestion' => $fireQuestion, 'variable' => $variable, 'templateCode' => $templateCode]);
+                        } else if ($result == 'truerecord') {
+                            //儲存當前的題目id
+                            $secParameterID = $userRecords->first()->secParameterID;
+                            $fireQuestion = SecGame::join('sec_parameters', 'sec_games.id', '=', 'sec_parameters.secGameID')
+                                ->where('sec_parameters.id', $secParameterID)->first();
+                            //解碼json字符串類型
+                            $parameterJson = $userRecords->pluck(value: 'parameter')->first();
+                            $parameterArray = json_decode($parameterJson, true);
+                            $variable = $parameterArray['variable'];
+                            // 解碼確定是哪個題目
+                            $templateCode = $fireQuestion->template_code;
+                            $templateCode = str_replace('$variable', $variable, $templateCode);
+                            return view('game.country2.fire', ['fireQuestion' => $fireQuestion, 'variable' => $variable, 'templateCode' => $templateCode, 'userAnswers' => $userAnswers]);
                         } else {
                             //儲存當前的題目id
                             $secParameterID = $userRecords->first()->secParameterID;
@@ -542,12 +648,12 @@ class SecCountryController extends Controller
     {
         if ($request->isMethod('POST')) {
             // 從回傳的json解析題目資訊，因為每題的答案不一樣
-            $gameName = $request->input('gameName');
+            $parameterID = $request->input('parameterID');
             $currentUser = $request->input('currentUser');
             Log::info($currentUser);
             // 存返回錯誤的index
             $wrongIndexArray = [];
-            switch ($gameName) {
+            switch ($parameterID) {
                 case '1':
                     //進一步解析userAnswer
                     $userAnswer = $request->input('userAnswer');
@@ -584,116 +690,43 @@ class SecCountryController extends Controller
                     } else {
                         return response()->json(['message' => 'Null']);
                     }
-                case '2':
-                    //進一步解析userAnswer
-                    $userAnswer = $request->input('userAnswer');
-                    // 如過userAnswer不為空的話，逐一對答案，即為有答案的話
-                    if (!empty($userAnswer)) {
-                        $parameterID = $request->input('parameter_id');
-                        // 抓答案出來
-                        $answerData = $this->pluckAnswer($parameterID);
-                        // 答案與玩家輸入的答案長度若一致
-                        if (count($answerData) == count($userAnswer)) {
-                            foreach ($answerData as $ansData) {
-                                foreach ($userAnswer as $userAns) {
-                                    if ($userAns['order'] == $ansData['order']) {
-                                        if (preg_match('/' . str_replace('\\\\', '\\', $ansData['ans_patterns']) . '/', $userAns['userAnswer'])) {
-                                            // 匹配成功就跳出內層迴圈繼續對下一個使用者的答案
-                                            break;
-                                        } else {
-                                            array_push($wrongIndexArray, $userAns['order']);
-                                        }
-                                    }
-                                }
-                            }
 
-                            if (!empty($wrongIndexArray)) {
-                                $this->WrongUserRecord($currentUser, $parameterID);
-                                return response()->json(['message' => 'wrongAns', 'wrongIndex' => $wrongIndexArray]);
-                            } else {
-                                $this->CorrectUserRecord($currentUser, $parameterID, $userAnswer);
-                                return response()->json(['message' => 'correct']);
-                            }
-                        } else {
-                            return response()->json(['message' => 'Error']);
-                        }
-                    } else {
-                        return response()->json(['message' => 'Null']);
-                    }
-                case '3':
-                    //進一步解析userAnswer
-                    $userAnswer = $request->input('userAnswer');
-                    // 如過userAnswer不為空的話，逐一對答案，即為有答案的話
-                    if (!empty($userAnswer)) {
-                        $parameterID = $request->input('parameter_id');
-                        // 抓答案出來
-                        $answerData = $this->pluckAnswer($parameterID);
-                        // 答案與玩家輸入的答案長度若一致
-                        if (count($answerData) == count($userAnswer)) {
-                            foreach ($answerData as $ansData) {
-                                foreach ($userAnswer as $userAns) {
-                                    if ($userAns['order'] == $ansData['order']) {
-                                        if (preg_match('/' . str_replace('\\\\', '\\', $ansData['ans_patterns']) . '/', $userAns['userAnswer'])) {
-                                            // 匹配成功就跳出內層迴圈繼續對下一個使用者的答案
-                                            break;
-                                        } else {
-                                            array_push($wrongIndexArray, $userAns['order']);
-                                        }
-                                    }
-                                }
-                            }
-
-                            if (!empty($wrongIndexArray)) {
-                                $this->WrongUserRecord($currentUser, $parameterID);
-                                return response()->json(['message' => 'wrongAns', 'wrongIndex' => $wrongIndexArray]);
-                            } else {
-                                $this->CorrectUserRecord($currentUser, $parameterID, $userAnswer);
-                                return response()->json(['message' => 'correct']);
-                            }
-                        } else {
-                            return response()->json(['message' => 'Error']);
-                        }
-                    } else {
-                        return response()->json(['message' => 'Null']);
-                    }
-                case '4':
-                    //進一步解析userAnswer
-                    $userAnswer = $request->input('userAnswer');
-                    // 如過userAnswer不為空的話，逐一對答案，即為有答案的話
-                    if (!empty($userAnswer)) {
-                        $parameterID = $request->input('parameter_id');
-                        // 抓答案出來
-                        $answerData = $this->pluckAnswer($parameterID);
-                        // 答案與玩家輸入的答案長度若一致
-                        if (count($answerData) == count($userAnswer)) {
-                            foreach ($answerData as $ansData) {
-                                foreach ($userAnswer as $userAns) {
-                                    if ($userAns['order'] == $ansData['order']) {
-                                        if (preg_match('/' . str_replace('\\\\', '\\', $ansData['ans_patterns']) . '/', $userAns['userAnswer'])) {
-                                            // 匹配成功就跳出內層迴圈繼續對下一個使用者的答案
-                                            break;
-                                        } else {
-                                            array_push($wrongIndexArray, $userAns['order']);
-                                        }
-                                    }
-                                }
-                            }
-
-                            if (!empty($wrongIndexArray)) {
-                                $this->WrongUserRecord($currentUser, $parameterID);
-                                return response()->json(['message' => 'wrongAns', 'wrongIndex' => $wrongIndexArray]);
-                            } else {
-                                $this->CorrectUserRecord($currentUser, $parameterID, $userAnswer);
-                                return response()->json(['message' => 'correct']);
-                            }
-                        } else {
-                            return response()->json(['message' => 'Error']);
-                        }
-                    } else {
-                        return response()->json(['message' => 'Null']);
-                    }
                 default:
-                    return response('沒有這個遊戲類型');
+                    //進一步解析userAnswer
+                    $userAnswer = $request->input('userAnswer');
+                    // 如過userAnswer不為空的話，逐一對答案，即為有答案的話
+                    if (!empty($userAnswer)) {
+                        $parameterID = $request->input('parameter_id');
+                        // 抓答案出來
+                        $answerData = $this->pluckAnswer($parameterID);
+                        // 答案與玩家輸入的答案長度若一致
+                        if (count($answerData) == count($userAnswer)) {
+                            foreach ($answerData as $ansData) {
+                                foreach ($userAnswer as $userAns) {
+                                    if ($userAns['order'] == $ansData['order']) {
+                                        if (preg_match('/' . str_replace('\\\\', '\\', $ansData['ans_patterns']) . '/', $userAns['userAnswer'])) {
+                                            // 匹配成功就跳出內層迴圈繼續對下一個使用者的答案
+                                            break;
+                                        } else {
+                                            array_push($wrongIndexArray, $userAns['order']);
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (!empty($wrongIndexArray)) {
+                                $this->WrongUserRecord($currentUser, $parameterID);
+                                return response()->json(['message' => 'wrongAns', 'wrongIndex' => $wrongIndexArray]);
+                            } else {
+                                $this->CorrectUserRecord($currentUser, $parameterID, $userAnswer);
+                                return response()->json(['message' => 'correct']);
+                            }
+                        } else {
+                            return response()->json(['message' => 'Error']);
+                        }
+                    } else {
+                        return response()->json(['message' => 'Null']);
+                    }
             }
         } else {
             return response()->json(['message' => 'http method error!!']);

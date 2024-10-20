@@ -37,8 +37,8 @@
             justify-content: center;
             align-items: center;
             padding-top: 3%;
-            max-height:100%;
-            overflow:hidden;
+            max-height: 100%;
+            overflow: hidden;
         }
 
         .first .overlay {
@@ -223,75 +223,73 @@
         }
 
         .container-fluid {
-            width:100%;
+            width: 100%;
             overflow: visible;
             margin-top: -3%;
             position: relative;
             transition: transform 0.5s ease-in-out;
             z-index: 1;
-            height:auto;
-            background-color:#D7C0AE;
+            height: auto;
+            background-color: #D7C0AE;
         }
 
-        .left-container{
-            margin-top:5%;
+        .left-container {
+            margin-top: 5%;
         }
 
-        .right-container{
-            margin-top:5%;
+        .right-container {
+            margin-top: 5%;
         }
 
         .row {
-            height:100%;
+            height: 100%;
         }
 
-        .question{
-            margin-top:6%;
+        .question {
+            margin-top: 6%;
             display: flex;
             justify-content: center;
-            margin-bottom:-3%;
+            margin-bottom: -3%;
         }
 
-        .question-box{
-            display:flex;
+        .question-box {
+            display: flex;
             justify-content: center;
             align-items: center;
-            padding:1%;
+            padding: 1%;
             width: 90%;
             height: auto;
-            background: repeating-linear-gradient(
-                45deg,       
-                #D8BFD8,    
-                #D8BFD8 10px,
-                #ffffff 10px,
-                #ffffff 20px 
-            );
+            background: repeating-linear-gradient(45deg,
+                    #D8BFD8,
+                    #D8BFD8 10px,
+                    #ffffff 10px,
+                    #ffffff 20px);
         }
 
-        .question-p{
-            background-color:white;
-            padding:1%;
+        .question-p {
+            background-color: white;
+            padding: 1%;
         }
 
-        .question p{
-            font-size:20px;
-            font-weight:bold;
+        .question p {
+            font-size: 20px;
+            font-weight: bold;
         }
 
-        .img-container{
+        .img-container {
             position: relative;
-            margin-left:3%;
-            width:auto;
-            height:70%;
+            margin-left: 3%;
+            width: auto;
+            height: 70%;
             background-image: url('/images/oil/oilbg.svg');
-            background-size: cover; 
-            background-position: center; 
+            background-size: cover;
+            background-position: center;
             background-repeat: no-repeat;
         }
 
-        .health{
-            position:absolute;
-            left:20%;
+        .health {
+            position: absolute;
+            left: 20%;
             margin: 0px;
             padding: 0px;
             width: 100%;
@@ -356,22 +354,22 @@
             transform: skewX(25deg);
         }
 
-        .man{
-            position:absolute;
-            width:20%;
-            height:auto;
-            background-color:#b4e4ef;
-            border:2px solid #007995;
+        .man {
+            position: absolute;
+            width: 20%;
+            height: auto;
+            background-color: #b4e4ef;
+            border: 2px solid #007995;
         }
 
-        #oil{
+        #oil {
             position: relative;
             top: 60%;
             left: 20%;
             width: 100%;
             height: 30%;
             opacity: 0;
-            transition: opacity 0.5s ease; 
+            transition: opacity 0.5s ease;
         }
 
         @keyframes animate {
@@ -379,6 +377,7 @@
                 top: 60%;
                 left: 20%;
             }
+
             100% {
                 top: 20%;
                 right: 80%;
@@ -387,20 +386,21 @@
             }
         }
 
-        #oil.show{
-            animation: animate 1s ease-in-out forwards; /* 使用 forwards 確保動畫結束後保持最後狀態 */
-            opacity: 1; 
+        #oil.show {
+            animation: animate 1s ease-in-out forwards;
+            /* 使用 forwards 確保動畫結束後保持最後狀態 */
+            opacity: 1;
         }
-        
+
         .container-code {
-            overflow-y:scroll;
-            height:70%;
+            overflow-y: scroll;
+            height: 70%;
             width: 94%;
             background-color: #f4f4f4;
             border-radius: 8px;
-            margin-left:3%;
-            padding:0px 0px 0px 40px;
-            
+            margin-left: 3%;
+            padding: 0px 0px 0px 40px;
+
         }
 
         pre {
@@ -416,19 +416,18 @@
         .btn-container {
             position: absolute;
             right: 40px;
-            top:75%;
+            top: 75%;
         }
 
-        .btn-submit{
-            background-color:red;
-            width:80px;
-            height:35px;
-            border:none;
-            color:white;
+        .btn-submit {
+            background-color: red;
+            width: 80px;
+            height: 35px;
+            border: none;
+            color: white;
             border-radius: 5px;
 
         }
-        
     </style>
 </head>
 
@@ -441,9 +440,11 @@
             <div class="close-btn" onclick="togglePopup1()">&times;</div>
             <div class="pop">
                 <h1>遊戲說明</h1>
-                <p><strong>{{ $oilQuestion -> gamename }}</strong><br><hr></p>
+                <p><strong>{{ $oilQuestion -> gamename }}</strong><br>
+                    <hr>
+                </p>
                 <p>
-                {{ $oilQuestion -> pre_story }}
+                    {{ $oilQuestion -> pre_story }}
                 </p>
             </div>
         </div>
@@ -473,7 +474,7 @@
                 <div class="bx bx-menu" id="menu-icon"></div>
             </div>
         </div>
-        
+
     </div>
 
     <div class="container-fluid">
@@ -487,7 +488,7 @@
         <div class="row">
             <div class="col-md-6 left-container" id="left-container">
                 <div class="img-container" id="img-container">
-                    <img class="man"id="man" src="/images/oil/sadman.svg" alt="man">
+                    <img class="man" id="man" src="/images/oil/sadman.svg" alt="man">
                     <div class="health">
                         <div class="health-container">
                             <div class="health-bar" id="healthBar">
@@ -498,24 +499,24 @@
                     </div>
                     <img id="oil" src="/images/oil/oil.svg" alt="oil">
                 </div>
-                    <button onclick="play()">測試動畫</button>
+                <button onclick="play()">測試動畫</button>
             </div>
 
-                <div class="col-md-6 right-container" id="right-container">
-                    <div  class="container-code" id="code">
-<pre>
+            <div class="col-md-6 right-container" id="right-container">
+                <div class="container-code" id="code">
+                    <pre>
 {!! $templateCode !!}
 </pre>
                     <div class="btn-container">
-                            <button id="send-code" class="btn-submit">提交</button>
+                        <button id="send-code" class="btn-submit">提交</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    
-    
+
+
     <!-- JavaScript -->
     <script>
         // 畫面載入後顯示彈跳視窗
@@ -533,7 +534,7 @@
             // 更新血條的寬度
             healthBar.style.width = `${healthPercentage}%`;
             // 更新血條顏色為綠色
-            healthBar.style.backgroundColor = '#4CAF50'; 
+            healthBar.style.backgroundColor = '#4CAF50';
             // 更新血量狀態文字
             healthStatus.textContent = `HP: ${healthPercentage}%`;
 
@@ -559,6 +560,87 @@
                 // 隨著字數增加寬度不小於 minWidth
                 input.style.width = Math.max(newWidth, minWidth) + 'px';
             }
+        }
+        // 點擊送出按鈕時讀取input中的值，並存放置陣列中
+        var submitBtn = document.getElementById('send-code');
+        submitBtn.addEventListener('click', function() {
+            let inputsArray = [];
+            // 使用querySelectorAll選取所有type = "text"的input
+            const inputs = document.querySelectorAll('input[type="text"]');
+            let index = 0;
+            let allFilled = true; // 用來檢查是否所有input都有填值
+            // 迴圈遍歷每個input，將值加入陣列
+            inputs.forEach(input => {
+                index++;
+                if (input.value.trim() === '') {
+                    allFilled = false; // 如果有一個input的值是空的，將allFilled設為false
+                }
+                inputsArray.push({
+                    order: index,
+                    userAnswer: input.value
+                });
+                console.log('填寫的第' + index + '答案為' + input.value)
+            });
+
+            if (!allFilled) {
+                alert('你還有空格未填入答案');
+                return; // 如果有未填的答案，則不進入fetch
+            }
+
+            var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            userAnswer = inputsArray;
+            console.log(userAnswer);
+            url = '/api/checkUserAnswer';
+            fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    body: JSON.stringify({
+                        userAnswer: userAnswer,
+                        parameter_id: parameter_id,
+                        currentUser: parseInt('{{ auth()->user()->id }}')
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message == 'correct') {
+                        alert('答對');
+                    } else if (data.message == 'wrongAns') {
+                        console.log(data.wrongIndex);
+                    } else if (data.message == 'Null') {
+                        alert('請填入答案');
+                    } else {
+                        alert('答錯');
+                    }
+                })
+
+        });
+        var userAnswersandOrder = <?php echo json_encode(!empty($userAnswers) ? $userAnswers : []); ?>;
+        console.log('正確答案：', userAnswersandOrder);
+        if (userAnswersandOrder.length > 0) {
+            var userAnswers = userAnswersandOrder.map(function(answer) {
+                return answer.userAnswer;
+            });
+            console.log(userAnswers);
+            document.addEventListener('DOMContentLoaded', function() {
+                // 尋找template_code的格子
+                const inputs = document.querySelectorAll('input[type="text"]');
+                //尋找提交的按鈕
+                const submitButton = document.getElementById('send-code');
+                //填入答案
+                inputs.forEach((input, index) => {
+                    if (userAnswers[index]) {
+                        input.value = userAnswers[index];
+                        autoResize(input);
+                    }
+                });
+                // 有答案後隱藏按鈕
+                if (userAnswers.length > 0) {
+                    submitButton.style.display = 'none';
+                }
+            });
         }
     </script>
 </body>

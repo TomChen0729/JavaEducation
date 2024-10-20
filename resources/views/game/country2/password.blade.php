@@ -38,8 +38,8 @@
             align-items: center;
             padding-top: 3%;
             background-image: url('/images/password/doorbg.svg');
-            background-size: cover; 
-            background-position: center; 
+            background-size: cover;
+            background-position: center;
             background-repeat: no-repeat;
         }
 
@@ -365,14 +365,14 @@
         }
 
         .paper {
-            margin-left:25%;
-            width:100%;
+            margin-left: 25%;
+            width: 100%;
             font-size: 36px;
             min-height: auto;
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color:#D1BB9E;
+            background-color: #D1BB9E;
             background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0.3));
         }
 
@@ -385,7 +385,7 @@
         }
 
         .paper h1::before,
-        .paper h1::after{
+        .paper h1::after {
             content: '';
             display: block;
             width: 5rem;
@@ -394,12 +394,11 @@
             margin: 0 1rem;
         }
 
-        .big{
+        .big {
             background-color: lightgreen;
-			padding: 1.6rem 2rem;
-			padding-bottom: 3rem;
+            padding: 1.6rem 2rem;
+            padding-bottom: 3rem;
         }
-
     </style>
 </head>
 
@@ -471,7 +470,7 @@
             <h1>PASSWROD</h1>
             <ul>
                 <li class="big">{{ $variable }}</li>
-            <ul>
+                <ul>
         </div>
     </div>
 
@@ -522,18 +521,14 @@
             question.classList.add('hide');
         });
 
-        // 點擊送出按鈕時讀取六個input中的值，並存放置陣列中
+        // 點擊送出按鈕時讀取input中的值，並存放置陣列中
         var submitBtn = document.getElementById('send-code');
         submitBtn.addEventListener('click', function() {
             let inputsArray = [];
-
             // 使用querySelectorAll選取所有type = "text"的input
             const inputs = document.querySelectorAll('input[type="text"]');
             let index = 0;
-
             let allFilled = true; // 用來檢查是否所有input都有填值
-
-
             // 迴圈遍歷每個input，將值加入陣列
             inputs.forEach(input => {
                 index++;
@@ -565,7 +560,6 @@
                     body: JSON.stringify({
                         userAnswer: userAnswer,
                         parameter_id: parameter_id,
-                        gameName: '通關密碼',
                         currentUser: parseInt('{{ auth()->user()->id }}')
                     })
                 })
@@ -583,6 +577,31 @@
                 })
 
         });
+        var userAnswersandOrder = <?php echo json_encode(!empty($userAnswers) ? $userAnswers : []); ?>;
+        console.log('正確答案：', userAnswersandOrder);
+        if (userAnswersandOrder.length > 0) {
+            var userAnswers = userAnswersandOrder.map(function(answer) {
+                return answer.userAnswer;
+            });
+            console.log(userAnswers);
+            document.addEventListener('DOMContentLoaded', function() {
+                // 尋找template_code的格子
+                const inputs = document.querySelectorAll('input[type="text"]');
+                //尋找提交的按鈕
+                const submitButton = document.getElementById('send-code');
+                //填入答案
+                inputs.forEach((input, index) => {
+                    if (userAnswers[index]) {
+                        input.value = userAnswers[index];
+                        autoResize(input);
+                    }
+                });
+                // 有答案後隱藏按鈕
+                if (userAnswers.length > 0) {
+                    submitButton.style.display = 'none';
+                }
+            });
+        }
 
         function autoResize(input) {
             const newWidth = input.scrollWidth;

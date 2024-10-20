@@ -22,7 +22,7 @@
             /* 去除清單前面的符號 */
         }
 
-        a:hover{
+        a:hover {
             color: white;
             text-decoration: none;
         }
@@ -39,7 +39,7 @@
             justify-content: center;
             align-items: center;
             padding-top: 6%;
-            background-color:#C4DAD2;
+            background-color: #C4DAD2;
         }
 
         .first .overlay {
@@ -90,7 +90,7 @@
             margin: 10px 0;
         }
 
-        .first p{
+        .first p {
             font-size: 20px;
         }
 
@@ -118,7 +118,7 @@
             transition: all 300ms ease-in-out;
             transform: translate(-50%, -50%) scale(1);
         }
-        
+
         .header {
             position: absolute;
             width: 100%;
@@ -129,7 +129,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 20px 2% 0px;
-            background: rgba(106,156,137, 0.8);
+            background: rgba(106, 156, 137, 0.8);
             /* 透明背景 */
             transition: all 0.50s ease;
         }
@@ -244,21 +244,21 @@
             display: none;
         }
 
-        .container-fluid{
-            width:100%;
-            height:100vh;
+        .container-fluid {
+            width: 100%;
+            height: 100vh;
         }
 
         .question {
-            margin-left:10%;
+            margin-left: 10%;
             width: 80%;
             height: auto;
             background-color: #80d5a6;
             border: 5px dashed mediumseagreen;
             padding: 25px;
             box-shadow: 0 0 0 2.5px #226741, 0 0 0 12.5px #fff, inset 0 0 0 2.5px #226741, 0 5px 10px 15px rgba(0, 0, 0, 0.5), inset 0 0 0 6px #fff, inset 0 0 100vw 100vw beige;
-            color:#006B3C;
-            text-shadow:0 2px #fff;
+            color: #006B3C;
+            text-shadow: 0 2px #fff;
             text-align: left;
         }
 
@@ -267,23 +267,26 @@
             font-weight: bold;
         }
 
-        .seal{
-            top: -100px; /* 蓋章動畫起始位置在畫面上方 */
+        .seal {
+            top: -100px;
+            /* 蓋章動畫起始位置在畫面上方 */
             opacity: 0;
             /* top從-100px => 50px，opacity透明(0) => 不透明(1)，動畫持續0.5秒，速度曲線 => ease-in-out */
             transition: top 0.5s ease-in-out, opacity 0.5s ease-in-out;
             width: 100%;
             height: 250px;
             position: absolute;
-            z-index: 10; /*最上層*/
+            z-index: 10;
+            /*最上層*/
         }
 
-        .seal.show{
-            top: 10px; /* 蓋章飛入後的位置 */
+        .seal.show {
+            top: 10px;
+            /* 蓋章飛入後的位置 */
             opacity: 1;
         }
 
-        .message{
+        .message {
             top: 30%;
             left: 25%;
             opacity: 0;
@@ -298,10 +301,10 @@
             transform: rotate(-10deg);
         }
 
-        .message.open{
+        .message.open {
             opacity: 1;
         }
-        
+
         #idcard {
             display: flex;
             justify-content: left;
@@ -310,17 +313,17 @@
             position: relative;
         }
 
-        .idcardbg{
+        .idcardbg {
             background-image: url('/images/idcard/idcardbg.svg');
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
-            width:100%;
-            height:100%;
+            width: 100%;
+            height: 100%;
         }
 
-        .card{
-            margin-top:5%;
+        .card {
+            margin-top: 5%;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -332,8 +335,9 @@
             background-color: #8bc8ff;
         }
 
-        .card img{
-            object-fit: cover; /* 填滿容器，並保持圖片比例 */
+        .card img {
+            object-fit: cover;
+            /* 填滿容器，並保持圖片比例 */
             padding: 0;
             margin: 0;
             border: 1px solid gray;
@@ -344,7 +348,7 @@
             height: 100%;
         }
 
-        .card h1{
+        .card h1 {
             padding: 10px;
             font-size: 20px;
             font-weight: bold;
@@ -353,7 +357,7 @@
             border: 1px solid gray;
         }
 
-        .card p{
+        .card p {
             margin: 0;
             padding: 0;
             font-size: 20px;
@@ -361,15 +365,15 @@
         }
 
         .code-container {
-            margin-left:5%;
+            margin-left: 5%;
             background-color: #f4f4f4;
             border-radius: 8px;
-            width:90%;
-            height:auto;
-            padding:0px 0px 0px 40px;
+            width: 90%;
+            height: auto;
+            padding: 0px 0px 0px 40px;
         }
 
-        pre{
+        pre {
             font-size: 20px;
         }
 
@@ -379,12 +383,12 @@
             transition: width 0.2s ease;
         }
 
-        .btn-submit{
-            background-color:red;
-            width:80px;
-            height:35px;
-            border:none;
-            color:white;
+        .btn-submit {
+            background-color: red;
+            width: 80px;
+            height: 35px;
+            border: none;
+            color: white;
             border-radius: 5px;
 
         }
@@ -399,7 +403,7 @@
             font-size: 18px;
             margin: 0 20px;
             border-radius: 5px;
-            margin-top:20px;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -413,9 +417,11 @@
             <div class="close-btn" onclick="togglePopup1()">&times;</div>
             <div class="pop">
                 <h1>遊戲說明</h1>
-                <p><strong>{{ $idCardGameQuestion -> gamename }}</strong><br><hr></p>
+                <p><strong>{{ $idCardGameQuestion -> gamename }}</strong><br>
+                    <hr>
+                </p>
                 <p>
-                {{ $idCardGameQuestion -> game_explanation }}
+                    {{ $idCardGameQuestion -> game_explanation }}
                 </p>
             </div>
         </div>
@@ -448,59 +454,58 @@
     </div>
 
     <div class="container-fluid">
-    <div class="row">
-        <!-- 左側容器 -->
-        <div class="col-md-6 left-container">
-            <div class="box">
-                <div class="question">
-                    <p>{{ $idCardGameQuestion->pre_story }}</p>
+        <div class="row">
+            <!-- 左側容器 -->
+            <div class="col-md-6 left-container">
+                <div class="box">
+                    <div class="question">
+                        <p>{{ $idCardGameQuestion->pre_story }}</p>
+                    </div>
                 </div>
-            </div>
 
-            <!-- 身分證卡片區域 -->
-            <div class="idcardbg">
-                <div class="row">
-                    @foreach($idCardsData as $item)
-                    <div class="col-md-6">
-                        <div id="idcard">
-                            <img class="seal" id="seal-{{ $loop->index }}" src="/images/idcard/idcardseal.svg" alt="">
-                            <div class="message" id="message-{{ $loop->index }}"></div> <!-- 動畫顯示文字 -->
-                            <div class="card">
-                                <div class="row">
-                                    <div class="col-md-6 left-container" id="idcards">
-                                        <img id="idcard-img-{{ $loop->index }}" src="" alt="證件照">
-                                    </div>
-                                    <div class="col-md-6 left-container">
-                                        <h1>身分證</h1>
-                                        <p>身分：{{ $item['identity'] }}</p>
-                                        <p>年齡：{{ $item['age'] }}</p>
-                                        <p>性別：{{ $item['gender'] }}</p>
+                <!-- 身分證卡片區域 -->
+                <div class="idcardbg">
+                    <div class="row">
+                        @foreach($idCardsData as $item)
+                        <div class="col-md-6">
+                            <div id="idcard">
+                                <img class="seal" id="seal-{{ $loop->index }}" src="/images/idcard/idcardseal.svg" alt="">
+                                <div class="message" id="message-{{ $loop->index }}"></div> <!-- 動畫顯示文字 -->
+                                <div class="card">
+                                    <div class="row">
+                                        <div class="col-md-6 left-container" id="idcards">
+                                            <img id="idcard-img-{{ $loop->index }}" src="" alt="證件照">
+                                        </div>
+                                        <div class="col-md-6 left-container">
+                                            <h1>身分證</h1>
+                                            <p>身分：{{ $item['identity'] }}</p>
+                                            <p>年齡：{{ $item['age'] }}</p>
+                                            <p>性別：{{ $item['gender'] }}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        @endforeach
                     </div>
-                    @endforeach
+                </div>
+            </div>
+
+            <!-- 右側容器 -->
+            <div class="col-md-6 right-container">
+                <div class="code-container">
+                    <pre>{!! $templateCode !!}</pre>
+                </div>
+                <div class="btn-container">
+                    <button id="send-code" class="btn-submit">提交</button>
                 </div>
             </div>
         </div>
-
-        <!-- 右側容器 -->
-        <div class="col-md-6 right-container">
-            <div class="code-container">
-                <pre>{!! $templateCode !!}</pre>
-            </div>
-            <div class="btn-container">
-                <button id="send-code" class="btn-submit">提交</button>
-            </div>
-        </div>
     </div>
-</div>
 
-    
+
     <!-- JavaScript -->
     <script>
-        
         // 畫面載入後顯示彈跳視窗
         function togglePopup1() {
             document.getElementById("popup").classList.toggle("active");
@@ -521,7 +526,7 @@
         }
 
         // DOMContentLoaded事件在文件的HTML被完全載入和解析後觸發(不必等待樣式表、圖像和子框架的完成加載)
-        document.addEventListener('DOMContentLoaded', function(){
+        document.addEventListener('DOMContentLoaded', function() {
             // 後端傳資料給前端
             var idCardsData = @json($idCardsData);
             var parameter_id = parseInt('{{ $idCardGameQuestion->id }}');
@@ -549,7 +554,7 @@
                             img = '/images/idcard/gmonster.svg';
                             break;
                         default:
-                        img = '';
+                            img = '';
                     }
                 } else {
                     switch (item.identity) {
@@ -569,9 +574,17 @@
 
                 // 根據身分設置對應的 message
                 if (item.identity === '怪物') {
-                    messageData = { text: '禁止進入', color: 'red', border: '5px solid red' };
+                    messageData = {
+                        text: '禁止進入',
+                        color: 'red',
+                        border: '5px solid red'
+                    };
                 } else {
-                    messageData = { text: '免費進入', color: 'green', border: '5px solid green' };
+                    messageData = {
+                        text: '免費進入',
+                        color: 'green',
+                        border: '5px solid green'
+                    };
                 }
 
                 // 更新圖片
@@ -604,31 +617,30 @@
 
                 messageElement.classList.add('open');
                 sealElement.classList.remove('show');
-                
+
             }, 500); // 預設動畫持續0.5秒
         }
 
 
-        // 點擊送出按鈕時讀取六個input中的值，並存放置陣列中
+        // 點擊送出按鈕時讀取input中的值，並存放置陣列中
         var submitBtn = document.getElementById('send-code');
         submitBtn.addEventListener('click', function() {
             let inputsArray = [];
-
             // 使用querySelectorAll選取所有type = "text"的input
             const inputs = document.querySelectorAll('input[type="text"]');
             let index = 0;
-
             let allFilled = true; // 用來檢查是否所有input都有填值
-
-
             // 迴圈遍歷每個input，將值加入陣列
             inputs.forEach(input => {
                 index++;
                 if (input.value.trim() === '') {
                     allFilled = false; // 如果有一個input的值是空的，將allFilled設為false
                 }
-                inputsArray.push({order: index, userAnswer: input.value});
-                console.log('填寫的第' + index +'答案為' + input.value)
+                inputsArray.push({
+                    order: index,
+                    userAnswer: input.value
+                });
+                console.log('填寫的第' + index + '答案為' + input.value)
             });
 
             if (!allFilled) {
@@ -641,32 +653,56 @@
             console.log(userAnswer);
             url = '/api/checkUserAnswer';
             fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrfToken
-                },
-                body: JSON.stringify({
-                    userAnswer: userAnswer,
-                    parameter_id:  parameter_id,
-                    gameName: '魔法門衛',
-                    currentUser: parseInt('{{ auth()->user()->id }}')
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    body: JSON.stringify({
+                        userAnswer: userAnswer,
+                        parameter_id: parameter_id,
+                        currentUser: parseInt('{{ auth()->user()->id }}')
+                    })
                 })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.message == 'correct'){
-                    alert('答對');
-                }else if(data.message == 'wrongAns'){
-                    console.log(data.wrongIndex);
-                }else if (data.message == 'Null'){
-                    alert('請填入答案');
-                }else{
-                    alert('答錯');
-                }
-            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message == 'correct') {
+                        alert('答對');
+                    } else if (data.message == 'wrongAns') {
+                        console.log(data.wrongIndex);
+                    } else if (data.message == 'Null') {
+                        alert('請填入答案');
+                    } else {
+                        alert('答錯');
+                    }
+                })
 
         });
+        var userAnswersandOrder = <?php echo json_encode(!empty($userAnswers) ? $userAnswers : []); ?>;
+        console.log('正確答案：', userAnswersandOrder);
+        if (userAnswersandOrder.length > 0) {
+            var userAnswers = userAnswersandOrder.map(function(answer) {
+                return answer.userAnswer;
+            });
+            console.log(userAnswers);
+            document.addEventListener('DOMContentLoaded', function() {
+                // 尋找template_code的格子
+                const inputs = document.querySelectorAll('input[type="text"]');
+                //尋找提交的按鈕
+                const submitButton = document.getElementById('send-code');
+                //填入答案
+                inputs.forEach((input, index) => {
+                    if (userAnswers[index]) {
+                        input.value = userAnswers[index];
+                        autoResize(input);
+                    }
+                });
+                // 有答案後隱藏按鈕
+                if (userAnswers.length > 0) {
+                    submitButton.style.display = 'none';
+                }
+            });
+        }
 
 
         /*測試遮變數
@@ -688,8 +724,6 @@
                 }
             });
         });*/
-
-
     </script>
 </body>
 
