@@ -360,9 +360,9 @@
             <div class="close-btn" onclick="togglePopup1()">&times;</div>
             <div class="pop">
                 <h1>遊戲說明</h1>
-                <p><strong>滅火任務</strong><br><hr></p>
+                <p><strong>{{ $fireQuestion -> gamename }}</strong><br><hr></p>
                 <p>
-                壞女巫逃走後，火勢卻沒有熄滅，錫人自告奮用要幫忙滅火，但他忘記他是用油灌澆注的燃燒體，他直接被火燒了好久；請冒險者幫忙錫人滅火，並順勢撲滅錫人身上的火!!
+                {{ $fireQuestion -> game_explanation }}
                 </p>
             </div>
         </div>
@@ -399,7 +399,7 @@
         <div class="row">
             <div class="col-md-6 left-container">
                 <div class="question">
-                    <p>壞女巫逃走後，火勢仍然肆虐，錫人因為身上充滿油而燒得更加猛烈，這讓他們無法繼續前進，請幫助錫人撲滅火焰。目前while 迴圈使用的是水屬性滅火器，但這只能在條件成立(water>0)時才執行。如果一開始條件不滿足，可能無法啟動滅火過程。然而，do…while迴圈的乾粉滅火器必須至少執行一次才能有效對付油引起的火勢。因此，你需要將 while 迴圈改為 do…while 迴圈，這樣即便條件不滿足，也能確保滅火操作先執行一次，從而徹底撲滅火焰，拯救錫人!</p>
+                    <p>{{ $fireQuestion -> pre_story }}</p>
                 </div>
                 <div class="firebg">
                     <div class="fire"></div>
@@ -431,19 +431,7 @@ public class Main {
                 <div class="code-container" id="code-container">
 <pre>
 <pre>
-public class Main {
-    public static void main(String[] args) {
-        boolean fire = true;
-        int water = 10;
-
-        do {
-            <input type="text" id="iInit" placeholder="" oninput="autoResize(this)">;
-            if(<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">) {
-                fire = false;
-            }
-        } while(<input type="text" id="iInit" placeholder="" oninput="autoResize(this)">);
-    }
-}
+{!! $templateCode !!}
 </pre>
 </pre>
                 </div>

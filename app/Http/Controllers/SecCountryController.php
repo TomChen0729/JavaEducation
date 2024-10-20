@@ -154,8 +154,8 @@ class SecCountryController extends Controller
                 $variable = null;
 
                 switch ($secGameID) {
-                    // 從記錄表撈玩過的，如果最近一次有玩的參數先導入(寫一個function)
-                    // 如果沒玩過或是全對的話，隨便random
+                        // 從記錄表撈玩過的，如果最近一次有玩的參數先導入(寫一個function)
+                        // 如果沒玩過或是全對的話，隨便random
                     case 1: // 通關密碼(要修改)
                         if ($userRecords->isEmpty()) {
                             // 隨機產生的密碼
@@ -422,6 +422,33 @@ class SecCountryController extends Controller
                             $templateCode = str_replace('$variable', $variable, $templateCode);
                             return view('game.country2.fight', ['fightQuestion' => $fightQuestion, 'variable' => $variable, 'templateCode' => $templateCode]);
                         }
+                    case 9:
+                        if ($userRecords->isEmpty()) {
+                            $fireQuestion = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
+                                ->where('country_id', $country_id)
+                                ->where('sec_games.id', $secGameID)
+                                ->inRandomOrder()->first();
+                            //解碼確定是哪個題目
+                            $templateCode = $fireQuestion->template_code;
+                            $variable = rand(1, 10);
+                            $templateCode = str_replace('$variable', $variable, $templateCode);
+                            // 紀錄這筆資料
+                            $this->recordWatchedParameter($fireQuestion->id, ['variable' => $variable]);
+                            return view('game.country2.fire', ['fireQuestion' => $fireQuestion, 'variable' => $variable, 'templateCode' => $templateCode]);
+                        } else {
+                            //儲存當前的題目id
+                            $secParameterID = $userRecords->first()->secParameterID;
+                            $fireQuestion = SecGame::join('sec_parameters', 'sec_games.id', '=', 'sec_parameters.secGameID')
+                                ->where('sec_parameters.id', $secParameterID)->first();
+                            //解碼json字符串類型
+                            $parameterJson = $userRecords->pluck(value: 'parameter')->first();
+                            $parameterArray = json_decode($parameterJson, true);
+                            $variable = $parameterArray['variable'];
+                            // 解碼確定是哪個題目
+                            $templateCode = $fireQuestion->template_code;
+                            $templateCode = str_replace('$variable', $variable, $templateCode);
+                            return view('game.country2.fire', ['fireQuestion' => $fireQuestion, 'variable' => $variable, 'templateCode' => $templateCode]);
+                        }
                     default:
                         //
                         return response('error');
@@ -440,7 +467,7 @@ class SecCountryController extends Controller
     public function passwordsGenerator(string $pwdType)
     {
         switch ($pwdType) {
-            // 產生隨機密碼字串
+                // 產生隨機密碼字串
             case "%s":
                 // 定義我要產生密碼的字元範圍
                 $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -459,11 +486,11 @@ class SecCountryController extends Controller
 
                 return $variable;
 
-            // 產生隨機四位數整數
+                // 產生隨機四位數整數
             case "%d":
                 $variable = rand(1000, 9999);
                 return $variable;
-            // 產生1-100的隨機小數，小數後兩位
+                // 產生1-100的隨機小數，小數後兩位
             case "%.2f":
                 $variable = number_format(mt_rand(100, 10000) / 100, 2);
                 break;
