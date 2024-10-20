@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2024-10-20 07:34:14
+-- 產生時間： 2024-10-20 09:07:30
 -- 伺服器版本： 10.4.32-MariaDB
 -- PHP 版本： 8.2.12
 
@@ -29,6 +29,7 @@ USE `javaeducation`;
 -- 資料表結構 `cache`
 --
 
+DROP TABLE IF EXISTS `cache`;
 CREATE TABLE `cache` (
   `key` varchar(255) NOT NULL,
   `value` mediumtext NOT NULL,
@@ -49,8 +50,8 @@ INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
 ('0dfddec41b02894cc83adcdcfca8fac5:timer', 'i:1723816962;', 1723816962),
 ('3dce29dd1498b35a2c31ae0f35a1aacc', 'i:1;', 1719236179),
 ('3dce29dd1498b35a2c31ae0f35a1aacc:timer', 'i:1719236179;', 1719236179),
-('ca6c49a141d86ad9a006978c0300a99e', 'i:1;', 1729341785),
-('ca6c49a141d86ad9a006978c0300a99e:timer', 'i:1729341785;', 1729341785);
+('ca6c49a141d86ad9a006978c0300a99e', 'i:1;', 1729402796),
+('ca6c49a141d86ad9a006978c0300a99e:timer', 'i:1729402796;', 1729402796);
 
 -- --------------------------------------------------------
 
@@ -58,6 +59,7 @@ INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
 -- 資料表結構 `cache_locks`
 --
 
+DROP TABLE IF EXISTS `cache_locks`;
 CREATE TABLE `cache_locks` (
   `key` varchar(255) NOT NULL,
   `owner` varchar(255) NOT NULL,
@@ -75,6 +77,7 @@ TRUNCATE TABLE `cache_locks`;
 -- 資料表結構 `card_types`
 --
 
+DROP TABLE IF EXISTS `card_types`;
 CREATE TABLE `card_types` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `country_id` bigint(20) UNSIGNED NOT NULL,
@@ -107,6 +110,7 @@ INSERT INTO `card_types` (`id`, `country_id`, `levels`, `card_type`, `created_at
 -- 資料表結構 `countries`
 --
 
+DROP TABLE IF EXISTS `countries`;
 CREATE TABLE `countries` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(45) DEFAULT NULL,
@@ -137,6 +141,7 @@ INSERT INTO `countries` (`id`, `name`, `created_at`, `updated_at`, `imgPath`) VA
 -- 資料表結構 `debugs`
 --
 
+DROP TABLE IF EXISTS `debugs`;
 CREATE TABLE `debugs` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `country_id` bigint(20) UNSIGNED NOT NULL,
@@ -173,6 +178,7 @@ INSERT INTO `debugs` (`id`, `country_id`, `description`, `code`, `wrong_line`, `
 -- 資料表結構 `debug_records`
 --
 
+DROP TABLE IF EXISTS `debug_records`;
 CREATE TABLE `debug_records` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
@@ -194,6 +200,7 @@ TRUNCATE TABLE `debug_records`;
 -- 資料表結構 `dramas`
 --
 
+DROP TABLE IF EXISTS `dramas`;
 CREATE TABLE `dramas` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `country_id` bigint(20) UNSIGNED NOT NULL,
@@ -256,6 +263,7 @@ INSERT INTO `dramas` (`id`, `country_id`, `order`, `msg`, `role_icon`, `created_
 -- 資料表結構 `failed_jobs`
 --
 
+DROP TABLE IF EXISTS `failed_jobs`;
 CREATE TABLE `failed_jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `uuid` varchar(255) NOT NULL,
@@ -277,6 +285,7 @@ TRUNCATE TABLE `failed_jobs`;
 -- 資料表結構 `jobs`
 --
 
+DROP TABLE IF EXISTS `jobs`;
 CREATE TABLE `jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `queue` varchar(255) NOT NULL,
@@ -298,6 +307,7 @@ TRUNCATE TABLE `jobs`;
 -- 資料表結構 `job_batches`
 --
 
+DROP TABLE IF EXISTS `job_batches`;
 CREATE TABLE `job_batches` (
   `id` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -322,6 +332,7 @@ TRUNCATE TABLE `job_batches`;
 -- 資料表結構 `knowledge_cards`
 --
 
+DROP TABLE IF EXISTS `knowledge_cards`;
 CREATE TABLE `knowledge_cards` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `country_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -380,6 +391,7 @@ INSERT INTO `knowledge_cards` (`id`, `country_id`, `name`, `content`, `created_a
 -- 資料表結構 `match_options`
 --
 
+DROP TABLE IF EXISTS `match_options`;
 CREATE TABLE `match_options` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `question_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -399,6 +411,7 @@ TRUNCATE TABLE `match_options`;
 -- 資料表結構 `migrations`
 --
 
+DROP TABLE IF EXISTS `migrations`;
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
   `migration` varchar(255) NOT NULL,
@@ -459,6 +472,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- 資料表結構 `options`
 --
 
+DROP TABLE IF EXISTS `options`;
 CREATE TABLE `options` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `question_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -603,6 +617,7 @@ INSERT INTO `options` (`id`, `question_id`, `options`, `created_at`, `updated_at
 -- 資料表結構 `password_reset_tokens`
 --
 
+DROP TABLE IF EXISTS `password_reset_tokens`;
 CREATE TABLE `password_reset_tokens` (
   `email` varchar(255) NOT NULL,
   `token` varchar(255) NOT NULL,
@@ -620,6 +635,7 @@ TRUNCATE TABLE `password_reset_tokens`;
 -- 資料表結構 `pass_course_get_cards`
 --
 
+DROP TABLE IF EXISTS `pass_course_get_cards`;
 CREATE TABLE `pass_course_get_cards` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `secGameID` bigint(20) UNSIGNED DEFAULT NULL,
@@ -652,6 +668,7 @@ INSERT INTO `pass_course_get_cards` (`id`, `secGameID`, `knowledge_card_id`, `cr
 -- 資料表結構 `pass_course_need_cards`
 --
 
+DROP TABLE IF EXISTS `pass_course_need_cards`;
 CREATE TABLE `pass_course_need_cards` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `secGameID` bigint(20) UNSIGNED DEFAULT NULL,
@@ -691,6 +708,7 @@ INSERT INTO `pass_course_need_cards` (`id`, `secGameID`, `knowledge_card_id`, `c
 -- 資料表結構 `personal_access_tokens`
 --
 
+DROP TABLE IF EXISTS `personal_access_tokens`;
 CREATE TABLE `personal_access_tokens` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `tokenable_type` varchar(255) NOT NULL,
@@ -715,6 +733,7 @@ TRUNCATE TABLE `personal_access_tokens`;
 -- 資料表結構 `questions`
 --
 
+DROP TABLE IF EXISTS `questions`;
 CREATE TABLE `questions` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `country_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -817,6 +836,7 @@ INSERT INTO `questions` (`id`, `country_id`, `gametype`, `levels`, `describe`, `
 -- 資料表結構 `questions_cards`
 --
 
+DROP TABLE IF EXISTS `questions_cards`;
 CREATE TABLE `questions_cards` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `question_id` bigint(20) UNSIGNED NOT NULL,
@@ -969,6 +989,7 @@ INSERT INTO `questions_cards` (`id`, `question_id`, `knowledge_card_id`) VALUES
 -- 資料表結構 `question_status`
 --
 
+DROP TABLE IF EXISTS `question_status`;
 CREATE TABLE `question_status` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
@@ -989,6 +1010,7 @@ TRUNCATE TABLE `question_status`;
 -- 資料表結構 `reorganization_option`
 --
 
+DROP TABLE IF EXISTS `reorganization_option`;
 CREATE TABLE `reorganization_option` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `question_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -1009,6 +1031,7 @@ TRUNCATE TABLE `reorganization_option`;
 -- 資料表結構 `sec_answers`
 --
 
+DROP TABLE IF EXISTS `sec_answers`;
 CREATE TABLE `sec_answers` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `secParameterID` bigint(20) UNSIGNED NOT NULL,
@@ -1066,6 +1089,7 @@ INSERT INTO `sec_answers` (`id`, `secParameterID`, `order`, `ans_patterns`, `cre
 -- 資料表結構 `sec_games`
 --
 
+DROP TABLE IF EXISTS `sec_games`;
 CREATE TABLE `sec_games` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `country_id` bigint(20) UNSIGNED NOT NULL,
@@ -1092,10 +1116,10 @@ INSERT INTO `sec_games` (`id`, `country_id`, `gamename`, `pre_story`, `game_expl
 (3, 2, '魔法門衛', '進入南國的你，發現綠柱尖頭族領袖排查進城的人們效率太慢而導致許多人需要在外面排隊至少三天三夜才能進城。許多的商人會的商品會因此爛掉或變質，商人們苦不堪言。你剛好看到他們在招攬專業人才「希望能想出快速通關進城的解決方法。｣請發揮你的才能，幫助他們解決問題！！', '為了解決進城速度過慢的問題，請使用 for 迴圈收集今日進城的身份證，並用 if…else 判斷進城者的身份。怪物禁止進入南國，其他村民與商人可以免費通行。發揮你的才能，幫助南國加快通關效率，減少商人們的損失！', NULL, NULL, 'idcard.svg'),
 (4, 2, '調配藥水', '桃樂絲一行人過度飢餓，無法繼續前進。你需要幫助他們隨機獲得一個藥水配方，並使用 if 條件語句成功調製治癒藥水。', '桃樂絲一行人從蠻金之國到蘋果樹林這都沒有涉入食物，過度飢餓導致無力繼續前進，請幫助他們調配出治癒藥水，能夠回復體力並不會再度飢餓', NULL, NULL, 'gem.svg'),
 (5, 2, '魔林解密', '在蘋果怪樹林深處，魔法師施展了一個神秘的咒語，隨機選出了一個基準數字作為通行的關鍵。接著，又產生了一個特殊數字，作為森林守護者的試煉。你必須在這兩個數字之間，找出符合特定範圍的質數，才能破解魔林的謎題，幫助桃樂絲一行人繼續前進！', '繼續往前，桃樂絲一行人迎面遇上了一位神秘的南國魔法師，擋在蘋果怪樹林的入口處。魔法師告訴他們：“在林中，有一段路徑被一群蘋果怪所守護。這些怪物並不會輕易讓路，除非你能找到一個規律。只有當你們找到這些數字，怪物才會允許你們通過。” 請幫助桃樂絲完成任務，讓他們能安全通過蘋果怪樹林！', NULL, NULL, 'cave.svg'),
-(6, 2, '密碼解碼', '桃樂絲一行人要從蘋果怪樹林前往村莊的路途中，遇到了傳說中的詛咒的神廟 ，其內部隱藏著改變命運的錦囊；想要得到命運錦囊必須拆解神廟內的炸彈。拆解炸彈的唯一方法是將一串神秘的數字倒敘排列，才會得到命運錦囊。請幫助桃樂絲一行人拆解炸彈獲得命運錦囊吧!!', '隨機生成一個三位數，並使用 while 迴圈逐一提取數字位，根據以下規則進行解碼。解碼後的三個數字相加就是拆解炸彈的密碼，請冒險者幫助桃樂絲拆解炸彈，拿到命運錦囊！', NULL, NULL, ''),
-(7, 2, '塔中巡油', '桃樂絲和稻草人前進後遇到了錫人，但是它看起來死氣沉沉。桃樂絲突然想到她之前在看書的時候有說，錫人通常都需要用油來恢復生命。請幫助桃樂絲在附近找到足夠數量的油罐，並幫忙錫人上油!!', '為了幫助桃樂絲和稻草人找到足夠的油來恢復錫人的生命，你需要在附近的塔中進行尋油。隨機生成塔層數給冒險者，利用 while 迴圈從下往上跑過整層塔。每層塔根據不同的層數條件，會觸發不同的公式來增減油罐。請確保你能準確找到所需的油罐數量，幫助錫人恢復活力，繼續冒險！', NULL, NULL, ''),
-(8, 2, '命運試煉', '正帶著錫人前往翡翠城尋找奧茲法師時，壞女巫出現了!!!她使出火之呼吸包圍了我們一行人；桃樂絲打開在詛咒神廟時所獲得的錦囊，內容詳細的記錄了對付壞女巫的辦法，但是桃樂絲只看得懂switch…case的程式碼，請改寫程式碼幫助桃樂絲讀懂錦囊的內容，打敗壞女巫!!', '壞女巫出現了，桃樂絲正面臨危機！她打開了錦囊，裡面記錄了對付壞女巫的辦法。然而，桃樂絲只懂得使用 switch…case 來解讀這些指示。請根據原始的 if…else if…else 程式碼，將其改寫為 switch…case，並輸出敵人的類型，幫助桃樂絲讀懂錦囊的內容，擊敗壞女巫！', NULL, NULL, ''),
-(9, 2, '滅火任務', '壞女巫逃走後，火勢卻沒有熄滅，錫人自告奮用要幫忙滅火，但他忘記他是用油灌澆注的燃燒體，他直接被火燒了好久；請冒險者幫忙錫人滅火，並順勢撲滅錫人身上的火!!', '壞女巫逃走後，火勢仍然肆虐，錫人因為身上充滿油而燒得更加猛烈，這讓他們無法繼續前進。請幫助錫人撲滅火焰，將 while 迴圈改寫為 do…while 迴圈，以確保徹底熄滅火焰並拯救錫人！', NULL, NULL, '');
+(6, 2, '密碼解碼', '桃樂絲一行人要從蘋果怪樹林前往村莊的路途中，遇到了傳說中的詛咒的神廟 ，其內部隱藏著改變命運的錦囊；想要得到命運錦囊必須拆解神廟內的炸彈。拆解炸彈的唯一方法是將一串神秘的數字倒敘排列，才會得到命運錦囊。請幫助桃樂絲一行人拆解炸彈獲得命運錦囊吧!!', '隨機生成一個三位數，並使用 while 迴圈逐一提取數字位，根據以下規則進行解碼。解碼後的三個數字相加就是拆解炸彈的密碼，請冒險者幫助桃樂絲拆解炸彈，拿到命運錦囊！', NULL, NULL, '3doors.svg'),
+(7, 2, '塔中巡油', '桃樂絲和稻草人前進後遇到了錫人，但是它看起來死氣沉沉。桃樂絲突然想到她之前在看書的時候有說，錫人通常都需要用油來恢復生命。請幫助桃樂絲在附近找到足夠數量的油罐，並幫忙錫人上油!!', '為了幫助桃樂絲和稻草人找到足夠的油來恢復錫人的生命，你需要在附近的塔中進行尋油。隨機生成塔層數給冒險者，利用 while 迴圈從下往上跑過整層塔。每層塔根據不同的層數條件，會觸發不同的公式來增減油罐。請確保你能準確找到所需的油罐數量，幫助錫人恢復活力，繼續冒險！', NULL, NULL, 'sword.svg'),
+(8, 2, '命運試煉', '正帶著錫人前往翡翠城尋找奧茲法師時，壞女巫出現了!!!她使出火之呼吸包圍了我們一行人；桃樂絲打開在詛咒神廟時所獲得的錦囊，內容詳細的記錄了對付壞女巫的辦法，但是桃樂絲只看得懂switch…case的程式碼，請改寫程式碼幫助桃樂絲讀懂錦囊的內容，打敗壞女巫!!', '壞女巫出現了，桃樂絲正面臨危機！她打開了錦囊，裡面記錄了對付壞女巫的辦法。然而，桃樂絲只懂得使用 switch…case 來解讀這些指示。請根據原始的 if…else if…else 程式碼，將其改寫為 switch…case，並輸出敵人的類型，幫助桃樂絲讀懂錦囊的內容，擊敗壞女巫！', NULL, NULL, 'monster.svg'),
+(9, 2, '滅火任務', '壞女巫逃走後，火勢卻沒有熄滅，錫人自告奮用要幫忙滅火，但他忘記他是用油灌澆注的燃燒體，他直接被火燒了好久；請冒險者幫忙錫人滅火，並順勢撲滅錫人身上的火!!', '壞女巫逃走後，火勢仍然肆虐，錫人因為身上充滿油而燒得更加猛烈，這讓他們無法繼續前進。請幫助錫人撲滅火焰，將 while 迴圈改寫為 do…while 迴圈，以確保徹底熄滅火焰並拯救錫人！', NULL, NULL, 'fire.svg');
 
 -- --------------------------------------------------------
 
@@ -1103,6 +1127,7 @@ INSERT INTO `sec_games` (`id`, `country_id`, `gamename`, `pre_story`, `game_expl
 -- 資料表結構 `sec_parameters`
 --
 
+DROP TABLE IF EXISTS `sec_parameters`;
 CREATE TABLE `sec_parameters` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `secGameID` bigint(20) UNSIGNED NOT NULL,
@@ -1142,6 +1167,7 @@ INSERT INTO `sec_parameters` (`id`, `secGameID`, `template_code`, `created_at`, 
 -- 資料表結構 `sec_records`
 --
 
+DROP TABLE IF EXISTS `sec_records`;
 CREATE TABLE `sec_records` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
@@ -1165,22 +1191,30 @@ TRUNCATE TABLE `sec_records`;
 --
 
 INSERT INTO `sec_records` (`id`, `user_id`, `secParameterID`, `time`, `parameter`, `status`, `counter`, `created_at`, `updated_at`, `user_answer`) VALUES
-(101, 1, 3, '00:00:00', '{\"variable\":5}', 'watched', 11, '2024-10-06 14:27:23', '2024-10-13 08:28:16', NULL),
-(102, 1, 3, '00:00:00', '{\"variable\":5}', 'true', 2, '2024-10-06 14:27:23', '2024-10-06 14:29:32', '[{\"order\":1,\"userAnswer\":\"int i = n\"},{\"order\":2,\"userAnswer\":\"i >= 1\"},{\"order\":3,\"userAnswer\":\"i--\"},{\"order\":4,\"userAnswer\":\"int j =1\"},{\"order\":5,\"userAnswer\":\"j <= 2 * i - 1\"},{\"order\":6,\"userAnswer\":\"j++\"}]'),
-(103, 1, 3, '00:00:00', '{\"variable\":5}', 'false', 0, '2024-10-06 14:27:23', '2024-10-06 14:27:23', NULL),
-(104, 1, 3, '00:00:00', '{\"variable\":5}', 'watch_again', 0, '2024-10-06 14:27:23', '2024-10-06 14:27:23', NULL),
-(105, 1, 6, '00:00:00', '{\"variable\":5,\"idCardsData\":[{\"gender\":\"\\u7537\",\"identity\":\"\\u5546\\u4eba\",\"age\":45},{\"gender\":\"\\u7537\",\"identity\":\"\\u602a\\u7269\",\"age\":31},{\"gender\":\"\\u5973\",\"identity\":\"\\u602a\\u7269\",\"age\":45},{\"gender\":\"\\u5973\",\"identity\":\"\\u5546\\u4eba\",\"age\":33},{\"gender\":\"\\u7537\",\"identity\":\"\\u602a\\u7269\",\"age\":20}]}', 'watched', 1, '2024-10-06 14:27:27', '2024-10-06 14:27:27', NULL),
-(106, 1, 6, '00:00:00', '{\"variable\":5,\"idCardsData\":[{\"gender\":\"\\u7537\",\"identity\":\"\\u5546\\u4eba\",\"age\":45},{\"gender\":\"\\u7537\",\"identity\":\"\\u602a\\u7269\",\"age\":31},{\"gender\":\"\\u5973\",\"identity\":\"\\u602a\\u7269\",\"age\":45},{\"gender\":\"\\u5973\",\"identity\":\"\\u5546\\u4eba\",\"age\":33},{\"gender\":\"\\u7537\",\"identity\":\"\\u602a\\u7269\",\"age\":20}]}', 'true', 0, '2024-10-06 14:27:27', '2024-10-06 14:27:27', NULL),
-(107, 1, 6, '00:00:00', '{\"variable\":5,\"idCardsData\":[{\"gender\":\"\\u7537\",\"identity\":\"\\u5546\\u4eba\",\"age\":45},{\"gender\":\"\\u7537\",\"identity\":\"\\u602a\\u7269\",\"age\":31},{\"gender\":\"\\u5973\",\"identity\":\"\\u602a\\u7269\",\"age\":45},{\"gender\":\"\\u5973\",\"identity\":\"\\u5546\\u4eba\",\"age\":33},{\"gender\":\"\\u7537\",\"identity\":\"\\u602a\\u7269\",\"age\":20}]}', 'false', 0, '2024-10-06 14:27:27', '2024-10-06 14:27:27', NULL),
-(108, 1, 6, '00:00:00', '{\"variable\":5,\"idCardsData\":[{\"gender\":\"\\u7537\",\"identity\":\"\\u5546\\u4eba\",\"age\":45},{\"gender\":\"\\u7537\",\"identity\":\"\\u602a\\u7269\",\"age\":31},{\"gender\":\"\\u5973\",\"identity\":\"\\u602a\\u7269\",\"age\":45},{\"gender\":\"\\u5973\",\"identity\":\"\\u5546\\u4eba\",\"age\":33},{\"gender\":\"\\u7537\",\"identity\":\"\\u602a\\u7269\",\"age\":20}]}', 'watch_again', 0, '2024-10-06 14:27:27', '2024-10-06 14:27:27', NULL),
-(117, 1, 8, '00:00:00', '{\"variable\":\"90,61\"}', 'watched', 1, '2024-10-06 14:27:41', '2024-10-06 14:27:41', NULL),
-(118, 1, 8, '00:00:00', '{\"variable\":\"90,61\"}', 'true', 0, '2024-10-06 14:27:41', '2024-10-06 14:27:41', NULL),
-(119, 1, 8, '00:00:00', '{\"variable\":\"90,61\"}', 'false', 0, '2024-10-06 14:27:41', '2024-10-06 14:27:41', NULL),
-(120, 1, 8, '00:00:00', '{\"variable\":\"90,61\"}', 'watch_again', 0, '2024-10-06 14:27:41', '2024-10-06 14:27:41', NULL),
-(157, 1, 1, '00:00:00', '{\"variable\":\"hvkCKeajtHEsDQ74rFtEIoRFWiRf9Gco5HHmUI4c6eTZr4qn\"}', 'watched', 1, '2024-10-19 04:42:18', '2024-10-19 04:42:18', NULL),
-(158, 1, 1, '00:00:00', '{\"variable\":\"hvkCKeajtHEsDQ74rFtEIoRFWiRf9Gco5HHmUI4c6eTZr4qn\"}', 'true', 0, '2024-10-19 04:42:18', '2024-10-19 04:42:18', NULL),
-(159, 1, 1, '00:00:00', '{\"variable\":\"hvkCKeajtHEsDQ74rFtEIoRFWiRf9Gco5HHmUI4c6eTZr4qn\"}', 'false', 0, '2024-10-19 04:42:18', '2024-10-19 04:42:18', NULL),
-(160, 1, 1, '00:00:00', '{\"variable\":\"hvkCKeajtHEsDQ74rFtEIoRFWiRf9Gco5HHmUI4c6eTZr4qn\"}', 'watch_again', 0, '2024-10-19 04:42:18', '2024-10-19 04:42:18', NULL);
+(1, 1, 1, '00:00:00', '{\"variable\":\"rDiGR\"}', 'watched', 1, '2024-10-19 21:39:41', '2024-10-19 21:39:41', NULL),
+(2, 1, 1, '00:00:00', '{\"variable\":\"rDiGR\"}', 'true', 0, '2024-10-19 21:39:41', '2024-10-19 21:39:41', NULL),
+(3, 1, 1, '00:00:00', '{\"variable\":\"rDiGR\"}', 'false', 0, '2024-10-19 21:39:41', '2024-10-19 21:39:41', NULL),
+(4, 1, 1, '00:00:00', '{\"variable\":\"rDiGR\"}', 'watch_again', 0, '2024-10-19 21:39:41', '2024-10-19 21:39:41', NULL),
+(5, 1, 10, '00:00:00', '{\"variable\":\"33,63,57\"}', 'watched', 1, '2024-10-19 22:39:49', '2024-10-19 22:39:49', NULL),
+(6, 1, 10, '00:00:00', '{\"variable\":\"33,63,57\"}', 'true', 0, '2024-10-19 22:39:49', '2024-10-19 22:39:49', NULL),
+(7, 1, 10, '00:00:00', '{\"variable\":\"33,63,57\"}', 'false', 0, '2024-10-19 22:39:49', '2024-10-19 22:39:49', NULL),
+(8, 1, 10, '00:00:00', '{\"variable\":\"33,63,57\"}', 'watch_again', 0, '2024-10-19 22:39:49', '2024-10-19 22:39:49', NULL),
+(9, 1, 14, '00:00:00', '{\"variable\":\"\\u9b54\\u5973\"}', 'watched', 1, '2024-10-19 22:46:53', '2024-10-19 22:46:53', NULL),
+(10, 1, 14, '00:00:00', '{\"variable\":\"\\u9b54\\u5973\"}', 'true', 0, '2024-10-19 22:46:53', '2024-10-19 22:46:53', NULL),
+(11, 1, 14, '00:00:00', '{\"variable\":\"\\u9b54\\u5973\"}', 'false', 0, '2024-10-19 22:46:53', '2024-10-19 22:46:53', NULL),
+(12, 1, 14, '00:00:00', '{\"variable\":\"\\u9b54\\u5973\"}', 'watch_again', 0, '2024-10-19 22:46:53', '2024-10-19 22:46:53', NULL),
+(13, 1, 8, '00:00:00', '{\"variable\":\"66,27,17\"}', 'watched', 1, '2024-10-19 22:47:01', '2024-10-19 22:47:01', NULL),
+(14, 1, 8, '00:00:00', '{\"variable\":\"66,27,17\"}', 'true', 0, '2024-10-19 22:47:01', '2024-10-19 22:47:01', NULL),
+(15, 1, 8, '00:00:00', '{\"variable\":\"66,27,17\"}', 'false', 0, '2024-10-19 22:47:01', '2024-10-19 22:47:01', NULL),
+(16, 1, 8, '00:00:00', '{\"variable\":\"66,27,17\"}', 'watch_again', 0, '2024-10-19 22:47:01', '2024-10-19 22:47:01', NULL),
+(17, 1, 12, '00:00:00', '{\"variable\":788}', 'watched', 1, '2024-10-19 22:47:08', '2024-10-19 22:47:08', NULL),
+(18, 1, 12, '00:00:00', '{\"variable\":788}', 'true', 0, '2024-10-19 22:47:08', '2024-10-19 22:47:08', NULL),
+(19, 1, 12, '00:00:00', '{\"variable\":788}', 'false', 0, '2024-10-19 22:47:08', '2024-10-19 22:47:08', NULL),
+(20, 1, 12, '00:00:00', '{\"variable\":788}', 'watch_again', 0, '2024-10-19 22:47:08', '2024-10-19 22:47:08', NULL),
+(21, 1, 13, '00:00:00', '{\"variable\":7}', 'watched', 1, '2024-10-19 22:47:15', '2024-10-19 22:47:15', NULL),
+(22, 1, 13, '00:00:00', '{\"variable\":7}', 'true', 0, '2024-10-19 22:47:15', '2024-10-19 22:47:15', NULL),
+(23, 1, 13, '00:00:00', '{\"variable\":7}', 'false', 0, '2024-10-19 22:47:15', '2024-10-19 22:47:15', NULL),
+(24, 1, 13, '00:00:00', '{\"variable\":7}', 'watch_again', 0, '2024-10-19 22:47:15', '2024-10-19 22:47:15', NULL);
 
 -- --------------------------------------------------------
 
@@ -1188,6 +1222,7 @@ INSERT INTO `sec_records` (`id`, `user_id`, `secParameterID`, `time`, `parameter
 -- 資料表結構 `sessions`
 --
 
+DROP TABLE IF EXISTS `sessions`;
 CREATE TABLE `sessions` (
   `id` varchar(255) NOT NULL,
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -1207,6 +1242,7 @@ TRUNCATE TABLE `sessions`;
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
+('d2Txk1oPC34TtX3ChlG7mMPvgqnrs7SbrbvG6DP6', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoicGlFbUtCbHpMR3hzRW5DcUoybnBTdzRVMmM5RjhuQ3BtZGxiM0J6YyI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjQzOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvY291bnRyeS8yL3NlY0dhbWVJRC8xIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjIxOiJwYXNzd29yZF9oYXNoX3NhbmN0dW0iO3M6NjA6IiQyeSQxMiRBQ09rUVVzNHlOVzJHOUNhS0JxMEN1SlN2OHFEZmt4OVRNM2JERHo2UjNCdk53VFNaN3hXUyI7fQ==', 1729407893),
 ('gBWZsP7rwXtfW9DTwKr8QMHkKjxx1aWDnxKSSwnW', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiN2xVRndwNWx2VkNTcFlNbm1GNldvMVdRaDdWdk9FSXJjWlNORUl6cyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjQ5OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAva25vd2xlZGdlY2FyZC8yP2NhcmRfdHlwZT0xIjt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjIxOiJwYXNzd29yZF9oYXNoX3NhbmN0dW0iO3M6NjA6IiQyeSQxMiRBQ09rUVVzNHlOVzJHOUNhS0JxMEN1SlN2OHFEZmt4OVRNM2JERHo2UjNCdk53VFNaN3hXUyI7fQ==', 1728848349),
 ('gCZJJWiH9MLMp9VIWWIZ04ooKEPyt7jkz5g15Dvh', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiODRoeUdIZmRWcm1LVnI2Wlg2eWhZUU9nSUEzR0FZdzk1UHR2MGNGaCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9jb3VudHJ5LzIvc2VjR2FtZUlELzEiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjM6InVybCI7YTowOnt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjIxOiJwYXNzd29yZF9oYXNoX3NhbmN0dW0iO3M6NjA6IiQyeSQxMiRBQ09rUVVzNHlOVzJHOUNhS0JxMEN1SlN2OHFEZmt4OVRNM2JERHo2UjNCdk53VFNaN3hXUyI7fQ==', 1729341759);
 
@@ -1216,6 +1252,7 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 -- 資料表結構 `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -1258,6 +1295,7 @@ INSERT INTO `users` (`id`, `email`, `email_verified_at`, `password`, `two_factor
 -- 資料表結構 `user_knowledge_cards`
 --
 
+DROP TABLE IF EXISTS `user_knowledge_cards`;
 CREATE TABLE `user_knowledge_cards` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -1296,6 +1334,7 @@ INSERT INTO `user_knowledge_cards` (`id`, `user_id`, `knowledge_card_id`, `watch
 -- 資料表結構 `user_records`
 --
 
+DROP TABLE IF EXISTS `user_records`;
 CREATE TABLE `user_records` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -1379,6 +1418,7 @@ INSERT INTO `user_records` (`id`, `user_id`, `question_id`, `watchtime`, `create
 -- 資料表結構 `user_record_details`
 --
 
+DROP TABLE IF EXISTS `user_record_details`;
 CREATE TABLE `user_record_details` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_record_id` bigint(20) UNSIGNED NOT NULL,
@@ -1724,7 +1764,7 @@ ALTER TABLE `sec_parameters`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `sec_records`
 --
 ALTER TABLE `sec_records`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=161;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `users`
