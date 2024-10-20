@@ -11,6 +11,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/base16-dark.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/clike/clike.min.js"></script>
+    @extends('layouts.application')
 
     <style>
         * {
@@ -34,54 +35,6 @@
             width: 100%;
             height: 100vh; /* 使用視窗高度 */
             position: relative; /* 使子元素可以基於此定位 */
-        }
-
-        .button img, .button2 img, .button3 img, .button4 img, .button5 img, .button6 img, .button7 img, .button8 img {
-            position: absolute;
-            width: 20%;
-            height: auto;
-            cursor: pointer;
-        }
-
-
-        .button img{
-            top: 350px;
-            left: 10%;
-        }
-
-        .button2 img{
-            top: 0px;
-            left: 38%;
-        }
-
-        .button3 img{
-            top: 0px;
-            left: 70%;
-        }
-
-        .button4 img{
-            top: 520px;
-            left: 10%;
-        }
-
-        .button5 img{
-            top: 300px;
-            left: 39%;
-        }
-
-        .button6 img{
-            top: 10px;
-            left: 5%;
-        }
-
-        .button7 img{
-            top: 530px;
-            left: 39%;
-        }
-
-        .button8 img{
-            top: 340px;
-            left: 75%;
         }
 
         .userNeedCards{
@@ -108,7 +61,7 @@
         <div class="row">
             <div class="col-md-12">
                 @foreach ($iconData as $item)
-                    <div class="">
+                    <div class="button" data-index="{{ $iconData }}">
                         <a href="{{ route('sec.GameChoose', ['country_id' => $currentCountry, 'secGameID' => $item['secGameID']]) }}">
                             <img src="/images/country2choose/{{ $item['imgPath'] }}" alt="Button">
                         </a>
@@ -129,6 +82,57 @@ document.addEventListener('DOMContentLoaded', function() {
                 userNeedCards.style.display = 'none';  // 淡出完成後隱藏元素並移除空間
             }, 500);  // 淡出時間需要和過渡時間一致
         }, 1000);  // 1秒後淡出
+    }
+});
+
+// 獲取所有按鈕
+const buttons = document.querySelectorAll('.button');
+
+buttons.forEach((button, iconData) => {
+    const img = button.querySelector('img'); // 獲取img
+    img.style.position = 'absolute';
+    img.style.width = '20%'; 
+    img.style.height = 'auto';
+
+    switch (iconData) {
+        case 0:
+            img.style.top = '380px';
+            img.style.left = '39%';
+            break;
+        case 1:
+            img.style.top = '100px';
+            img.style.left = '68%';
+            break;
+        case 2:
+            img.style.top = '420px';
+            img.style.left = '10%';
+            break;
+        case 3:
+            img.style.top = '90px';
+            img.style.left = '38%';
+            break;
+        case 4:
+            img.style.top = '60px';
+            img.style.left = '5%';
+            break;
+        case 5:
+            img.style.top = '660px';
+            img.style.left = '39%';
+            break;
+        case 6:
+            img.style.top = '640px';
+            img.style.left = '10%';
+            break;
+        case 7:
+            img.style.top = '600px';
+            img.style.left = '75%';
+            break;
+        case 8:
+        img.style.top = '350px';
+        img.style.left = '70%';
+        break;
+        default:
+            break;
     }
 });
 </script>
