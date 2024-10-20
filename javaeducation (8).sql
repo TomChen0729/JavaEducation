@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2024-10-08 15:41:34
+-- 產生時間： 2024-10-20 07:34:14
 -- 伺服器版本： 10.4.32-MariaDB
 -- PHP 版本： 8.2.12
 
@@ -29,7 +29,6 @@ USE `javaeducation`;
 -- 資料表結構 `cache`
 --
 
-DROP TABLE IF EXISTS `cache`;
 CREATE TABLE `cache` (
   `key` varchar(255) NOT NULL,
   `value` mediumtext NOT NULL,
@@ -50,8 +49,8 @@ INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
 ('0dfddec41b02894cc83adcdcfca8fac5:timer', 'i:1723816962;', 1723816962),
 ('3dce29dd1498b35a2c31ae0f35a1aacc', 'i:1;', 1719236179),
 ('3dce29dd1498b35a2c31ae0f35a1aacc:timer', 'i:1719236179;', 1719236179),
-('ca6c49a141d86ad9a006978c0300a99e', 'i:1;', 1728388245),
-('ca6c49a141d86ad9a006978c0300a99e:timer', 'i:1728388245;', 1728388245);
+('ca6c49a141d86ad9a006978c0300a99e', 'i:1;', 1729341785),
+('ca6c49a141d86ad9a006978c0300a99e:timer', 'i:1729341785;', 1729341785);
 
 -- --------------------------------------------------------
 
@@ -59,7 +58,6 @@ INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
 -- 資料表結構 `cache_locks`
 --
 
-DROP TABLE IF EXISTS `cache_locks`;
 CREATE TABLE `cache_locks` (
   `key` varchar(255) NOT NULL,
   `owner` varchar(255) NOT NULL,
@@ -77,7 +75,6 @@ TRUNCATE TABLE `cache_locks`;
 -- 資料表結構 `card_types`
 --
 
-DROP TABLE IF EXISTS `card_types`;
 CREATE TABLE `card_types` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `country_id` bigint(20) UNSIGNED NOT NULL,
@@ -110,7 +107,6 @@ INSERT INTO `card_types` (`id`, `country_id`, `levels`, `card_type`, `created_at
 -- 資料表結構 `countries`
 --
 
-DROP TABLE IF EXISTS `countries`;
 CREATE TABLE `countries` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(45) DEFAULT NULL,
@@ -141,7 +137,6 @@ INSERT INTO `countries` (`id`, `name`, `created_at`, `updated_at`, `imgPath`) VA
 -- 資料表結構 `debugs`
 --
 
-DROP TABLE IF EXISTS `debugs`;
 CREATE TABLE `debugs` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `country_id` bigint(20) UNSIGNED NOT NULL,
@@ -178,7 +173,6 @@ INSERT INTO `debugs` (`id`, `country_id`, `description`, `code`, `wrong_line`, `
 -- 資料表結構 `debug_records`
 --
 
-DROP TABLE IF EXISTS `debug_records`;
 CREATE TABLE `debug_records` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
@@ -200,7 +194,6 @@ TRUNCATE TABLE `debug_records`;
 -- 資料表結構 `dramas`
 --
 
-DROP TABLE IF EXISTS `dramas`;
 CREATE TABLE `dramas` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `country_id` bigint(20) UNSIGNED NOT NULL,
@@ -263,7 +256,6 @@ INSERT INTO `dramas` (`id`, `country_id`, `order`, `msg`, `role_icon`, `created_
 -- 資料表結構 `failed_jobs`
 --
 
-DROP TABLE IF EXISTS `failed_jobs`;
 CREATE TABLE `failed_jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `uuid` varchar(255) NOT NULL,
@@ -285,7 +277,6 @@ TRUNCATE TABLE `failed_jobs`;
 -- 資料表結構 `jobs`
 --
 
-DROP TABLE IF EXISTS `jobs`;
 CREATE TABLE `jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `queue` varchar(255) NOT NULL,
@@ -307,7 +298,6 @@ TRUNCATE TABLE `jobs`;
 -- 資料表結構 `job_batches`
 --
 
-DROP TABLE IF EXISTS `job_batches`;
 CREATE TABLE `job_batches` (
   `id` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -332,7 +322,6 @@ TRUNCATE TABLE `job_batches`;
 -- 資料表結構 `knowledge_cards`
 --
 
-DROP TABLE IF EXISTS `knowledge_cards`;
 CREATE TABLE `knowledge_cards` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `country_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -391,7 +380,6 @@ INSERT INTO `knowledge_cards` (`id`, `country_id`, `name`, `content`, `created_a
 -- 資料表結構 `match_options`
 --
 
-DROP TABLE IF EXISTS `match_options`;
 CREATE TABLE `match_options` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `question_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -411,7 +399,6 @@ TRUNCATE TABLE `match_options`;
 -- 資料表結構 `migrations`
 --
 
-DROP TABLE IF EXISTS `migrations`;
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
   `migration` varchar(255) NOT NULL,
@@ -472,7 +459,6 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- 資料表結構 `options`
 --
 
-DROP TABLE IF EXISTS `options`;
 CREATE TABLE `options` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `question_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -617,7 +603,6 @@ INSERT INTO `options` (`id`, `question_id`, `options`, `created_at`, `updated_at
 -- 資料表結構 `password_reset_tokens`
 --
 
-DROP TABLE IF EXISTS `password_reset_tokens`;
 CREATE TABLE `password_reset_tokens` (
   `email` varchar(255) NOT NULL,
   `token` varchar(255) NOT NULL,
@@ -635,7 +620,6 @@ TRUNCATE TABLE `password_reset_tokens`;
 -- 資料表結構 `pass_course_get_cards`
 --
 
-DROP TABLE IF EXISTS `pass_course_get_cards`;
 CREATE TABLE `pass_course_get_cards` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `secGameID` bigint(20) UNSIGNED DEFAULT NULL,
@@ -668,7 +652,6 @@ INSERT INTO `pass_course_get_cards` (`id`, `secGameID`, `knowledge_card_id`, `cr
 -- 資料表結構 `pass_course_need_cards`
 --
 
-DROP TABLE IF EXISTS `pass_course_need_cards`;
 CREATE TABLE `pass_course_need_cards` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `secGameID` bigint(20) UNSIGNED DEFAULT NULL,
@@ -708,7 +691,6 @@ INSERT INTO `pass_course_need_cards` (`id`, `secGameID`, `knowledge_card_id`, `c
 -- 資料表結構 `personal_access_tokens`
 --
 
-DROP TABLE IF EXISTS `personal_access_tokens`;
 CREATE TABLE `personal_access_tokens` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `tokenable_type` varchar(255) NOT NULL,
@@ -733,7 +715,6 @@ TRUNCATE TABLE `personal_access_tokens`;
 -- 資料表結構 `questions`
 --
 
-DROP TABLE IF EXISTS `questions`;
 CREATE TABLE `questions` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `country_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -836,7 +817,6 @@ INSERT INTO `questions` (`id`, `country_id`, `gametype`, `levels`, `describe`, `
 -- 資料表結構 `questions_cards`
 --
 
-DROP TABLE IF EXISTS `questions_cards`;
 CREATE TABLE `questions_cards` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `question_id` bigint(20) UNSIGNED NOT NULL,
@@ -989,7 +969,6 @@ INSERT INTO `questions_cards` (`id`, `question_id`, `knowledge_card_id`) VALUES
 -- 資料表結構 `question_status`
 --
 
-DROP TABLE IF EXISTS `question_status`;
 CREATE TABLE `question_status` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
@@ -1010,7 +989,6 @@ TRUNCATE TABLE `question_status`;
 -- 資料表結構 `reorganization_option`
 --
 
-DROP TABLE IF EXISTS `reorganization_option`;
 CREATE TABLE `reorganization_option` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `question_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -1031,7 +1009,6 @@ TRUNCATE TABLE `reorganization_option`;
 -- 資料表結構 `sec_answers`
 --
 
-DROP TABLE IF EXISTS `sec_answers`;
 CREATE TABLE `sec_answers` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `secParameterID` bigint(20) UNSIGNED NOT NULL,
@@ -1089,7 +1066,6 @@ INSERT INTO `sec_answers` (`id`, `secParameterID`, `order`, `ans_patterns`, `cre
 -- 資料表結構 `sec_games`
 --
 
-DROP TABLE IF EXISTS `sec_games`;
 CREATE TABLE `sec_games` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `country_id` bigint(20) UNSIGNED NOT NULL,
@@ -1127,7 +1103,6 @@ INSERT INTO `sec_games` (`id`, `country_id`, `gamename`, `pre_story`, `game_expl
 -- 資料表結構 `sec_parameters`
 --
 
-DROP TABLE IF EXISTS `sec_parameters`;
 CREATE TABLE `sec_parameters` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `secGameID` bigint(20) UNSIGNED NOT NULL,
@@ -1146,17 +1121,20 @@ TRUNCATE TABLE `sec_parameters`;
 --
 
 INSERT INTO `sec_parameters` (`id`, `secGameID`, `template_code`, `created_at`, `updated_at`) VALUES
-(1, 1, 'public class StarPatterns {\n    public static void main(String[] args) {\n        System.out.printf(<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">, <input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">); // 輸出 \"Password\"\n    }\n}', NULL, NULL),
+(1, 1, 'public class StarPatterns {\n    public static void main(String[] args) {\n        System.out.printf(<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">, <input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">); // 輸出 \"Password\"\n    }\n}|%s', NULL, NULL),
 (2, 2, 'public class StarPatterns {\n    public static void main(String[] args) {\n        int n = $variable; // 階層\n\n        for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n            for (<input type=\"text\" id=\"jInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"jScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"jUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n                System.out.print(\"*\");\n            }\n            System.out.println();\n        }\n    }\n}', NULL, NULL),
 (3, 2, 'public class StarPatterns {\n    public static void main(String[] args) {\n        int n = $variable; // 階層\n\n        for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n            for (<input type=\"text\" id=\"jInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"jScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"jUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n                System.out.print(\"*\");\n            }\n            System.out.println();\n        }\n    }\n}', NULL, NULL),
 (4, 2, 'public class StarPatterns {\n    public static void main(String[] args) {\n        int n = $variable; \n\n        for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n            for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n                System.out.print(\" \");\n            }\n            for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n                System.out.print(\"*\");\n            }\n            System.out.println();\n        }\n    }\n}', NULL, NULL),
 (5, 2, 'public class StarPatterns {\n    public static void main(String[] args) {\n        int n = $variable; \n\n        for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n            for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n                System.out.print(\" \");\n            }\n            for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n                System.out.print(\"*\");\n            }\n            System.out.println();\n        }\n    }\n}', NULL, NULL),
 (6, 3, 'public class StarPatterns {\n    public static void main(String[] args) {\n        int n = $variable; // 今日進城人數\n\n        for(<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">; <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">; <input type=\"text\" id=\"addInit\" placeholder=\"\" oninput=\"autoResize(this)\">){\n\n            // 判斷是否為怪物\n            if (x == <input type=\"text\" id=\"monstarInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n                <input type=\"text\" id=\"noInit\" placeholder=\"\" oninput=\"autoResize(this)\"> // 印出禁止進入\n            }\n\n            else {\n                <input type=\"text\" id=\"freeInit\" placeholder=\"\" oninput=\"autoResize(this)\"> // 印出免費進入\n            }\n        }\n    }\n}', NULL, NULL),
 (7, 4, 'public class Main {\n    public static void main(String[] args) {\n        int material1 = $variable1;\n        int material2 = $variable2;\n\n        // 判斷治癒藥水的配方條件\n        if (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;) {\n            System.out.println(\"治癒藥水的配方條件成立。\");\n        }\n    }\n}|材料一 (material1) 需大於等於 20 且小於 50，並且材料二 (material2) 小於 30。', NULL, NULL),
-(8, 5, 'public class Main {\n    public static void main(String[] args) {\n        int n = $variable1;\n        int a = $variable2;\n\n        for(<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n            boolean isPrime = true; // 假設 i 是質數\n\n            for(<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">; <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">; <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">)\n            {\n                if(<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">)\n                {\n                    // 如果可以被整除，i 不是質數\n                    isPrime = false;\n                    break; // 不需要繼續檢查\n                }\n            }\n            // 如果是質數並且小於 a，則印出\n            if(<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n                System.out.printf(\"%d\\t\", i);\n            }\n        }\n    }\n}', NULL, NULL),
+(8, 5, 'public class Main {\n    public static void main(String[] args) {\n        int n = $variable1;\n        int a = $variable2;\n\n        for(int i = $variable3;<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n            boolean isPrime = true; // 假設 i 是質數\n\n            for(<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">; <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">; <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">)\n            {\n                if(<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">)\n                {\n                    // 如果可以被整除，i 不是質數\n                    isPrime = false;\n                    break; // 不需要繼續檢查\n                }\n            }\n            // 如果是質數並且小於 a，則印出\n            if(<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n                System.out.printf(\"%d\\t\", i);\n            }\n        }\n    }\n}', NULL, NULL),
 (9, 4, 'public class Main {\n    public static void main(String[] args) {\n        int material1 = $variable1;\n        int material2 = $variable2;\n\n        // 判斷治癒藥水的配方條件\n        if (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;) {\n            System.out.println(\"治癒藥水的配方條件成立。\");\n        }\n    }\n}|材料一 (material1) 大於 10 且小於等於 40，或者材料二 (material2) 大於 20。', NULL, NULL),
 (10, 4, 'public class Main {\n    public static void main(String[] args) {\n        int material1 = $variable1;\n        int material2 = $variable2;\n\n        // 判斷治癒藥水的配方條件\n        if (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;) {\n            System.out.println(\"治癒藥水的配方條件成立。\");\n        }\n    }\n}|材料一 (material1) 小於 40。', NULL, NULL),
-(11, 4, 'public class Main {\n    public static void main(String[] args) {\n        int material1 = $variable1;\n        int material2 = $variable2;\n\n        // 判斷治癒藥水的配方條件\n        if (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;) {\n            System.out.println(\"治癒藥水的配方條件成立。\");\n        }\n    }\n}|配方表(條件變數)：材料二 (material2) 大於 10 且小於等於 40。', NULL, NULL);
+(11, 4, 'public class Main {\n    public static void main(String[] args) {\n        int material1 = $variable1;\n        int material2 = $variable2;\n\n        // 判斷治癒藥水的配方條件\n        if (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;) {\n            System.out.println(\"治癒藥水的配方條件成立。\");\n        }\n    }\n}|配方表(條件變數)：材料二 (material2) 大於 10 且小於等於 40。', NULL, NULL),
+(12, 6, '<pre>\r\npublic class Main {\r\n    public static void main(String[] args) {\r\n        int number = $variable;\r\n        int result = 0;    // 儲存解碼後的結果\r\n\r\n        // 提取個位數字\r\n        int digit = <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;  // 提取個位數字\r\n\r\n        // 根據個位數字進行解碼\r\n        if (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n            result = <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\r\n        } else {\r\n            result = <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\r\n        }\r\n\r\n        // 輸出解碼後的結果\r\n        System.out.println(\"個位數字解碼後的結果是: \" + result);\r\n    }\r\n}\r\n</pre>|個位數\r\n', NULL, NULL),
+(13, 7, '<pre>\npublic class Main {\n    public static void main(String[] args) {\n        int tower = $variable;\n        int totalOil = 1;\n\n        System.out.println(\"層數: \" + tower);\n\n        // 計算油塔的油罐\n        int floor = 1; // 初始化當前樓層數\n        while (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;) {\n            // 每層有不同的油罐公式 (條件變數)\n            if (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;) {\n                totalOil -= 2;  // 奇數層減少2罐油罐\n            } else {\n                totalOil *= 2;  // 偶數層雙倍油罐\n            }\n            <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\n        }\n\n        System.out.println(\"油塔油量: \" + totalOil);\n    }\n}\n</pre>', NULL, NULL),
+(14, 8, '<pre>\npublic class Main {\n    public static void main(String[] args) {\n        // 假設敵人類型和來自題目說明(變數)\n        int enemyType = \"$variable\";\n\n        // 根據敵人類型選擇攻擊狀態\n        switch (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n            case \"<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">\":\n                <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\n                break;\n            case \"<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">\":\n                <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\n                break;\n            case \"<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">\":\n                <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\n                break;\n            default:\n                <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\n                break;\n        }\n        System.out.println(\"你的敵人為：\" + enemyType);\n    }\n}\n</pre>\n|魔女', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1164,7 +1142,6 @@ INSERT INTO `sec_parameters` (`id`, `secGameID`, `template_code`, `created_at`, 
 -- 資料表結構 `sec_records`
 --
 
-DROP TABLE IF EXISTS `sec_records`;
 CREATE TABLE `sec_records` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
@@ -1188,7 +1165,7 @@ TRUNCATE TABLE `sec_records`;
 --
 
 INSERT INTO `sec_records` (`id`, `user_id`, `secParameterID`, `time`, `parameter`, `status`, `counter`, `created_at`, `updated_at`, `user_answer`) VALUES
-(101, 1, 3, '00:00:00', '{\"variable\":5}', 'watched', 10, '2024-10-06 14:27:23', '2024-10-08 05:28:41', NULL),
+(101, 1, 3, '00:00:00', '{\"variable\":5}', 'watched', 11, '2024-10-06 14:27:23', '2024-10-13 08:28:16', NULL),
 (102, 1, 3, '00:00:00', '{\"variable\":5}', 'true', 2, '2024-10-06 14:27:23', '2024-10-06 14:29:32', '[{\"order\":1,\"userAnswer\":\"int i = n\"},{\"order\":2,\"userAnswer\":\"i >= 1\"},{\"order\":3,\"userAnswer\":\"i--\"},{\"order\":4,\"userAnswer\":\"int j =1\"},{\"order\":5,\"userAnswer\":\"j <= 2 * i - 1\"},{\"order\":6,\"userAnswer\":\"j++\"}]'),
 (103, 1, 3, '00:00:00', '{\"variable\":5}', 'false', 0, '2024-10-06 14:27:23', '2024-10-06 14:27:23', NULL),
 (104, 1, 3, '00:00:00', '{\"variable\":5}', 'watch_again', 0, '2024-10-06 14:27:23', '2024-10-06 14:27:23', NULL),
@@ -1196,18 +1173,14 @@ INSERT INTO `sec_records` (`id`, `user_id`, `secParameterID`, `time`, `parameter
 (106, 1, 6, '00:00:00', '{\"variable\":5,\"idCardsData\":[{\"gender\":\"\\u7537\",\"identity\":\"\\u5546\\u4eba\",\"age\":45},{\"gender\":\"\\u7537\",\"identity\":\"\\u602a\\u7269\",\"age\":31},{\"gender\":\"\\u5973\",\"identity\":\"\\u602a\\u7269\",\"age\":45},{\"gender\":\"\\u5973\",\"identity\":\"\\u5546\\u4eba\",\"age\":33},{\"gender\":\"\\u7537\",\"identity\":\"\\u602a\\u7269\",\"age\":20}]}', 'true', 0, '2024-10-06 14:27:27', '2024-10-06 14:27:27', NULL),
 (107, 1, 6, '00:00:00', '{\"variable\":5,\"idCardsData\":[{\"gender\":\"\\u7537\",\"identity\":\"\\u5546\\u4eba\",\"age\":45},{\"gender\":\"\\u7537\",\"identity\":\"\\u602a\\u7269\",\"age\":31},{\"gender\":\"\\u5973\",\"identity\":\"\\u602a\\u7269\",\"age\":45},{\"gender\":\"\\u5973\",\"identity\":\"\\u5546\\u4eba\",\"age\":33},{\"gender\":\"\\u7537\",\"identity\":\"\\u602a\\u7269\",\"age\":20}]}', 'false', 0, '2024-10-06 14:27:27', '2024-10-06 14:27:27', NULL),
 (108, 1, 6, '00:00:00', '{\"variable\":5,\"idCardsData\":[{\"gender\":\"\\u7537\",\"identity\":\"\\u5546\\u4eba\",\"age\":45},{\"gender\":\"\\u7537\",\"identity\":\"\\u602a\\u7269\",\"age\":31},{\"gender\":\"\\u5973\",\"identity\":\"\\u602a\\u7269\",\"age\":45},{\"gender\":\"\\u5973\",\"identity\":\"\\u5546\\u4eba\",\"age\":33},{\"gender\":\"\\u7537\",\"identity\":\"\\u602a\\u7269\",\"age\":20}]}', 'watch_again', 0, '2024-10-06 14:27:27', '2024-10-06 14:27:27', NULL),
-(109, 1, 1, '00:00:00', '{\"variable\":4564}', 'watched', 1, '2024-10-06 14:27:30', '2024-10-06 14:27:30', NULL),
-(110, 1, 1, '00:00:00', '{\"variable\":4564}', 'true', 0, '2024-10-06 14:27:30', '2024-10-06 14:27:30', NULL),
-(111, 1, 1, '00:00:00', '{\"variable\":4564}', 'false', 0, '2024-10-06 14:27:30', '2024-10-06 14:27:30', NULL),
-(112, 1, 1, '00:00:00', '{\"variable\":4564}', 'watch_again', 0, '2024-10-06 14:27:30', '2024-10-06 14:27:30', NULL),
-(113, 1, 11, '00:00:00', '{\"variable\":\"12,34\"}', 'watched', 1, '2024-10-06 14:27:35', '2024-10-06 14:27:35', NULL),
-(114, 1, 11, '00:00:00', '{\"variable\":\"12,34\"}', 'true', 0, '2024-10-06 14:27:35', '2024-10-06 14:27:35', NULL),
-(115, 1, 11, '00:00:00', '{\"variable\":\"12,34\"}', 'false', 0, '2024-10-06 14:27:35', '2024-10-06 14:27:35', NULL),
-(116, 1, 11, '00:00:00', '{\"variable\":\"12,34\"}', 'watch_again', 0, '2024-10-06 14:27:35', '2024-10-06 14:27:35', NULL),
 (117, 1, 8, '00:00:00', '{\"variable\":\"90,61\"}', 'watched', 1, '2024-10-06 14:27:41', '2024-10-06 14:27:41', NULL),
 (118, 1, 8, '00:00:00', '{\"variable\":\"90,61\"}', 'true', 0, '2024-10-06 14:27:41', '2024-10-06 14:27:41', NULL),
 (119, 1, 8, '00:00:00', '{\"variable\":\"90,61\"}', 'false', 0, '2024-10-06 14:27:41', '2024-10-06 14:27:41', NULL),
-(120, 1, 8, '00:00:00', '{\"variable\":\"90,61\"}', 'watch_again', 0, '2024-10-06 14:27:41', '2024-10-06 14:27:41', NULL);
+(120, 1, 8, '00:00:00', '{\"variable\":\"90,61\"}', 'watch_again', 0, '2024-10-06 14:27:41', '2024-10-06 14:27:41', NULL),
+(157, 1, 1, '00:00:00', '{\"variable\":\"hvkCKeajtHEsDQ74rFtEIoRFWiRf9Gco5HHmUI4c6eTZr4qn\"}', 'watched', 1, '2024-10-19 04:42:18', '2024-10-19 04:42:18', NULL),
+(158, 1, 1, '00:00:00', '{\"variable\":\"hvkCKeajtHEsDQ74rFtEIoRFWiRf9Gco5HHmUI4c6eTZr4qn\"}', 'true', 0, '2024-10-19 04:42:18', '2024-10-19 04:42:18', NULL),
+(159, 1, 1, '00:00:00', '{\"variable\":\"hvkCKeajtHEsDQ74rFtEIoRFWiRf9Gco5HHmUI4c6eTZr4qn\"}', 'false', 0, '2024-10-19 04:42:18', '2024-10-19 04:42:18', NULL),
+(160, 1, 1, '00:00:00', '{\"variable\":\"hvkCKeajtHEsDQ74rFtEIoRFWiRf9Gco5HHmUI4c6eTZr4qn\"}', 'watch_again', 0, '2024-10-19 04:42:18', '2024-10-19 04:42:18', NULL);
 
 -- --------------------------------------------------------
 
@@ -1215,7 +1188,6 @@ INSERT INTO `sec_records` (`id`, `user_id`, `secParameterID`, `time`, `parameter
 -- 資料表結構 `sessions`
 --
 
-DROP TABLE IF EXISTS `sessions`;
 CREATE TABLE `sessions` (
   `id` varchar(255) NOT NULL,
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -1235,7 +1207,8 @@ TRUNCATE TABLE `sessions`;
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('J5kk0Lffqbnlj65AiMfTToY3n1vwCwBwo9QRTe0a', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiQ0FPZkh5RXdadUgxeDNMbVhHSDdyb3hac1Rod2NTS1g0dW9jcTRxdiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC93ZWxjb21lIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czozOiJ1cmwiO2E6MDp7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoyMToicGFzc3dvcmRfaGFzaF9zYW5jdHVtIjtzOjYwOiIkMnkkMTIkQUNPa1FVczR5TlcyRzlDYUtCcTBDdUpTdjhxRGZreDlUTTNiRER6NlIzQnZOd1RTWjd4V1MiO30=', 1728394390);
+('gBWZsP7rwXtfW9DTwKr8QMHkKjxx1aWDnxKSSwnW', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiN2xVRndwNWx2VkNTcFlNbm1GNldvMVdRaDdWdk9FSXJjWlNORUl6cyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjQ5OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAva25vd2xlZGdlY2FyZC8yP2NhcmRfdHlwZT0xIjt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjIxOiJwYXNzd29yZF9oYXNoX3NhbmN0dW0iO3M6NjA6IiQyeSQxMiRBQ09rUVVzNHlOVzJHOUNhS0JxMEN1SlN2OHFEZmt4OVRNM2JERHo2UjNCdk53VFNaN3hXUyI7fQ==', 1728848349),
+('gCZJJWiH9MLMp9VIWWIZ04ooKEPyt7jkz5g15Dvh', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiODRoeUdIZmRWcm1LVnI2Wlg2eWhZUU9nSUEzR0FZdzk1UHR2MGNGaCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9jb3VudHJ5LzIvc2VjR2FtZUlELzEiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjM6InVybCI7YTowOnt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjIxOiJwYXNzd29yZF9oYXNoX3NhbmN0dW0iO3M6NjA6IiQyeSQxMiRBQ09rUVVzNHlOVzJHOUNhS0JxMEN1SlN2OHFEZmt4OVRNM2JERHo2UjNCdk53VFNaN3hXUyI7fQ==', 1729341759);
 
 -- --------------------------------------------------------
 
@@ -1243,7 +1216,6 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 -- 資料表結構 `users`
 --
 
-DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -1286,7 +1258,6 @@ INSERT INTO `users` (`id`, `email`, `email_verified_at`, `password`, `two_factor
 -- 資料表結構 `user_knowledge_cards`
 --
 
-DROP TABLE IF EXISTS `user_knowledge_cards`;
 CREATE TABLE `user_knowledge_cards` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -1325,7 +1296,6 @@ INSERT INTO `user_knowledge_cards` (`id`, `user_id`, `knowledge_card_id`, `watch
 -- 資料表結構 `user_records`
 --
 
-DROP TABLE IF EXISTS `user_records`;
 CREATE TABLE `user_records` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -1409,7 +1379,6 @@ INSERT INTO `user_records` (`id`, `user_id`, `question_id`, `watchtime`, `create
 -- 資料表結構 `user_record_details`
 --
 
-DROP TABLE IF EXISTS `user_record_details`;
 CREATE TABLE `user_record_details` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_record_id` bigint(20) UNSIGNED NOT NULL,
@@ -1749,13 +1718,13 @@ ALTER TABLE `sec_games`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `sec_parameters`
 --
 ALTER TABLE `sec_parameters`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `sec_records`
 --
 ALTER TABLE `sec_records`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=161;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `users`
