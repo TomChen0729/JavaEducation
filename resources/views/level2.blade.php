@@ -63,7 +63,7 @@
         <div class="row">
             <div class="col-md-12">
                 @foreach ($iconData as $item)
-                    <div class="button" data-index="{{ $iconData }} " data-secgameid="{{ $item['secGameID'] }}" data-status="{{ $item['status'] }}">
+                <div class="button" data-index="{{ $loop->index }}" data-secgameid="{{ $item['secGameID'] }}" data-status="{{ $item['status'] }}">
                         <a href="{{ route('sec.GameChoose', ['country_id' => $currentCountry, 'secGameID' => $item['secGameID']]) }}">
                             <img src="/images/country2choose/{{ $item['imgPath'] }}" alt="Button">
                         </a>
@@ -74,6 +74,7 @@
     </div>
 </body>
 <script>
+
 document.addEventListener('DOMContentLoaded', function() {
     var userNeedCards = document.getElementById('userNeedCards');
     if (userNeedCards) {
@@ -94,14 +95,16 @@ function setButtonPositions() {
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
 
-    buttons.forEach((button, iconData) => {
+    buttons.forEach((button, index) => {
+        const status = button.getAttribute('data-status'); // 獲取 status
+        console.log(`Button ${index + 1}: status = ${status}`);
         const img = button.querySelector('img'); // 獲取 img
         img.style.position = 'absolute';
         img.style.width = '20%'; 
         img.style.height = 'auto';
 
         // 根據螢幕大小調位置
-        switch (iconData) {
+        switch (index) {
             case 0:
                 img.style.top = `${screenHeight * 0.45}px`;
                 img.style.left = `${screenWidth * 0.39}px`;
@@ -141,6 +144,47 @@ function setButtonPositions() {
             default:
                 break;
         }
+
+        switch (status) {
+            case '1':
+                
+                break;
+            case '':
+                img.style.opacity = '0.2';
+                button.querySelector('a').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('尚未解鎖');
+                });
+                break;
+            case 'pass':
+                const completedLabel = document.createElement('span');
+                completedLabel.innerText = '已通關';
+                completedLabel.style.position = 'absolute';
+                completedLabel.style.transform = 'translateX(-50%)'; 
+                completedLabel.style.color = 'green';
+                completedLabel.style.fontSize = '48px';
+                completedLabel.style.fontWeight = 'bold';
+                completedLabel.style.backgroundColor = 'white';
+                completedLabel.style.padding = '5px';
+                completedLabel.style.borderRadius = '5px';
+                completedLabel.style.pointerEvents = 'none';
+                button.style.position = 'relative';
+
+                // 計算圖片的位置
+                const imgRect = img.getBoundingClientRect();
+                const imgCenterX = imgRect.left + imgRect.width / 2;
+                const imgCenterY = imgRect.top + imgRect.height / 2;
+
+                completedLabel.style.top = `${imgCenterY}px`; // 設在圖片中心
+                completedLabel.style.left = `${imgCenterX}px`;
+                completedLabel.style.transform = 'translate(-72%, -50%)';
+
+                
+                button.appendChild(completedLabel); // 添加標籤到按鈕
+                break;
+            default:
+                break;
+        }
     });
 }
 
@@ -150,95 +194,5 @@ document.addEventListener('DOMContentLoaded', setButtonPositions);
 // 當窗口大小改變時重新設置按鈕位置
 window.addEventListener('resize', setButtonPositions);
 
-//3種樣式
-document.querySelectorAll('.button').forEach(button, iconData => {
-    const secGameID = button.getAttribute('data-secgameid');
-    const status = button.getAttribute('data-status');
-    const img = button.querySelector('img');
-
-    switch (status) {
-        case 'true':
-
-            break;
-        case 'false':
-            img.style.opacity = '0.2';
-            button.querySelector('a').addEventListener('click', function(e) {
-                e.preventDefault();
-                alert('尚未解鎖');
-            });
-            break;
-        case 'completed':
-            const completedLabel = document.createElement('span');
-            completedLabel.innerText = '已通關';
-            completedLabel.style.position = 'absolute';
-            completedLabel.style.top = '10px';
-            completedLabel.style.left = '50%';
-            completedLabel.style.transform = 'translateX(-50%)'; 
-            completedLabel.style.color = 'green';
-            completedLabel.style.fontSize = '20px';
-            completedLabel.style.fontWeight = 'bold';
-            completedLabel.style.backgroundColor = 'rgba(255, 255, 255, 0.7)';
-            completedLabel.style.padding = '5px';
-            completedLabel.style.borderRadius = '5px';
-            completedLabel.style.pointerEvents = 'none';
-
-            switch (iconData) {
-                case 0:
-                    completedLabel.style.top = `${screenHeight * 0.40}px`;
-                    completedLabel.style.left = `${screenWidth * 0.39}px`;
-                    completedLabel.style.transform = 'translateX(-50%)'; 
-                    break;
-                case 1:
-                    completedLabel.style.top = `${screenHeight * 0.10}px`;
-                    completedLabel.style.left = `${screenWidth * 0.68}px`;
-                    completedLabel.style.transform = 'translateX(-50%)';
-                    break;
-                case 2:
-                    completedLabel.style.top = `${screenHeight * 0.40}px`;
-                    completedLabel.style.left = `${screenWidth * 0.10}px`;
-                    completedLabel.style.transform = 'translateX(-50%)';
-                    break;
-                case 3:
-                    completedLabel.style.top = `${screenHeight * 0.05}px`;
-                    completedLabel.style.left = `${screenWidth * 0.38}px`;
-                    completedLabel.style.transform = 'translateX(-50%)';
-                    break;
-                case 4:
-                    completedLabel.style.top = `${screenHeight * 0.05}px`;
-                    completedLabel.style.left = `${screenWidth * 0.05}px`;
-                    completedLabel.style.transform = 'translateX(-50%)';
-                    break;
-                case 5:
-                    completedLabel.style.top = `${screenHeight * 0.70}px`;
-                    completedLabel.style.left = `${screenWidth * 0.39}px`;
-                    completedLabel.style.transform = 'translateX(-50%)';
-                    break;
-                case 6:
-                    completedLabel.style.top = `${screenHeight * 0.70}px`;
-                    completedLabel.style.left = `${screenWidth * 0.10}px`;
-                    completedLabel.style.transform = 'translateX(-50%)';
-                    break;
-                case 7:
-                    completedLabel.style.top = `${screenHeight * 0.70}px`;
-                    completedLabel.style.left = `${screenWidth * 0.75}px`;
-                    completedLabel.style.transform = 'translateX(-50%)';
-                    break;
-                case 8:
-                    completedLabel.style.top = `${screenHeight * 0.40}px`;
-                    completedLabel.style.left = `${screenWidth * 0.70}px`;
-                    completedLabel.style.transform = 'translateX(-50%)';
-                    break;
-                default:
-                    break;
-            }
-
-            button.style.position = 'relative';
-            button.appendChild(completedLabel); // 添加標籤到按鈕
-            break;
-        default:
-
-            break;
-    }
-});
 </script>
 </html>
