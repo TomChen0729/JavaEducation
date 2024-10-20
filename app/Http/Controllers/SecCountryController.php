@@ -445,10 +445,10 @@ class SecCountryController extends Controller
                 // 定義我要產生密碼的字元範圍
                 $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
                 // 取得上面的那個字串的長度
-                $charactersLength = strlen(string: $characters);
+                $charactersLength = strlen($characters);
 
                 // 產生隨機長度，至少為 1 且不超過$characters的長度，放1是避免產生空字串
-                $length = rand(1, $charactersLength);
+                $length = rand(4, 5);
 
                 $variable = '';
 
