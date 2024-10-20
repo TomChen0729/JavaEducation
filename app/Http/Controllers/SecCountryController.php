@@ -156,6 +156,35 @@ class SecCountryController extends Controller
                 switch ($secGameID) {
                     // 從記錄表撈玩過的，如果最近一次有玩的參數先導入(寫一個function)
                     // 如果沒玩過或是全對的話，隨便random
+                    case 1: // 通關密碼(要修改)
+                        if ($userRecords->isEmpty()) {
+                            // 隨機產生的密碼
+                            $passwordGameQuestion = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
+                                ->where('country_id', $country_id)
+                                ->where('sec_games.id', $secGameID)
+                                ->inRandomOrder()->first();
+                            $template_Code = $passwordGameQuestion->template_code;
+                            $templateCodeArray = explode('|', $template_Code);
+                            $templateCode = $templateCodeArray[0];
+                            $passwordtype = $templateCodeArray[1];
+                            $variable = $this->passwordsGenerator($passwordtype);
+                            // 紀錄這筆資料
+                            $this->recordWatchedParameter($passwordGameQuestion->id, ['variable' => $variable]);
+                            return view('game.country2.password', ['passwordGameQuestion' => $passwordGameQuestion, 'variable' => $variable, 'templateCode' => $templateCode]);
+                        } else {
+                            //解碼json字符串類型
+                            $parameterJson = $userRecords->pluck(value: 'parameter')->first();
+                            $parameterArray = json_decode($parameterJson, true);
+                            $variable = $parameterArray['variable'];
+                            //儲存當前的題目id
+                            $secParameterID = $userRecords->first()->secParameterID;
+                            $passwordGameQuestion = SecGame::join('sec_parameters', 'sec_games.id', '=', 'sec_parameters.secGameID')
+                                ->where('sec_parameters.id', $secParameterID)->first();
+                            $template_Code = $passwordGameQuestion->template_code;
+                            $templateCodeArray = explode('|', $template_Code);
+                            $templateCode = $templateCodeArray[0];
+                            return view('game.country2.password', ['passwordGameQuestion' => $passwordGameQuestion, 'variable' => $variable, 'templateCode' => $templateCode]);
+                        }
                     case 2:
                         if ($userRecords->isEmpty()) {
                             // 三角形層數變數
@@ -224,35 +253,6 @@ class SecCountryController extends Controller
                             $templateCode = $idCardQuestion->template_code;
                             $templateCode = str_replace('$variable', $variable, $templateCode);
                             return view('game.country2.idcardgame', ['idCardGameQuestion' => $idCardQuestion, 'templateCode' => $templateCode, 'variable' => $variable, 'idCardsData' => $idCardsData]);
-                        }
-                    case 1: // 通關密碼(要修改)
-                        if ($userRecords->isEmpty()) {
-                            // 隨機產生的密碼
-                            $passwordGameQuestion = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
-                                ->where('country_id', $country_id)
-                                ->where('sec_games.id', $secGameID)
-                                ->inRandomOrder()->first();
-                            $template_Code = $passwordGameQuestion->template_code;
-                            $templateCodeArray = explode('|', $template_Code);
-                            $templateCode = $templateCodeArray[0];
-                            $passwordtype = $templateCodeArray[1];
-                            $variable = $this->passwordsGenerator($passwordtype);
-                            // 紀錄這筆資料
-                            $this->recordWatchedParameter($passwordGameQuestion->id, ['variable' => $variable]);
-                            return view('game.country2.password', ['passwordGameQuestion' => $passwordGameQuestion, 'variable' => $variable, 'templateCode' => $templateCode]);
-                        } else {
-                            //解碼json字符串類型
-                            $parameterJson = $userRecords->pluck(value: 'parameter')->first();
-                            $parameterArray = json_decode($parameterJson, true);
-                            $variable = $parameterArray['variable'];
-                            //儲存當前的題目id
-                            $secParameterID = $userRecords->first()->secParameterID;
-                            $passwordGameQuestion = SecGame::join('sec_parameters', 'sec_games.id', '=', 'sec_parameters.secGameID')
-                                ->where('sec_parameters.id', $secParameterID)->first();
-                            $template_Code = $passwordGameQuestion->template_code;
-                            $templateCodeArray = explode('|', $template_Code);
-                            $templateCode = $templateCodeArray[0];
-                            return view('game.country2.password', ['passwordGameQuestion' => $passwordGameQuestion, 'variable' => $variable, 'templateCode' => $templateCode]);
                         }
                     case 4:
                         if ($userRecords->isEmpty()) {
