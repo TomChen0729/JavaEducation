@@ -653,95 +653,72 @@ class SecCountryController extends Controller
             Log::info($currentUser);
             // 存返回錯誤的index
             $wrongIndexArray = [];
-            switch ($parameterID) {
-                case '1':
-                    //進一步解析userAnswer
-                    $userAnswer = $request->input('userAnswer');
-                    // 如過userAnswer不為空的話，逐一對答案，即為有答案的話
-                    if (!empty($userAnswer)) {
-                        $parameterID = $request->input('parameter_id');
-                        // 抓答案出來
-                        $answerData = $this->pluckAnswer($parameterID);
-                        // 答案與玩家輸入的答案長度若一致
-                        if (count($answerData) == count($userAnswer)) {
-                            foreach ($answerData as $ansData) {
-                                foreach ($userAnswer as $userAns) {
-                                    if ($userAns['order'] == $ansData['order']) {
-                                        if (preg_match('/' . str_replace('\\\\', '\\', $ansData['ans_patterns']) . '/', $userAns['userAnswer'])) {
-                                            // 匹配成功就跳出內層迴圈繼續對下一個使用者的答案
-                                            break;
-                                        } else {
-                                            array_push($wrongIndexArray, $userAns['order']);
-                                        }
-                                    }
+            //進一步解析userAnswer
+            $userAnswer = $request->input('userAnswer');
+            // 如過userAnswer不為空的話，逐一對答案，即為有答案的話
+            if (!empty($userAnswer)) {
+                $parameterID = $request->input('parameter_id');
+                // 抓答案出來
+                $answerData = $this->pluckAnswer($parameterID);
+                // 答案與玩家輸入的答案長度若一致
+                if (count($answerData) == count($userAnswer)) {
+                    foreach ($answerData as $ansData) {
+                        foreach ($userAnswer as $userAns) {
+                            if ($userAns['order'] == $ansData['order']) {
+                                if (preg_match('/' . str_replace('\\\\', '\\', $ansData['ans_patterns']) . '/', $userAns['userAnswer'])) {
+                                    // 匹配成功就跳出內層迴圈繼續對下一個使用者的答案
+                                    break;
+                                } else {
+                                    array_push($wrongIndexArray, $userAns['order']);
                                 }
                             }
-
-                            if (!empty($wrongIndexArray)) {
-                                $this->WrongUserRecord($currentUser, $parameterID);
-                                return response()->json(['message' => 'wrongAns', 'wrongIndex' => $wrongIndexArray]);
-                            } else {
-                                $this->CorrectUserRecord($currentUser, $parameterID, $userAnswer);
-                                return response()->json(['message' => 'correct']);
-                            }
-                        } else {
-                            return response()->json(['message' => 'Error']);
                         }
-                    } else {
-                        return response()->json(['message' => 'Null']);
                     }
 
-                default:
-                    //進一步解析userAnswer
-                    $userAnswer = $request->input('userAnswer');
-                    // 如過userAnswer不為空的話，逐一對答案，即為有答案的話
-                    if (!empty($userAnswer)) {
-                        $parameterID = $request->input('parameter_id');
-                        // 抓答案出來
-                        $answerData = $this->pluckAnswer($parameterID);
-                        // 答案與玩家輸入的答案長度若一致
-                        if (count($answerData) == count($userAnswer)) {
-                            foreach ($answerData as $ansData) {
-                                foreach ($userAnswer as $userAns) {
-                                    if ($userAns['order'] == $ansData['order']) {
-                                        if (preg_match('/' . str_replace('\\\\', '\\', $ansData['ans_patterns']) . '/', $userAns['userAnswer'])) {
-                                            // 匹配成功就跳出內層迴圈繼續對下一個使用者的答案
-                                            break;
-                                        } else {
-                                            array_push($wrongIndexArray, $userAns['order']);
-                                        }
-                                    }
-                                }
-                            }
-
-                            if (!empty($wrongIndexArray)) {
-                                $this->WrongUserRecord($currentUser, $parameterID);
-                                return response()->json(['message' => 'wrongAns', 'wrongIndex' => $wrongIndexArray]);
-                            } else {
-                                $this->CorrectUserRecord($currentUser, $parameterID, $userAnswer);
-                                return response()->json(['message' => 'correct']);
-                            }
-                        } else {
-                            return response()->json(['message' => 'Error']);
-                        }
+                    if (!empty($wrongIndexArray)) {
+                        $this->WrongUserRecord($currentUser, $parameterID);
+                        return response()->json(['message' => 'wrongAns', 'wrongIndex' => $wrongIndexArray]);
                     } else {
-                        return response()->json(['message' => 'Null']);
+                        $this->CorrectUserRecord($currentUser, $parameterID, $userAnswer);
+                        return response()->json(['message' => 'correct']);
                     }
+                } else {
+                    return response()->json(['message' => 'Error']);
+                }
+            } else {
+                return response()->json(['message' => 'Null']);
             }
-        } else {
-            return response()->json(['message' => 'http method error!!']);
         }
     }
 
     public function pluckAnswer(int $secParameterID)
     {
         if (!empty($secParameterID)) {
+            Log::info(message: 'parameter' . $secParameterID);
             $answerData = SecAnswer::where('secParameterID', $secParameterID)->get();
-            if (!empty($answerData)) {
-                Log::info('ans' . $answerData);
-                return $answerData;
+            if ($secParameterID == 1) {
+                if (!empty($answerData)) {
+                    $parameterJson = SecRecord::where('secParameterID', $secParameterID)->pluck('parameter')->first();
+                    $parameterArray = json_decode($parameterJson, true);
+                    $variable = $parameterArray['variable'];
+                    $Answer = new SecAnswer([
+                        'secParameterID' => $secParameterID,
+                        'order' => 2,
+                        'ans_patterns' => $variable,
+                    ]);
+                    $answerData->push($Answer);
+                    Log::info(message: 'ans' . $answerData);
+                    return $answerData;
+                } else {
+                    return null;
+                }
             } else {
-                return null;
+                if (!empty($answerData)) {
+                    Log::info('ans' . $answerData);
+                    return $answerData;
+                } else {
+                    return null;
+                }
             }
         } else {
             return null;

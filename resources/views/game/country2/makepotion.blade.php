@@ -521,6 +521,7 @@
     <!-- JavaScript -->
     <script>
         var parameter_id = parseInt('{{ $makepotionQuestion->id }}');
+        console.log('parameterID:' + parameter_id);
         // 畫面載入後顯示彈跳視窗
         function togglePopup1() {
             document.getElementById("popup").classList.toggle("active");
