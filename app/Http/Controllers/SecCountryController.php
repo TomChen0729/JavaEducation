@@ -171,7 +171,21 @@ class SecCountryController extends Controller
                             // 紀錄這筆資料
                             $this->recordWatchedParameter($passwordGameQuestion->id, ['variable' => $variable]);
                             return view('game.country2.password', ['passwordGameQuestion' => $passwordGameQuestion, 'variable' => $variable, 'templateCode' => $templateCode]);
-                        } else {
+                        } else if($result == 'truerecord'){
+                            //解碼json字符串類型
+                            $parameterJson = $userRecords->pluck(value: 'parameter')->first();
+                            $parameterArray = json_decode($parameterJson, true);
+                            $variable = $parameterArray['variable'];
+                            //儲存當前的題目id
+                            $secParameterID = $userRecords->first()->secParameterID;
+                            $passwordGameQuestion = SecGame::join('sec_parameters', 'sec_games.id', '=', 'sec_parameters.secGameID')
+                                ->where('sec_parameters.id', $secParameterID)->first();
+                            $template_Code = $passwordGameQuestion->template_code;
+                            $templateCodeArray = explode('|', $template_Code);
+                            $templateCode = $templateCodeArray[0];
+                            return view('game.country2.password', ['passwordGameQuestion' => $passwordGameQuestion, 'variable' => $variable, 'templateCode' => $templateCode,'userAnswers' => $userAnswers]);
+                        }
+                        else {
                             //解碼json字符串類型
                             $parameterJson = $userRecords->pluck(value: 'parameter')->first();
                             $parameterArray = json_decode($parameterJson, true);
@@ -648,7 +662,6 @@ class SecCountryController extends Controller
     {
         if ($request->isMethod('POST')) {
             // 從回傳的json解析題目資訊，因為每題的答案不一樣
-            $parameterID = $request->input('parameterID');
             $currentUser = $request->input('currentUser');
             Log::info($currentUser);
             // 存返回錯誤的index
@@ -659,7 +672,7 @@ class SecCountryController extends Controller
             if (!empty($userAnswer)) {
                 $parameterID = $request->input('parameter_id');
                 // 抓答案出來
-                $answerData = $this->pluckAnswer($parameterID);
+                $answerData = $this->pluckAnswer($parameterID, $currentUser);
                 // 答案與玩家輸入的答案長度若一致
                 if (count($answerData) == count($userAnswer)) {
                     foreach ($answerData as $ansData) {
@@ -691,21 +704,30 @@ class SecCountryController extends Controller
         }
     }
 
-    public function pluckAnswer(int $secParameterID)
+    public function pluckAnswer(int $secParameterID, int $currentUser)
     {
         if (!empty($secParameterID)) {
             Log::info(message: 'parameter' . $secParameterID);
-            $answerData = SecAnswer::where('secParameterID', $secParameterID)->get();
-            if ($secParameterID == 1) {
+            $answerData = SecAnswer::where('secParameterID', $secParameterID)
+                                        ->select('order as order', 'ans_patterns as ans_patterns')->get()
+                                        ->map(function($item){
+                                            return [
+                                                'order' => $item->order,
+                                                'ans_patterns' => $item->ans_patterns,
+                                            ];
+                                        });
+            if ($secParameterID == 1 || $secParameterID == 2 || $secParameterID == 3) {
                 if (!empty($answerData)) {
-                    $parameterJson = SecRecord::where('secParameterID', $secParameterID)->pluck('parameter')->first();
+                    $parameterJson = SecRecord::where('secParameterID', $secParameterID)
+                                    ->where('user_id', $currentUser)
+                                    ->where('status', 'watched')
+                                    ->pluck('parameter')->first();
                     $parameterArray = json_decode($parameterJson, true);
                     $variable = $parameterArray['variable'];
-                    $Answer = new SecAnswer([
-                        'secParameterID' => $secParameterID,
+                    $Answer = [
                         'order' => 2,
                         'ans_patterns' => $variable,
-                    ]);
+                    ];
                     $answerData->push($Answer);
                     Log::info(message: 'ans' . $answerData);
                     return $answerData;
