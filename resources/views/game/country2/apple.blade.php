@@ -380,7 +380,7 @@
                     <hr>
                 </p>
                 <p>
-                    {{ $appleQuestion -> game_explanation }}
+                    {{ $appleQuestion -> pre_story }}
                 </p>
             </div>
         </div>
@@ -417,7 +417,7 @@
         <div class="question">
             <div class="box">
                 <div class="box-inner">
-                    <p>{{ $appleQuestion -> pre_story }}</p>
+                    <p>{{ $appleQuestion -> game_explanation }}</p>
                 </div>
             </div>
         </div>

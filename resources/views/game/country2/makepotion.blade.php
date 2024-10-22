@@ -447,7 +447,7 @@
                     <hr>
                 </p>
                 <p>
-                    {{ $makepotionQuestion -> game_explanation }}
+                    {{ $makepotionQuestion -> pre_story }}
                 </p>
             </div>
         </div>
@@ -484,7 +484,7 @@
         <div class="row">
             <div class="col-md-6 left-container">
                 <div class="question" id="question">
-                    <h5>{{ $makepotionQuestion -> pre_story }}</h5>
+                    <h5> {{ $makepotionQuestion -> game_explanation }}</h5>
                     <ul class="team">
                         <li class="member co-funder">
                             <div class="thumb"><img src="/images/potion/heal.svg"></div>

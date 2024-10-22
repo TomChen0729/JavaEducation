@@ -415,7 +415,7 @@
                     <hr>
                 </p>
                 <p>
-                    {{ $passwordGameQuestion -> game_explanation }}
+                    {{ $passwordGameQuestion -> pre_story }}
                 </p>
             </div>
         </div>
@@ -450,7 +450,7 @@
 
     <div class="containers">
         <div class="question" id="question">
-            <p>{{ $passwordGameQuestion -> pre_story }}</p>
+            <p>{{ $boxGameQuestion -> game_explanation }}</p>
         </div>
         <div class="row">
             <div class="col-md-12 images">

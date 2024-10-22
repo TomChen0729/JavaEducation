@@ -364,7 +364,7 @@
                     <hr>
                 </p>
                 <p>
-                    {{ $fireQuestion -> game_explanation }}
+                    {{ $fireQuestion -> pre_story }}
                 </p>
             </div>
         </div>
@@ -401,7 +401,7 @@
         <div class="row">
             <div class="col-md-6 left-container">
                 <div class="question">
-                    <p>{{ $fireQuestion -> pre_story }}</p>
+                    <p>{{ $fireQuestion -> game_explanation }}</p>
                 </div>
                 <div class="firebg">
                     <div class="fire"></div>
