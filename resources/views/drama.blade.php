@@ -87,6 +87,8 @@
             border-radius: 50%;
         }
 
+        .lion,
+        .monster,
         .creeptree,
         .greendwarf,
         .tinman,
@@ -221,6 +223,12 @@
                 case 'tinman':
                     iconElement.style.backgroundImage = 'url("/images/drama/country{{ $currentCountry }}/role/tinman.svg")';
                     break;
+                case 'lion':
+                    iconElement.style.backgroundImage = 'url("/images/drama/country{{ $currentCountry }}/role/lion.svg")';
+                    break;
+                case 'monster':
+                    iconElement.style.backgroundImage = 'url("/images/drama/country{{ $currentCountry }}/role/monster.svg")';
+                    break;  
             }
 
             chatElement.appendChild(iconElement);

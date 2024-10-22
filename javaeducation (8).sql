@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2024-10-20 09:07:30
+-- 產生時間： 2024-10-22 11:22:28
 -- 伺服器版本： 10.4.32-MariaDB
 -- PHP 版本： 8.2.12
 
@@ -50,8 +50,8 @@ INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
 ('0dfddec41b02894cc83adcdcfca8fac5:timer', 'i:1723816962;', 1723816962),
 ('3dce29dd1498b35a2c31ae0f35a1aacc', 'i:1;', 1719236179),
 ('3dce29dd1498b35a2c31ae0f35a1aacc:timer', 'i:1719236179;', 1719236179),
-('ca6c49a141d86ad9a006978c0300a99e', 'i:1;', 1729402796),
-('ca6c49a141d86ad9a006978c0300a99e:timer', 'i:1729402796;', 1729402796);
+('ca6c49a141d86ad9a006978c0300a99e', 'i:1;', 1729577074),
+('ca6c49a141d86ad9a006978c0300a99e:timer', 'i:1729577074;', 1729577074);
 
 -- --------------------------------------------------------
 
@@ -102,7 +102,9 @@ INSERT INTO `card_types` (`id`, `country_id`, `levels`, `card_type`, `created_at
 (2, 1, 2, '資料輸入輸出', NULL, NULL, '&#x1F503;'),
 (3, 1, 3, '運算子', NULL, NULL, '&#x1F9EE;'),
 (4, 2, 0, '條件語句', NULL, NULL, ''),
-(5, 2, 0, '迴圈控制', NULL, NULL, '');
+(5, 2, 0, '迴圈控制', NULL, NULL, ''),
+(6, 3, 0, '陣列', NULL, NULL, ''),
+(7, 3, 0, '字串', NULL, NULL, '');
 
 -- --------------------------------------------------------
 
@@ -255,7 +257,31 @@ INSERT INTO `dramas` (`id`, `country_id`, `order`, `msg`, `role_icon`, `created_
 (32, 2, 22, '旁白：壞女巫放火，錫人迅速行動', 'narration', NULL, NULL),
 (33, 2, 23, '錫人：快退後，我來滅火！', 'tinman', NULL, NULL),
 (34, 2, 24, '旁白：錫人用手上的斧頭撲滅火焰', 'narration', NULL, NULL),
-(35, 2, 25, '桃樂絲：錫人，真是太感謝你了。你救了我們。', 'tls', NULL, NULL);
+(35, 2, 25, '桃樂絲：錫人，真是太感謝你了。你救了我們。', 'tls', NULL, NULL),
+(36, 3, 1, '旁白：在陰森的森林裡，桃樂絲和朋友們突然被一隻膽小的獅子攻擊。', 'narration', NULL, NULL),
+(37, 3, 2, '桃樂絲：住手！我們不是來找麻煩的！', 'tls', NULL, NULL),
+(38, 3, 3, '獅子：（哭泣）我只想當萬獸之王，但我卻是一隻膽小的獅子！', 'lion', NULL, NULL),
+(39, 3, 4, '稻草人：跟我們一起去找歐茲法師吧，他能幫你實現願望！', 'scarecrow', NULL, NULL),
+(40, 3, 5, '獅子：真的嗎？我能和你們一起去嗎？', 'lion', NULL, NULL),
+(41, 3, 6, '桃樂絲：當然！一起面對困難！', 'tls', NULL, NULL),
+(42, 3, 7, '旁白：走著走著桃樂絲和夥伴們在陰暗的森林中，遇到了一條巨大的壕溝。', 'narration', NULL, NULL),
+(43, 3, 8, '桃樂絲：我們該怎麼過去？', 'tls', NULL, NULL),
+(44, 3, 9, '稻草人：獅子可以一個個背我們跳過去！', 'scarecrow', NULL, NULL),
+(45, 3, 10, '獅子：好，我會試試看！', 'lion', NULL, NULL),
+(46, 3, 11, '旁白：獅子蹲下，稻草人爬上他的背，獅子跳過壕溝。', 'narration', NULL, NULL),
+(47, 3, 12, '獅子：我做到了！快來，大家都上來！', 'lion', NULL, NULL),
+(48, 3, 13, '旁白：通過壕溝後，他們越來越深入陰暗森林，獅子警告大家小心。', 'narration', NULL, NULL),
+(49, 3, 14, '獅子：這裡是卡力達的地盤，他可不好惹！', 'lion', NULL, NULL),
+(50, 3, 15, '旁白：當他們走到大峽谷時，獅子無法再跳過去。', 'narration', NULL, NULL),
+(51, 3, 16, '稻草人：我們可以砍樹搭一座橋！', 'scarecrow', NULL, NULL),
+(52, 3, 17, '旁白：突然，卡力達從樹林中衝出。', 'narration', NULL, NULL),
+(53, 3, 18, '卡力達：誰敢闖入我的領地？', 'monster', NULL, NULL),
+(54, 3, 19, '稻草人：快過橋！不然就來不及了！', 'scarecrow', NULL, NULL),
+(55, 3, 20, '旁白：獅子面對卡力達，突然吼叫。', 'narration', NULL, NULL),
+(56, 3, 21, '獅子：走開！我不怕你！', 'lion', NULL, NULL),
+(57, 3, 22, '旁白：獅子的吼聲震撼了森林，卡力達被嚇住，獅子迅速過了橋。', 'narration', NULL, NULL),
+(58, 3, 23, '稻草人：快，砍斷橋！', 'scarecrow', NULL, NULL),
+(59, 3, 24, '旁白：轟隆一聲巨響，卡力達掉進了深溝。', 'narration', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -383,7 +409,30 @@ INSERT INTO `knowledge_cards` (`id`, `country_id`, `name`, `content`, `created_a
 (28, 2, 'do…while', 'do…while', NULL, NULL, 5),
 (29, 2, 'if…else if…else', 'if…else if…else', NULL, NULL, 4),
 (30, 2, 'continue', 'continue', NULL, NULL, 5),
-(31, 2, 'break', 'break', NULL, NULL, 5);
+(31, 2, 'break', 'break', NULL, NULL, 5),
+(32, 3, 'Arrays.sort()', 'Arrays.sort()', NULL, NULL, 6),
+(33, 3, 'for(type 元素: arrayName) 陣列的for-Each', 'for(type 元素: arrayName) 陣列的for-Each', NULL, NULL, 6),
+(34, 3, 'Arrays.fills()', 'Arrays.fills()', NULL, NULL, 6),
+(35, 3, 'Arrays.equals()', 'Arrays.equals()', NULL, NULL, 6),
+(36, 3, 'Arrays.binarySearch()', 'Arrays.binarySearch()', NULL, NULL, 6),
+(37, 3, 'ArrayList.forEach()', 'ArrayList.forEach()', NULL, NULL, 6),
+(38, 3, 'ArrayList.add()', 'ArrayList.add()', NULL, NULL, 6),
+(39, 3, 'ArrayList.remove()', 'ArrayList.remove()', NULL, NULL, 6),
+(40, 3, 'ArrayList.removeAll()', 'ArrayList.removeAll()', NULL, NULL, 6),
+(41, 3, 'ArrayList.get()', 'ArrayList.get()', NULL, NULL, 6),
+(42, 3, 'ArrayList.size()', 'ArrayList.size()', NULL, NULL, 6),
+(43, 3, 'ArrayList.indexOf()', 'ArrayList.indexOf()', NULL, NULL, 6),
+(44, 3, 'ArrayList.isEmpty()', 'ArrayList.isEmpty()', NULL, NULL, 6),
+(45, 3, 'ArrayList.toArray()', 'ArrayList.toArray()', NULL, NULL, 6),
+(46, 3, 'ArrayList.contains()', 'ArrayList.contains()', NULL, NULL, 6),
+(47, 3, 'StringName.length()', 'StringName.length()', NULL, NULL, 7),
+(48, 3, 'StringName.charAt()', 'StringName.charAt()', NULL, NULL, 7),
+(49, 3, 'StringName.toLowerCase()', 'StringName.toLowerCase()', NULL, NULL, 7),
+(50, 3, 'StringName.toUpperCase()', 'StringName.toUpperCase()', NULL, NULL, 7),
+(51, 3, 'StringName.substring()', 'StringName.substring()', NULL, NULL, 7),
+(52, 3, 'StringName.compareTo()', 'StringName.compareTo()', NULL, NULL, 7),
+(53, 3, 'StringName.replace()', 'StringName.replace()', NULL, NULL, 7),
+(54, 3, 'StringName.split()', 'StringName.split()', NULL, NULL, 7);
 
 -- --------------------------------------------------------
 
@@ -1081,7 +1130,8 @@ INSERT INTO `sec_answers` (`id`, `secParameterID`, `order`, `ans_patterns`, `cre
 (28, 5, 7, '^\\s*int\\s+j\\s*=\\s*1\\s*$', NULL, NULL),
 (29, 5, 8, '^\\s*j\\s*<=\\s*2\\s*\\*\\s*i\\s*-\\s*1\\s*$', NULL, NULL),
 (30, 5, 9, '^\\s*j\\s*\\+\\+\\s*$', NULL, NULL),
-(31, 7, 1, '^\\s*material1\\s*>=\\s*20\\s*&&\\s*material1\\s*<=\\s*50\\s*&&\\s*material2\\s*<\\s*30\\s*$', NULL, NULL);
+(31, 7, 1, '^\\s*material1\\s*>=\\s*20\\s*&&\\s*material1\\s*<=\\s*50\\s*&&\\s*material2\\s*<\\s*30\\s*$', NULL, NULL),
+(32, 1, 1, '\"%s\"', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1157,7 +1207,7 @@ INSERT INTO `sec_parameters` (`id`, `secGameID`, `template_code`, `created_at`, 
 (9, 4, 'public class Main {\n    public static void main(String[] args) {\n        int material1 = $variable1;\n        int material2 = $variable2;\n\n        // 判斷治癒藥水的配方條件\n        if (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;) {\n            System.out.println(\"治癒藥水的配方條件成立。\");\n        }\n    }\n}|材料一 (material1) 大於 10 且小於等於 40，或者材料二 (material2) 大於 20。', NULL, NULL),
 (10, 4, 'public class Main {\n    public static void main(String[] args) {\n        int material1 = $variable1;\n        int material2 = $variable2;\n\n        // 判斷治癒藥水的配方條件\n        if (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;) {\n            System.out.println(\"治癒藥水的配方條件成立。\");\n        }\n    }\n}|材料一 (material1) 小於 40。', NULL, NULL),
 (11, 4, 'public class Main {\n    public static void main(String[] args) {\n        int material1 = $variable1;\n        int material2 = $variable2;\n\n        // 判斷治癒藥水的配方條件\n        if (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;) {\n            System.out.println(\"治癒藥水的配方條件成立。\");\n        }\n    }\n}|配方表(條件變數)：材料二 (material2) 大於 10 且小於等於 40。', NULL, NULL),
-(12, 6, '<pre>\r\npublic class Main {\r\n    public static void main(String[] args) {\r\n        int number = $variable;\r\n        int result = 0;    // 儲存解碼後的結果\r\n\r\n        // 提取個位數字\r\n        int digit = <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;  // 提取個位數字\r\n\r\n        // 根據個位數字進行解碼\r\n        if (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n            result = <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\r\n        } else {\r\n            result = <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\r\n        }\r\n\r\n        // 輸出解碼後的結果\r\n        System.out.println(\"個位數字解碼後的結果是: \" + result);\r\n    }\r\n}\r\n</pre>|個位數\r\n', NULL, NULL),
+(12, 6, '<pre>\npublic class Main {\n    public static void main(String[] args) {\n        int number = $variable;\n        int result = 0;    // 儲存解碼後的結果\n\n        // 提取個位數字\n        int digit = <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;  // 提取個位數字\n\n        // 根據個位數字進行解碼\n        if (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n            result = <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\n        } else {\n            result = <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\n        }\n\n        // 輸出解碼後的結果\n        System.out.println(\"個位數字解碼後的結果是: \" + result);\n    }\n}\n</pre>|個位數\n', NULL, NULL),
 (13, 7, '<pre>\npublic class Main {\n    public static void main(String[] args) {\n        int tower = $variable;\n        int totalOil = 1;\n\n        System.out.println(\"層數: \" + tower);\n\n        // 計算油塔的油罐\n        int floor = 1; // 初始化當前樓層數\n        while (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;) {\n            // 每層有不同的油罐公式 (條件變數)\n            if (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;) {\n                totalOil -= 2;  // 奇數層減少2罐油罐\n            } else {\n                totalOil *= 2;  // 偶數層雙倍油罐\n            }\n            <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\n        }\n\n        System.out.println(\"油塔油量: \" + totalOil);\n    }\n}\n</pre>', NULL, NULL),
 (14, 8, '<pre>\npublic class Main {\n    public static void main(String[] args) {\n        // 假設敵人類型和來自題目說明(變數)\n        int enemyType = \"$variable\";\n\n        // 根據敵人類型選擇攻擊狀態\n        switch (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n            case \"<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">\":\n                <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\n                break;\n            case \"<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">\":\n                <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\n                break;\n            case \"<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">\":\n                <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\n                break;\n            default:\n                <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\n                break;\n        }\n        System.out.println(\"你的敵人為：\" + enemyType);\n    }\n}\n</pre>\n|魔女', NULL, NULL);
 
@@ -1191,30 +1241,14 @@ TRUNCATE TABLE `sec_records`;
 --
 
 INSERT INTO `sec_records` (`id`, `user_id`, `secParameterID`, `time`, `parameter`, `status`, `counter`, `created_at`, `updated_at`, `user_answer`) VALUES
-(1, 1, 1, '00:00:00', '{\"variable\":\"rDiGR\"}', 'watched', 1, '2024-10-19 21:39:41', '2024-10-19 21:39:41', NULL),
-(2, 1, 1, '00:00:00', '{\"variable\":\"rDiGR\"}', 'true', 0, '2024-10-19 21:39:41', '2024-10-19 21:39:41', NULL),
-(3, 1, 1, '00:00:00', '{\"variable\":\"rDiGR\"}', 'false', 0, '2024-10-19 21:39:41', '2024-10-19 21:39:41', NULL),
-(4, 1, 1, '00:00:00', '{\"variable\":\"rDiGR\"}', 'watch_again', 0, '2024-10-19 21:39:41', '2024-10-19 21:39:41', NULL),
-(5, 1, 10, '00:00:00', '{\"variable\":\"33,63,57\"}', 'watched', 1, '2024-10-19 22:39:49', '2024-10-19 22:39:49', NULL),
-(6, 1, 10, '00:00:00', '{\"variable\":\"33,63,57\"}', 'true', 0, '2024-10-19 22:39:49', '2024-10-19 22:39:49', NULL),
-(7, 1, 10, '00:00:00', '{\"variable\":\"33,63,57\"}', 'false', 0, '2024-10-19 22:39:49', '2024-10-19 22:39:49', NULL),
-(8, 1, 10, '00:00:00', '{\"variable\":\"33,63,57\"}', 'watch_again', 0, '2024-10-19 22:39:49', '2024-10-19 22:39:49', NULL),
-(9, 1, 14, '00:00:00', '{\"variable\":\"\\u9b54\\u5973\"}', 'watched', 1, '2024-10-19 22:46:53', '2024-10-19 22:46:53', NULL),
-(10, 1, 14, '00:00:00', '{\"variable\":\"\\u9b54\\u5973\"}', 'true', 0, '2024-10-19 22:46:53', '2024-10-19 22:46:53', NULL),
-(11, 1, 14, '00:00:00', '{\"variable\":\"\\u9b54\\u5973\"}', 'false', 0, '2024-10-19 22:46:53', '2024-10-19 22:46:53', NULL),
-(12, 1, 14, '00:00:00', '{\"variable\":\"\\u9b54\\u5973\"}', 'watch_again', 0, '2024-10-19 22:46:53', '2024-10-19 22:46:53', NULL),
-(13, 1, 8, '00:00:00', '{\"variable\":\"66,27,17\"}', 'watched', 1, '2024-10-19 22:47:01', '2024-10-19 22:47:01', NULL),
-(14, 1, 8, '00:00:00', '{\"variable\":\"66,27,17\"}', 'true', 0, '2024-10-19 22:47:01', '2024-10-19 22:47:01', NULL),
-(15, 1, 8, '00:00:00', '{\"variable\":\"66,27,17\"}', 'false', 0, '2024-10-19 22:47:01', '2024-10-19 22:47:01', NULL),
-(16, 1, 8, '00:00:00', '{\"variable\":\"66,27,17\"}', 'watch_again', 0, '2024-10-19 22:47:01', '2024-10-19 22:47:01', NULL),
-(17, 1, 12, '00:00:00', '{\"variable\":788}', 'watched', 1, '2024-10-19 22:47:08', '2024-10-19 22:47:08', NULL),
-(18, 1, 12, '00:00:00', '{\"variable\":788}', 'true', 0, '2024-10-19 22:47:08', '2024-10-19 22:47:08', NULL),
-(19, 1, 12, '00:00:00', '{\"variable\":788}', 'false', 0, '2024-10-19 22:47:08', '2024-10-19 22:47:08', NULL),
-(20, 1, 12, '00:00:00', '{\"variable\":788}', 'watch_again', 0, '2024-10-19 22:47:08', '2024-10-19 22:47:08', NULL),
-(21, 1, 13, '00:00:00', '{\"variable\":7}', 'watched', 1, '2024-10-19 22:47:15', '2024-10-19 22:47:15', NULL),
-(22, 1, 13, '00:00:00', '{\"variable\":7}', 'true', 0, '2024-10-19 22:47:15', '2024-10-19 22:47:15', NULL),
-(23, 1, 13, '00:00:00', '{\"variable\":7}', 'false', 0, '2024-10-19 22:47:15', '2024-10-19 22:47:15', NULL),
-(24, 1, 13, '00:00:00', '{\"variable\":7}', 'watch_again', 0, '2024-10-19 22:47:15', '2024-10-19 22:47:15', NULL);
+(1, 1, 1, '00:00:00', '{\"variable\":\"6ogri\"}', 'watched', 0, '2024-10-20 21:50:38', '2024-10-20 21:52:17', NULL),
+(2, 1, 1, '00:00:00', '{\"variable\":\"6ogri\"}', 'true', 1, '2024-10-20 21:50:38', '2024-10-20 21:52:17', '[{\"order\":1,\"userAnswer\":\"\\\"%s\\\"\"},{\"order\":2,\"userAnswer\":\"6ogri\"}]'),
+(3, 1, 1, '00:00:00', '{\"variable\":\"6ogri\"}', 'false', 0, '2024-10-20 21:50:38', '2024-10-20 21:50:38', NULL),
+(4, 1, 1, '00:00:00', '{\"variable\":\"6ogri\"}', 'watch_again', 0, '2024-10-20 21:50:38', '2024-10-20 21:50:38', NULL),
+(5, 1, 13, '00:00:00', '{\"variable\":15}', 'watched', 1, '2024-10-20 21:50:44', '2024-10-20 21:50:44', NULL),
+(6, 1, 13, '00:00:00', '{\"variable\":15}', 'true', 0, '2024-10-20 21:50:44', '2024-10-20 21:50:44', NULL),
+(7, 1, 13, '00:00:00', '{\"variable\":15}', 'false', 0, '2024-10-20 21:50:44', '2024-10-20 21:50:44', NULL),
+(8, 1, 13, '00:00:00', '{\"variable\":15}', 'watch_again', 0, '2024-10-20 21:50:44', '2024-10-20 21:50:44', NULL);
 
 -- --------------------------------------------------------
 
@@ -1242,9 +1276,7 @@ TRUNCATE TABLE `sessions`;
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('d2Txk1oPC34TtX3ChlG7mMPvgqnrs7SbrbvG6DP6', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoicGlFbUtCbHpMR3hzRW5DcUoybnBTdzRVMmM5RjhuQ3BtZGxiM0J6YyI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjQzOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvY291bnRyeS8yL3NlY0dhbWVJRC8xIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjIxOiJwYXNzd29yZF9oYXNoX3NhbmN0dW0iO3M6NjA6IiQyeSQxMiRBQ09rUVVzNHlOVzJHOUNhS0JxMEN1SlN2OHFEZmt4OVRNM2JERHo2UjNCdk53VFNaN3hXUyI7fQ==', 1729407893),
-('gBWZsP7rwXtfW9DTwKr8QMHkKjxx1aWDnxKSSwnW', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiN2xVRndwNWx2VkNTcFlNbm1GNldvMVdRaDdWdk9FSXJjWlNORUl6cyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjQ5OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAva25vd2xlZGdlY2FyZC8yP2NhcmRfdHlwZT0xIjt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjIxOiJwYXNzd29yZF9oYXNoX3NhbmN0dW0iO3M6NjA6IiQyeSQxMiRBQ09rUVVzNHlOVzJHOUNhS0JxMEN1SlN2OHFEZmt4OVRNM2JERHo2UjNCdk53VFNaN3hXUyI7fQ==', 1728848349),
-('gCZJJWiH9MLMp9VIWWIZ04ooKEPyt7jkz5g15Dvh', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiODRoeUdIZmRWcm1LVnI2Wlg2eWhZUU9nSUEzR0FZdzk1UHR2MGNGaCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9jb3VudHJ5LzIvc2VjR2FtZUlELzEiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjM6InVybCI7YTowOnt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjIxOiJwYXNzd29yZF9oYXNoX3NhbmN0dW0iO3M6NjA6IiQyeSQxMiRBQ09rUVVzNHlOVzJHOUNhS0JxMEN1SlN2OHFEZmt4OVRNM2JERHo2UjNCdk53VFNaN3hXUyI7fQ==', 1729341759);
+('IcydV6hKIGkWzy4OFcmN8MxYOEuaBUZUJP0DB2kj', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoibmliQ3UwNVpLYWpYZFppNGVZQWk3YVEwTWVIdVhkU2NmN0JsS3dwOSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9jb3VudHJ5LzMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjM6InVybCI7YTowOnt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjIxOiJwYXNzd29yZF9oYXNoX3NhbmN0dW0iO3M6NjA6IiQyeSQxMiRBQ09rUVVzNHlOVzJHOUNhS0JxMEN1SlN2OHFEZmt4OVRNM2JERHo2UjNCdk53VFNaN3hXUyI7fQ==', 1729588906);
 
 -- --------------------------------------------------------
 
@@ -1282,7 +1314,7 @@ TRUNCATE TABLE `users`;
 --
 
 INSERT INTO `users` (`id`, `email`, `email_verified_at`, `password`, `two_factor_secret`, `two_factor_recovery_codes`, `two_factor_confirmed_at`, `name`, `gender`, `country_id`, `levels`, `remember_token`, `current_team_id`, `profile_photo_path`, `created_at`, `updated_at`) VALUES
-(1, 'tom98075@gmail.com', NULL, '$2y$12$ACOkQUs4yNW2G9CaKBq0CuJSv8qDfkx9TM3bDDz6R3BvNwTSZ7xWS', NULL, NULL, NULL, 'TomChen', 'male', 2, 0, 'FDJD2aiUUOizg7e4vFi7Fpi7KYhmItzIAND5qxcNpioCW7tZFPEaEk60oTYO', NULL, NULL, '2024-05-24 08:58:24', '2024-09-29 04:42:20'),
+(1, 'tom98075@gmail.com', NULL, '$2y$12$ACOkQUs4yNW2G9CaKBq0CuJSv8qDfkx9TM3bDDz6R3BvNwTSZ7xWS', NULL, NULL, NULL, 'TomChen', 'male', 3, 0, 'FDJD2aiUUOizg7e4vFi7Fpi7KYhmItzIAND5qxcNpioCW7tZFPEaEk60oTYO', NULL, NULL, '2024-05-24 08:58:24', '2024-09-29 04:42:20'),
 (2, '98075tom@gmail.com', NULL, '$2y$12$c4YO1MheSVZsNTBuMlxQGe82DlBol5Guai5q4pDW4TKDUv8AIKaNS', NULL, NULL, NULL, 'tomchen', 'male', 1, 1, NULL, NULL, NULL, '2024-06-10 10:42:30', '2024-06-10 10:42:38'),
 (3, 'caveira159951@gmail.vom', NULL, '$2y$12$/KupiQsUJHg2NDMNarAKxep8HXi34eQNwTH/hk3D2QUv4sdChqIY.', NULL, NULL, NULL, '哈哈', 'male', 1, 1, NULL, NULL, NULL, '2024-06-10 16:23:01', '2024-06-10 16:23:02'),
 (4, '123@gmail.com', NULL, '$2y$12$b7TG/lPPpycIJjDAvv2VueqITkCUx/eJLg4BmYk9CfEX69o2dABsq', NULL, NULL, NULL, '123', 'male', 1, 1, NULL, NULL, NULL, '2024-06-24 05:06:20', '2024-06-24 05:06:20'),
@@ -1638,7 +1670,7 @@ ALTER TABLE `user_record_details`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `card_types`
 --
 ALTER TABLE `card_types`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `countries`
@@ -1662,7 +1694,7 @@ ALTER TABLE `debug_records`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `dramas`
 --
 ALTER TABLE `dramas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `failed_jobs`
@@ -1680,7 +1712,7 @@ ALTER TABLE `jobs`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `knowledge_cards`
 --
 ALTER TABLE `knowledge_cards`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `match_options`
@@ -1746,7 +1778,7 @@ ALTER TABLE `reorganization_option`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `sec_answers`
 --
 ALTER TABLE `sec_answers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `sec_games`
@@ -1764,7 +1796,7 @@ ALTER TABLE `sec_parameters`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `sec_records`
 --
 ALTER TABLE `sec_records`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `users`
