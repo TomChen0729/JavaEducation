@@ -431,6 +431,12 @@
             margin-bottom: 40px;
         }
 
+        #question-container p {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         pre{
             color: #faf1e4;
             text-align: left;
@@ -456,7 +462,7 @@
         /* 設定選項按鈕的樣式 */
         .option-btn {
             display: inline-block;
-            width: 110px;
+            width: 170px;
             height: 60px;
             padding: 10px;
             margin: 5px;
@@ -468,11 +474,12 @@
         /* 設定拖放區域的樣式 */
         .drop-zone {
             display: inline-block;
-            width: 110px;
+            width: 170px;
             height: 60px;
             border: 5px dashed #faf1e4;
             border-radius: 20px;
             margin-right: 10px;
+            padding: 10px 0;
         }
 
         #submit-btn {
