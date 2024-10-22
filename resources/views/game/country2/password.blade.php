@@ -450,7 +450,7 @@
 
     <div class="containers">
         <div class="question" id="question">
-            <p>{{ $boxGameQuestion -> game_explanation }}</p>
+            <p>{{ $passwordGameQuestion -> game_explanation }}</p>
         </div>
         <div class="row">
             <div class="col-md-12 images">
