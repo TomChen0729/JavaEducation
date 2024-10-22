@@ -16,7 +16,6 @@
             text-decoration: none;
             /* 去除清單前面的符號 */
             list-style: none;
-
         }
 
         a:hover{
@@ -437,11 +436,6 @@
             justify-content: center;
         }
 
-        pre{
-            color: #faf1e4;
-            text-align: left;
-        }
-
         /* 設定選項容器樣式 */
         #pieces {
             display: flex;
@@ -451,13 +445,13 @@
         }
 
         /* 設定選項的樣式 */
-        .piece {
+        /* .piece {
             display: inline-block;
             padding: 10px;
             border: 1px solid #000;
             cursor: pointer;
             user-select: none;
-        }
+        } */
 
         /* 設定選項按鈕的樣式 */
         .option-btn {
@@ -567,9 +561,6 @@
         }
 
         @media (max-width: 768px) {
-            .tof{
-                margin-top: 3%;
-            }
 
             #board,
             #pieces {
@@ -581,12 +572,6 @@
             #pieces img {
                 width: 100px;
                 height: 100px;
-            }
-        }
-
-        @media (max-width: 630px) {
-            .tof{
-                margin-top: 15%;
             }
         }
 
@@ -608,19 +593,6 @@
                 font-size: 20px;
                 line-height: 25px;
             }
-
-            /* #board,
-            #pieces {
-                flex-direction: column;
-                width: auto;
-                height: auto;
-            }
-
-            #board img,
-            #pieces img {
-                width: 80px;
-                height: 80px;
-            } */
         }
 
     </style>

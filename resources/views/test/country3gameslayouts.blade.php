@@ -16,8 +16,6 @@
             text-decoration: none;
             /* 去除清單前面的符號 */
             list-style: none;
-            margin: 0;
-            padding: 0;
         }
 
         a:hover{
@@ -38,9 +36,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100%;
+            height: 100vh;
             margin: 0;
-            padding: 0;
         }
 
         .first .overlay {
@@ -59,7 +56,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0);
-            background: #445232;
+            background: #3e3641;
             border-radius: 50px;
             width: 50%;
             z-index: 1;
@@ -68,11 +65,11 @@
         }
 
         .first .pop {
-            color: #f8f2e2;
+            color: #ede2d1;
             margin: 30px;
             padding: 30px;
             border-radius: 50px;
-            border: 5px solid #9eb484;
+            border: 5px solid #a58391;
         }
 
         .first .pop h1 {
@@ -98,8 +95,8 @@
             top: 20px;
             width: 30px;
             height: 30px;
-            background-color: #9eb484;
-            color: #f8f2e2;
+            background-color: #a58391;
+            color: #ede2d1;
             font-size: 25px;
             font-weight: 600;
             line-height: 30px;
@@ -283,7 +280,7 @@
         }
 
         header {
-            position: absolute;
+            position: fixed;
             width: 100%;
             top: 0;
             right: 0;
@@ -294,7 +291,6 @@
             padding: 20px 2% 0;
             /* 透明背景 */
             background: rgba(199, 168, 132, 0.8);
-
             transition: all 0.50s ease;
         }
 
@@ -305,6 +301,15 @@
             font-size: 24px;
             font-family: sans-serif;
         }
+
+        /*@keyframes animate {
+            from {
+                transform: translateX(0); 起始位置
+            }
+            to {
+                transform: translateX(50px); 結束位置
+            }
+        }*/
 
         .breadcrumbs__item {
             display: inline-block;
@@ -384,6 +389,11 @@
             transition: all 0.50s ease;
         }
 
+        .user {
+            display: flex;
+            align-items: center;
+        }
+
         .main a:hover {
             color: var(--main-color);
         }
@@ -433,6 +443,7 @@
         .right-container .code {
             margin-bottom: 2%;
             flex: 7;
+            flex-direction: column;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -449,14 +460,130 @@
             background-color: #C3C3C3;
         }
 
+        /* 設定容器樣式 */
+        #code-container {
+            background-color: #ddb759;
+            color: #74461b;
+            border: 5px solid #442a0f;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #material-container {
+            background-color: #b8d4b6;
+            color: #476f45;
+            border: 5px solid #442a0f;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #game-container {
+            background-color: #f0cdca;
+            color: #d4807c;
+            border: 5px solid #442a0f;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #description-container {
+            background-color: #b7d0f9;
+            color: #4a71b0;
+            border: 5px solid #442a0f;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* 設定提示的樣式 */
+        h2 {
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 50px;
+        }
+
+        /* 設定題目容器樣式 */
+        #question-container {
+            font-size: 22px;
+            margin-bottom: 40px;
+        }
+
+        #question-container p {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 設定選項容器樣式 */
+        #pieces {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            font-size: 20px;
+            margin: 0 10px;
+        }
+
+        /* 設定選項的樣式 */
+        .piece {
+            display: inline-block;
+            padding: 10px;
+            border: 1px solid #000;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* 設定選項按鈕的樣式 */
+        .option-btn {
+            display: inline-block;
+            width: 170px;
+            height: 60px;
+            padding: 10px;
+            margin: 5px;
+            border: 5px solid #faf1e4;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        /* 設定拖放區域的樣式 */
+        .drop-zone {
+            display: inline-block;
+            width: 170px;
+            height: 60px;
+            border: 5px dashed #faf1e4;
+            border-radius: 20px;
+            margin-right: 10px;
+            padding: 10px 0;
+        }
+
+        #submit-btn {
+            background-color: #f0cdca;
+            border: 3px solid #442a0f;
+            border-radius: 10px;
+            color: #442a0f;
+            margin-top: 50px;
+            padding: 5px;
+        }
+
+        #submit-btn:hover {
+            background-color: #d4807c;
+        }
+
         /* RWD */
         @media (max-width: 1300px) {
             .first .content {
                 top: 60%;
             }
+        }
 
-            .container{
-                margin-top: 8%;
+        @media (max-width: 1200px) {
+            #board,
+            #pieces {
+                width: auto;
+                height: auto;
+            }
+
+            #board img,
+            #pieces img {
+                width: 150px;
+                height: 150px;
             }
         }
 
@@ -496,10 +623,6 @@
             .navbar.open {
                 right: 2%;
             }
-
-            .container{
-                margin-top: 9%;
-            }
         }
 
         @media (max-width: 900px) {
@@ -517,9 +640,20 @@
             .first .pop p {
                 font-size: 18px;
             }
+        }
 
-            .container{
-                margin-top: 10%;
+        @media (max-width: 768px) {
+
+            #board,
+            #pieces {
+                width: auto;
+                height: auto;
+            }
+
+            #board img,
+            #pieces img {
+                width: 100px;
+                height: 100px;
             }
         }
 
@@ -540,10 +674,6 @@
                 height: 25px;
                 font-size: 20px;
                 line-height: 25px;
-            }
-
-            .container{
-                margin-top: 15%;
             }
         }
     </style>
@@ -616,19 +746,31 @@
     <!-- 版面內容 -->
     <div class="container-fluid">
         <div class="left-container">
-            <div class="game">
+            <div class="game" id="game-container">
                 <h1>動畫區</h1>
             </div>
-            <div class="description">
+            <div class="description" id="description-container">
                 <h1>說明區</h1>
             </div>
         </div>
         <div class="right-container">
-            <div class="code">
-                <h1>程式碼區</h1>
+            <div class="code" id="code-container">
+                <!-- 顯示提示的元素 -->
+                <h2 id="hints">程式碼區</h2>
+                <!-- 顯示題目的容器 -->
+                <div id="question-container">
+                    <!-- 預設顯示第一題 -->
+                    <div id="board">____miles = 3 / 1.6;</div> 
+                </div>
+                <!-- 提交按鈕 -->
+                <button id="submit-btn" onclick="checkAnswers()">Submit</button>
             </div>
-            <div class="material">
-                <h1>素材區</h1>
+            <div class="material" id="material-container">
+                <!-- 顯示選項的容器 -->
+                <div id="pieces">int</div>
+                <div id="pieces">float</div>
+                <div id="pieces">double</div>
+                <div id="pieces">boolean</div>
             </div>
         </div>
     </div>
@@ -698,6 +840,118 @@
 
         function togglePopup4() {
             document.getElementById("popup-3").classList.toggle("active");
+        }
+
+        // 題目
+        // 初始化題目
+        window.onload = function() {
+            // 定義題目和答案的數組
+            // const questions = $question_data;
+            // console.log(questions);
+            // 顯示當前題目
+            displayQuestion(questions);
+
+            // 顯示整個作答區
+            function displayQuestion(questions) {
+                // 獲取題目的div
+                const questionElement = document.getElementById('question-container');
+
+                // 將題目中的 '___' 替換為缺空處
+                let formattedQuestion = questions.question.replace(/___/g, generateDropZone(questions.id));
+                questionElement.innerHTML = `<p>${formattedQuestion}</p>`;
+
+
+                // 獲取放置選項的div
+                const piecesElement = document.getElementById('pieces');
+                // 設定選項按鈕，透過map函數遍歷整個options陣列，將每個值讀出來，然後動態生成選項
+                piecesElement.innerHTML = questions.options.map(options => {
+                    return `<button class="option-btn" data-useranswer="${options.option}" draggable="true" ondragstart="drag(event)">${options.option}</button>`;
+                }).join('');
+
+                // 獲取提示文字的div，並將值放進去
+                // const hintElement = document.getElementById('hints');
+                // hintElement.textContent = "提示：" + questions.hint;
+            }
+
+            // 提交按鈕的點擊事件，即為觸發對答案的函數
+            document.getElementById('submit-btn').onclick = function() {
+                checkAnswers();
+            }
+
+            // 檢查答案是否正確
+            function checkAnswers() {
+                // 獲取玩家已填入缺空處的值
+                const dropZone = document.getElementById(`drop-zone-${questions['id']}`);
+                // 獲取當前使用者id
+                var cid = document.getElementById('cid').textContent;
+                var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                var timer = stopTimer();
+                const selectedAnswer = dropZone.textContent.trim();
+                console.log(selectedAnswer);
+                // console.log(csrfToken); // 測試用
+                console.log(cid);
+                if (selectedAnswer != null) {
+                    fetch('/api/correct_User_ANS?user_answer=' + encodeURIComponent(selectedAnswer) + '&question_id=' + questions['id'] + '&cid=' + cid + '&timer=' + timer, {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': csrfToken
+                            },
+                            // body: JSON.stringify({
+                            //     user_answer: answerValue,
+                            //     question:  question,
+                            //     game_type: '是非'
+                            // })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+                            if (data.message == 'correct') {
+                                togglePopup4();
+                            } else if (data.message == 'wrongAnswer') {
+                                alert('答錯');
+                                setTimeout(function() {
+                                    window.location.href = `/GameType/填空/country_id/${questions['country_id']}/levels/${questions['levels']}`;
+                                }, 1000);
+                            } else {
+                                alert('伺服器錯誤');
+                                setTimeout(function() {
+                                    window.location.reload();
+                                }, 1000);
+                            }
+                        })
+                } else {
+                    alert('請選擇一個答案~');
+                }
+            }
+        };
+
+        // 允許拖放的函數，參數是event
+        function allowDrop(event) {
+            // 允許值被放上去
+            event.preventDefault();
+        }
+
+        // 拖動開始的函數，參數是event
+        function drag(event) {
+            // 設定拖動數據
+            event.dataTransfer.setData("text", event.target.dataset.useranswer);
+        }
+
+        // 把值放上去時的函數
+        function drop(event) {
+            // 允許值被放上去
+            // 因為在拖放操作(該元素)中，這個事件是不被允許的(瀏覽器不允許拖放元素)，也就是說，默認事件是不允許拖放元素的，達成的效果就是當使用者在拖放選項的時候，是被瀏覽器允許的，所以值可以成功的被放進去。
+            event.preventDefault();
+            // 獲取使用者放上去的資料
+            const data = event.dataTransfer.getData("text");
+            // 將放上去的文字設為使用者自己拖上去的
+            event.target.textContent = data;
+        }
+
+        // 產生缺空處的函數
+        function generateDropZone(id) {
+            return `<span id="drop-zone-${id}" class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)"></span>`;
         }
     </script>
 </body>
