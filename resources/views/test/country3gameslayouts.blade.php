@@ -865,20 +865,7 @@ public class TreasureHunt1 {
 </pre>
         `
             };
-            // const answer = "Arrays.toString Arrays.sort Arrays.binarySearch";
-            // 將程式碼分割為選項
-            // const options = answer.split(" ");
-            // 分割的位置放置 '__'，隨機插入缺空處
-            // let questionWithGaps = questions.replace("Arrays.toString", "___").replace("Arrays.sort", "___").replace("Arrays.binarySearch", "___");
-            // 顯示當前題目並將 '___' 替換為缺空處
-            // const questionElement = document.getElementById('question-container');
-            // questionElement.innerHTML = `<p>${questionWithGaps.replace(/___/g, generateDropZone())}</p>`;
-            // 顯示所有選項
-            // const piecesElement = document.getElementById('pieces');
-            // piecesElement.innerHTML = options.map(option => {
-            //     return `<button class="option-btn" data-useranswer="${option}" draggable="true" ondragstart="drag(event)">${option}</button>`;
-            // }).join('');
-
+            
             // 顯示當前題目
             displayQuestion(questions);
 
