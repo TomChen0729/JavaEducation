@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
@@ -828,7 +829,7 @@
         // 初始化題目
         window.onload = function() {
             // 定義題目和答案的數組
-            const question = `
+            const questions = `
 <pre>
 import java.util.Arrays;
 
@@ -857,11 +858,11 @@ public class TreasureHunt1 {
             const options = answer.split(" ");
             
             // 分割的位置放置 '__'，隨機插入缺空處
-            let questionWithGaps = question.replace("Arrays.toString", "___").replace("Arrays.sort", "___").replace("Arrays.binarySearch", "___");
+            let questionWithGaps = questions.replace("Arrays.toString", "___").replace("Arrays.sort", "___").replace("Arrays.binarySearch", "___");
 
             // 顯示當前題目並將 '___' 替換為缺空處
             const questionElement = document.getElementById('question-container');
-            questionElement.innerHTML = `<p>${questionWithGaps.replace(/___/g, generateDropZone('code'))}</p>`;
+            questionElement.innerHTML = `<p>${questionWithGaps.replace(/___/g, generateDropZone())}</p>`;
             
             // 顯示所有選項
             const piecesElement = document.getElementById('pieces');
@@ -877,13 +878,13 @@ public class TreasureHunt1 {
             // 檢查答案
             function checkAnswers() {
                 const dropZones = document.querySelectorAll('.drop-zone');
-                let userAnswer = "";
+                let userAnswer = [];
                 dropZones.forEach(zone => {
-                    userAnswer += zone.textContent + " ";
+                    userAnswer.push(zone.textContent);
                 });
-                userAnswer = userAnswer.trim(); // 去除多餘空格
-                
-                if (userAnswer === question) {
+                // userAnswer = userAnswer.trim(); // 去除多餘空格
+                console.log(userAnswer);
+                if (userAnswer === questions) {
                     alert('答案正確！');
                 } else {
                     alert('答案錯誤！');
@@ -891,51 +892,45 @@ public class TreasureHunt1 {
             }
 
             // 檢查答案是否正確
-            function checkAnswers() {
-                // 獲取玩家已填入缺空處的值
-                const dropZone = document.getElementById(`drop-zone-${questions['id']}`);
-                // 獲取當前使用者id
-                var cid = document.getElementById('cid').textContent;
-                var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                var timer = stopTimer();
-                const selectedAnswer = dropZone.textContent.trim();
-                console.log(selectedAnswer);
-                // console.log(csrfToken); // 測試用
-                console.log(cid);
-                if (selectedAnswer != null) {
-                    fetch('/api/correct_User_ANS?user_answer=' + encodeURIComponent(selectedAnswer) + '&question_id=' + questions['id'] + '&cid=' + cid + '&timer=' + timer, {
-                            method: 'GET',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': csrfToken
-                            },
-                            // body: JSON.stringify({
-                            //     user_answer: answerValue,
-                            //     question:  question,
-                            //     game_type: '是非'
-                            // })
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log(data);
-                            if (data.message == 'correct') {
-                                togglePopup4();
-                            } else if (data.message == 'wrongAnswer') {
-                                alert('答錯');
-                                setTimeout(function() {
-                                    window.location.href = `/GameType/填空/country_id/${questions['country_id']}/levels/${questions['levels']}`;
-                                }, 1000);
-                            } else {
-                                alert('伺服器錯誤');
-                                setTimeout(function() {
-                                    window.location.reload();
-                                }, 1000);
-                            }
-                        })
-                } else {
-                    alert('請選擇一個答案~');
-                }
-            }
+            // function checkAnswers() {
+            //     // 獲取玩家已填入缺空處的值
+            //     const dropZone = document.getElementById(`drop-zone-${questions['id']}`);
+            //     // 獲取當前使用者id
+            //     // var cid = document.getElementById('cid').textContent;
+            //     var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            //     var timer = stopTimer();
+            //     const selectedAnswer = dropZone.textContent.trim();
+            //     console.log(selectedAnswer);
+            //     // console.log(csrfToken); // 測試用
+            //     // console.log(cid);
+            //     if (selectedAnswer != null) {
+            //         fetch('/api/correct_User_ANS?user_answer=' + encodeURIComponent(selectedAnswer) + '&question_id=' + questions['id'] + '&cid=' + cid + '&timer=' + timer, {
+            //                 method: 'GET',
+            //                 headers: {
+            //                     'Content-Type': 'application/json',
+            //                     'X-CSRF-TOKEN': csrfToken
+            //                 },
+            //             })
+            //             .then(response => response.json())
+            //             .then(data => {
+            //                 console.log(data);
+            //                 if (data.message == 'correct') {
+            //                     togglePopup4();
+            //                 } else if (data.message == 'wrongAnswer') {
+            //                     alert('答錯');
+            //                     setTimeout(function() {
+            //                     }, 1000);
+            //                 } else {
+            //                     alert('伺服器錯誤');
+            //                     setTimeout(function() {
+            //                         window.location.reload();
+            //                     }, 1000);
+            //                 }
+            //             })
+            //     } else {
+            //         alert('請選擇一個答案~');
+            //     }
+            // }
         };
 
         // 允許拖放的函數，參數是event

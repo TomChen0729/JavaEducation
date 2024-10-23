@@ -331,7 +331,8 @@
 
     <div class="card-container">
         @foreach($parent_cards as $card)
-        @if((($card->country_id) <= auth()->user()->country_id) &&(($card -> levels) <= auth()->user()->levels))
+        <!-- 如果使用者當前等級大於1或是等級大於等於1且levels達標的話，為了避免到南國時因為等級歸零而無法開啟的問題 -->
+            @if((($card->country_id) < auth()->user()->country_id) ||((($card->country_id) <= auth()->user()->country_id) &&(($card -> levels) <= auth()->user()->levels)))
                 <div class="card">
                     <div class="card-content">
                         <div class="icon">{{ html_entity_decode($card -> img) }}</div>
@@ -340,7 +341,7 @@
                         <a href="{{ route('game.index', ['levels' => $card->levels, 'country_id' => $card->country_id]) }}" class="btn">開始遊戲</a>
                     </div>
                 </div>
-                @else
+            @else
                 <div class="card">
                     <div class="card-content">
                         <div class="icon">{{ html_entity_decode($card -> img) }}</div>
@@ -349,8 +350,8 @@
                         <a href="#" onclick="alert('尚未解鎖')" class="btn">開始遊戲</a>
                     </div>
                 </div>
-                @endif
-                @endforeach
+            @endif
+        @endforeach
     </div>
     @if($debug == 1)
     <div class="footers">
