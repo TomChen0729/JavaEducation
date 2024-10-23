@@ -829,20 +829,31 @@
         // 初始化題目
         window.onload = function() {
             // 定義題目和答案的數組
-            const questions = `
+            // const questions = $question_data;
+            // console.log(questions);
+            const questions = {
+                country_id: 1,
+                id: 120,
+                levels: 1,
+                options: [
+                    { option: "Arrays.sort" },
+                    { option: "Arrays.toString" },
+                    { option: "Arrays.binarySearch" }
+                ],
+                question: `
 <pre>
 import java.util.Arrays;
 
 public class TreasureHunt1 {
     public static void main(String[] args) {
         int[] treasurePositions = {42, 10, 99, 7, 65};
-        Arrays.sort(treasurePositions);  // 排序位置
+        ___(treasurePositions);  // 排序位置
         
         System.out.println("排序後的寶藏位置：");
-        System.out.println(Arrays.toString(treasurePositions));
+        System.out.println(___(treasurePositions));
         
         int searchKey = 65;
-        int index = Arrays.binarySearch(treasurePositions, searchKey);
+        int index = ___(treasurePositions, searchKey);
         
         if (index >= 0) {
             System.out.println("寶藏找到在索引：" + index);
@@ -852,85 +863,95 @@ public class TreasureHunt1 {
     }
 }
 </pre>
-        `;
-            const answer = "Arrays.toString Arrays.sort Arrays.binarySearch";
+        `
+            };
+            // const answer = "Arrays.toString Arrays.sort Arrays.binarySearch";
             // 將程式碼分割為選項
-            const options = answer.split(" ");
-            
+            // const options = answer.split(" ");
             // 分割的位置放置 '__'，隨機插入缺空處
-            let questionWithGaps = questions.replace("Arrays.toString", "___").replace("Arrays.sort", "___").replace("Arrays.binarySearch", "___");
-
+            // let questionWithGaps = questions.replace("Arrays.toString", "___").replace("Arrays.sort", "___").replace("Arrays.binarySearch", "___");
             // 顯示當前題目並將 '___' 替換為缺空處
-            const questionElement = document.getElementById('question-container');
-            questionElement.innerHTML = `<p>${questionWithGaps.replace(/___/g, generateDropZone())}</p>`;
-            
+            // const questionElement = document.getElementById('question-container');
+            // questionElement.innerHTML = `<p>${questionWithGaps.replace(/___/g, generateDropZone())}</p>`;
             // 顯示所有選項
-            const piecesElement = document.getElementById('pieces');
-            piecesElement.innerHTML = options.map(option => {
-                return `<button class="option-btn" data-useranswer="${option}" draggable="true" ondragstart="drag(event)">${option}</button>`;
-            }).join('');
+            // const piecesElement = document.getElementById('pieces');
+            // piecesElement.innerHTML = options.map(option => {
+            //     return `<button class="option-btn" data-useranswer="${option}" draggable="true" ondragstart="drag(event)">${option}</button>`;
+            // }).join('');
 
+            // 顯示當前題目
+            displayQuestion(questions);
+
+            // 顯示整個作答區
+            function displayQuestion(questions) {
+                // 獲取題目的div
+                const questionElement = document.getElementById('question-container');
+
+                // 將題目中的 '___' 替換為缺空處
+                let formattedQuestion = questions.question.replace(/___/g, generateDropZone(questions.id));
+                questionElement.innerHTML = `<p>${formattedQuestion}</p>`;
+
+
+                // 獲取放置選項的div
+                const piecesElement = document.getElementById('pieces');
+                // 設定選項按鈕，透過map函數遍歷整個options陣列，將每個值讀出來，然後動態生成選項
+                piecesElement.innerHTML = questions.options.map(options => {
+                    return `<button class="option-btn" data-useranswer="${options.option}" draggable="true" ondragstart="drag(event)">${options.option}</button>`;
+                }).join('');
+            }
+            
+            
             // 提交按鈕的點擊事件，即為觸發對答案的函數
             document.getElementById('submit-btn').onclick = function() {
                 checkAnswers();
             }
 
-            // 檢查答案
+            // 檢查答案是否正確
             function checkAnswers() {
-                const dropZones = document.querySelectorAll('.drop-zone');
-                let userAnswer = [];
-                dropZones.forEach(zone => {
-                    userAnswer.push(zone.textContent);
-                });
-                // userAnswer = userAnswer.trim(); // 去除多餘空格
-                console.log(userAnswer);
-                if (userAnswer === questions) {
-                    alert('答案正確！');
+                // 獲取玩家已填入缺空處的值
+                const dropZone = document.getElementById(`drop-zone-${questions['id']}`);
+                // 獲取當前使用者id
+                var cid = document.getElementById('cid').textContent;
+                var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                var timer = stopTimer();
+                const selectedAnswer = dropZone.textContent.trim();
+                console.log(selectedAnswer);
+                // console.log(csrfToken); // 測試用
+                console.log(cid);
+                if (selectedAnswer != null) {
+                    fetch('/api/correct_User_ANS?user_answer=' + encodeURIComponent(selectedAnswer) + '&question_id=' + questions['id'] + '&cid=' + cid + '&timer=' + timer, {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': csrfToken
+                            },
+                            // body: JSON.stringify({
+                            //     user_answer: answerValue,
+                            //     question:  question,
+                            //     game_type: '是非'
+                            // })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+                            if (data.message == 'correct') {
+                                togglePopup4();
+                            } else if (data.message == 'wrongAnswer') {
+                                alert('答錯');
+                                setTimeout(function() {
+                                    window.location.href = `/GameType/填空/country_id/${questions['country_id']}/levels/${questions['levels']}`;
+                                }, 1000);
+                            } else {
+                                alert('伺服器錯誤');
+                                setTimeout(function() {
+                                    window.location.reload();
+                                }, 1000);
+                            }
+                        })
                 } else {
-                    alert('答案錯誤！');
+                    alert('請選擇一個答案~');
                 }
             }
-
-            // 檢查答案是否正確
-            // function checkAnswers() {
-            //     // 獲取玩家已填入缺空處的值
-            //     const dropZone = document.getElementById(`drop-zone-${questions['id']}`);
-            //     // 獲取當前使用者id
-            //     // var cid = document.getElementById('cid').textContent;
-            //     var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            //     var timer = stopTimer();
-            //     const selectedAnswer = dropZone.textContent.trim();
-            //     console.log(selectedAnswer);
-            //     // console.log(csrfToken); // 測試用
-            //     // console.log(cid);
-            //     if (selectedAnswer != null) {
-            //         fetch('/api/correct_User_ANS?user_answer=' + encodeURIComponent(selectedAnswer) + '&question_id=' + questions['id'] + '&cid=' + cid + '&timer=' + timer, {
-            //                 method: 'GET',
-            //                 headers: {
-            //                     'Content-Type': 'application/json',
-            //                     'X-CSRF-TOKEN': csrfToken
-            //                 },
-            //             })
-            //             .then(response => response.json())
-            //             .then(data => {
-            //                 console.log(data);
-            //                 if (data.message == 'correct') {
-            //                     togglePopup4();
-            //                 } else if (data.message == 'wrongAnswer') {
-            //                     alert('答錯');
-            //                     setTimeout(function() {
-            //                     }, 1000);
-            //                 } else {
-            //                     alert('伺服器錯誤');
-            //                     setTimeout(function() {
-            //                         window.location.reload();
-            //                     }, 1000);
-            //                 }
-            //             })
-            //     } else {
-            //         alert('請選擇一個答案~');
-            //     }
-            // }
         };
 
         // 允許拖放的函數，參數是event
