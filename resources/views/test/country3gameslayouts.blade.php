@@ -467,6 +467,8 @@
             border: 5px solid #442a0f;
             padding: 20px;
             text-align: center;
+            padding-top: 35%;
+            overflow: auto; 
         }
 
         #material-container {
@@ -493,23 +495,10 @@
             text-align: center;
         }
 
-        /* 設定提示的樣式 */
-        h2 {
-            font-size: 30px;
-            font-weight: bold;
-            margin-bottom: 50px;
-        }
-
-        /* 設定題目容器樣式 */
-        #question-container {
-            font-size: 22px;
-            margin-bottom: 40px;
-        }
-
-        #question-container p {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        #question-container pre {
+            font-size: 16px;
+            font-weight: bold;                                      
+            text-align: left;        
         }
 
         /* 設定選項容器樣式 */
@@ -517,25 +506,23 @@
             display: flex;
             justify-content: center;
             gap: 10px;
-            font-size: 20px;
-            margin: 0 10px;
+            font-size: 16px;
         }
 
         /* 設定選項的樣式 */
-        .piece {
+        /* .piece {
             display: inline-block;
             padding: 10px;
             border: 1px solid #000;
             cursor: pointer;
             user-select: none;
-        }
+        } */
 
         /* 設定選項按鈕的樣式 */
         .option-btn {
             display: inline-block;
-            width: 170px;
-            height: 60px;
-            padding: 10px;
+            width: 200px;
+            height: 50px;
             margin: 5px;
             border: 5px solid #faf1e4;
             border-radius: 20px;
@@ -545,12 +532,13 @@
         /* 設定拖放區域的樣式 */
         .drop-zone {
             display: inline-block;
-            width: 170px;
-            height: 60px;
+            width: 200px;
+            height: 50px;
             border: 5px dashed #faf1e4;
             border-radius: 20px;
             margin-right: 10px;
-            padding: 10px 0;
+            padding: 5px 0;
+            text-align: center;
         }
 
         #submit-btn {
@@ -558,7 +546,6 @@
             border: 3px solid #442a0f;
             border-radius: 10px;
             color: #442a0f;
-            margin-top: 50px;
             padding: 5px;
         }
 
@@ -755,22 +742,17 @@
         </div>
         <div class="right-container">
             <div class="code" id="code-container">
-                <!-- 顯示提示的元素 -->
-                <h2 id="hints">程式碼區</h2>
                 <!-- 顯示題目的容器 -->
                 <div id="question-container">
                     <!-- 預設顯示第一題 -->
-                    <div id="board">____miles = 3 / 1.6;</div> 
+                    <div id="board"></div> 
                 </div>
                 <!-- 提交按鈕 -->
                 <button id="submit-btn" onclick="checkAnswers()">Submit</button>
             </div>
             <div class="material" id="material-container">
                 <!-- 顯示選項的容器 -->
-                <div id="pieces">int</div>
-                <div id="pieces">float</div>
-                <div id="pieces">double</div>
-                <div id="pieces">boolean</div>
+                <div id="pieces"></div>
             </div>
         </div>
     </div>
@@ -846,36 +828,66 @@
         // 初始化題目
         window.onload = function() {
             // 定義題目和答案的數組
-            // const questions = $question_data;
-            // console.log(questions);
-            // 顯示當前題目
-            displayQuestion(questions);
+            const question = `
+<pre>
+import java.util.Arrays;
 
-            // 顯示整個作答區
-            function displayQuestion(questions) {
-                // 獲取題目的div
-                const questionElement = document.getElementById('question-container');
+public class TreasureHunt1 {
+    public static void main(String[] args) {
+        int[] treasurePositions = {42, 10, 99, 7, 65};
+        Arrays.sort(treasurePositions);  // 排序位置
+        
+        System.out.println("排序後的寶藏位置：");
+        System.out.println(Arrays.toString(treasurePositions));
+        
+        int searchKey = 65;
+        int index = Arrays.binarySearch(treasurePositions, searchKey);
+        
+        if (index >= 0) {
+            System.out.println("寶藏找到在索引：" + index);
+        } else {
+            System.out.println("未找到寶藏！");
+        }
+    }
+}
+</pre>
+        `;
+            const answer = "Arrays.toString Arrays.sort Arrays.binarySearch";
+            // 將程式碼分割為選項
+            const options = answer.split(" ");
+            
+            // 分割的位置放置 '__'，隨機插入缺空處
+            let questionWithGaps = question.replace("Arrays.toString", "___").replace("Arrays.sort", "___").replace("Arrays.binarySearch", "___");
 
-                // 將題目中的 '___' 替換為缺空處
-                let formattedQuestion = questions.question.replace(/___/g, generateDropZone(questions.id));
-                questionElement.innerHTML = `<p>${formattedQuestion}</p>`;
-
-
-                // 獲取放置選項的div
-                const piecesElement = document.getElementById('pieces');
-                // 設定選項按鈕，透過map函數遍歷整個options陣列，將每個值讀出來，然後動態生成選項
-                piecesElement.innerHTML = questions.options.map(options => {
-                    return `<button class="option-btn" data-useranswer="${options.option}" draggable="true" ondragstart="drag(event)">${options.option}</button>`;
-                }).join('');
-
-                // 獲取提示文字的div，並將值放進去
-                // const hintElement = document.getElementById('hints');
-                // hintElement.textContent = "提示：" + questions.hint;
-            }
+            // 顯示當前題目並將 '___' 替換為缺空處
+            const questionElement = document.getElementById('question-container');
+            questionElement.innerHTML = `<p>${questionWithGaps.replace(/___/g, generateDropZone('code'))}</p>`;
+            
+            // 顯示所有選項
+            const piecesElement = document.getElementById('pieces');
+            piecesElement.innerHTML = options.map(option => {
+                return `<button class="option-btn" data-useranswer="${option}" draggable="true" ondragstart="drag(event)">${option}</button>`;
+            }).join('');
 
             // 提交按鈕的點擊事件，即為觸發對答案的函數
             document.getElementById('submit-btn').onclick = function() {
                 checkAnswers();
+            }
+
+            // 檢查答案
+            function checkAnswers() {
+                const dropZones = document.querySelectorAll('.drop-zone');
+                let userAnswer = "";
+                dropZones.forEach(zone => {
+                    userAnswer += zone.textContent + " ";
+                });
+                userAnswer = userAnswer.trim(); // 去除多餘空格
+                
+                if (userAnswer === question) {
+                    alert('答案正確！');
+                } else {
+                    alert('答案錯誤！');
+                }
             }
 
             // 檢查答案是否正確
