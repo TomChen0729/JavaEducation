@@ -895,50 +895,47 @@ public class TreasureHunt1 {
 
             // 檢查答案是否正確
             function checkAnswers() {
+                let allFilled = true;
+                var userAnswer = [];
                 // 獲取玩家已填入缺空處的值
-                const dropZone = document.getElementById(`drop-zone-${questions['id']}`);
-                // 獲取當前使用者id
-                var cid = document.getElementById('cid').textContent;
-                var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                var timer = stopTimer();
-                const selectedAnswer = dropZone.textContent.trim();
-                console.log(selectedAnswer);
-                // console.log(csrfToken); // 測試用
-                console.log(cid);
-                if (selectedAnswer != null) {
-                    fetch('/api/correct_User_ANS?user_answer=' + encodeURIComponent(selectedAnswer) + '&question_id=' + questions['id'] + '&cid=' + cid + '&timer=' + timer, {
-                            method: 'GET',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': csrfToken
-                            },
-                            // body: JSON.stringify({
-                            //     user_answer: answerValue,
-                            //     question:  question,
-                            //     game_type: '是非'
-                            // })
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log(data);
-                            if (data.message == 'correct') {
-                                togglePopup4();
-                            } else if (data.message == 'wrongAnswer') {
-                                alert('答錯');
-                                setTimeout(function() {
-                                    window.location.href = `/GameType/填空/country_id/${questions['country_id']}/levels/${questions['levels']}`;
-                                }, 1000);
-                            } else {
-                                alert('伺服器錯誤');
-                                setTimeout(function() {
-                                    window.location.reload();
-                                }, 1000);
-                            }
-                        })
-                } else {
-                    alert('請選擇一個答案~');
+                const dropZone = document.querySelectorAll('.drop-zone');
+                console.log(dropZone.length);
+                dropZone.forEach(function(item, index){
+                    if(item.textContent.trim() === ''){
+                        allFilled = false;
+                    }
+                    userAnswer.push({order:index+1, ans_patterns:item.textContent});
+                });
+                console.log(userAnswer);
+                if(!allFilled){
+                    alert('你還有空格未填入答案');
+                    return;
                 }
-            }
+                var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                url = '/api/checkUserAnswer';
+                fetch(url,{
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    body: JSON.stringify({
+                        userAnswer: userAnswer,
+                        parameter_id: shape,
+                        currentUser: parseInt('{{ auth()->user()->id }}')
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if(data.message == ''){
+                        alert();
+                    }else if (data.message == ''){
+                        alert();
+                    }else{
+                        alert();
+                    }
+                });
+            };
         };
 
         // 允許拖放的函數，參數是event
