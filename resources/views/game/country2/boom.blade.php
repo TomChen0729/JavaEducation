@@ -38,6 +38,7 @@
             align-items: center;
             padding-top: 3%;
             height: 100%;
+            background-color: #F2D5B5;
 
         }
 
@@ -230,7 +231,6 @@
             transition: transform 0.5s ease-in-out;
             z-index: 1;
             height: auto;
-            background-color: #F2D5B5;
         }
 
         .left-container {
@@ -239,6 +239,7 @@
 
         .right-container {
             margin-top: 5%;
+            position: relative;
         }
 
         .row {
@@ -251,7 +252,6 @@
             border-radius: 20px;
             padding: 20px;
             text-align: left;
-            margin-top: 2%;
             transition: max-height 0.3s ease;
         }
 
@@ -407,18 +407,22 @@
 
 
         .container-code {
-            overflow-y: scroll;
-            height: 70%;
+            position: relative;
+            overflow-y: auto;
+            height: 90%;
             width: 94%;
+            max-width: 100%;
             background-color: #f4f4f4;
             border-radius: 8px;
             margin-left: 3%;
             margin-top: 8%;
-
+            padding: 0px 0px 0px 40px;
         }
 
         pre {
-            font-size: 20px;
+            font-size: 1.25em;
+            min-width: 100%;
+            margin-bottom:-3%;
         }
 
         input {
@@ -430,7 +434,7 @@
         .btn-container {
             position: absolute;
             right: 45%;
-            margin-top: -10%;
+            top:105%;
         }
 
         .btn-submit {
@@ -440,6 +444,55 @@
             border: none;
             color: white;
             border-radius: 5px;
+
+        }
+
+        @media (max-width: 1200px) {
+            .container-code {
+                overflow-x: scroll;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                margin-top: 10px;
+            }
+
+            .container-fluid {
+                padding: 0 5%;
+            }
+
+            .question {
+                padding: 10px;
+            }
+
+            .paper {
+                width: 90%;
+                height: auto;
+            }
+
+            .boombg {
+                height: 50%;
+            }
+
+            .navbar a {
+                margin: 10px 0;
+            }
+
+            .btn-container {
+                right: 10%;
+            }
+
+            .container-code {
+                overflow-x: scroll;
+            }
 
         }
     </style>
@@ -539,13 +592,14 @@
 
             <div class="col-md-6 right-container" id="right-container">
                 <div class="container-code" id="code">
-                    <pre>
+                    
 {!! $templateCode !!}
-</pre>
-                    <div class="btn-container">
+
+                    
+                </div>
+                <div class="btn-container">
                         <button id="send-code" class="btn-submit">提交</button>
                     </div>
-                </div>
             </div>
         </div>
     </div>

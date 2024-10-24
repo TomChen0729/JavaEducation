@@ -399,6 +399,100 @@
             padding: 1.6rem 2rem;
             padding-bottom: 3rem;
         }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 5%;
+                background-size: cover;
+            }
+
+            .header {
+                flex-direction: column;
+                padding: 10px;
+            }
+
+            .navbar a {
+                font-size: 16px;
+                margin: 0 10px;
+                padding: 5px 10px;
+            }
+
+            .first .content {
+                width: 90%;
+                padding: 10px;
+            }
+
+            .first .pop {
+                padding: 20px;
+                margin: 20px;
+            }
+
+            .paper {
+                width: 50%;
+                margin-left: 5%;
+            }
+
+            img {
+                height: auto;
+                width: 100%;
+            }
+
+            .left-container,
+            .right-container {
+                width: 100%;
+                position: relative;
+                height: auto;
+            }
+
+            .btn-container button {
+                font-size: 16px;
+                margin: 10px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .header {
+                padding: 15px;
+            }
+
+            .navbar a {
+                font-size: 18px;
+                margin: 0 20px;
+            }
+
+            .first .content {
+                width: 75%;
+            }
+
+            .paper {
+                width: 30%;
+                margin-left: 50%;
+            }
+
+            img {
+                height: auto;
+                width: 80%;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            body {
+                padding-top: 3%;
+            }
+
+            .navbar a {
+                font-size: 20px;
+                padding: 5px 15px;
+            }
+
+            .paper {
+                width: 100%;
+            }
+
+            .first .content {
+                width: 50%;
+            }
+        }
     </style>
 </head>
 

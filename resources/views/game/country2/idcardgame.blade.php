@@ -122,6 +122,7 @@
         .header {
             position: absolute;
             width: 100%;
+            height:9%;
             top: 0;
             right: 0;
             z-index: 1000;
@@ -305,39 +306,49 @@
             opacity: 1;
         }
 
+        .card-container{
+            margin-right: -5%; /* 調整間距 */
+        }
+
         #idcard {
             display: flex;
             justify-content: left;
             align-items: left;
-            padding: 30px;
-            position: relative;
+            max-width: 600px;
+            width: 80%;
         }
 
         .idcardbg {
+            padding-left:2%;
+            padding-top:7%;
             background-image: url('/images/idcard/idcardbg.svg');
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
             width: 100%;
             height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
         }
 
         .card {
-            margin-top: 5%;
+            margin-top:10%;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            width: 80%;
-            height: 80%;
-            padding: 30px;
+            width: 100%;
+            height: auto;
+            padding: 15px;
             border: 1px solid blue;
-            border-radius: 30px;
+            border-radius: 20px;
             background-color: #8bc8ff;
+            min-width:250px;
         }
 
         .card img {
             object-fit: cover;
-            /* 填滿容器，並保持圖片比例 */
             padding: 0;
             margin: 0;
             border: 1px solid gray;
@@ -349,8 +360,8 @@
         }
 
         .card h1 {
-            padding: 10px;
-            font-size: 20px;
+            padding: 5px;
+            font-size: 18px;
             font-weight: bold;
             text-align: center;
             background-color: #999999;
@@ -358,9 +369,9 @@
         }
 
         .card p {
-            margin: 0;
+            margin: 2px 0;
             padding: 0;
-            font-size: 20px;
+            font-size: 16px;
             font-weight: bold;
         }
 
@@ -404,6 +415,18 @@
             margin: 0 20px;
             border-radius: 5px;
             margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                flex: 1 1 45%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                flex: 1 1 100%;
+            }
         }
     </style>
 </head>
@@ -467,21 +490,19 @@
                 <div class="idcardbg">
                     <div class="row">
                         @foreach($idCardsData as $item)
-                        <div class="col-md-6">
-                            <div id="idcard">
+                        <div class="col-md-4 card-container">
+                            <div class="card" id="idcard">
                                 <img class="seal" id="seal-{{ $loop->index }}" src="/images/idcard/idcardseal.svg" alt="">
                                 <div class="message" id="message-{{ $loop->index }}"></div> <!-- 動畫顯示文字 -->
-                                <div class="card">
-                                    <div class="row">
-                                        <div class="col-md-6 left-container" id="idcards">
-                                            <img id="idcard-img-{{ $loop->index }}" src="" alt="證件照">
-                                        </div>
-                                        <div class="col-md-6 left-container">
-                                            <h1>身分證</h1>
-                                            <p>身分：{{ $item['identity'] }}</p>
-                                            <p>年齡：{{ $item['age'] }}</p>
-                                            <p>性別：{{ $item['gender'] }}</p>
-                                        </div>
+                                <div class="row">
+                                    <div class="col-md-6 left-container" id="idcards">
+                                        <img id="idcard-img-{{ $loop->index }}" src="" alt="證件照">
+                                    </div>
+                                    <div class="col-md-6 left-container">
+                                        <h1>身分證</h1>
+                                        <p>身分：{{ $item['identity'] }}</p>
+                                        <p>年齡：{{ $item['age'] }}</p>
+                                        <p>性別：{{ $item['gender'] }}</p>
                                     </div>
                                 </div>
                             </div>

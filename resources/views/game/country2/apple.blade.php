@@ -37,7 +37,8 @@
             justify-content: center;
             align-items: center;
             padding-top: 3%;
-            max-height: 100%;
+            max-height: auto;
+            background-color: #9DB2BF;
         }
 
         .first .overlay {
@@ -228,8 +229,7 @@
             position: relative;
             transition: transform 0.5s ease-in-out;
             z-index: 1;
-            height: auto;
-            background-color: #9DB2BF;
+            
         }
 
         .left-container {
@@ -238,10 +238,6 @@
 
         .right-container {
             margin-top: 5%;
-        }
-
-        .row {
-            height: 100%;
         }
 
         .question {
@@ -340,7 +336,7 @@
         }
 
         pre {
-            font-size: 20px;
+            font-size: 1.25em;
         }
 
         input {
@@ -363,6 +359,77 @@
             color: white;
             border-radius: 5px;
 
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .navbar {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+
+            .navbar .time {
+                display: block;
+            }
+
+            .left-container, .right-container {
+                width: 50%;
+                margin-top: 20px;
+            }
+
+            .img-container {
+                height: auto;
+            }
+
+            .container-code {
+                width: 50%; 
+                margin-left: 0;
+                height: auto;
+                overflow-x: hidden;
+                
+            }
+
+            .box {
+                width: 90%;
+                padding: 10px;
+            }
+
+            .box .box-inner {
+                padding: 20px;
+            }
+
+            pre {
+                font-size: 1em; 
+            }
+
+            input {
+                width: 100px;
+            }
+
+            .btn-container {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin-top: 10px; 
+            }
+        }
+
+        @media (min-width: 769px) {
+            .row {
+                display: flex;
+            }
+
+            .left-container, .right-container {
+                width: 50%;
+            }
+
+            .box {
+                width: 80%;
+            }
         }
     </style>
 </head>

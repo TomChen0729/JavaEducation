@@ -37,8 +37,8 @@
             justify-content: center;
             align-items: center;
             padding-top: 3%;
-            max-height: 100%;
-            overflow: hidden;
+            height:100%;
+            background-color: #D7C0AE;
         }
 
         .first .overlay {
@@ -230,7 +230,6 @@
             transition: transform 0.5s ease-in-out;
             z-index: 1;
             height: auto;
-            background-color: #D7C0AE;
         }
 
         .left-container {
@@ -404,7 +403,8 @@
         }
 
         pre {
-            font-size: 20px;
+            font-size: 1.25em;
+            margin-bottom:-1%;
         }
 
         input {
@@ -427,6 +427,113 @@
             color: white;
             border-radius: 5px;
 
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 10%;
+                flex-direction: column;
+            }
+
+            .first .content {
+                width: 90%;
+                padding: 15px;
+            }
+
+            .navbar a {
+                font-size: 16px;
+                padding: 5px 10px;
+                margin: 0 10px;
+            }
+
+            .question-box {
+                width: 100%;
+                padding: 2%;
+            }
+
+            .health-container {
+                width: 100%;
+                height: auto;
+            }
+
+            .man {
+                width: 40%;
+            }
+
+            .img-container {
+                margin-left: 0;
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            body {
+                padding-top: 5%;
+            }
+
+            .first .content {
+                width: 70%;
+            }
+
+            .navbar a {
+                font-size: 18px;
+                padding: 5px 12px;
+                margin: 0 20px;
+            }
+
+            .question-box {
+                width: 95%;
+                padding: 1.5%;
+            }
+
+            .health-container {
+                width: 80%;
+            }
+
+            .man {
+                width: 30%;
+            }
+
+            .img-container {
+                margin-left: 2%;
+                width: 80%;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            body {
+                padding-top: 3%;
+            }
+
+            .first .content {
+                width: 50%;
+            }
+
+            .navbar a {
+                font-size: 20px;
+                padding: 5px 15px;
+                margin: 0 30px;
+            }
+
+            .question-box {
+                width: 90%;
+                padding: 1%;
+            }
+
+            .health-container {
+                width: 450px;
+            }
+
+            .man {
+                width: 20%;
+            }
+
+            .img-container {
+                margin-left: 3%;
+                width: auto;
+                height: 70%;
+            }
         }
     </style>
 </head>
@@ -504,9 +611,9 @@
 
             <div class="col-md-6 right-container" id="right-container">
                 <div class="container-code" id="code">
-                    <pre>
+                    
 {!! $templateCode !!}
-</pre>
+
                     <div class="btn-container">
                         <button id="send-code" class="btn-submit">提交</button>
                     </div>
