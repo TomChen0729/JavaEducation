@@ -395,13 +395,13 @@
         <div class="row">
             <ul class="col-ms-8 breadcrumbs">
                 <li class="breadcrumbs__item">
-                    <a href="#" class="breadcrumbs__link">綠野仙蹤</a>
+                    <a href="{{ route('welcome') }}" class="breadcrumbs__link">綠野仙蹤</a>
                 </li>
                 <li class="breadcrumbs__item">
-                    <a href="#" class="breadcrumbs__link">遊戲種類</a>
+                    <a href="/country/2" class="breadcrumbs__link">遊戲種類</a>
                 </li>
                 <li class="breadcrumbs__item">
-                    <a href="#" class="breadcrumbs__link__active">解鎖寶箱</a>
+                    <a href="/country/2/secGameID/2" class="breadcrumbs__link__active">解鎖寶箱</a>
                 </li>
             </ul>
 
