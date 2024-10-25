@@ -417,12 +417,15 @@
             margin-left: 3%;
             margin-top: 8%;
             padding: 0px 0px 0px 40px;
+            overflow-x: auto;
         }
 
         pre {
             font-size: 1.25em;
-            min-width: 100%;
-            margin-bottom:-3%;
+            display: inline-block;
+            white-space: pre;
+            margin: 0;
+            padding: 10px;
         }
 
         input {

@@ -315,11 +315,15 @@
             padding: 15px;
             border-radius: 8px;
             padding: 5px 0px 0px 40px;
+            overflow-x: auto;
         }
 
         .excode-container pre {
             font-size: 1.25em;
-            margin-bottom:-1%;
+            display: inline-block;
+            white-space: pre;
+            margin: 0;
+            padding: 10px;
         }
 
         .code-container {

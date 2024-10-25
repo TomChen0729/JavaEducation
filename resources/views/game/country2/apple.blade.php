@@ -326,17 +326,22 @@
 
         .container-code {
             overflow-y: scroll;
-            height: 70%;
+            max-height: 90%;
             width: 94%;
             background-color: #f4f4f4;
             border-radius: 8px;
             margin-left: 3%;
             padding: 0px 0px 0px 40px;
+            overflow-x: auto;
 
         }
 
         pre {
             font-size: 1.25em;
+            display: inline-block;
+            white-space: pre;
+            margin: 0;
+            padding: 10px;
         }
 
         input {
@@ -348,7 +353,7 @@
         .btn-container {
             position: absolute;
             right: 40px;
-            top: 75%;
+            top: 93%;
         }
 
         .btn-submit {
@@ -388,7 +393,7 @@
             .container-code {
                 width: 50%; 
                 margin-left: 0;
-                height: auto;
+                height: 30%;
                 overflow-x: hidden;
                 
             }
