@@ -431,6 +431,35 @@
             top: 25%;
             opacity: 1;
         }
+
+        @media (max-width: 768px) {
+            .code-container {
+                margin-left: 0;
+                width: 100%;
+                padding: 20px;
+            }
+
+            img {
+                width: 100%;
+                height: auto;
+            }
+
+            #img-container #pot {
+                width: 80%;
+                margin-left: 10%;
+            }
+
+            #img-container #stick {
+                width: 200px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .code-container {
+                margin-left: 60%;
+                width: 30%;
+            }
+        }
     </style>
 </head>
 

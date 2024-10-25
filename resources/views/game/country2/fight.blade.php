@@ -317,18 +317,26 @@
             padding: 5px 0px 0px 40px;
         }
 
+        .excode-container pre {
+            font-size: 1.25em;
+            margin-bottom:-1%;
+        }
+
         .code-container {
+            overflow-y:hidden;
             width: 100%;
             height: 35%;
-            overflow-y: scroll;
             background-color: #f4f4f4;
             padding: 15px;
             border-radius: 8px;
             padding: 0px 0px 0px 40px;
         }
 
-        pre {
-            font-size: 20px;
+        .code-container pre {
+            font-size: 1.25em;
+            margin-bottom:-6.5%;
+            overflow-y: scroll;
+            height: 100%;
         }
 
         input {
@@ -387,6 +395,85 @@
             animation: animate 1s ease-in-out;
             opacity: 1;
             /* 直接顯示 */
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+                padding-top: 4%;
+            }
+
+            .navbar a {
+                font-size: 16px;
+                padding: 5px 10px;
+                margin: 0px 15px;
+            }
+
+            .question {
+                font-size: 16px;
+                padding: 25px;
+            }
+
+            .breadcrumbs {
+                font-size: 16px;
+                letter-spacing: 2px;
+            }
+
+            
+
+            .btn-container button {
+                font-size: 18px;
+                margin: 0 5px;
+            }
+
+            .container-fluid {
+                padding-left: 2%;
+                padding-right: 2%;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            body {
+                flex-direction: column;
+                padding-top: 5%;
+            }
+
+            .navbar a {
+                font-size: 18px;
+                padding: 8px 16px;
+            }
+
+            .question {
+                font-size: 18px;
+                padding: 35px;
+            }
+
+            .breadcrumbs {
+                font-size: 20px;
+                letter-spacing: 3px;
+            }
+
+            .btn-container button {
+                font-size: 22px;
+                margin: 0 10px;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .container-fluid {
+                padding-left: 4%;
+                padding-right: 4%;
+            }
+
+            .navbar a {
+                font-size: 22px;
+                padding: 10px 20px;
+            }
+
+            .question {
+                font-size: 22px;
+                padding: 50px;
+            }
         }
     </style>
 </head>
@@ -476,9 +563,9 @@ public class Main {
 </pre>
                 </div>
                 <div class="code-container" id="code-container">
-                    <pre>
+                    
 {!! $templateCode !!}
-</pre>
+
                 </div>
                 <div class="btn-container">
                     <button id="send-code" class="btn-submit">提交</button>
