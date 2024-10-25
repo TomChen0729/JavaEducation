@@ -883,7 +883,7 @@ public class TreasureHunt1 {
                 const piecesElement = document.getElementById('pieces');
                 // 設定選項按鈕，透過map函數遍歷整個options陣列，將每個值讀出來，然後動態生成選項
                 piecesElement.innerHTML = questions.options.map(options => {
-                    return `<button class="option-btn" data-useranswer="${options.option}" draggable="true" ondragstart="drag(event)">${options.option}</button>`;
+                    return `<button class="option-btn" data-useranswer="${options.option}" draggable="true" ondragstart="drag(event)" ondragend="showElement(event)">${options.option}</button>`;
                 }).join('');
             }
             
@@ -922,7 +922,7 @@ public class TreasureHunt1 {
                     body: JSON.stringify({
                         userAnswer: userAnswer,
                         parameter_id: shape,
-                        currentUser: parseInt('{{ auth()->user()->id }}')
+                        currentUser: parseInt('')
                     })
                 })
                 .then(response => response.json())
@@ -948,6 +948,12 @@ public class TreasureHunt1 {
         function drag(event) {
             // 設定拖動數據
             event.dataTransfer.setData("text", event.target.dataset.useranswer);
+        }
+
+        // 拖曳結束時顯示元素
+        function showElement(event) {
+            event.target.style.display = 'none';
+            event.target.style.display = 'inline=block';
         }
 
         // 把值放上去時的函數
