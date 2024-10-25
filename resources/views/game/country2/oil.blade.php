@@ -457,10 +457,10 @@
                     <a href="{{ route('welcome') }}" class="breadcrumbs__link">綠野仙蹤</a>
                 </li>
                 <li class="breadcrumbs__item">
-                    <a href="/country/2" class="breadcrumbs__link">遊戲種類</a>
+                    <a href="{{ route('country.index', ['country_id' => $oilQuestion->country_id]) }}" class="breadcrumbs__link">遊戲種類</a>
                 </li>
                 <li class="breadcrumbs__item">
-                    <a href="/country/2/secGameID/7" class="breadcrumbs__link__active">塔中尋油</a>
+                    <a href="#" class="breadcrumbs__link__active">塔中尋油</a>
                 </li>
             </ul>
 
