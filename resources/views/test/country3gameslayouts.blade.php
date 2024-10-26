@@ -883,7 +883,7 @@ public class TreasureHunt1 {
                 const piecesElement = document.getElementById('pieces');
                 // 設定選項按鈕，透過map函數遍歷整個options陣列，將每個值讀出來，然後動態生成選項
                 piecesElement.innerHTML = questions.options.map(options => {
-                    return `<button class="option-btn" data-useranswer="${options.option}" draggable="true" ondragstart="drag(event)" ondragend="showElement(event)">${options.option}</button>`;
+                    return `<button class="option-btn" data-useranswer="${options.option}" draggable="true" ondragstart="drag(event)">${options.option}</button>`;
                 }).join('');
             }
             
@@ -950,12 +950,6 @@ public class TreasureHunt1 {
             event.dataTransfer.setData("text", event.target.dataset.useranswer);
         }
 
-        // 拖曳結束時顯示元素
-        function showElement(event) {
-            event.target.style.display = 'none';
-            event.target.style.display = 'inline=block';
-        }
-
         // 把值放上去時的函數
         function drop(event) {
             // 允許值被放上去
@@ -963,8 +957,28 @@ public class TreasureHunt1 {
             event.preventDefault();
             // 獲取使用者放上去的資料
             const data = event.dataTransfer.getData("text");
-            // 將放上去的文字設為使用者自己拖上去的
-            event.target.textContent = data;
+
+            // 檢查span是否空缺
+            if (event.target.classList.contains('drop-zone')) {
+                // 將放上去的文字設為使用者自己拖上去的
+                event.target.textContent = data;
+
+                // 取得button的data-useranswer屬性，確認是否放button進去了
+                const button = document.querySelector(`button[data-useranswer="${data}"]`);
+                if (button) {
+                    // 隱藏按鈕
+                    button.style.display = 'none';
+
+                    // 測試成功放置
+                    console.log("答案放置成功");
+
+                    // 在span中也可以拖曳
+
+                }
+            } else {
+                // 測試失敗放置
+                console.log("答案放置失敗");
+            }
         }
 
         // 產生缺空處的函數
