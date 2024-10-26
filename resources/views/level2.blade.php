@@ -157,30 +157,39 @@ function setButtonPositions() {
                 });
                 break;
             case 'pass':
-                const completedLabel = document.createElement('span');
-                completedLabel.innerText = '已通關';
-                completedLabel.style.position = 'absolute';
-                completedLabel.style.transform = 'translateX(-50%)'; 
-                completedLabel.style.color = 'green';
-                completedLabel.style.fontSize = '48px';
-                completedLabel.style.fontWeight = 'bold';
-                completedLabel.style.backgroundColor = 'white';
-                completedLabel.style.padding = '5px';
-                completedLabel.style.borderRadius = '5px';
-                completedLabel.style.pointerEvents = 'none';
-                button.style.position = 'relative';
-
-                // 計算圖片的位置
-                const imgRect = img.getBoundingClientRect();
-                const imgCenterX = imgRect.left + imgRect.width / 2;
-                const imgCenterY = imgRect.top + imgRect.height / 2;
-
-                completedLabel.style.top = `${imgCenterY}px`; // 設在圖片中心
-                completedLabel.style.left = `${imgCenterX}px`;
-                completedLabel.style.transform = 'translate(-72%, -50%)';
-
+                switch (index) {
+                    case 0:
+                        img.src = '/images/country2choose/CLEAR/clearopendoor.svg';
+                        break;
+                    case 1:
+                        img.src = '/images/country2choose/CLEAR/clearopenbox.svg';
+                        break;
+                    case 2:
+                        img.src = '/images/country2choose/CLEAR/clearidcard.svg';
+                        break;
+                    case 3:
+                        img.src = '/images/country2choose/CLEAR/cleargem.svg';
+                        break;
+                    case 4:
+                        img.src = '/images/country2choose/CLEAR/clearcave.svg';
+                        break;
+                    case 5:
+                        img.src = '/images/country2choose/CLEAR/clear3doors.svg';
+                        break;
+                    case 6:
+                        img.src = '/images/country2choose/CLEAR/clearsword.svg';
+                        break;
+                    case 7:
+                        img.src = '/images/country2choose/CLEAR/clearmonsrer.svg';
+                        break;
+                    case 8:
+                        img.src = '/images/country2choose/CLEAR/clearfire.svg';
+                        break;
+                    default:
+                        break;
+                }
+                img.style.opacity = '1'; // 確保圖片全顯示
                 
-                button.appendChild(completedLabel); // 添加標籤到按鈕
                 break;
             default:
                 break;
