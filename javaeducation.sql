@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2024-10-22 11:22:28
+-- 產生時間： 2024-10-26 10:00:44
 -- 伺服器版本： 10.4.32-MariaDB
 -- PHP 版本： 8.2.12
 
@@ -50,8 +50,8 @@ INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
 ('0dfddec41b02894cc83adcdcfca8fac5:timer', 'i:1723816962;', 1723816962),
 ('3dce29dd1498b35a2c31ae0f35a1aacc', 'i:1;', 1719236179),
 ('3dce29dd1498b35a2c31ae0f35a1aacc:timer', 'i:1719236179;', 1719236179),
-('ca6c49a141d86ad9a006978c0300a99e', 'i:1;', 1729577074),
-('ca6c49a141d86ad9a006978c0300a99e:timer', 'i:1729577074;', 1729577074);
+('ca6c49a141d86ad9a006978c0300a99e', 'i:1;', 1729837575),
+('ca6c49a141d86ad9a006978c0300a99e:timer', 'i:1729837575;', 1729837575);
 
 -- --------------------------------------------------------
 
@@ -102,9 +102,7 @@ INSERT INTO `card_types` (`id`, `country_id`, `levels`, `card_type`, `created_at
 (2, 1, 2, '資料輸入輸出', NULL, NULL, '&#x1F503;'),
 (3, 1, 3, '運算子', NULL, NULL, '&#x1F9EE;'),
 (4, 2, 0, '條件語句', NULL, NULL, ''),
-(5, 2, 0, '迴圈控制', NULL, NULL, ''),
-(6, 3, 0, '陣列', NULL, NULL, ''),
-(7, 3, 0, '字串', NULL, NULL, '');
+(5, 2, 0, '迴圈控制', NULL, NULL, '');
 
 -- --------------------------------------------------------
 
@@ -257,31 +255,7 @@ INSERT INTO `dramas` (`id`, `country_id`, `order`, `msg`, `role_icon`, `created_
 (32, 2, 22, '旁白：壞女巫放火，錫人迅速行動', 'narration', NULL, NULL),
 (33, 2, 23, '錫人：快退後，我來滅火！', 'tinman', NULL, NULL),
 (34, 2, 24, '旁白：錫人用手上的斧頭撲滅火焰', 'narration', NULL, NULL),
-(35, 2, 25, '桃樂絲：錫人，真是太感謝你了。你救了我們。', 'tls', NULL, NULL),
-(36, 3, 1, '旁白：在陰森的森林裡，桃樂絲和朋友們突然被一隻膽小的獅子攻擊。', 'narration', NULL, NULL),
-(37, 3, 2, '桃樂絲：住手！我們不是來找麻煩的！', 'tls', NULL, NULL),
-(38, 3, 3, '獅子：（哭泣）我只想當萬獸之王，但我卻是一隻膽小的獅子！', 'lion', NULL, NULL),
-(39, 3, 4, '稻草人：跟我們一起去找歐茲法師吧，他能幫你實現願望！', 'scarecrow', NULL, NULL),
-(40, 3, 5, '獅子：真的嗎？我能和你們一起去嗎？', 'lion', NULL, NULL),
-(41, 3, 6, '桃樂絲：當然！一起面對困難！', 'tls', NULL, NULL),
-(42, 3, 7, '旁白：走著走著桃樂絲和夥伴們在陰暗的森林中，遇到了一條巨大的壕溝。', 'narration', NULL, NULL),
-(43, 3, 8, '桃樂絲：我們該怎麼過去？', 'tls', NULL, NULL),
-(44, 3, 9, '稻草人：獅子可以一個個背我們跳過去！', 'scarecrow', NULL, NULL),
-(45, 3, 10, '獅子：好，我會試試看！', 'lion', NULL, NULL),
-(46, 3, 11, '旁白：獅子蹲下，稻草人爬上他的背，獅子跳過壕溝。', 'narration', NULL, NULL),
-(47, 3, 12, '獅子：我做到了！快來，大家都上來！', 'lion', NULL, NULL),
-(48, 3, 13, '旁白：通過壕溝後，他們越來越深入陰暗森林，獅子警告大家小心。', 'narration', NULL, NULL),
-(49, 3, 14, '獅子：這裡是卡力達的地盤，他可不好惹！', 'lion', NULL, NULL),
-(50, 3, 15, '旁白：當他們走到大峽谷時，獅子無法再跳過去。', 'narration', NULL, NULL),
-(51, 3, 16, '稻草人：我們可以砍樹搭一座橋！', 'scarecrow', NULL, NULL),
-(52, 3, 17, '旁白：突然，卡力達從樹林中衝出。', 'narration', NULL, NULL),
-(53, 3, 18, '卡力達：誰敢闖入我的領地？', 'monster', NULL, NULL),
-(54, 3, 19, '稻草人：快過橋！不然就來不及了！', 'scarecrow', NULL, NULL),
-(55, 3, 20, '旁白：獅子面對卡力達，突然吼叫。', 'narration', NULL, NULL),
-(56, 3, 21, '獅子：走開！我不怕你！', 'lion', NULL, NULL),
-(57, 3, 22, '旁白：獅子的吼聲震撼了森林，卡力達被嚇住，獅子迅速過了橋。', 'narration', NULL, NULL),
-(58, 3, 23, '稻草人：快，砍斷橋！', 'scarecrow', NULL, NULL),
-(59, 3, 24, '旁白：轟隆一聲巨響，卡力達掉進了深溝。', 'narration', NULL, NULL);
+(35, 2, 25, '桃樂絲：錫人，真是太感謝你了。你救了我們。', 'tls', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -409,30 +383,7 @@ INSERT INTO `knowledge_cards` (`id`, `country_id`, `name`, `content`, `created_a
 (28, 2, 'do…while', 'do…while', NULL, NULL, 5),
 (29, 2, 'if…else if…else', 'if…else if…else', NULL, NULL, 4),
 (30, 2, 'continue', 'continue', NULL, NULL, 5),
-(31, 2, 'break', 'break', NULL, NULL, 5),
-(32, 3, 'Arrays.sort()', 'Arrays.sort()', NULL, NULL, 6),
-(33, 3, 'for(type 元素: arrayName) 陣列的for-Each', 'for(type 元素: arrayName) 陣列的for-Each', NULL, NULL, 6),
-(34, 3, 'Arrays.fills()', 'Arrays.fills()', NULL, NULL, 6),
-(35, 3, 'Arrays.equals()', 'Arrays.equals()', NULL, NULL, 6),
-(36, 3, 'Arrays.binarySearch()', 'Arrays.binarySearch()', NULL, NULL, 6),
-(37, 3, 'ArrayList.forEach()', 'ArrayList.forEach()', NULL, NULL, 6),
-(38, 3, 'ArrayList.add()', 'ArrayList.add()', NULL, NULL, 6),
-(39, 3, 'ArrayList.remove()', 'ArrayList.remove()', NULL, NULL, 6),
-(40, 3, 'ArrayList.removeAll()', 'ArrayList.removeAll()', NULL, NULL, 6),
-(41, 3, 'ArrayList.get()', 'ArrayList.get()', NULL, NULL, 6),
-(42, 3, 'ArrayList.size()', 'ArrayList.size()', NULL, NULL, 6),
-(43, 3, 'ArrayList.indexOf()', 'ArrayList.indexOf()', NULL, NULL, 6),
-(44, 3, 'ArrayList.isEmpty()', 'ArrayList.isEmpty()', NULL, NULL, 6),
-(45, 3, 'ArrayList.toArray()', 'ArrayList.toArray()', NULL, NULL, 6),
-(46, 3, 'ArrayList.contains()', 'ArrayList.contains()', NULL, NULL, 6),
-(47, 3, 'StringName.length()', 'StringName.length()', NULL, NULL, 7),
-(48, 3, 'StringName.charAt()', 'StringName.charAt()', NULL, NULL, 7),
-(49, 3, 'StringName.toLowerCase()', 'StringName.toLowerCase()', NULL, NULL, 7),
-(50, 3, 'StringName.toUpperCase()', 'StringName.toUpperCase()', NULL, NULL, 7),
-(51, 3, 'StringName.substring()', 'StringName.substring()', NULL, NULL, 7),
-(52, 3, 'StringName.compareTo()', 'StringName.compareTo()', NULL, NULL, 7),
-(53, 3, 'StringName.replace()', 'StringName.replace()', NULL, NULL, 7),
-(54, 3, 'StringName.split()', 'StringName.split()', NULL, NULL, 7);
+(31, 2, 'break', 'break', NULL, NULL, 5);
 
 -- --------------------------------------------------------
 
@@ -709,7 +660,21 @@ INSERT INTO `pass_course_get_cards` (`id`, `secGameID`, `knowledge_card_id`, `cr
 (4, 2, 26, NULL, NULL),
 (5, 3, 27, NULL, NULL),
 (6, 3, 28, NULL, NULL),
-(7, 3, 29, NULL, NULL);
+(7, 3, 29, NULL, NULL),
+(8, 4, 25, NULL, NULL),
+(9, 4, 26, NULL, NULL),
+(10, 5, 25, NULL, NULL),
+(11, 5, 26, NULL, NULL),
+(12, 6, 27, NULL, NULL),
+(13, 6, 28, NULL, NULL),
+(14, 6, 29, NULL, NULL),
+(15, 7, 27, NULL, NULL),
+(16, 7, 28, NULL, NULL),
+(17, 7, 29, NULL, NULL),
+(18, 8, 30, NULL, NULL),
+(19, 8, 31, NULL, NULL),
+(20, 9, 30, NULL, NULL),
+(21, 9, 31, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -736,20 +701,20 @@ TRUNCATE TABLE `pass_course_need_cards`;
 --
 
 INSERT INTO `pass_course_need_cards` (`id`, `secGameID`, `knowledge_card_id`, `created_at`, `updated_at`) VALUES
-(1, 2, 24, NULL, NULL),
-(2, 3, 24, NULL, NULL),
-(3, 3, 26, NULL, NULL),
-(4, 4, 23, NULL, NULL),
-(5, 5, 23, NULL, NULL),
-(6, 5, 24, NULL, NULL),
-(7, 6, 25, NULL, NULL),
-(8, 6, 26, NULL, NULL),
-(9, 7, 25, NULL, NULL),
-(10, 8, 27, NULL, NULL),
-(11, 8, 29, NULL, NULL),
-(12, 9, 25, NULL, NULL),
-(13, 9, 28, NULL, NULL),
-(14, 1, NULL, NULL, NULL);
+(1, 1, NULL, NULL, NULL),
+(2, 2, 24, NULL, NULL),
+(3, 3, 24, NULL, NULL),
+(4, 3, 26, NULL, NULL),
+(5, 4, 23, NULL, NULL),
+(6, 5, 23, NULL, NULL),
+(7, 5, 24, NULL, NULL),
+(8, 6, 25, NULL, NULL),
+(9, 6, 26, NULL, NULL),
+(10, 7, 25, NULL, NULL),
+(11, 8, 27, NULL, NULL),
+(12, 8, 29, NULL, NULL),
+(13, 9, 25, NULL, NULL),
+(14, 9, 28, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1100,38 +1065,109 @@ TRUNCATE TABLE `sec_answers`;
 --
 
 INSERT INTO `sec_answers` (`id`, `secParameterID`, `order`, `ans_patterns`, `created_at`, `updated_at`) VALUES
-(1, 2, 1, '^\\s*int\\s+i\\s*=\\s*1\\s*$', NULL, NULL),
-(2, 2, 2, '^\\s*i\\s*<=\\s*n\\s*$', NULL, NULL),
-(3, 2, 3, '^\\s*i\\s*\\+\\+\\s*$', NULL, NULL),
-(4, 2, 4, '^\\s*int\\s+j\\s*=\\s*1\\s*$', NULL, NULL),
-(5, 2, 5, '^\\s*j\\s*<=\\s*2\\s*\\*\\s*i\\s*-\\s*1\\s*$', NULL, NULL),
-(6, 2, 6, '^\\s*j\\s*\\+\\+\\s*$', NULL, NULL),
-(7, 3, 1, '^\\s*int\\s+i\\s*=\\s*n\\s*$', NULL, NULL),
-(8, 3, 2, '^\\s*i\\s*>=\\s*1\\s*$', NULL, NULL),
-(9, 3, 3, '^\\s*i\\s*\\-\\-\\s*$', NULL, NULL),
-(10, 3, 4, '^\\s*int\\s+j\\s*=\\s*1\\s*$', NULL, NULL),
-(11, 3, 5, '^\\s*j\\s*<=\\s*2\\s*\\*\\s*i\\s*-\\s*1\\s*$', NULL, NULL),
-(12, 3, 6, '^\\s*j\\s*\\+\\+\\s*$', NULL, NULL),
-(13, 4, 1, '^\\s*int\\s+i\\s*=\\s*1\\s*$', NULL, NULL),
-(14, 4, 2, '^\\s*i\\s*<=\\s*n\\s*$', NULL, NULL),
-(15, 4, 3, '^\\s*i\\s*\\+\\+\\s*$', NULL, NULL),
-(16, 4, 4, '^\\s*int\\s+j\\s*=\\s*1\\s*$', NULL, NULL),
-(17, 4, 5, '^\\s*j\\s*<=\\s*n\\s*-\\s*i\\s*$', NULL, NULL),
-(18, 4, 6, '^\\s*j\\s*\\+\\+\\s*$', NULL, NULL),
-(19, 4, 7, '^\\s*int\\s+j\\s*=\\s*1\\s*$', NULL, NULL),
-(20, 4, 8, '^\\s*j\\s*<=\\s*2\\s*\\*\\s*i\\s*-\\s*1\\s*$', NULL, NULL),
-(21, 4, 9, '^\\s*j\\s*\\+\\+\\s*$', NULL, NULL),
-(22, 5, 1, '^\\s*int\\s+i\\s*=\\s*n\\s*$', NULL, NULL),
-(23, 5, 2, '^\\s*i\\s*>=\\s*1\\s*$', NULL, NULL),
-(24, 5, 3, '^\\s*i\\s*--\\s*$', NULL, NULL),
-(25, 5, 4, '^\\s*int\\s+j\\s*=\\s*1\\s*$', NULL, NULL),
-(26, 5, 5, '^\\s*j\\s*<=\\s*n\\s*-\\s*i\\s*$', NULL, NULL),
-(27, 5, 6, '^\\s*j\\s*\\+\\+\\s*$', NULL, NULL),
-(28, 5, 7, '^\\s*int\\s+j\\s*=\\s*1\\s*$', NULL, NULL),
-(29, 5, 8, '^\\s*j\\s*<=\\s*2\\s*\\*\\s*i\\s*-\\s*1\\s*$', NULL, NULL),
-(30, 5, 9, '^\\s*j\\s*\\+\\+\\s*$', NULL, NULL),
-(31, 7, 1, '^\\s*material1\\s*>=\\s*20\\s*&&\\s*material1\\s*<=\\s*50\\s*&&\\s*material2\\s*<\\s*30\\s*$', NULL, NULL),
-(32, 1, 1, '\"%s\"', NULL, NULL);
+(1, 1, 1, '\"^%s$\"', NULL, NULL),
+(2, 1, 2, '\"^hello world$\"', NULL, NULL),
+(3, 2, 1, '\"^%d$\"', NULL, NULL),
+(4, 2, 2, '\"^10$\"', NULL, NULL),
+(5, 3, 1, '\"^%.2f$\"', NULL, NULL),
+(6, 3, 2, '\"^3.14$\"', NULL, NULL),
+(7, 4, 1, '\"^\\s*int\\s+i\\s*=\\s*1\\s*$\"', NULL, NULL),
+(8, 4, 2, '\"^\\s*i\\s*<=\\s*n\\s*$\"', NULL, NULL),
+(9, 4, 3, '\"^\\s*i\\+\\+\\s*$\"', NULL, NULL),
+(10, 4, 4, '\"^\\s*int\\s+j\\s*=\\s*1\\s*$\"', NULL, NULL),
+(11, 4, 5, '\"^\\s*j\\s*<=\\s*2\\s*\\*\\s*i\\s*-\\s*1\\s*$\"', NULL, NULL),
+(12, 4, 6, '\"^\\s*j\\+\\+\\s*$\"', NULL, NULL),
+(13, 5, 1, '\"^\\s*int\\s+i\\s*=\\s*n\\s*$\"', NULL, NULL),
+(14, 5, 2, '\"^\\s*i\\s*>=\\s*1\\s*$\"', NULL, NULL),
+(15, 5, 3, '\"^\\s*i--\\s*$\"', NULL, NULL),
+(16, 5, 4, '\"^\\s*int\\s+j\\s*=\\s*1\\s*$\"', NULL, NULL),
+(17, 5, 5, '\"^\\s*j\\s*<=\\s*2\\s*\\*\\s*i\\s*-\\s*1\\s*$\"', NULL, NULL),
+(18, 5, 6, '\"^\\s*j\\+\\+\\s*$\"', NULL, NULL),
+(19, 6, 1, '\"^\\s*int\\s+i\\s*=\\s*1\\s*$\"', NULL, NULL),
+(20, 6, 2, '\"^\\s*i\\s*<=\\s*n\\s*$\"', NULL, NULL),
+(21, 6, 3, '\"^\\s*i\\+\\+\\s*$\"', NULL, NULL),
+(22, 6, 4, '\"^\\s*int\\s+j\\s*=\\s*1\\s*$\"', NULL, NULL),
+(23, 6, 5, '\"^\\s*j\\s*<=\\s*n\\s*-\\s*i\\s*$\"', NULL, NULL),
+(24, 6, 6, '\"^\\s*j\\+\\+\\s*$\"', NULL, NULL),
+(25, 6, 7, '\"^\\s*int\\s+j\\s*=\\s*1\\s*$\"', NULL, NULL),
+(26, 6, 0, '\"^\\s*j\\s*<=\\s*2\\s*\\*\\s*i\\s*-\\s*1\\s*$\"', NULL, NULL),
+(27, 6, 9, '\"^\\s*j\\+\\+\\s*$\"', NULL, NULL),
+(28, 7, 1, '\"^\\s*int\\s+i\\s*=\\s*n\\s*$\"', NULL, NULL),
+(29, 7, 2, '\"^\\s*i\\s*>=\\s*1\\s*$\"', NULL, NULL),
+(30, 7, 3, '\"^\\s*i--\\s*$\"', NULL, NULL),
+(31, 7, 4, '\"^\\s*int\\s+j\\s*=\\s*1\\s*$\"', NULL, NULL),
+(32, 7, 5, '\"^\\s*j\\s*<=\\s*n\\s*-\\s*i\\s*$\"', NULL, NULL),
+(33, 7, 6, '\"^\\s*j\\+\\+\\s*$\"', NULL, NULL),
+(34, 7, 7, '\"^\\s*int\\s+j\\s*=\\s*1\\s*$\"', NULL, NULL),
+(35, 7, 8, '\"^\\s*j\\s*<=\\s*2\\s*\\*\\s*i\\s*-\\s*1\\s*$\"', NULL, NULL),
+(36, 7, 9, '\"^\\s*j\\+\\+\\s*$\"', NULL, NULL),
+(37, 8, 1, '\"^\\s*int\\s+i\\s*=\\s*0\\s*$\"', NULL, NULL),
+(38, 8, 2, '\"^\\s*i\\s*<\\s*n\\s*$\"', NULL, NULL),
+(39, 8, 3, '\"^\\s*i\\+\\+\\s*$\"', NULL, NULL),
+(40, 8, 4, '\"^怪物$\"', NULL, NULL),
+(41, 8, 5, '\"^System\\.out\\.println\\(\\\"禁止進入\\\"\\)\\s*$\"', NULL, NULL),
+(42, 8, 6, '\"^System\\.out\\.println\\(\\\"免費進入\\\"\\)\\s*$\"', NULL, NULL),
+(43, 9, 1, '\"^\\s*material1\\s*>=\\s*20\\s*&&\\s*material1\\s*<=\\s*50\\s*&&\\s*material2\\s*<\\s*30\\s*$\"', NULL, NULL),
+(44, 10, 1, '\"^\\s*material1\\s*>\\s*40\\s*&&\\s*material1\\s*<=\\s*70\\s*|\\|\\s*material2\\s*>\\s*100\\s*$\"', NULL, NULL),
+(45, 11, 1, '\"^\\s*material1\\s*<\\s*40\\s*$\"', NULL, NULL),
+(46, 12, 1, '\"^\\s*material2\\s*>\\s*60\\s*&&\\s*material2\\s*<=\\s*200\\s*$\"', NULL, NULL),
+(47, 13, 1, '\"^\\s*i\\s*<=\\s*n\\s*$\"', NULL, NULL),
+(48, 13, 2, '\"^\\s*i\\+\\+\\s*$\"', NULL, NULL),
+(49, 13, 3, '\"^\\s*int\\s+j\\s*=\\s*2\\s*$\"', NULL, NULL),
+(50, 13, 4, '\"^\\s*j\\s*<\\s*i\\s*$\"', NULL, NULL),
+(51, 13, 5, '\"^\\s*j\\+\\+\\s*$\"', NULL, NULL),
+(52, 13, 6, '\"^\\s*i\\s*%\\s*j\\s*==\\s*0\\s*$\"', NULL, NULL),
+(53, 13, 7, '\"^\\s*isPrime\\s*&&\\s*i\\s*<\\s*a\\s*$\"', NULL, NULL),
+(54, 14, 1, '\"^\\s*number\\s*%\\s*10\\s*$\"', NULL, NULL),
+(55, 14, 2, '\"^\\s*digit\\s*>=\\s*5\\s*$\"', NULL, NULL),
+(56, 14, 3, '\"^\\s*digit\\s*-\\s*3\\s*$\"', NULL, NULL),
+(57, 14, 4, '\"^\\s*digit\\s*\\+\\s*3\\s*$\"', NULL, NULL),
+(58, 15, 1, '\"^\\s*\\(number\\s*/\\s*10\\)\\s*%\\s*10\\s*$\"', NULL, NULL),
+(59, 15, 2, '\"^\\s*digit\\s*%\\s*2\\s*==\\s*0\\s*$\"', NULL, NULL),
+(60, 15, 3, '\"^\\s*digit\\s*\\*\\s*3\\s*$\"', NULL, NULL),
+(61, 15, 4, '\"^\\s*digit\\s*/\\s*2\\s*$\"', NULL, NULL),
+(62, 16, 1, '\"^\\s*number\\s*/\\s*100\\s*$\"', NULL, NULL),
+(63, 16, 2, '\"^\\s*digit\\s*%\\s*2\\s*==\\s*0\\s*$\"', NULL, NULL),
+(64, 16, 3, '\"^\\s*digit\\s*/\\s*2\\s*$\"', NULL, NULL),
+(65, 16, 4, '\"^\\s*digit\\s*\\*\\s*2\\s*$\"', NULL, NULL),
+(66, 17, 1, '\"^\\s*floor\\s*<=\\s*tower\\s*$\"', NULL, NULL),
+(67, 17, 2, '\"^\\s*floor\\s*%\\s*2\\s*!=\\s*0\\s*$\"', NULL, NULL),
+(68, 17, 3, '\"^\\s*totalOil\\s*\\+=\\s*2\\s*$\"', NULL, NULL),
+(69, 17, 4, '\"^\\s*totalOil\\s*\\*=\\s*2\\s*$\"', NULL, NULL),
+(70, 17, 5, '\"^\\s*floor\\+\\+\\s*$\"', NULL, NULL),
+(71, 18, 1, '\"^魔女$\"', NULL, NULL),
+(72, 18, 2, '\"^enemyType$\"', NULL, NULL),
+(73, 18, 3, '\"^魔女$\"', NULL, NULL),
+(74, 18, 4, '\"^System\\.out\\.println\\(\\\"魔女很弱，繼續進攻！\\\"\\)\\s*$\"', NULL, NULL),
+(75, 18, 5, '\"^巨人$\"', NULL, NULL),
+(76, 18, 6, '\"^System\\.out\\.println\\(\\\"巨人很危險，考慮防禦！\\\"\\)\\s*$\"', NULL, NULL),
+(77, 18, 7, '\"^龍$\"', NULL, NULL),
+(78, 18, 8, '\"^System\\.out\\.println\\(\\\"龍打不出傷害，尋求援助！\\\"\\)\\s*$\"', NULL, NULL),
+(79, 18, 9, '\"^System\\.out\\.println\\(\\\"未知敵人，請勿輕舉妄動！\\\"\\)\\s*$\"', NULL, NULL),
+(80, 19, 1, '\"^巨人$\"', NULL, NULL),
+(81, 19, 2, '\"^enemyType$\"', NULL, NULL),
+(82, 19, 3, '\"^魔女$\"', NULL, NULL),
+(83, 19, 4, '\"^System\\.out\\.println\\(\\\"魔女很弱，繼續進攻！\\\"\\)\\s*$\"', NULL, NULL),
+(84, 19, 5, '\"^巨人$\"', NULL, NULL),
+(85, 19, 6, '\"^System\\.out\\.println\\(\\\"巨人很危險，考慮防禦！\\\"\\)\\s*$\"', NULL, NULL),
+(86, 19, 7, '\"^龍$\"', NULL, NULL),
+(87, 19, 8, '\"^System\\.out\\.println\\(\\\"龍打不出傷害，尋求援助！\\\"\\)\\s*$\"', NULL, NULL),
+(88, 19, 9, '\"^System\\.out\\.println\\(\\\"未知敵人，請勿輕舉妄動！\\\"\\)\\s*$\"', NULL, NULL),
+(89, 20, 1, '\"^龍$\"', NULL, NULL),
+(90, 20, 2, '\"^enemyType$\"', NULL, NULL),
+(91, 20, 3, '\"^魔女$\"', NULL, NULL),
+(92, 20, 4, '\"^System\\.out\\.println\\(\\\"魔女很弱，繼續進攻！\\\"\\)\\s*$\"', NULL, NULL),
+(93, 20, 5, '\"^巨人$\"', NULL, NULL),
+(94, 20, 6, '\"^System\\.out\\.println\\(\\\"巨人很危險，考慮防禦！\\\"\\)\\s*$\"', NULL, NULL),
+(95, 20, 7, '\"^龍$\"', NULL, NULL),
+(96, 20, 8, '\"^System\\.out\\.println\\(\\\"龍打不出傷害，尋求援助！\\\"\\)\\s*$\"', NULL, NULL),
+(97, 20, 9, '\"^System\\.out\\.println\\(\\\"未知敵人，請勿輕舉妄動！\\\"\\)\\s*$\"', NULL, NULL),
+(98, 21, 1, '\"^\\s*water--\\s*$\"', NULL, NULL),
+(99, 21, 2, '\"^\\s*water\\s*==\\s*0\\s*$\"', NULL, NULL),
+(100, 21, 3, '\"^\\s*water\\s*!=\\s*0\\s*$\"', NULL, NULL),
+(101, 22, 1, '\"^\\s*water\\s*>\\s*0\\s*$\"', NULL, NULL),
+(102, 22, 2, '\"^\\s*water--\\s*$\"', NULL, NULL),
+(103, 22, 3, '\"^\\s*water\\s*==\\s*0\\s*全部\\s*$\"', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1145,10 +1181,10 @@ CREATE TABLE `sec_games` (
   `country_id` bigint(20) UNSIGNED NOT NULL,
   `gamename` varchar(255) NOT NULL,
   `pre_story` text NOT NULL,
+  `imgPath` varchar(255) NOT NULL,
   `game_explanation` text NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `imgPath` varchar(255) NOT NULL
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -1160,16 +1196,16 @@ TRUNCATE TABLE `sec_games`;
 -- 傾印資料表的資料 `sec_games`
 --
 
-INSERT INTO `sec_games` (`id`, `country_id`, `gamename`, `pre_story`, `game_explanation`, `created_at`, `updated_at`, `imgPath`) VALUES
-(1, 2, '通關密碼', '在蠻金之國與南國之間有一片神秘的蘋果樹林，傳說中只有掌握正確通關密碼的人才能進入這片蘋果樹林，你的任務是破解密碼並把大門密碼輸出到螢幕上，幫助桃樂絲一行人順利往南國前進。', '在大門打開之前，密碼必須正確顯示在螢幕上。請點擊「程式密碼鎖」查看密碼格式與規則，根據PASSWORD指定的格式輸出正確的通關密碼，幫助桃樂絲一行人順利進入神秘的蘋果樹林，繼續他們的旅程！', NULL, NULL, 'password.svg'),
-(2, 2, '魔法寶箱', '穿越過蘋果樹林桃樂絲一行人來到了南國門口，卻被綠柱尖頭族領袖攔住，他們說需要獲得好女巫給的護身符才能通過他們進入南國，桃樂絲找出在蠻金之國好女巫給的護身符，但好女巫太熱心怕被壞女巫搶走，所以她在外面加了一個寶箱鎖死。請冒險者打開寶箱取出護身符交給綠柱尖頭族領袖!!', '為了打開好女巫鎖上的寶箱並取出護身符，你必須點亮寶箱上的三角形鎖頭。請在右方程式碼區使用巢狀 for 迴圈來解鎖寶箱，幫助桃樂絲一行人順利通過綠柱尖頭族領袖的阻攔，進入南國！', NULL, NULL, 'box.svg'),
-(3, 2, '魔法門衛', '進入南國的你，發現綠柱尖頭族領袖排查進城的人們效率太慢而導致許多人需要在外面排隊至少三天三夜才能進城。許多的商人會的商品會因此爛掉或變質，商人們苦不堪言。你剛好看到他們在招攬專業人才「希望能想出快速通關進城的解決方法。｣請發揮你的才能，幫助他們解決問題！！', '為了解決進城速度過慢的問題，請使用 for 迴圈收集今日進城的身份證，並用 if…else 判斷進城者的身份。怪物禁止進入南國，其他村民與商人可以免費通行。發揮你的才能，幫助南國加快通關效率，減少商人們的損失！', NULL, NULL, 'idcard.svg'),
-(4, 2, '調配藥水', '桃樂絲一行人過度飢餓，無法繼續前進。你需要幫助他們隨機獲得一個藥水配方，並使用 if 條件語句成功調製治癒藥水。', '桃樂絲一行人從蠻金之國到蘋果樹林這都沒有涉入食物，過度飢餓導致無力繼續前進，請幫助他們調配出治癒藥水，能夠回復體力並不會再度飢餓', NULL, NULL, 'gem.svg'),
-(5, 2, '魔林解密', '在蘋果怪樹林深處，魔法師施展了一個神秘的咒語，隨機選出了一個基準數字作為通行的關鍵。接著，又產生了一個特殊數字，作為森林守護者的試煉。你必須在這兩個數字之間，找出符合特定範圍的質數，才能破解魔林的謎題，幫助桃樂絲一行人繼續前進！', '繼續往前，桃樂絲一行人迎面遇上了一位神秘的南國魔法師，擋在蘋果怪樹林的入口處。魔法師告訴他們：“在林中，有一段路徑被一群蘋果怪所守護。這些怪物並不會輕易讓路，除非你能找到一個規律。只有當你們找到這些數字，怪物才會允許你們通過。” 請幫助桃樂絲完成任務，讓他們能安全通過蘋果怪樹林！', NULL, NULL, 'cave.svg'),
-(6, 2, '密碼解碼', '桃樂絲一行人要從蘋果怪樹林前往村莊的路途中，遇到了傳說中的詛咒的神廟 ，其內部隱藏著改變命運的錦囊；想要得到命運錦囊必須拆解神廟內的炸彈。拆解炸彈的唯一方法是將一串神秘的數字倒敘排列，才會得到命運錦囊。請幫助桃樂絲一行人拆解炸彈獲得命運錦囊吧!!', '隨機生成一個三位數，並使用 while 迴圈逐一提取數字位，根據以下規則進行解碼。解碼後的三個數字相加就是拆解炸彈的密碼，請冒險者幫助桃樂絲拆解炸彈，拿到命運錦囊！', NULL, NULL, '3doors.svg'),
-(7, 2, '塔中巡油', '桃樂絲和稻草人前進後遇到了錫人，但是它看起來死氣沉沉。桃樂絲突然想到她之前在看書的時候有說，錫人通常都需要用油來恢復生命。請幫助桃樂絲在附近找到足夠數量的油罐，並幫忙錫人上油!!', '為了幫助桃樂絲和稻草人找到足夠的油來恢復錫人的生命，你需要在附近的塔中進行尋油。隨機生成塔層數給冒險者，利用 while 迴圈從下往上跑過整層塔。每層塔根據不同的層數條件，會觸發不同的公式來增減油罐。請確保你能準確找到所需的油罐數量，幫助錫人恢復活力，繼續冒險！', NULL, NULL, 'sword.svg'),
-(8, 2, '命運試煉', '正帶著錫人前往翡翠城尋找奧茲法師時，壞女巫出現了!!!她使出火之呼吸包圍了我們一行人；桃樂絲打開在詛咒神廟時所獲得的錦囊，內容詳細的記錄了對付壞女巫的辦法，但是桃樂絲只看得懂switch…case的程式碼，請改寫程式碼幫助桃樂絲讀懂錦囊的內容，打敗壞女巫!!', '壞女巫出現了，桃樂絲正面臨危機！她打開了錦囊，裡面記錄了對付壞女巫的辦法。然而，桃樂絲只懂得使用 switch…case 來解讀這些指示。請根據原始的 if…else if…else 程式碼，將其改寫為 switch…case，並輸出敵人的類型，幫助桃樂絲讀懂錦囊的內容，擊敗壞女巫！', NULL, NULL, 'monster.svg'),
-(9, 2, '滅火任務', '壞女巫逃走後，火勢卻沒有熄滅，錫人自告奮用要幫忙滅火，但他忘記他是用油灌澆注的燃燒體，他直接被火燒了好久；請冒險者幫忙錫人滅火，並順勢撲滅錫人身上的火!!', '壞女巫逃走後，火勢仍然肆虐，錫人因為身上充滿油而燒得更加猛烈，這讓他們無法繼續前進。請幫助錫人撲滅火焰，將 while 迴圈改寫為 do…while 迴圈，以確保徹底熄滅火焰並拯救錫人！', NULL, NULL, 'fire.svg');
+INSERT INTO `sec_games` (`id`, `country_id`, `gamename`, `pre_story`, `imgPath`, `game_explanation`, `created_at`, `updated_at`) VALUES
+(1, 2, '通關密碼	', '在蠻金之國與南國之間有一片神秘的蘋果樹林，傳說中只有掌握正確通關密碼的人才能進入這片蘋果樹林，你的任務是讀取密碼並把大門密碼輸出到螢幕上，幫助桃樂絲一行人順利往南國前進。', 'password.svg', '依據程式密碼鎖中的格式與規則，使用System.out.printf()印出正確密碼', NULL, NULL),
+(2, 2, '魔法寶箱', '穿越過蘋果樹林桃樂絲一行人來到了南國門口，卻被綠柱尖頭族領袖攔住，他們說需要獲得好女巫給的護身符才能通過他們進入南國，桃樂絲找出在蠻金之國好女巫給的護身符，但好女巫太熱心怕被壞女巫搶走，所以她在外面加了一個寶箱鎖死。請冒險者打開寶箱取出護身符交給綠柱尖頭族領袖!!', 'box.svg', '判斷三角形的階層(n)並使用巢狀for迴圈，規定迴圈層數=三角形層數，交錯印出星星(*)以及空白( )，使得圖形能夠形成各式三角形', NULL, NULL),
+(3, 2, '魔法門衛', '進入南國的你，發現綠柱尖頭族領袖排查進城的人們效率太慢而導致許多人需要在外面排隊至少三天三夜才能進城。許多的商人會的商品會因此爛掉或變質，商人們苦不堪言。你剛好看到他們在招攬專業人才「希望能想出快速通關進城的解決方法。｣請發揮你的才能，幫助他們解決問題！！', 'idcard.svg', '使用for迴圈將生成之身分證讀出，並使用if…else…條件式判讀其通行資格', NULL, NULL),
+(4, 2, '調配藥水', '桃樂絲一行人從蠻金之國到蘋果樹林這都沒有涉入食物，過度飢餓導致無力繼續前進，請幫助他們調配出治癒藥水，能夠回復體力並不會再度飢餓。', 'gem.svg', '參考左上方之藥水條配規則後，於程式碼內部查看相應材料之數量，最後利用簡單if條件式幫助桃樂絲一行人度過困境', NULL, NULL),
+(5, 2, '魔林解密', '繼續往前，桃樂絲一行人迎面遇上了一位神秘的南國魔法師，擋在蘋果怪樹林的入口處。魔法師告訴他們：“在林中，有一段路徑被一群蘋果怪所守護。這些怪物並不會輕易讓路，除非你能找到一個規律。只有當你們找到這些數字，怪物才會允許你們通過。” 請幫助桃樂絲完成任務，讓他們能安全通過蘋果怪樹林！', 'cave.svg', '魔法師將隨機生成三個數字作為通行的關鍵：其中(n)為範圍的上限數、(a)為基準數、(i)為起始數；請使用 for 迴圈從起始數(i) ，逐一檢查直到範圍上限的數字(n)，並使用 if 判斷找出所有符合特定範圍的質數：如果結果是質數並且小於基準數(a)，則將其印出。請你印出所有符合條件小於基準數(a)的質數！', NULL, NULL),
+(6, 2, '密碼解碼', '桃樂絲一行人要從蘋果怪樹林前往村莊的路途中，遇到了傳說中的詛咒的神廟 ，其內部隱藏著改變命運的錦囊；想要得到命運錦囊必須拆解神廟內的炸彈。拆解炸彈的唯一方法是將一串神秘的數字倒敘排列，才會得到命運錦囊。請幫助桃樂絲一行人拆解炸彈獲得命運錦囊吧!!', '3doors.svg', '炸彈將會隨機生成一個三位數(number)，請判斷下方的解碼規則，使用 while 迴圈提取規則中的數字位(position)再進行解碼。提取到正確位數後，再根據解碼表的規則使用if…else判斷並進行計算解碼，最後印出結果(result)！', NULL, NULL),
+(7, 2, '塔中巡油', '桃樂絲和稻草人前進後遇到了錫人，但是它看起來死氣沉沉。桃樂絲突然想到她之前在看書的時候有說，錫人通常都需要用油來恢復生命。請幫助桃樂絲在附近找到足夠數量的油罐，並幫忙錫人上油!!', 'sword.svg', '塔的層數(tower)將會隨機生成，你的任務是使用 while 迴圈，從初始樓層(floor)開始，逐層向上尋找油罐，並根據每層塔不同的層數條件，觸發不同的公式來增加油罐(totalOil)，最後印出油罐(totalOil)。油罐公式：奇數層增加2罐油罐；偶數層雙倍油罐。', NULL, NULL),
+(8, 2, '命運試煉', '正帶著錫人前往翡翠城尋找奧茲法師時，壞女巫出現了!!!她使出火之呼吸包圍了我們一行人；桃樂絲打開在詛咒神廟時所獲得的錦囊，內容詳細的記錄了對付壞女巫的辦法，但是桃樂絲只看得懂switch…case的程式碼，請改寫程式碼幫助桃樂絲讀懂錦囊的內容，打敗壞女巫!!', 'monster.svg', 'switch…case…：在 switch 括號中放入一個表達式，程式會依次比較每個 case 的值是否與這個表達式的結果相符合。如果符合，則執行對應 case 下的陳述式；如果沒有符合的 case，可以執行 default（如果有定義的話）；if…else if…else：程式首先會檢查 if 中的條件是否成立，若成立，則執行對應的陳述式。如果不成立，則依次檢查 else if 中的條件，直到找到一個成立的條件執行對應的陳述式；若都不成立，則執行 else 中的陳述式（如果有的話）。 觀看上方程式碼嘗試改寫，上方若為switch…ease…範例，則改寫為if…else if…else，反之則改為switch…case…。', NULL, NULL),
+(9, 2, '滅火任務', '壞女巫逃走後，火勢卻沒有熄滅，錫人自告奮用要幫忙滅火，但他忘記他是用油灌澆注的燃燒體，他直接被火燒了好久；請冒險者幫忙錫人滅火，並順勢撲滅錫人身上的火!!', 'fire.svg', 'while：在每次執行迴圈內容前，會先檢查括號內的條件是否成立。若條件成立則繼續執行，否則結束迴圈。如果條件一開始就不成立，迴圈內容一次也不會執行。；do…while…：先執行一次迴圈內容，然後檢查條件是否成立。若條件成立則繼續執行，否則結束迴圈。因此，即使條件一開始不成立，內容也會至少執行一次。 觀看上方程式碼嘗試改寫，上方若為while範例，則改寫為do…while，反之則改為while迴圈。', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1196,20 +1232,28 @@ TRUNCATE TABLE `sec_parameters`;
 --
 
 INSERT INTO `sec_parameters` (`id`, `secGameID`, `template_code`, `created_at`, `updated_at`) VALUES
-(1, 1, 'public class StarPatterns {\n    public static void main(String[] args) {\n        System.out.printf(<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">, <input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">); // 輸出 \"Password\"\n    }\n}|%s', NULL, NULL),
-(2, 2, 'public class StarPatterns {\n    public static void main(String[] args) {\n        int n = $variable; // 階層\n\n        for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n            for (<input type=\"text\" id=\"jInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"jScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"jUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n                System.out.print(\"*\");\n            }\n            System.out.println();\n        }\n    }\n}', NULL, NULL),
-(3, 2, 'public class StarPatterns {\n    public static void main(String[] args) {\n        int n = $variable; // 階層\n\n        for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n            for (<input type=\"text\" id=\"jInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"jScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"jUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n                System.out.print(\"*\");\n            }\n            System.out.println();\n        }\n    }\n}', NULL, NULL),
-(4, 2, 'public class StarPatterns {\n    public static void main(String[] args) {\n        int n = $variable; \n\n        for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n            for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n                System.out.print(\" \");\n            }\n            for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n                System.out.print(\"*\");\n            }\n            System.out.println();\n        }\n    }\n}', NULL, NULL),
-(5, 2, 'public class StarPatterns {\n    public static void main(String[] args) {\n        int n = $variable; \n\n        for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n            for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n                System.out.print(\" \");\n            }\n            for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n                System.out.print(\"*\");\n            }\n            System.out.println();\n        }\n    }\n}', NULL, NULL),
-(6, 3, 'public class StarPatterns {\n    public static void main(String[] args) {\n        int n = $variable; // 今日進城人數\n\n        for(<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">; <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">; <input type=\"text\" id=\"addInit\" placeholder=\"\" oninput=\"autoResize(this)\">){\n\n            // 判斷是否為怪物\n            if (x == <input type=\"text\" id=\"monstarInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n                <input type=\"text\" id=\"noInit\" placeholder=\"\" oninput=\"autoResize(this)\"> // 印出禁止進入\n            }\n\n            else {\n                <input type=\"text\" id=\"freeInit\" placeholder=\"\" oninput=\"autoResize(this)\"> // 印出免費進入\n            }\n        }\n    }\n}', NULL, NULL),
-(7, 4, 'public class Main {\n    public static void main(String[] args) {\n        int material1 = $variable1;\n        int material2 = $variable2;\n\n        // 判斷治癒藥水的配方條件\n        if (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;) {\n            System.out.println(\"治癒藥水的配方條件成立。\");\n        }\n    }\n}|材料一 (material1) 需大於等於 20 且小於 50，並且材料二 (material2) 小於 30。', NULL, NULL),
-(8, 5, 'public class Main {\n    public static void main(String[] args) {\n        int n = $variable1;\n        int a = $variable2;\n\n        for(int i = $variable3;<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n            boolean isPrime = true; // 假設 i 是質數\n\n            for(<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">; <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">; <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">)\n            {\n                if(<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">)\n                {\n                    // 如果可以被整除，i 不是質數\n                    isPrime = false;\n                    break; // 不需要繼續檢查\n                }\n            }\n            // 如果是質數並且小於 a，則印出\n            if(<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n                System.out.printf(\"%d\\t\", i);\n            }\n        }\n    }\n}', NULL, NULL),
-(9, 4, 'public class Main {\n    public static void main(String[] args) {\n        int material1 = $variable1;\n        int material2 = $variable2;\n\n        // 判斷治癒藥水的配方條件\n        if (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;) {\n            System.out.println(\"治癒藥水的配方條件成立。\");\n        }\n    }\n}|材料一 (material1) 大於 10 且小於等於 40，或者材料二 (material2) 大於 20。', NULL, NULL),
-(10, 4, 'public class Main {\n    public static void main(String[] args) {\n        int material1 = $variable1;\n        int material2 = $variable2;\n\n        // 判斷治癒藥水的配方條件\n        if (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;) {\n            System.out.println(\"治癒藥水的配方條件成立。\");\n        }\n    }\n}|材料一 (material1) 小於 40。', NULL, NULL),
-(11, 4, 'public class Main {\n    public static void main(String[] args) {\n        int material1 = $variable1;\n        int material2 = $variable2;\n\n        // 判斷治癒藥水的配方條件\n        if (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;) {\n            System.out.println(\"治癒藥水的配方條件成立。\");\n        }\n    }\n}|配方表(條件變數)：材料二 (material2) 大於 10 且小於等於 40。', NULL, NULL),
-(12, 6, '<pre>\npublic class Main {\n    public static void main(String[] args) {\n        int number = $variable;\n        int result = 0;    // 儲存解碼後的結果\n\n        // 提取個位數字\n        int digit = <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;  // 提取個位數字\n\n        // 根據個位數字進行解碼\n        if (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n            result = <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\n        } else {\n            result = <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\n        }\n\n        // 輸出解碼後的結果\n        System.out.println(\"個位數字解碼後的結果是: \" + result);\n    }\n}\n</pre>|個位數\n', NULL, NULL),
-(13, 7, '<pre>\npublic class Main {\n    public static void main(String[] args) {\n        int tower = $variable;\n        int totalOil = 1;\n\n        System.out.println(\"層數: \" + tower);\n\n        // 計算油塔的油罐\n        int floor = 1; // 初始化當前樓層數\n        while (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;) {\n            // 每層有不同的油罐公式 (條件變數)\n            if (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;) {\n                totalOil -= 2;  // 奇數層減少2罐油罐\n            } else {\n                totalOil *= 2;  // 偶數層雙倍油罐\n            }\n            <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\n        }\n\n        System.out.println(\"油塔油量: \" + totalOil);\n    }\n}\n</pre>', NULL, NULL),
-(14, 8, '<pre>\npublic class Main {\n    public static void main(String[] args) {\n        // 假設敵人類型和來自題目說明(變數)\n        int enemyType = \"$variable\";\n\n        // 根據敵人類型選擇攻擊狀態\n        switch (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n            case \"<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">\":\n                <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\n                break;\n            case \"<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">\":\n                <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\n                break;\n            case \"<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">\":\n                <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\n                break;\n            default:\n                <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\n                break;\n        }\n        System.out.println(\"你的敵人為：\" + enemyType);\n    }\n}\n</pre>\n|魔女', NULL, NULL);
+(1, 1, '<pre>\r\npublic class StarPatterns {\r\n    public static void main(String[] args) {\r\n        System.out.printf(<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">, <input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">); // 輸出 \"Password\"\r\n    }\r\n}\r\n</pre>|%s', NULL, NULL),
+(2, 1, '<pre>\r\npublic class StarPatterns {\r\n    public static void main(String[] args) {\r\n        System.out.printf(<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">, <input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">); // 輸出 \"Password\"\r\n    }\r\n}\r\n</pre>|%d', NULL, NULL),
+(3, 1, '<pre>\r\npublic class StarPatterns {\r\n    public static void main(String[] args) {\r\n        System.out.printf(<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">, <input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">); // 輸出 \"Password\"\r\n    }\r\n}\r\n</pre>|%.2f', NULL, NULL),
+(4, 2, '<pre>\r\npublic class StarPatterns {\r\n    public static void main(String[] args) {\r\n        int n = $variable; // 階層\r\n\r\n        for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n            for (<input type=\"text\" id=\"jInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"jScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"jUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n                System.out.print(\"*\");\r\n            }\r\n            System.out.println();\r\n        }\r\n    }\r\n}\r\n</pre>', NULL, NULL),
+(5, 2, '<pre>\r\npublic class StarPatterns {\r\n    public static void main(String[] args) {\r\n        int n = $variable; // 階層\r\n\r\n        for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n            for (<input type=\"text\" id=\"jInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"jScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"jUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n                System.out.print(\"*\");\r\n            }\r\n            System.out.println();\r\n        }\r\n    }\r\n}\r\n</pre>', NULL, NULL),
+(6, 2, '<pre>\r\npublic class StarPatterns {\r\n    public static void main(String[] args) {\r\n        int n = $variable; \r\n\r\n        for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n            for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n                System.out.print(\" \");\r\n            }\r\n            for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n                System.out.print(\"*\");\r\n            }\r\n            System.out.println();\r\n        }\r\n    }\r\n}\r\n</pre>', NULL, NULL),
+(7, 2, '<pre>\r\npublic class StarPatterns {\r\n    public static void main(String[] args) {\r\n        int n = $variable; \r\n\r\n        for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n            for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n                System.out.print(\" \");\r\n            }\r\n            for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n                System.out.print(\"*\");\r\n            }\r\n            System.out.println();\r\n        }\r\n    }\r\n}\r\n</pre>', NULL, NULL),
+(8, 3, '<pre>\r\npublic class StarPatterns {\r\n    public static void main(String[] args) {\r\n        int n = $variable; // 今日進城人數\r\n\r\n        for(<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">; <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">; <input type=\"text\" id=\"addInit\" placeholder=\"\" oninput=\"autoResize(this)\">){\r\n\r\n            // 判斷是否為怪物\r\n            if (x == <input type=\"text\" id=\"monstarInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n                <input type=\"text\" id=\"noInit\" placeholder=\"\" oninput=\"autoResize(this)\"> // 印出禁止進入\r\n            }\r\n\r\n            else {\r\n                <input type=\"text\" id=\"freeInit\" placeholder=\"\" oninput=\"autoResize(this)\"> // 印出免費進入\r\n            }\r\n        }\r\n    }\r\n}\r\n</pre>', NULL, NULL),
+(9, 4, '<pre>\r\npublic class Main {\r\n    public static void main(String[] args) {\r\n        int material1 = $variable1;\r\n        int material2 = $variable2;\r\n\r\n        // 判斷治癒藥水的配方條件\r\n        if (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n            System.out.println(\"治癒藥水的配方條件成立。\");\r\n        }\r\n    }\r\n}\r\n</pre>\r\n|材料一 (material1) 需大於等於 20 且小於 50，並且材料二 (material2) 小於 30。', NULL, NULL),
+(10, 4, '<pre>\r\npublic class Main {\r\n    public static void main(String[] args) {\r\n        int material1 = $variable1;\r\n        int material2 = $variable2;\r\n\r\n        // 判斷治癒藥水的配方條件\r\n        if (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n            System.out.println(\"治癒藥水的配方條件成立。\");\r\n        }\r\n    }\r\n}\r\n</pre>\r\n|材料一 (material1) 大於 40 且小於等於 70，或者材料二 (material2) 大於 100。', NULL, NULL),
+(11, 4, '<pre>\r\npublic class Main {\r\n    public static void main(String[] args) {\r\n        int material1 = $variable;\r\n\r\n        // 判斷治癒藥水的配方條件\r\n        if (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n            System.out.println(\"治癒藥水的配方條件成立。\");\r\n        }\r\n    }\r\n}\r\n</pre>|材料一 (material1) 小於 40。', NULL, NULL),
+(12, 4, '<pre>\r\npublic class Main {\r\n    public static void main(String[] args) {\r\n        int material2 = $variable;\r\n\r\n        // 判斷治癒藥水的配方條件\r\n        if (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n            System.out.println(\"治癒藥水的配方條件成立。\");\r\n        }\r\n    }\r\n}\r\n</pre>|材料二 (material2) 大於 60 且小於等於 200。', NULL, NULL),
+(13, 5, '<pre>\r\npublic class Main\r\n{\r\n    public static void main(String[] args) {\r\n        int n = $variable1; // 變數2\r\n        int a = $variable2; // 變數3\r\n        \r\n        for(int i = $variable ;<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n            boolean isPrime = true; // 假設 i 是質數\r\n            \r\n            for(<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">)\r\n            {\r\n                if(<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">)\r\n                {\r\n                    // 如果可以被整除，i 不是質數\r\n                    isPrime = false;\r\n                    break; // 不需要繼續檢查\r\n                }\r\n            }\r\n            // 如果是質數並且小於 a，則印出\r\n            if(isPrime && i < a) {\r\n                System.out.printf(\"%d\\t\", i);\r\n            }\r\n        }\r\n    }\r\n}\r\n</pre>', NULL, NULL),
+(14, 6, '<pre>\r\npublic class Main {\r\n    public static void main(String[] args) {\r\n        int number = $variable;\r\n        int result = 0;    // 儲存解碼後的結果\r\n\r\n        // 提取個位數字\r\n        int digit = <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;  // 提取個位數字\r\n\r\n        // 根據個位數字進行解碼\r\n        if (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n            result = <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\r\n        } else {\r\n            result = <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\r\n        }\r\n\r\n        // 輸出解碼後的結果\r\n        System.out.println(\"個位數字解碼後的結果是: \" + result);\r\n    }\r\n}\r\n</pre>|個位數', NULL, NULL),
+(15, 6, '<pre>\r\npublic class Main {\r\n    public static void main(String[] args) {\r\n        int number = $variable;\r\n        int result = 0;    // 儲存解碼後的結果\r\n\r\n        // 提取十位數字\r\n        int digit = <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;  // 提取十位數字\r\n\r\n        // 根據十位數字進行解碼\r\n        if (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {  // 偶數\r\n            result = <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\r\n        } else {  // 奇數\r\n            result = <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\r\n        }\r\n\r\n        // 輸出解碼後的結果\r\n        System.out.println(\"十位數字解碼後的結果是: \" + result);\r\n    }\r\n}\r\n</pre>|十位數', NULL, NULL),
+(16, 6, '<pre>\r\npublic class Main {\r\n    public static void main(String[] args) {\r\n        int number = $variable;\r\n        int result = 0;    // 儲存解碼後的結果\r\n\r\n        // 提取百位數字\r\n        int digit = <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;  // 提取百位數字\r\n\r\n        // 根據百位數字進行解碼\r\n        if (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {  // 偶數\r\n            result = <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\r\n        } else {  // 奇數\r\n            result = <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\r\n        }\r\n\r\n        // 輸出解碼後的結果\r\n        System.out.println(\"百位數字解碼後的結果是: \" + result);\r\n    }\r\n}\r\n</pre>|百位數', NULL, NULL),
+(17, 7, '<pre>\r\npublic class Main {\r\n    public static void main(String[] args) {\r\n        int tower = $variable;\r\n        int totalOil = 1;\r\n\r\n        System.out.println(\"層數: \" + tower);\r\n\r\n        // 計算油塔的油罐\r\n        int floor = 1; // 初始化當前樓層數\r\n        while (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n            // 每層有不同的油罐公式\r\n            if (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n                <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;  // 奇數層增加2罐油罐\r\n            } else {\r\n                <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;  // 偶數層雙倍油罐\r\n            }\r\n            <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\r\n        }\r\n\r\n        System.out.println(\"油塔油量: \" + totalOil);\r\n    }\r\n}\r\n</pre>', NULL, NULL),
+(18, 8, '<pre>\r\npublic class Main {\r\n    public static void main(String[] args) {\r\n        // 假設敵人類型和來自題目說明(變數)\r\n        String enemyType = \"<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">\";\r\n\r\n        // 根據敵人類型選擇攻擊狀態\r\n        switch (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n            case \"<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">\":\r\n                <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\r\n                break;\r\n            case \"<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">\":\r\n                <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\r\n                break;\r\n            case \"<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">\":\r\n                <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\r\n                break;\r\n            default:\r\n                <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\r\n                break;\r\n        }\r\n        System.out.println(\"你的敵人為：\" + enemyType);\r\n    }\r\n}\r\n</pre>|魔女', NULL, NULL),
+(19, 8, '<pre>\r\npublic class Main {\r\n    public static void main(String[] args) {\r\n        // 假設敵人類型和來自題目說明(變數)\r\n        String enemyType = <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\r\n\r\n        // 根據敵人類型選擇攻擊狀態\r\n        switch (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n            case \"<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">\":\r\n                <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\r\n                break;\r\n            case \"<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">\":\r\n                <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\r\n                break;\r\n            case \"<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">\":\r\n                <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\r\n                break;\r\n            default:\r\n                <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\r\n                break;\r\n        }\r\n        System.out.println(\"你的敵人為：\" + enemyType);\r\n    }\r\n}\r\n</pre>|巨人', NULL, NULL),
+(20, 8, '<pre>\r\npublic class Main {\r\n    public static void main(String[] args) {\r\n        // 假設敵人類型和來自題目說明(變數)\r\n        String enemyType = <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\r\n\r\n        // 根據敵人類型選擇攻擊狀態\r\n        switch (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n            case \"<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">\":\r\n                <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\r\n                break;\r\n            case \"<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">\":\r\n                <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\r\n                break;\r\n            case \"<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">\":\r\n                <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\r\n                break;\r\n            default:\r\n                <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\r\n                break;\r\n        }\r\n        System.out.println(\"你的敵人為：\" + enemyType);\r\n    }\r\n}\r\n</pre>|龍', NULL, NULL),
+(21, 9, '<pre>\r\npublic class Main {\r\n    public static void main(String[] args) {\r\n        boolean fire = true;\r\n        int water = $variable;\r\n\r\n        do {\r\n            <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\r\n            if(<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n                fire = false;\r\n            }\r\n        } while(<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">);\r\n    }\r\n}\r\n</pre>|while改do...while', NULL, NULL),
+(22, 9, '<pre>\r\npublic class Main {\r\n        public static void main(String[] args) {\r\n            boolean fire = true;\r\n            int water = $variable;\r\n\r\n            while(<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n                <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;\r\n                if(<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n                    fire = false;\r\n                }\r\n            }\r\n        }\r\n    }\r\n</pre>|do...while改while', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1241,14 +1285,42 @@ TRUNCATE TABLE `sec_records`;
 --
 
 INSERT INTO `sec_records` (`id`, `user_id`, `secParameterID`, `time`, `parameter`, `status`, `counter`, `created_at`, `updated_at`, `user_answer`) VALUES
-(1, 1, 1, '00:00:00', '{\"variable\":\"6ogri\"}', 'watched', 0, '2024-10-20 21:50:38', '2024-10-20 21:52:17', NULL),
-(2, 1, 1, '00:00:00', '{\"variable\":\"6ogri\"}', 'true', 1, '2024-10-20 21:50:38', '2024-10-20 21:52:17', '[{\"order\":1,\"userAnswer\":\"\\\"%s\\\"\"},{\"order\":2,\"userAnswer\":\"6ogri\"}]'),
-(3, 1, 1, '00:00:00', '{\"variable\":\"6ogri\"}', 'false', 0, '2024-10-20 21:50:38', '2024-10-20 21:50:38', NULL),
-(4, 1, 1, '00:00:00', '{\"variable\":\"6ogri\"}', 'watch_again', 0, '2024-10-20 21:50:38', '2024-10-20 21:50:38', NULL),
-(5, 1, 13, '00:00:00', '{\"variable\":15}', 'watched', 1, '2024-10-20 21:50:44', '2024-10-20 21:50:44', NULL),
-(6, 1, 13, '00:00:00', '{\"variable\":15}', 'true', 0, '2024-10-20 21:50:44', '2024-10-20 21:50:44', NULL),
-(7, 1, 13, '00:00:00', '{\"variable\":15}', 'false', 0, '2024-10-20 21:50:44', '2024-10-20 21:50:44', NULL),
-(8, 1, 13, '00:00:00', '{\"variable\":15}', 'watch_again', 0, '2024-10-20 21:50:44', '2024-10-20 21:50:44', NULL);
+(1, 1, 1, '00:00:00', '{\"variable\":\"rDiGR\"}', 'watched', 0, '2024-10-19 21:39:41', '2024-10-20 16:57:25', NULL),
+(2, 1, 1, '00:00:00', '{\"variable\":\"rDiGR\"}', 'true', 1, '2024-10-19 21:39:41', '2024-10-20 16:57:25', '[{\"order\":1,\"userAnswer\":\"%s\"},{\"order\":2,\"userAnswer\":\"rDiGR\"}]'),
+(3, 1, 1, '00:00:00', '{\"variable\":\"rDiGR\"}', 'false', 0, '2024-10-19 21:39:41', '2024-10-19 21:39:41', NULL),
+(4, 1, 1, '00:00:00', '{\"variable\":\"rDiGR\"}', 'watch_again', 0, '2024-10-19 21:39:41', '2024-10-19 21:39:41', NULL),
+(5, 1, 7, '00:00:00', '{\"variable\":\"33,63,57\"}', 'watched', -2, '2024-10-19 22:39:49', '2024-10-20 17:06:14', NULL),
+(6, 1, 7, '00:00:00', '{\"variable\":\"33,63,57\"}', 'true', 2, '2024-10-19 22:39:49', '2024-10-20 17:06:14', '[{\"order\":1,\"userAnswer\":\"material1 >= 20 && material1 <= 50 && material2 < 30\"}]'),
+(7, 1, 7, '00:00:00', '{\"variable\":\"33,63,57\"}', 'false', 1, '2024-10-19 22:39:49', '2024-10-20 17:05:34', NULL),
+(8, 1, 7, '00:00:00', '{\"variable\":\"33,63,57\"}', 'watch_again', 0, '2024-10-19 22:39:49', '2024-10-19 22:39:49', NULL),
+(9, 1, 14, '00:00:00', '{\"variable\":\"\\u9b54\\u5973\"}', 'watched', 1, '2024-10-19 22:46:53', '2024-10-19 22:46:53', NULL),
+(10, 1, 14, '00:00:00', '{\"variable\":\"\\u9b54\\u5973\"}', 'true', 0, '2024-10-19 22:46:53', '2024-10-19 22:46:53', NULL),
+(11, 1, 14, '00:00:00', '{\"variable\":\"\\u9b54\\u5973\"}', 'false', 0, '2024-10-19 22:46:53', '2024-10-19 22:46:53', NULL),
+(12, 1, 14, '00:00:00', '{\"variable\":\"\\u9b54\\u5973\"}', 'watch_again', 0, '2024-10-19 22:46:53', '2024-10-19 22:46:53', NULL),
+(13, 1, 8, '00:00:00', '{\"variable\":\"66,27,17\"}', 'watched', 1, '2024-10-19 22:47:01', '2024-10-19 22:47:01', NULL),
+(14, 1, 8, '00:00:00', '{\"variable\":\"66,27,17\"}', 'true', 0, '2024-10-19 22:47:01', '2024-10-19 22:47:01', NULL),
+(15, 1, 8, '00:00:00', '{\"variable\":\"66,27,17\"}', 'false', 0, '2024-10-19 22:47:01', '2024-10-19 22:47:01', NULL),
+(16, 1, 8, '00:00:00', '{\"variable\":\"66,27,17\"}', 'watch_again', 0, '2024-10-19 22:47:01', '2024-10-19 22:47:01', NULL),
+(17, 1, 12, '00:00:00', '{\"variable\":788}', 'watched', 1, '2024-10-19 22:47:08', '2024-10-19 22:47:08', NULL),
+(18, 1, 12, '00:00:00', '{\"variable\":788}', 'true', 0, '2024-10-19 22:47:08', '2024-10-19 22:47:08', NULL),
+(19, 1, 12, '00:00:00', '{\"variable\":788}', 'false', 0, '2024-10-19 22:47:08', '2024-10-19 22:47:08', NULL),
+(20, 1, 12, '00:00:00', '{\"variable\":788}', 'watch_again', 0, '2024-10-19 22:47:08', '2024-10-19 22:47:08', NULL),
+(21, 1, 13, '00:00:00', '{\"variable\":7}', 'watched', 1, '2024-10-19 22:47:15', '2024-10-19 22:47:15', NULL),
+(22, 1, 13, '00:00:00', '{\"variable\":7}', 'true', 0, '2024-10-19 22:47:15', '2024-10-19 22:47:15', NULL),
+(23, 1, 13, '00:00:00', '{\"variable\":7}', 'false', 0, '2024-10-19 22:47:15', '2024-10-19 22:47:15', NULL),
+(24, 1, 13, '00:00:00', '{\"variable\":7}', 'watch_again', 0, '2024-10-19 22:47:15', '2024-10-19 22:47:15', NULL),
+(25, 1, 15, '00:00:00', '{\"variable\":10}', 'watched', 1, '2024-10-20 02:42:56', '2024-10-20 02:42:56', NULL),
+(26, 1, 15, '00:00:00', '{\"variable\":10}', 'true', 0, '2024-10-20 02:42:56', '2024-10-20 02:42:56', NULL),
+(27, 1, 15, '00:00:00', '{\"variable\":10}', 'false', 0, '2024-10-20 02:42:56', '2024-10-20 02:42:56', NULL),
+(28, 1, 15, '00:00:00', '{\"variable\":10}', 'watch_again', 0, '2024-10-20 02:42:56', '2024-10-20 02:42:56', NULL),
+(29, 1, 5, '00:00:00', '{\"variable\":3}', 'watched', 12, '2024-10-20 05:31:44', '2024-10-24 22:26:48', NULL),
+(30, 1, 5, '00:00:00', '{\"variable\":3}', 'true', 1, '2024-10-20 05:31:44', '2024-10-20 17:07:37', '[{\"order\":1,\"userAnswer\":\"int i = n\"},{\"order\":2,\"userAnswer\":\"i >= 1\"},{\"order\":3,\"userAnswer\":\"i--\"},{\"order\":4,\"userAnswer\":\"int j = 1\"},{\"order\":5,\"userAnswer\":\"j <= n - i\"},{\"order\":6,\"userAnswer\":\"j++\"},{\"order\":7,\"userAnswer\":\"int j = 1\"},{\"order\":8,\"userAnswer\":\"j <= 2 * i - 1\"},{\"order\":9,\"userAnswer\":\"j++\"}]'),
+(31, 1, 5, '00:00:00', '{\"variable\":3}', 'false', 2, '2024-10-20 05:31:44', '2024-10-20 06:23:46', NULL),
+(32, 1, 5, '00:00:00', '{\"variable\":3}', 'watch_again', 0, '2024-10-20 05:31:44', '2024-10-20 05:31:44', NULL),
+(33, 1, 6, '00:00:00', '{\"variable\":3,\"idCardsData\":[{\"gender\":\"\\u5973\",\"identity\":\"\\u5546\\u4eba\",\"age\":46},{\"gender\":\"\\u7537\",\"identity\":\"\\u5c45\\u6c11\",\"age\":44},{\"gender\":\"\\u5973\",\"identity\":\"\\u602a\\u7269\",\"age\":25}]}', 'watched', 1, '2024-10-20 05:52:44', '2024-10-20 05:52:44', NULL),
+(34, 1, 6, '00:00:00', '{\"variable\":3,\"idCardsData\":[{\"gender\":\"\\u5973\",\"identity\":\"\\u5546\\u4eba\",\"age\":46},{\"gender\":\"\\u7537\",\"identity\":\"\\u5c45\\u6c11\",\"age\":44},{\"gender\":\"\\u5973\",\"identity\":\"\\u602a\\u7269\",\"age\":25}]}', 'true', 0, '2024-10-20 05:52:44', '2024-10-20 05:52:44', NULL),
+(35, 1, 6, '00:00:00', '{\"variable\":3,\"idCardsData\":[{\"gender\":\"\\u5973\",\"identity\":\"\\u5546\\u4eba\",\"age\":46},{\"gender\":\"\\u7537\",\"identity\":\"\\u5c45\\u6c11\",\"age\":44},{\"gender\":\"\\u5973\",\"identity\":\"\\u602a\\u7269\",\"age\":25}]}', 'false', 0, '2024-10-20 05:52:44', '2024-10-20 05:52:44', NULL),
+(36, 1, 6, '00:00:00', '{\"variable\":3,\"idCardsData\":[{\"gender\":\"\\u5973\",\"identity\":\"\\u5546\\u4eba\",\"age\":46},{\"gender\":\"\\u7537\",\"identity\":\"\\u5c45\\u6c11\",\"age\":44},{\"gender\":\"\\u5973\",\"identity\":\"\\u602a\\u7269\",\"age\":25}]}', 'watch_again', 0, '2024-10-20 05:52:44', '2024-10-20 05:52:44', NULL);
 
 -- --------------------------------------------------------
 
@@ -1276,7 +1348,7 @@ TRUNCATE TABLE `sessions`;
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('IcydV6hKIGkWzy4OFcmN8MxYOEuaBUZUJP0DB2kj', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoibmliQ3UwNVpLYWpYZFppNGVZQWk3YVEwTWVIdVhkU2NmN0JsS3dwOSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9jb3VudHJ5LzMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjM6InVybCI7YTowOnt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjIxOiJwYXNzd29yZF9oYXNoX3NhbmN0dW0iO3M6NjA6IiQyeSQxMiRBQ09rUVVzNHlOVzJHOUNhS0JxMEN1SlN2OHFEZmt4OVRNM2JERHo2UjNCdk53VFNaN3hXUyI7fQ==', 1729588906);
+('uQUCZzvwqBmw4Zy24JDUOYr1XpfrSN5kJnAmrJNv', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiZ0ROeTFIaERZMW9lZGhkRmNhMHc1TmFoSDVBcW1SSUY0eXNkSEJ2UyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9jb3VudHJ5LzIvc2VjR2FtZUlELzEiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjM6InVybCI7YTowOnt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjIxOiJwYXNzd29yZF9oYXNoX3NhbmN0dW0iO3M6NjA6IiQyeSQxMiRBQ09rUVVzNHlOVzJHOUNhS0JxMEN1SlN2OHFEZmt4OVRNM2JERHo2UjNCdk53VFNaN3hXUyI7fQ==', 1729838227);
 
 -- --------------------------------------------------------
 
@@ -1314,7 +1386,7 @@ TRUNCATE TABLE `users`;
 --
 
 INSERT INTO `users` (`id`, `email`, `email_verified_at`, `password`, `two_factor_secret`, `two_factor_recovery_codes`, `two_factor_confirmed_at`, `name`, `gender`, `country_id`, `levels`, `remember_token`, `current_team_id`, `profile_photo_path`, `created_at`, `updated_at`) VALUES
-(1, 'tom98075@gmail.com', NULL, '$2y$12$ACOkQUs4yNW2G9CaKBq0CuJSv8qDfkx9TM3bDDz6R3BvNwTSZ7xWS', NULL, NULL, NULL, 'TomChen', 'male', 3, 0, 'FDJD2aiUUOizg7e4vFi7Fpi7KYhmItzIAND5qxcNpioCW7tZFPEaEk60oTYO', NULL, NULL, '2024-05-24 08:58:24', '2024-09-29 04:42:20'),
+(1, 'tom98075@gmail.com', NULL, '$2y$12$ACOkQUs4yNW2G9CaKBq0CuJSv8qDfkx9TM3bDDz6R3BvNwTSZ7xWS', NULL, NULL, NULL, 'TomChen', 'male', 2, 0, 'FDJD2aiUUOizg7e4vFi7Fpi7KYhmItzIAND5qxcNpioCW7tZFPEaEk60oTYO', NULL, NULL, '2024-05-24 08:58:24', '2024-09-29 04:42:20'),
 (2, '98075tom@gmail.com', NULL, '$2y$12$c4YO1MheSVZsNTBuMlxQGe82DlBol5Guai5q4pDW4TKDUv8AIKaNS', NULL, NULL, NULL, 'tomchen', 'male', 1, 1, NULL, NULL, NULL, '2024-06-10 10:42:30', '2024-06-10 10:42:38'),
 (3, 'caveira159951@gmail.vom', NULL, '$2y$12$/KupiQsUJHg2NDMNarAKxep8HXi34eQNwTH/hk3D2QUv4sdChqIY.', NULL, NULL, NULL, '哈哈', 'male', 1, 1, NULL, NULL, NULL, '2024-06-10 16:23:01', '2024-06-10 16:23:02'),
 (4, '123@gmail.com', NULL, '$2y$12$b7TG/lPPpycIJjDAvv2VueqITkCUx/eJLg4BmYk9CfEX69o2dABsq', NULL, NULL, NULL, '123', 'male', 1, 1, NULL, NULL, NULL, '2024-06-24 05:06:20', '2024-06-24 05:06:20'),
@@ -1670,7 +1742,7 @@ ALTER TABLE `user_record_details`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `card_types`
 --
 ALTER TABLE `card_types`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `countries`
@@ -1694,7 +1766,7 @@ ALTER TABLE `debug_records`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `dramas`
 --
 ALTER TABLE `dramas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `failed_jobs`
@@ -1712,7 +1784,7 @@ ALTER TABLE `jobs`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `knowledge_cards`
 --
 ALTER TABLE `knowledge_cards`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `match_options`
@@ -1736,7 +1808,7 @@ ALTER TABLE `options`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `pass_course_get_cards`
 --
 ALTER TABLE `pass_course_get_cards`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `pass_course_need_cards`
@@ -1778,7 +1850,7 @@ ALTER TABLE `reorganization_option`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `sec_answers`
 --
 ALTER TABLE `sec_answers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `sec_games`
@@ -1790,13 +1862,13 @@ ALTER TABLE `sec_games`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `sec_parameters`
 --
 ALTER TABLE `sec_parameters`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `sec_records`
 --
 ALTER TABLE `sec_records`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `users`
