@@ -516,7 +516,7 @@
             <!-- 右側容器 -->
             <div class="col-md-6 right-container">
                 <div class="code-container">
-                    <pre>{!! $templateCode !!}</pre>
+                    {!! $templateCode !!}
                 </div>
                 <div class="btn-container">
                     <button id="send-code" class="btn-submit">提交</button>

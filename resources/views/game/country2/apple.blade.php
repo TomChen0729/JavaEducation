@@ -503,9 +503,9 @@
 
             <div class="col-md-6 right-container" id="right-container">
                 <div class="container-code" id="code">
-                    <pre>
+                    
 {!! $templateCode !!}
-</pre>
+
                     <div class="btn-container">
                         <button id="send-code" class="btn-submit">提交</button>
                     </div>

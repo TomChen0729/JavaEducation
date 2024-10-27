@@ -352,10 +352,12 @@
         }
 
         .btn-container button {
-            font-size: 18px;
-            margin: 0 20px;
+            background-color: red;
+            width: 80px;
+            height: 35px;
+            border: none;
+            color: white;
             border-radius: 5px;
-            margin-top: 20px;
         }
 
         .paper ul {
@@ -570,9 +572,9 @@
 
     <div class="right">
         <div class="code-container">
-            <pre>
+            
 {!! $templateCode !!}
-</pre>
+
         </div>
         <div class="btn-container">
             <button id="send-code" class="btn-submit">提交</button>
