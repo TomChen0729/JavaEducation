@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2024-10-27 16:30:40
+-- 產生時間： 2024-10-27 16:59:27
 -- 伺服器版本： 10.4.32-MariaDB
 -- PHP 版本： 8.2.12
 
@@ -513,7 +513,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (57, '2024_09_15_054336_create_sec_answers_table', 11),
 (58, '2024_09_15_164214_change_length_parameter_to_sec_records', 12),
 (59, '2024_09_23_013533_add_user_answer_to_sec_records', 13),
-(60, '2024_10_07_195428_add_img_path_to_sec_games', 14);
+(60, '2024_10_07_195428_add_img_path_to_sec_games', 14),
+(61, '2024_10_23_023133_add_sec_options_table', 15);
 
 -- --------------------------------------------------------
 
@@ -1259,6 +1260,26 @@ INSERT INTO `sec_games` (`id`, `country_id`, `gamename`, `pre_story`, `imgPath`,
 -- --------------------------------------------------------
 
 --
+-- 資料表結構 `sec_options`
+--
+
+DROP TABLE IF EXISTS `sec_options`;
+CREATE TABLE `sec_options` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `secParameterID` bigint(20) UNSIGNED NOT NULL,
+  `option` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- 資料表新增資料前，先清除舊資料 `sec_options`
+--
+
+TRUNCATE TABLE `sec_options`;
+-- --------------------------------------------------------
+
+--
 -- 資料表結構 `sec_parameters`
 --
 
@@ -1281,12 +1302,12 @@ TRUNCATE TABLE `sec_parameters`;
 --
 
 INSERT INTO `sec_parameters` (`id`, `secGameID`, `template_code`, `created_at`, `updated_at`) VALUES
-(1, 1, '<pre>\r\npublic class StarPatterns {\r\n    public static void main(String[] args) {\r\n        System.out.printf(<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">, <input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">); // 輸出 \"Password\"\r\n    }\r\n}\r\n</pre>|%s', NULL, NULL),
+(1, 1, '<pre>\npublic class StarPatterns {\n    public static void main(String[] args) {\n        System.out.printf(<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">, <input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">); // 輸出 \"Password\"\n    }\n}\n</pre>|%s', NULL, NULL),
 (2, 1, '<pre>\r\npublic class StarPatterns {\r\n    public static void main(String[] args) {\r\n        System.out.printf(<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">, <input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">); // 輸出 \"Password\"\r\n    }\r\n}\r\n</pre>|%d', NULL, NULL),
-(3, 1, '<pre>\r\npublic class StarPatterns {\r\n    public static void main(String[] args) {\r\n        System.out.printf(<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">, <input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">); // 輸出 \"Password\"\r\n    }\r\n}\r\n</pre>|%.2f', NULL, NULL),
-(4, 2, '<pre>\r\npublic class StarPatterns {\r\n    public static void main(String[] args) {\r\n        int n = $variable; // 階層\r\n\r\n        for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n            for (<input type=\"text\" id=\"jInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"jScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"jUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n                System.out.print(\"*\");\r\n            }\r\n            System.out.println();\r\n        }\r\n    }\r\n}\r\n</pre>', NULL, NULL),
-(5, 2, '<pre>\r\npublic class StarPatterns {\r\n    public static void main(String[] args) {\r\n        int n = $variable; // 階層\r\n\r\n        for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n            for (<input type=\"text\" id=\"jInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"jScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"jUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n                System.out.print(\"*\");\r\n            }\r\n            System.out.println();\r\n        }\r\n    }\r\n}\r\n</pre>', NULL, NULL),
-(6, 2, '<pre>\r\npublic class StarPatterns {\r\n    public static void main(String[] args) {\r\n        int n = $variable; \r\n\r\n        for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n            for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n                System.out.print(\" \");\r\n            }\r\n            for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n                System.out.print(\"*\");\r\n            }\r\n            System.out.println();\r\n        }\r\n    }\r\n}\r\n</pre>', NULL, NULL),
+(3, 1, '<pre>\npublic class StarPatterns {\n    public static void main(String[] args) {\n        System.out.printf(<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">, <input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">); // 輸出 \"Password\"\n    }\n}\n</pre>|%.2f', NULL, NULL),
+(4, 2, '<pre>\npublic class StarPatterns {\n    public static void main(String[] args) {\n        int n = $variable; // 階層\n\n        for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n            for (<input type=\"text\" id=\"jInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"jScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"jUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n                System.out.print(\"*\");\n            }\n            System.out.println();\n        }\n    }\n}\n</pre>', NULL, NULL),
+(5, 2, '<pre>\npublic class StarPatterns {\n    public static void main(String[] args) {\n        int n = $variable; // 階層\n\n        for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n            for (<input type=\"text\" id=\"jInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"jScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"jUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n                System.out.print(\"*\");\n            }\n            System.out.println();\n        }\n    }\n}\n</pre>', NULL, NULL),
+(6, 2, '<pre>\npublic class StarPatterns {\n    public static void main(String[] args) {\n        int n = $variable; \n\n        for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n            for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n                System.out.print(\" \");\n            }\n            for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\n                System.out.print(\"*\");\n            }\n            System.out.println();\n        }\n    }\n}\n</pre>', NULL, NULL),
 (7, 2, '<pre>\r\npublic class StarPatterns {\r\n    public static void main(String[] args) {\r\n        int n = $variable; \r\n\r\n        for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n            for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n                System.out.print(\" \");\r\n            }\r\n            for (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iScope\" placeholder=\"\" oninput=\"autoResize(this)\">;<input type=\"text\" id=\"iUpdate\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n                System.out.print(\"*\");\r\n            }\r\n            System.out.println();\r\n        }\r\n    }\r\n}\r\n</pre>', NULL, NULL),
 (8, 3, '<pre>\r\npublic class StarPatterns {\r\n    public static void main(String[] args) {\r\n        int n = $variable; // 今日進城人數\r\n\r\n        for(<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">; <input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">; <input type=\"text\" id=\"addInit\" placeholder=\"\" oninput=\"autoResize(this)\">){\r\n\r\n            // 判斷是否為怪物\r\n            if (x == <input type=\"text\" id=\"monstarInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n                <input type=\"text\" id=\"noInit\" placeholder=\"\" oninput=\"autoResize(this)\"> // 印出禁止進入\r\n            }\r\n\r\n            else {\r\n                <input type=\"text\" id=\"freeInit\" placeholder=\"\" oninput=\"autoResize(this)\"> // 印出免費進入\r\n            }\r\n        }\r\n    }\r\n}\r\n</pre>', NULL, NULL),
 (9, 4, '<pre>\r\npublic class Main {\r\n    public static void main(String[] args) {\r\n        int material1 = $variable1;\r\n        int material2 = $variable2;\r\n\r\n        // 判斷治癒藥水的配方條件\r\n        if (<input type=\"text\" id=\"iInit\" placeholder=\"\" oninput=\"autoResize(this)\">) {\r\n            System.out.println(\"治癒藥水的配方條件成立。\");\r\n        }\r\n    }\r\n}\r\n</pre>\r\n|材料一 (material1) 需大於等於 20 且小於 50，並且材料二 (material2) 小於 30。', NULL, NULL),
@@ -1397,7 +1418,7 @@ TRUNCATE TABLE `sessions`;
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('HRJhxbb3e5MW63O5NUx5q3PJStHl136Rmh05coMK', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiWnNIQ3lEUXpVdldLUXRSQ1YwYXh0SUh3ZE5kdkpkc3JDblB4eHZiQiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9jb3VudHJ5M2dhbWVzbGF5b3V0cyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6MzoidXJsIjthOjA6e31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEyJEFDT2tRVXM0eU5XMkc5Q2FLQnEwQ3VKU3Y4cURma3g5VE0zYkREejZSM0J2TndUU1o3eFdTIjt9', 1730042507);
+('HRJhxbb3e5MW63O5NUx5q3PJStHl136Rmh05coMK', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiWnNIQ3lEUXpVdldLUXRSQ1YwYXh0SUh3ZE5kdkpkc3JDblB4eHZiQiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9jb3VudHJ5M2dhbWVzbGF5b3V0cyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6MzoidXJsIjthOjA6e31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEyJEFDT2tRVXM0eU5XMkc5Q2FLQnEwQ3VKU3Y4cURma3g5VE0zYkREejZSM0J2TndUU1o3eFdTIjt9', 1730044179);
 
 -- --------------------------------------------------------
 
@@ -1739,6 +1760,12 @@ ALTER TABLE `sec_games`
   ADD PRIMARY KEY (`id`);
 
 --
+-- 資料表索引 `sec_options`
+--
+ALTER TABLE `sec_options`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- 資料表索引 `sec_parameters`
 --
 ALTER TABLE `sec_parameters`
@@ -1845,7 +1872,7 @@ ALTER TABLE `match_options`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `options`
@@ -1906,6 +1933,12 @@ ALTER TABLE `sec_answers`
 --
 ALTER TABLE `sec_games`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- 使用資料表自動遞增(AUTO_INCREMENT) `sec_options`
+--
+ALTER TABLE `sec_options`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `sec_parameters`
