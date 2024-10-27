@@ -168,10 +168,12 @@ class SecCountryController extends Controller
                             $templateCode = $templateCodeArray[0];
                             $passwordtype = $templateCodeArray[1];
                             $variable = $this->passwordsGenerator($passwordtype);
+                            Log::info('Formatted Variable:', ['variable' => $variable]);
+
                             // 紀錄這筆資料
                             $this->recordWatchedParameter($passwordGameQuestion->id, ['variable' => $variable]);
                             return view('game.country2.password', ['passwordGameQuestion' => $passwordGameQuestion, 'variable' => $variable, 'templateCode' => $templateCode]);
-                        } else if($result == 'truerecord'){
+                        } else if ($result == 'truerecord') {
                             //解碼json字符串類型
                             $parameterJson = $userRecords->pluck(value: 'parameter')->first();
                             $parameterArray = json_decode($parameterJson, true);
@@ -183,13 +185,13 @@ class SecCountryController extends Controller
                             $template_Code = $passwordGameQuestion->template_code;
                             $templateCodeArray = explode('|', $template_Code);
                             $templateCode = $templateCodeArray[0];
-                            return view('game.country2.password', ['passwordGameQuestion' => $passwordGameQuestion, 'variable' => $variable, 'templateCode' => $templateCode,'userAnswers' => $userAnswers]);
-                        }
-                        else {
+                            return view('game.country2.password', ['passwordGameQuestion' => $passwordGameQuestion, 'variable' => $variable, 'templateCode' => $templateCode, 'userAnswers' => $userAnswers]);
+                        } else {
                             //解碼json字符串類型
                             $parameterJson = $userRecords->pluck(value: 'parameter')->first();
                             $parameterArray = json_decode($parameterJson, true);
                             $variable = $parameterArray['variable'];
+                            Log::info('Formatted Variable:', ['variable' => $variable]);
                             //儲存當前的題目id
                             $secParameterID = $userRecords->first()->secParameterID;
                             $passwordGameQuestion = SecGame::join('sec_parameters', 'sec_games.id', '=', 'sec_parameters.secGameID')
@@ -622,7 +624,7 @@ class SecCountryController extends Controller
                 // 產生1-100的隨機小數，小數後兩位
             case "%.2f":
                 $variable = number_format(mt_rand(100, 10000) / 100, 2);
-                break;
+                return $variable;
         }
     }
 
@@ -630,11 +632,11 @@ class SecCountryController extends Controller
     public function giveUserCards(int $secGameID, int $currentUID)
     {
         // 先找出玩家已經有的卡片，以防重複插入
-        $currentUsersOwnedCards = UserKnowledgeCard::where('user_id', auth()->user()->id)->pluck('knowledge_card_id')->toArray();
+        $currentUsersOwnedCards = UserKnowledgeCard::where('user_id', $currentUID)->pluck('knowledge_card_id')->toArray();
         $randGiveCard = PassCourseGetCard::where('secGameID', $secGameID)
             ->whereNotIn('knowledge_card_id', $currentUsersOwnedCards)
             ->inRandomOrder()->first();
-        Log::info($randGiveCard);
+        Log::info('card:' . $randGiveCard);
         $data = [
             'user_id' => $currentUID,
             'knowledge_card_id' => $randGiveCard->knowledge_card_id,
@@ -680,6 +682,9 @@ class SecCountryController extends Controller
             // 如過userAnswer不為空的話，逐一對答案，即為有答案的話
             if (!empty($userAnswer)) {
                 $parameterID = $request->input('parameter_id');
+                Log::info($parameterID);
+                $secgameid = SecParameter::where('id', $parameterID)->pluck('secGameID')->first();
+                Log::info($secgameid);
                 // 抓答案出來
                 $answerData = $this->pluckAnswer($parameterID, $currentUser);
                 // 答案與玩家輸入的答案長度若一致
@@ -699,9 +704,11 @@ class SecCountryController extends Controller
 
                     if (!empty($wrongIndexArray)) {
                         $this->WrongUserRecord($currentUser, $parameterID);
+                        Log::info(json_encode($wrongIndexArray));
                         return response()->json(['message' => 'wrongAns', 'wrongIndex' => $wrongIndexArray]);
                     } else {
                         $this->CorrectUserRecord($currentUser, $parameterID, $userAnswer);
+                        $this->giveUserCards($secgameid, $currentUser);
                         return response()->json(['message' => 'correct']);
                     }
                 } else {
@@ -718,19 +725,19 @@ class SecCountryController extends Controller
         if (!empty($secParameterID)) {
             Log::info(message: 'parameter' . $secParameterID);
             $answerData = SecAnswer::where('secParameterID', $secParameterID)
-                                        ->select('order as order', 'ans_patterns as ans_patterns')->get()
-                                        ->map(function($item){
-                                            return [
-                                                'order' => $item->order,
-                                                'ans_patterns' => $item->ans_patterns,
-                                            ];
-                                        });
+                ->select('order as order', 'ans_patterns as ans_patterns')->get()
+                ->map(function ($item) {
+                    return [
+                        'order' => $item->order,
+                        'ans_patterns' => $item->ans_patterns,
+                    ];
+                });
             if ($secParameterID == 1 || $secParameterID == 2 || $secParameterID == 3) {
                 if (!empty($answerData)) {
                     $parameterJson = SecRecord::where('secParameterID', $secParameterID)
-                                    ->where('user_id', $currentUser)
-                                    ->where('status', 'watched')
-                                    ->pluck('parameter')->first();
+                        ->where('user_id', $currentUser)
+                        ->where('status', 'watched')
+                        ->pluck('parameter')->first();
                     $parameterArray = json_decode($parameterJson, true);
                     $variable = $parameterArray['variable'];
                     $Answer = [
