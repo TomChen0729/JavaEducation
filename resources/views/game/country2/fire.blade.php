@@ -309,20 +309,31 @@
             padding: 15px;
             border-radius: 8px;
             padding: 5px 0px 0px 40px;
+            overflow-x: auto;
+        }
+
+        .excode-container pre {
+            font-size: 1.25em;
+            display: inline-block;
+            white-space: pre;
+            margin: 0;
+            padding: 10px;
         }
 
         .code-container {
             width: 100%;
             height: 35%;
-            overflow-y: scroll;
             background-color: #f4f4f4;
             padding: 15px;
             border-radius: 8px;
             padding: 0px 0px 0px 40px;
         }
 
-        pre {
-            font-size: 20px;
+        .code-container pre {
+            font-size: 1.25em;
+            margin-bottom:-6.5%;
+            overflow-y: scroll;
+            height: 100%;
         }
 
         input {
@@ -431,11 +442,7 @@ public class Main {
 </pre>
                 </div>
                 <div class="code-container" id="code-container">
-                    <pre>
-<pre>
 {!! $templateCode !!}
-</pre>
-                    </pre>
                 </div>
                 <div class="btn-container">
                     <button id="send-code" class="btn-submit">提交</button>

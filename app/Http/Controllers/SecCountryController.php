@@ -536,7 +536,10 @@ class SecCountryController extends Controller
                                 ->where('sec_games.id', $secGameID)
                                 ->inRandomOrder()->first();
                             //解碼確定是哪個題目
-                            $templateCode = $fireQuestion->template_code;
+                            $template_Code = $fireQuestion->template_code;
+                            $templateCodeArray = explode('|', $template_Code);
+                            $templateCode = $templateCodeArray[0];
+                            $question = $templateCodeArray[1];
                             $variable = rand(1, 10);
                             $templateCode = str_replace('$variable', $variable, $templateCode);
                             // 紀錄這筆資料
@@ -552,7 +555,10 @@ class SecCountryController extends Controller
                             $parameterArray = json_decode($parameterJson, true);
                             $variable = $parameterArray['variable'];
                             // 解碼確定是哪個題目
-                            $templateCode = $fireQuestion->template_code;
+                            $template_Code = $fireQuestion->template_code;
+                            $templateCodeArray = explode('|', $template_Code);
+                            $templateCode = $templateCodeArray[0];
+                            $question = $templateCodeArray[1];
                             $templateCode = str_replace('$variable', $variable, $templateCode);
                             return view('game.country2.fire', ['fireQuestion' => $fireQuestion, 'variable' => $variable, 'templateCode' => $templateCode, 'userAnswers' => $userAnswers]);
                         } else {
@@ -565,7 +571,10 @@ class SecCountryController extends Controller
                             $parameterArray = json_decode($parameterJson, true);
                             $variable = $parameterArray['variable'];
                             // 解碼確定是哪個題目
-                            $templateCode = $fireQuestion->template_code;
+                            $template_Code = $fireQuestion->template_code;
+                            $templateCodeArray = explode('|', $template_Code);
+                            $templateCode = $templateCodeArray[0];
+                            $question = $templateCodeArray[1];
                             $templateCode = str_replace('$variable', $variable, $templateCode);
                             return view('game.country2.fire', ['fireQuestion' => $fireQuestion, 'variable' => $variable, 'templateCode' => $templateCode]);
                         }
