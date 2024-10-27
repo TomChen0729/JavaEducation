@@ -946,8 +946,17 @@ public class TreasureHunt1 {
 
         // 拖動開始的函數，參數是event
         function drag(event) {
-            // 設定拖動數據
-            event.dataTransfer.setData("text", event.target.dataset.useranswer);
+            // event.target會指向被觸發的元素，這邊是說明使用者拖曳或放置內容的元素
+            // .contains('drop-zone')這邊已經是接受class名稱所以不用加上.
+            // 如果拖曳的元素是drop-zone，設置拖曳數據為該元素的文字內容
+            if (event.target.classList.contains('drop-zone')) {
+                event.dataTransfer.setData("text", event.target.textContent);
+                // 紀錄來源id用於交換選項
+                event.dataTransfer.setData("sourceId", event.target.id);
+            } else {
+                // 設定拖動數據
+                event.dataTransfer.setData("text", event.target.dataset.useranswer);
+            }
         }
 
         // 把值放上去時的函數
@@ -955,26 +964,40 @@ public class TreasureHunt1 {
             // 允許值被放上去
             // 因為在拖放操作(該元素)中，這個事件是不被允許的(瀏覽器不允許拖放元素)，也就是說，默認事件是不允許拖放元素的，達成的效果就是當使用者在拖放選項的時候，是被瀏覽器允許的，所以值可以成功的被放進去。
             event.preventDefault();
-            // 獲取使用者放上去的資料
+
+            // 獲取使用者放上去的資料、id
             const data = event.dataTransfer.getData("text");
+            const sourceId = event.dataTransfer.getData("sourceId");
 
             // 檢查span是否空缺
             if (event.target.classList.contains('drop-zone')) {
+                // 儲存drop-zone的原始資料以便交換
+                const originalData = event.target.textContent;
+
                 // 將放上去的文字設為使用者自己拖上去的
                 event.target.textContent = data;
 
-                // 取得button的data-useranswer屬性，確認是否放button進去了
-                const button = document.querySelector(`button[data-useranswer="${data}"]`);
-                if (button) {
-                    // 隱藏按鈕
-                    button.style.display = 'none';
-
-                    // 測試成功放置
-                    console.log("答案放置成功");
-
-                    // 在span中也可以拖曳
-
+                // 如果是從另一個drop-zone拖曳過來，則交換資料
+                if (sourceId) {
+                    const sourceElement = document.getElementById(sourceId);
+                    if (sourceElement) {
+                        // 將原本的資料放回來源區域
+                        sourceElement.textContent = originalData;
+                    }
+                } else {
+                    // 取得按鈕的 data-useranswer 屬性，確認是否放按鈕進去了
+                    const button = document.querySelector(`button[data-useranswer="${data}"]`);
+                    if (button) {
+                        // 隱藏按鈕
+                        button.style.display = 'none';
+                    }
                 }
+
+                // 測試成功放置
+                console.log("答案放置成功");
+
+                // 記錄 span 放入的資料和位置
+                console.log(`Span ID: ${event.target.id}, 放入的資料: ${data}`);
             } else {
                 // 測試失敗放置
                 console.log("答案放置失敗");
@@ -983,7 +1006,7 @@ public class TreasureHunt1 {
 
         // 產生缺空處的函數
         function generateDropZone(id) {
-            return `<span id="drop-zone-${id}" class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)"></span>`;
+            return `<span id="drop-zone-${id}" class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)"></span>`;
         }
     </script>
 </body>
