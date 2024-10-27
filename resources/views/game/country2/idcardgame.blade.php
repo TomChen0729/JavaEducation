@@ -417,9 +417,10 @@
             margin-top: 20px;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 768px)and (max-width: 1024px) {
             .card {
                 flex: 1 1 45%;
+                
             }
         }
 

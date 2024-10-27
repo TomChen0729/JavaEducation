@@ -446,18 +446,30 @@
 
             #img-container #pot {
                 width: 80%;
-                margin-left: 10%;
             }
 
             #img-container #stick {
                 width: 200px;
+                top: 30%;
+                right: 2%;
             }
         }
 
-        @media (min-width: 769px) and (max-width: 1024px) {
+        @media (min-width: 769px) and (max-width: 1440px) {
             .code-container {
                 margin-left: 60%;
                 width: 30%;
+            }
+
+            #img-container #pot {
+                width: 80%;
+                left: 5%;
+            }
+
+            #img-container #stick {
+                width: 250px;
+                top:42%;
+                right: 11%;
             }
         }
     </style>
