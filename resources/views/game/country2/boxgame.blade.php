@@ -601,16 +601,16 @@
         // 呼叫目前題目，判斷三角形種類，呼叫triangle1~4
         document.addEventListener('DOMContentLoaded', function() {
             switch (shape) {
-                case 2:
+                case 4:
                     triangle1(n);
                     break;
-                case 3:
+                case 5:
                     triangle2(n);
                     break;
-                case 4:
+                case 6:
                     triangle3(n);
                     break;
-                case 5:
+                case 7:
                     triangle4(n);
                     break;
                 default:
