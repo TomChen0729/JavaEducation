@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2024-10-26 10:00:44
+-- 產生時間： 2024-10-27 16:30:40
 -- 伺服器版本： 10.4.32-MariaDB
 -- PHP 版本： 8.2.12
 
@@ -50,8 +50,8 @@ INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
 ('0dfddec41b02894cc83adcdcfca8fac5:timer', 'i:1723816962;', 1723816962),
 ('3dce29dd1498b35a2c31ae0f35a1aacc', 'i:1;', 1719236179),
 ('3dce29dd1498b35a2c31ae0f35a1aacc:timer', 'i:1719236179;', 1719236179),
-('ca6c49a141d86ad9a006978c0300a99e', 'i:1;', 1729837575),
-('ca6c49a141d86ad9a006978c0300a99e:timer', 'i:1729837575;', 1729837575);
+('ca6c49a141d86ad9a006978c0300a99e', 'i:1;', 1730042197),
+('ca6c49a141d86ad9a006978c0300a99e:timer', 'i:1730042197;', 1730042197);
 
 -- --------------------------------------------------------
 
@@ -102,7 +102,9 @@ INSERT INTO `card_types` (`id`, `country_id`, `levels`, `card_type`, `created_at
 (2, 1, 2, '資料輸入輸出', NULL, NULL, '&#x1F503;'),
 (3, 1, 3, '運算子', NULL, NULL, '&#x1F9EE;'),
 (4, 2, 0, '條件語句', NULL, NULL, ''),
-(5, 2, 0, '迴圈控制', NULL, NULL, '');
+(5, 2, 0, '迴圈控制', NULL, NULL, ''),
+(6, 3, 0, '陣列', NULL, NULL, ''),
+(7, 3, 0, '字串', NULL, NULL, '');
 
 -- --------------------------------------------------------
 
@@ -255,7 +257,31 @@ INSERT INTO `dramas` (`id`, `country_id`, `order`, `msg`, `role_icon`, `created_
 (32, 2, 22, '旁白：壞女巫放火，錫人迅速行動', 'narration', NULL, NULL),
 (33, 2, 23, '錫人：快退後，我來滅火！', 'tinman', NULL, NULL),
 (34, 2, 24, '旁白：錫人用手上的斧頭撲滅火焰', 'narration', NULL, NULL),
-(35, 2, 25, '桃樂絲：錫人，真是太感謝你了。你救了我們。', 'tls', NULL, NULL);
+(35, 2, 25, '桃樂絲：錫人，真是太感謝你了。你救了我們。', 'tls', NULL, NULL),
+(36, 3, 1, '旁白：在陰森的森林裡，桃樂絲和朋友們突然被一隻膽小的獅子攻擊。', 'narration', NULL, NULL),
+(37, 3, 2, '桃樂絲：住手！我們不是來找麻煩的！', 'tls', NULL, NULL),
+(38, 3, 3, '獅子：（哭泣）我只想當萬獸之王，但我卻是一隻膽小的獅子！', 'lion', NULL, NULL),
+(39, 3, 4, '稻草人：跟我們一起去找歐茲法師吧，他能幫你實現願望！', 'scarecrow', NULL, NULL),
+(40, 3, 5, '獅子：真的嗎？我能和你們一起去嗎？', 'lion', NULL, NULL),
+(41, 3, 6, '桃樂絲：當然！一起面對困難！', 'tls', NULL, NULL),
+(42, 3, 7, '旁白：走著走著桃樂絲和夥伴們在陰暗的森林中，遇到了一條巨大的壕溝。', 'narration', NULL, NULL),
+(43, 3, 8, '桃樂絲：我們該怎麼過去？', 'tls', NULL, NULL),
+(44, 3, 9, '稻草人：獅子可以一個個背我們跳過去！', 'scarecrow', NULL, NULL),
+(45, 3, 10, '獅子：好，我會試試看！', 'lion', NULL, NULL),
+(46, 3, 11, '旁白：獅子蹲下，稻草人爬上他的背，獅子跳過壕溝。', 'narration', NULL, NULL),
+(47, 3, 12, '獅子：我做到了！快來，大家都上來！', 'lion', NULL, NULL),
+(48, 3, 13, '旁白：通過壕溝後，他們越來越深入陰暗森林，獅子警告大家小心。', 'narration', NULL, NULL),
+(49, 3, 14, '獅子：這裡是卡力達的地盤，他可不好惹！', 'lion', NULL, NULL),
+(50, 3, 15, '旁白：當他們走到大峽谷時，獅子無法再跳過去。', 'narration', NULL, NULL),
+(51, 3, 16, '稻草人：我們可以砍樹搭一座橋！', 'scarecrow', NULL, NULL),
+(52, 3, 17, '旁白：突然，卡力達從樹林中衝出。', 'narration', NULL, NULL),
+(53, 3, 18, '卡力達：誰敢闖入我的領地？', 'monster', NULL, NULL),
+(54, 3, 19, '稻草人：快過橋！不然就來不及了！', 'scarecrow', NULL, NULL),
+(55, 3, 20, '旁白：獅子面對卡力達，突然吼叫。', 'narration', NULL, NULL),
+(56, 3, 21, '獅子：走開！我不怕你！', 'lion', NULL, NULL),
+(57, 3, 22, '旁白：獅子的吼聲震撼了森林，卡力達被嚇住，獅子迅速過了橋。', 'narration', NULL, NULL),
+(58, 3, 23, '稻草人：快，砍斷橋！', 'scarecrow', NULL, NULL),
+(59, 3, 24, '旁白：轟隆一聲巨響，卡力達掉進了深溝。', 'narration', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -383,7 +409,30 @@ INSERT INTO `knowledge_cards` (`id`, `country_id`, `name`, `content`, `created_a
 (28, 2, 'do…while', 'do…while', NULL, NULL, 5),
 (29, 2, 'if…else if…else', 'if…else if…else', NULL, NULL, 4),
 (30, 2, 'continue', 'continue', NULL, NULL, 5),
-(31, 2, 'break', 'break', NULL, NULL, 5);
+(31, 2, 'break', 'break', NULL, NULL, 5),
+(32, 3, 'Arrays.sort()', 'Arrays.sort()', NULL, NULL, 6),
+(33, 3, 'for(type 元素: arrayName) 陣列的for-Each', 'for(type 元素: arrayName) 陣列的for-Each', NULL, NULL, 6),
+(34, 3, 'Arrays.fills()', 'Arrays.fills()', NULL, NULL, 6),
+(35, 3, 'Arrays.equals()', 'Arrays.equals()', NULL, NULL, 6),
+(36, 3, 'Arrays.binarySearch()', 'Arrays.binarySearch()', NULL, NULL, 6),
+(37, 3, 'ArrayList.forEach()', 'ArrayList.forEach()', NULL, NULL, 6),
+(38, 3, 'ArrayList.add()', 'ArrayList.add()', NULL, NULL, 6),
+(39, 3, 'ArrayList.remove()', 'ArrayList.remove()', NULL, NULL, 6),
+(40, 3, 'ArrayList.removeAll()', 'ArrayList.removeAll()', NULL, NULL, 6),
+(41, 3, 'ArrayList.get()', 'ArrayList.get()', NULL, NULL, 6),
+(42, 3, 'ArrayList.size()', 'ArrayList.size()', NULL, NULL, 6),
+(43, 3, 'ArrayList.indexOf()', 'ArrayList.indexOf()', NULL, NULL, 6),
+(44, 3, 'ArrayList.isEmpty()', 'ArrayList.isEmpty()', NULL, NULL, 6),
+(45, 3, 'ArrayList.toArray()', 'ArrayList.toArray()', NULL, NULL, 6),
+(46, 3, 'ArrayList.contains()', 'ArrayList.contains()', NULL, NULL, 6),
+(47, 3, 'StringName.length()', 'StringName.length()', NULL, NULL, 7),
+(48, 3, 'StringName.charAt()', 'StringName.charAt()', NULL, NULL, 7),
+(49, 3, 'StringName.toLowerCase()', 'StringName.toLowerCase()', NULL, NULL, 7),
+(50, 3, 'StringName.toUpperCase()', 'StringName.toUpperCase()', NULL, NULL, 7),
+(51, 3, 'StringName.substring()', 'StringName.substring()', NULL, NULL, 7),
+(52, 3, 'StringName.compareTo()', 'StringName.compareTo()', NULL, NULL, 7),
+(53, 3, 'StringName.replace()', 'StringName.replace()', NULL, NULL, 7),
+(54, 3, 'StringName.split()', 'StringName.split()', NULL, NULL, 7);
 
 -- --------------------------------------------------------
 
@@ -1348,7 +1397,7 @@ TRUNCATE TABLE `sessions`;
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('uQUCZzvwqBmw4Zy24JDUOYr1XpfrSN5kJnAmrJNv', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiZ0ROeTFIaERZMW9lZGhkRmNhMHc1TmFoSDVBcW1SSUY0eXNkSEJ2UyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9jb3VudHJ5LzIvc2VjR2FtZUlELzEiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjM6InVybCI7YTowOnt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjIxOiJwYXNzd29yZF9oYXNoX3NhbmN0dW0iO3M6NjA6IiQyeSQxMiRBQ09rUVVzNHlOVzJHOUNhS0JxMEN1SlN2OHFEZmt4OVRNM2JERHo2UjNCdk53VFNaN3hXUyI7fQ==', 1729838227);
+('HRJhxbb3e5MW63O5NUx5q3PJStHl136Rmh05coMK', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiWnNIQ3lEUXpVdldLUXRSQ1YwYXh0SUh3ZE5kdkpkc3JDblB4eHZiQiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9jb3VudHJ5M2dhbWVzbGF5b3V0cyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6MzoidXJsIjthOjA6e31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEyJEFDT2tRVXM0eU5XMkc5Q2FLQnEwQ3VKU3Y4cURma3g5VE0zYkREejZSM0J2TndUU1o3eFdTIjt9', 1730042507);
 
 -- --------------------------------------------------------
 
@@ -1742,7 +1791,7 @@ ALTER TABLE `user_record_details`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `card_types`
 --
 ALTER TABLE `card_types`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `countries`
@@ -1766,7 +1815,7 @@ ALTER TABLE `debug_records`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `dramas`
 --
 ALTER TABLE `dramas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `failed_jobs`
@@ -1784,7 +1833,7 @@ ALTER TABLE `jobs`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `knowledge_cards`
 --
 ALTER TABLE `knowledge_cards`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `match_options`
