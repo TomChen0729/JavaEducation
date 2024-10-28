@@ -520,7 +520,7 @@
         } */
 
         /* 設定選項按鈕的樣式 */
-        .option-btn {
+        .optionBtn {
             display: inline-block;
             width: 200px;
             height: 50px;
@@ -528,17 +528,21 @@
             border: 5px solid #faf1e4;
             border-radius: 20px;
             cursor: pointer;
+            text-align: center;
+            line-height: 40px; /* 垂直置中 */
         }
 
+
         /* 設定拖放區域的樣式 */
-        .drop-zone {
+        .dropZone {
             display: inline-block;
             width: 200px;
             height: 50px;
             border: 5px dashed #faf1e4;
             border-radius: 20px;
             margin-right: 10px;
-            padding: 5px 0;
+            text-align: center;
+            line-height: 40px; /* 垂直置中 */
             text-align: center;
         }
 
@@ -883,8 +887,11 @@ public class TreasureHunt1 {
                 const piecesElement = document.getElementById('pieces');
                 // 設定選項按鈕，透過map函數遍歷整個options陣列，將每個值讀出來，然後動態生成選項
                 piecesElement.innerHTML = questions.options.map(options => {
-                    return `<button class="option-btn" data-useranswer="${options.option}" draggable="true" ondragstart="drag(event)">${options.option}</button>`;
+                    return `<div class="optionBtn" draggable="true">${options.option}</div>`;
                 }).join('');
+
+                // 初始化所有可拖曳的元素
+                initializeDragAndDrop();
             }
             
             
@@ -898,7 +905,7 @@ public class TreasureHunt1 {
                 let allFilled = true;
                 var userAnswer = [];
                 // 獲取玩家已填入缺空處的值
-                const dropZone = document.querySelectorAll('.drop-zone');
+                const dropZone = document.querySelectorAll('.dropZone');
                 console.log(dropZone.length);
                 dropZone.forEach(function(item, index){
                     if(item.textContent.trim() === ''){
@@ -938,49 +945,102 @@ public class TreasureHunt1 {
             };
         };
 
-        // 允許拖放的函數，參數是event
-        function allowDrop(event) {
-            // 允許值被放上去
-            event.preventDefault();
+        let draggedElement = null; // 用於追蹤正在拖曳的元素
+
+        function initializeDragAndDrop(){
+            // 初始化所有可拖曳的元素
+            document.querySelectorAll('.optionBtn, .dropZone').forEach(el => {
+                // 當開始拖曳時，儲存被拖曳元素的參考
+                el.addEventListener('dragstart', (e) => {
+                    draggedElement = e.target;
+                    e.dataTransfer.setData('text', e.target.textContent);
+                });
+
+                // 當拖曳結束時，清除儲存的元素參考
+                el.addEventListener('dragend', () => {
+                    draggedElement = null;
+                });
+
+                // 允許拖曳元素放置在此處
+                el.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                });
+
+                // 當拖曳元素被放置時，處理內容
+                el.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    if (draggedElement) {
+                        if (draggedElement.classList.contains('optionBtn') && e.target.classList.contains('dropZone') && e.target.textContent == '') {
+                            console.log('將選項放入作答區，並從素材區移除')
+                            // 將選項放入作答區，並從素材區移除
+                            if (!isDuplicateIndropZones(draggedElement.textContent)) {
+                                e.target.textContent = draggedElement.textContent; // 將選項文字放入
+                                draggedElement.remove(); // 從素材區刪除選項
+                            }
+                        } else if (draggedElement.classList.contains('dropZone') && e.target.classList.contains('dropZone') && draggedElement !== e.target) {
+                            console.log('交換兩個作答區的選項')
+                            // 交換兩個作答區的選項
+                            const temp = draggedElement.textContent;
+                            draggedElement.textContent = e.target.textContent;
+                            e.target.textContent = temp;
+                        } else if (draggedElement.classList.contains('optionBtn') && e.target.classList.contains('dropZone') && e.target.textContent !== '') {
+                            console.log('當將素材區的選項拖到已經有值的格子時，原有值移回素材區');
+                            // 當將素材區的選項拖到已經有值的格子時，原有值移回素材區
+                            const originalValue = e.target.textContent; // 獲取原有值
+                            e.target.textContent = draggedElement.textContent; // 將新選項放入
+
+                            // 創建一個新的選項元素並放回素材區
+                            const newoptionBtn = document.createElement('div'); // 創建新的選項元素
+                            newoptionBtn.className = 'optionBtn'; // 設定類別為 optionBtn
+                            newoptionBtn.textContent = originalValue; // 設定選項內容
+                            newoptionBtn.draggable = true; // 設定為可拖曳
+
+                            // 確保素材區不會有重複的選項
+                            if (!isoptionBtnDuplicate(newoptionBtn.textContent)) {
+                                document.getElementById('pieces').appendChild(newoptionBtn); // 添加回素材區
+                            }
+
+                            // 從素材區刪除原來的選項
+                            draggedElement.remove(); // 刪除被拖曳的選項
+
+                            // 重新添加拖曳事件
+                            newoptionBtn.addEventListener('dragstart', (e) => {
+                                draggedElement = e.target;
+                                e.dataTransfer.setData('text', e.target.textContent);
+                            });
+                        }
+
+                    }
+                });
+            });
         }
 
-        // 拖動開始的函數，參數是event
-        function drag(event) {
-            // event.target會指向被觸發的元素，這邊是說明使用者拖曳或放置內容的元素
-            // 設定拖動數據
-            event.dataTransfer.setData("text", event.target.dataset.useranswer);
-        }
-
-        // 把值放上去時的函數
-        function drop(event) {
-            event.preventDefault();
-            
-            // 獲取使用者放上去的資料
-            const data = event.dataTransfer.getData("text");
-
-            // 檢查目標元素是否為缺空的 span
-            if (event.target.classList.contains('drop-zone')) {
-                // 將放上去的文字設為使用者自己拖上去的
-                event.target.textContent = data;
-                
-                // 取得button的data-useranswer屬性，並確認是否已經成功放置
-                const button = document.querySelector(`button[data-useranswer="${data}"]`);
-                if (button) {
-                    // 隱藏該按鈕
-                    button.style.display = 'none';
-
-                    // 顯示成功放置的提示
-                    console.log("答案已成功放置到缺空處");
+        // 檢查素材區是否有重複選項
+        function isoptionBtnDuplicate(optionBtnText) {
+            const optionBtns = document.querySelectorAll('#pieces .optionBtn');
+            for (let optionBtn of optionBtns) {
+                if (optionBtn.textContent === optionBtnText) {
+                    return true; // 如果有重複選項，返回 true
                 }
-            } else {
-                // 如果目標位置不正確，顯示錯誤提示
-                console.log("請將答案拖曳到正確的缺空處");
             }
+            return false; // 如果沒有重複選項，返回 false
         }
+
+        // 檢查作答區是否有重複選項
+        function isDuplicateIndropZones(optionBtnText) {
+            const dropZones = document.querySelectorAll('.dropZone');
+            for (let dropZone of dropZones) {
+                if (dropZone.textContent === optionBtnText) {
+                    return true; // 如果有重複選項，返回 true
+                }
+            }
+            return false; // 如果沒有重複選項，返回 false
+        }
+
 
         // 產生缺空處的函數
         function generateDropZone(id) {
-            return `<span id="drop-zone-${id}" class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)"></span>`;
+            return `<div class="dropZone" draggable="true"></div>`;
         }
     </script>
 </body>
