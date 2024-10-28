@@ -630,6 +630,8 @@
 
     <!-- JavaScript -->
     <script>
+        var parameter_id = parseInt('{{ $oilQuestion->id }}');
+        console.log('parameter_id:' + parameter_id);
         // 畫面載入後顯示彈跳視窗
         function togglePopup1() {
             document.getElementById("popup").classList.toggle("active");
