@@ -426,8 +426,17 @@
             margin-bottom: 2%;
         }
 
-        .left-container .game, .left-container .description {
-            flex: 1;
+        .left-container .game {
+            flex: 7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #999;
+            background-color: #e3e3e3;
+        }
+
+        .left-container .description {
+            flex: 3;
             display: flex;
             justify-content: center;
             align-items: center;
