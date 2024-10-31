@@ -38,6 +38,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
         }
 
         header {
@@ -306,6 +307,55 @@
             menu.classList.toggle('bx-x');
             navbar.classList.toggle('open');
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.icon button');
+
+            function setButtonPositions() {
+                const screenWidth = window.innerWidth;
+                const screenHeight = window.innerHeight;
+
+                buttons.forEach((button, index) => {
+                    const img = button.querySelector('img');
+                    img.style.position = 'absolute';
+                    img.style.width = '20%';
+                    img.style.height = 'auto';
+
+                    // 根據螢幕調位子
+                    switch (index) {
+                        case 0:
+                            img.style.top = `${screenHeight * 0.10}px`;
+                            img.style.left = `${screenWidth * -0.10}px`;
+                            break;
+                        case 1:
+                            img.style.top = `${screenHeight * 0.40}px`;
+                            img.style.left = `${screenWidth * 0.10}px`;
+                            break;
+                        case 2:
+                            img.style.top = `${screenHeight * 0.03}px`;
+                            img.style.left = `${screenWidth * 0.28}px`;
+                            break;
+                        case 3:
+                            img.style.top = `${screenHeight * 0.25}px`;
+                            img.style.left = `${screenWidth * 0.50}px`;
+                            break;
+                        case 4:
+                            img.style.top = `${screenHeight * -0.05}px`;
+                            img.style.left = `${screenWidth * 0.70}px`;
+                            break;
+                        default:
+                            break;
+                    }
+                });
+            }
+
+            // 設置按鈕初始位置
+            setButtonPositions();
+
+            // 當窗口大小改變時重新設置按鈕位置
+            window.addEventListener('resize', setButtonPositions);
+        });
+
 
     </script>
 
