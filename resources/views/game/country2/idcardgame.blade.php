@@ -420,7 +420,7 @@
         @media (max-width: 768px)and (max-width: 1024px) {
             .card {
                 flex: 1 1 45%;
-                
+
             }
         }
 
@@ -546,12 +546,11 @@
                 input.style.width = Math.max(newWidth, minWidth) + 'px';
             }
         }
-
+        var parameter_id = parseInt('{{ $idCardGameQuestion->id }}');
         // DOMContentLoaded事件在文件的HTML被完全載入和解析後觸發(不必等待樣式表、圖像和子框架的完成加載)
         document.addEventListener('DOMContentLoaded', function() {
             // 後端傳資料給前端
             var idCardsData = @json($idCardsData);
-            var parameter_id = parseInt('{{ $idCardGameQuestion->id }}');
             console.log('parameter_id:' + parameter_id);
             console.log(idCardsData);
 
@@ -742,7 +741,7 @@
                     hiddenVariable.style.display = 'inline'; // 使用 'inline' 對齊
 
                     // 移除括號
-                    hiddenVariable.innerHTML = hiddenVariable.innerHTML.replace(/[{}]/g, ''); 
+                    hiddenVariable.innerHTML = hiddenVariable.innerHTML.replace(/[{}]/g, '');
                 }
             });
         });*/

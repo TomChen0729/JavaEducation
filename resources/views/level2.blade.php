@@ -151,10 +151,7 @@ function setButtonPositions() {
                 break;
             case '':
                 img.style.opacity = '0.2';
-                button.querySelector('a').addEventListener('click', function(e) {
-                    e.preventDefault();
-                    alert('尚未解鎖');
-                });
+                
                 break;
             case 'pass':
                 switch (index) {
@@ -180,7 +177,7 @@ function setButtonPositions() {
                         img.src = '/images/country2choose/CLEAR/clearsword.svg';
                         break;
                     case 7:
-                        img.src = '/images/country2choose/CLEAR/clearmonsrer.svg';
+                        img.src = '/images/country2choose/CLEAR/clearmonster.svg';
                         break;
                     case 8:
                         img.src = '/images/country2choose/CLEAR/clearfire.svg';
