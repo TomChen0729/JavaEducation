@@ -628,7 +628,7 @@ class SecCountryController extends Controller
         }
     }
 
-    // 派發知識卡的函式
+    // 派發知識卡的函式(南國)
     public function giveUserCards(int $secGameID, int $currentUID)
     {
         // 先找出玩家已經有的卡片，以防重複插入

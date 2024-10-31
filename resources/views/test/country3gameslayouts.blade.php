@@ -879,7 +879,7 @@ public class TreasureHunt1 {
                 const questionElement = document.getElementById('question-container');
 
                 // 將題目中的 '___' 替換為缺空處
-                let formattedQuestion = questions.question.replace(/___/g, generateDropZone(questions.id));
+                let formattedQuestion = questions.question.replace(/___/g, generateDropZone());
                 questionElement.innerHTML = `<p>${formattedQuestion}</p>`;
 
 
@@ -1039,7 +1039,7 @@ public class TreasureHunt1 {
 
 
         // 產生缺空處的函數
-        function generateDropZone(id) {
+        function generateDropZone() {
             return `<div class="dropZone" draggable="true"></div>`;
         }
     </script>
