@@ -2,7 +2,12 @@
 
 @section('title', '知識卡內容')
 
-@section('head', '綠野仙蹤')
+@section('head')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/monokai.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/clike/clike.min.js"></script>
+@endsection
 
 @section('style')
 <style>
@@ -126,6 +131,37 @@
             color: #d4b0a5;
         }
 
+        .editor-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .CodeMirror {
+            height: auto;
+            width: 100%;
+            text-align: left;
+        }
+
+        .copy-button {
+            margin:1%;
+            background-color: red;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight:bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .copy-button:hover {
+            background-color: #ea9999;
+        }
+
     @media (max-width: 768px) {
         .container {
             padding: 20px;
@@ -155,7 +191,16 @@
         <div class="box">
             <h3>{{ $current_card -> name }}</h3>
             <p style="color: black; font-weight:900">{{ $current_card -> content }}</p>
-            <img src="/images/int.png" alt="">
+            <div class="editor-container">
+                <textarea class="code-editor" id="code-editor">
+        public class HelloWorld {
+            public static void main(String[] args) {
+                System.out.println("Hello World");
+            }
+        }
+                </textarea>
+            </div>
+            <button class="copy-button" id="copy-button">COPY</button>
             <p style="color: #0e3742; font-weight:900">
                 int數據類型是32位有符號Java原語數據類型。<br>
                 最小值 -2147483648 <br>
@@ -169,6 +214,24 @@
 
 @section('script')
 <script>
+    let editor;//存codemirror讓後續COPY可以使用
 
+    document.addEventListener("DOMContentLoaded", function() {
+        editor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
+            mode: "text/x-java",
+            theme: "monokai",
+            lineNumbers: true, // 顯示行號
+        });
+    });
+
+    //複製code
+    document.getElementById('copy-button').addEventListener('click', function() {
+            const code = editor.getValue(); // 獲取編輯器內容
+            navigator.clipboard.writeText(code).then(function() {
+                alert("內容已複製！"); // 提示用戶已複製
+            }, function(err) {
+                console.error("複製失敗: ", err);
+            });
+        });
 </script>
 @endsection
