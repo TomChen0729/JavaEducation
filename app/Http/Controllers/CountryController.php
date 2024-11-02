@@ -68,6 +68,10 @@ class CountryController extends Controller
                 foreach ($cantUserCountry as $item) {
                     $country_dic[$item] = 0;
                 }
+            }else{
+                foreach ($canUseCountry as $item) {
+                    $country_dic[$item] = 1;
+                }
             }
         }
 
@@ -114,10 +118,10 @@ class CountryController extends Controller
                 }
                 // 找當前國家最大等級
                 $currentCountryMaxLV = CardType::where('country_id', $country_id)->max('levels');
-                if (!User::where('id', auth()->user()->id)->where('country_id', $country_id)->where('levels', $currentCountryMaxLV)->exists()) {
-                    $debug = 0;
-                } else {
+                if (User::where('id', auth()->user()->id)->where('country_id', $country_id)->where('levels', $currentCountryMaxLV)->exists() || auth()->user()->country_id > 1) {
                     $debug = 1;
+                } else {
+                    $debug = 0;
                 }
 
                 return view('level', ['parent_cards' => $parent_cards, 'debug' => $debug, 'currentCountry' => $country_id]);
