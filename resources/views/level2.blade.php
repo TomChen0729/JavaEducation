@@ -52,9 +52,9 @@
     <div class="header">
 
     </div>
-    @if(!empty($userNeedToGetCards))
+    @if(session('notice'))
         <div class="userNeedCards" id="userNeedCards">
-            @foreach ($userNeedToGetCards as $item)
+            @foreach (session('notice')['userNeedToGetCards'] as $item)
                 <p>你缺少{{ $item }}知識卡</p>
             @endforeach
         </div>
@@ -146,10 +146,10 @@ function setButtonPositions() {
         }
 
         switch (status) {
-            case '1':
+            case 'true':
                 
                 break;
-            case '':
+            case 'false':
                 img.style.opacity = '0.2';
                 
                 break;

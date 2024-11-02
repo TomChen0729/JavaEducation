@@ -137,8 +137,8 @@ class SecCountryController extends Controller
             // $checkUserCards = $this->checkUserCards($gameName);
             // 測試用
             $currentSecGameID = SecGame::where('id', $secGameID)->pluck('id')->first();
-            // $checkUserCards = $this -> checkUserCards($currentSecGameID);
-            $checkUserCards = true;
+            $checkUserCards = $this -> checkUserCards($currentSecGameID);
+            // $checkUserCards = true;
             if ($checkUserCards === true) {
                 $currentUserId = auth()->user()->id;
                 $record = $this->checkSecRecord($secGameID, $country_id);
@@ -587,7 +587,7 @@ class SecCountryController extends Controller
             } else {
                 $userNeedToGetCards = KnowledgeCard::whereIn('id', $checkUserCards['missingCards'])->pluck('name')->toArray();
                 Log::info($userNeedToGetCards);
-                return view('level2', ['userNeedToGetCards' => $userNeedToGetCards, 'currentCountry' => $country_id]);
+                return redirect()->route('country.index', $country_id)->with('notice', ['userNeedToGetCards' => $userNeedToGetCards]);
             }
         } else {
             return response()->json(['message' => 'http method error!!']);

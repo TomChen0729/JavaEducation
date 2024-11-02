@@ -153,9 +153,8 @@ class CountryController extends Controller
                 // Log::info("---------------------------------------");
                 // Log::info($PassSecGameData);
                 // Log::info("---------------------------------------");
-                $owedCardsInCurrentCountry = UserKnowledgeCard::join('knowledge_cards', 'knowledge_cards.id', '=', 'user_knowledge_cards.id')
+                $owedCardsInCurrentCountry = UserKnowledgeCard::join('knowledge_cards', 'knowledge_cards.id', '=', 'user_knowledge_cards.knowledge_card_id')
                     ->where('user_id', auth()->user()->id)
-                    ->where('country_id', $country_id)
                     ->pluck('knowledge_card_id')->toArray();
 
                 $allGamesNeedCardsInCurrentCountry = SecGame::join('pass_course_need_cards', 'pass_course_need_cards.secGameID', '=', 'sec_games.id')
@@ -208,12 +207,17 @@ class CountryController extends Controller
                     // 如果needCards為 null，則直接設置 canPlay 為 true
                     if (is_null($gameData['needCards']) || in_array(null, $gameData['needCards'])) {
                         $gameData['needCards'] = []; // 將 needCards 設置為空陣列
-                        $canPlay = true;
+                        $canPlay = 'true';
                         $missingCards = [];
                     } else {
                         // 否則根據擁有的卡片判斷是否能進入
                         $missingCards = array_diff($gameData['needCards'], $owedCardsInCurrentCountry);
-                        $canPlay = empty($missingCards); // 如果是空等於他該有的都有，返回true，反之則是false
+                        if(empty($missingCards)){
+                            $canPlay = 'true'; // 如果是空等於他該有的都有，返回true，反之則是false
+                        }else{
+                            $canPlay = 'false';
+                        }
+                        
                     }
 
                     return [
