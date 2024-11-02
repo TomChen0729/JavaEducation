@@ -108,10 +108,14 @@ class SecCountryController extends Controller
     {
         // 這關需要的卡片
         $needCards = PassCourseNeedCard::where('secGameID', $secGameID)->pluck('knowledge_card_id')->toArray();
+        // Log::info($needCards);
         // 玩家有的卡片
         $userCards = UserKnowledgeCard::where('user_id', auth()->user()->id)->pluck('knowledge_card_id')->toArray();
         // 如果這關需要的卡片是空的話直接回傳true
-        if ($needCards == null) {
+        // 使用 array_filter 檢查陣列中是否有有效的值
+        // 當 $needCards 中所有元素都是NULL的時候
+        if (empty(array_filter($needCards))) {
+            // Log::info('這關不用卡');
             return true;
         } else { // 如果不是進行判斷
             // 找出使用者缺少的卡片
@@ -134,10 +138,9 @@ class SecCountryController extends Controller
     {
         if ($request->isMethod('get')) {
             // 進入checkUserCards的function，確認玩家是否能進入此關卡
-            // $checkUserCards = $this->checkUserCards($gameName);
+            // $checkUserCards = $this->checkUserCards($secGameID);
             // 測試用
-            $currentSecGameID = SecGame::where('id', $secGameID)->pluck('id')->first();
-            $checkUserCards = $this -> checkUserCards($currentSecGameID);
+            $checkUserCards = $this -> checkUserCards($secGameID);
             // $checkUserCards = true;
             if ($checkUserCards === true) {
                 $currentUserId = auth()->user()->id;
