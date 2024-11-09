@@ -124,4 +124,13 @@ class KnowledgeCardController extends Controller
         // 如果沒有找到，返回找不到卡片
         return redirect()->back();
     }
+    public function getSuggestions(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        $relatedKeywords = KnowledgeCard::where('name', 'like', "{$keyword}%")
+            ->limit(5)
+            ->pluck('name');
+
+        return response()->json(['relatedKeywords' => $relatedKeywords]);
+    }
 }

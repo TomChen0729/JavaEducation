@@ -104,5 +104,7 @@ Route::get('country3gameslayouts', function () {
 });
 //搜尋卡片傳值進控制器
 Route::get('/search', [KnowledgeCardController::class, 'search'])->name('knowledge.search');
+Route::get('/knowledge/suggestions', [KnowledgeCardController::class, 'getSuggestions'])->name('knowledge.suggestions');
+
 //將搜尋的值跳轉到該卡片
 Route::get('/knowledgecard/{id}', [KnowledgeCardController::class, 'search'])->name('knowledge.show');

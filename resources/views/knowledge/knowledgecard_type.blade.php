@@ -118,6 +118,7 @@
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         background-color: #fff;
         margin-left: 20px;
+        position: relative;
     }
 
     .boxes input {
@@ -152,6 +153,35 @@
             padding: 20px;
         }
     }
+
+    .suggestions-box {
+        border: 1px solid #ddd;
+        background-color: #fff;
+        position: absolute;
+        top: 100%;
+        /* 顯示在 .boxes 的下方 */
+        left: 0;
+        width: 100%;
+        max-width: 300px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        margin-top: 5px;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+
+    .suggestion-item {
+        display: block;
+        padding: 10px;
+        color: #333;
+        text-decoration: none;
+        font-size: 16px;
+        background-color: white;
+    }
+
+    .suggestion-item:hover {
+        background-color: #f1f1f1;
+    }
 </style>
 @endsection
 
@@ -160,32 +190,74 @@
     <div class="head">
         <form action="{{ route('knowledge.search') }}" method="GET" style="display: flex; align-items: center;">
             <div class="boxes">
-                <input type="text" name="keyword" placeholder="Search..." required>
+                <input type="text" name="keyword" id="search-input" placeholder="Search..." required autocomplete="off">
                 <button type="submit">
                     <i class="fas fa-search"></i>
                 </button>
+                <div id="suggestions-box" class="suggestions-box"></div>
             </div>
+            
         </form>
     </div>
     @foreach ($card_types as $item)
-        <div>
-            <h1>{{ $item['countryname'] }}</h1>
-        </div>
-        <div class="box-container">
-            @foreach($item['cardTypeArray'] as $card_type_id => $card_type)
-            <div class="box">
-                <h3>{{ $card_type }}</h3>
-                <a href="{{ route('showallcards', ['card_type_id' => $card_type_id]) }}" class="btn">GO</a>
-            </div>
-            @endforeach
+    <div>
+        <h1>{{ $item['countryname'] }}</h1>
+    </div>
+    <div class="box-container">
+        @foreach($item['cardTypeArray'] as $card_type_id => $card_type)
+        <div class="box">
+            <h3>{{ $card_type }}</h3>
+            <a href="{{ route('showallcards', ['card_type_id' => $card_type_id]) }}" class="btn">GO</a>
         </div>
         @endforeach
-
+    </div>
+    @endforeach
 </div>
 @endsection
 
 @section('script')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const searchInput = document.getElementById("search-input");
+        const suggestionsBox = document.getElementById("suggestions-box");
+        searchInput.addEventListener("input", function() {
+            const query = searchInput.value.trim();
+            if (query.length > 0) {
+                fetch(`{{ route('knowledge.suggestions') }}?keyword=${encodeURIComponent(query)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Received data:', data); //確認是否有收到後端傳來的知識卡
+                        suggestionsBox.innerHTML = ""; //清空
+                        if (data.relatedKeywords.length > 0) {
+                            suggestionsBox.style.display = "block"; //將搜尋欄顯示
 
+                            // 顯示所有相關的知識卡
+                            data.relatedKeywords.forEach(keyword => {
+                                const suggestionItem = document.createElement("a");
+                                suggestionItem.href = `{{ route('knowledge.search') }}?keyword=${encodeURIComponent(keyword)}`;
+                                suggestionItem.className = "suggestion-item";
+                                suggestionItem.textContent = keyword;
+                                suggestionsBox.appendChild(suggestionItem);
+                            });
+                        } else {
+                            suggestionsBox.style.display = "none"; //沒有找到相關的知識卡時引王
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error fetching suggestions:", error); //有問題時顯示
+                    });
+            } else {
+                suggestionsBox.style.display = "none"; //沒有文字時隱藏
+            }
+        });
+
+        // 點擊頁面其他地方隱藏建議框
+        document.addEventListener("click", function(e) {
+            if (!e.target.closest('.boxes')) {
+                suggestionsBox.style.display = "none";
+            }
+        });
+    });
 </script>
 @endsection
