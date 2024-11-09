@@ -622,7 +622,9 @@
         <div class="content">
             <div class="close-btn" onclick="togglePopup2()">&times;</div>
             <div class="pop">
-                <a href="#" onclick="togglePopup3()">知識卡</a>
+                @foreach ( $questions_cards as $item )
+                    <a href="#" onclick="togglePopup3()">{{ $item -> name }}</a>
+                @endforeach       
             </div>
         </div>
     </div>

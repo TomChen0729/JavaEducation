@@ -6,6 +6,7 @@ use App\Models\CardType;
 use App\Models\KnowledgeCard;
 use App\Models\UserKnowledgeCard;
 use App\Models\Question;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use PhpParser\Node\Expr\FuncCall;
@@ -103,10 +104,10 @@ class KnowledgeCardController extends Controller
     }
 
     // 遊戲畫面中的知識卡功能
-    public function showCurrentCard(Request $request)
+    public function showCurrentCard(string $card)
     {
-
-        return response()->json();
+        $cardcontent = KnowledgeCard::where('name', $card)->get();
+        return redirect()->back()->with('notice', ['cardcontent' => $cardcontent]);
     }
     //搜尋功能
     public function search(Request $request)

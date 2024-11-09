@@ -582,7 +582,9 @@
         <div class="content">
             <div class="close-btn" onclick="togglePopup2()">&times;</div>
             <div class="pop">
-                <a href="#" onclick="togglePopup3()">知識卡</a>
+                @foreach ( $questions_cards as $item )
+                    <a href="{{ route('showcurrentcard', ['card'=> $item->name]) }}" onclick="togglePopup3()">{{ $item -> name }}</a>
+                @endforeach       
             </div>
         </div>
     </div>
@@ -594,8 +596,12 @@
         <div class="content">
             <div class="close-btn" onclick="togglePopup3()">&times;</div>
             <div class="pop">
-                <h1>{{ $item -> name }}</h1>
-                <p>{{ $item -> content }}</p>
+                @if(session('notice'))
+                    @foreach (session('notice')['cardcontent'] as $item)
+                        <h1>{{ $item -> name }}</h1>
+                        <p>{{ $item -> description }}</p>
+                    @endforeach
+                @endif
             </div>
         </div>
     </div>
