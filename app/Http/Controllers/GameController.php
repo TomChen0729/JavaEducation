@@ -38,7 +38,7 @@ class GameController extends Controller
             ->orderBy('id')
             ->get();
 
-        return view('Gameviews', ['Question_list' => $Question_list]);
+        return view('Gameviews', ['Question_list' => $Question_list, 'currentCountry' => $country_id]);
     }
 
     // 依照遊戲類別 選擇導向遊戲畫面
