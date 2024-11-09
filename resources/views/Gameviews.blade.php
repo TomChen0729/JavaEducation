@@ -2,8 +2,6 @@
 
 @section('title', '選擇遊戲')
 
-@section('head', '蠻金之國')
-
 @section('style')
     <style>
         body{

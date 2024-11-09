@@ -38,7 +38,7 @@
 
     .container .box-container .box {
         box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
-        border-radius: 5px;
+        border-radius: 5%;
         background: #fff;
         background: #fbed96;
         text-align: center;
@@ -162,6 +162,9 @@
             background-color: #ea9999;
         }
 
+        .context h3{
+            text-align: center;
+        }
     @media (max-width: 768px) {
         .container {
             padding: 20px;
@@ -186,29 +189,24 @@
         </ul>
     </div>
 
-    <div class="box-container" style="display: grid; width:100%">
+    <div class="box-container" style="display: wrap; width:100%">
         @if ($current_card != null)
-        <div class="box">
-            <h3>{{ $current_card -> name }}</h3>
-            <p style="color: black; font-weight:900">{{ $current_card -> content }}</p>
-            <div class="editor-container">
-                <textarea class="code-editor" id="code-editor">
-        public class HelloWorld {
-            public static void main(String[] args) {
-                System.out.println("Hello World");
-            }
-        }
-                </textarea>
+            <div class="box">
+                <h3 style="font-size: 40px">{{ $current_card -> name }}</h3>
+                <!-- <p style="color: black; font-weight:900">{{ $current_card -> content }}</p> -->
+                <p style="color: black; font-size: 20px; font-weight: bolder">{{ $current_card -> summary }}</p>
+                <div class="editor-container">
+                    <textarea class="code-editor" id="code-editor">{{ $current_card->code }}</textarea>
+                </div>
+                <button class="copy-button" id="copy-button">COPY</button>
             </div>
-            <button class="copy-button" id="copy-button">COPY</button>
-            <p style="color: #0e3742; font-weight:900">
-                int數據類型是32位有符號Java原語數據類型。<br>
-                最小值 -2147483648 <br>
-                最大值 2147483647</p>
-        </div>
+            <div class="context" style="background: #d4b0a5; border-radius: 5%; padding: 30px;">
+                <h3 style="font-size: 40px; color: #444; align-items:center">Introduction</h3><br><br>
+                <p><pre style="color: black; font-size: 20px; font-weight: bolder">{{ $current_card -> description }}</pre></p>
+            </div>
         @endif
 
-    </div>
+    </di>
 </div>
 @endsection
 
@@ -220,7 +218,7 @@
         editor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
             mode: "text/x-java",
             theme: "monokai",
-            lineNumbers: true, // 顯示行號
+            // lineNumbers: true, // 顯示行號
         });
     });
 

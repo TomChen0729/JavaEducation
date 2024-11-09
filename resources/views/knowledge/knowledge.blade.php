@@ -2,8 +2,6 @@
 
 @section('title', '知識卡')
 
-@section('head', '綠野仙蹤')
-
 @section('style')
 <style>
     * {
@@ -46,6 +44,7 @@
     /* 使用者尚未擁有卡片的顏色 */
     .unowned-card {
         background-color: #f3e7e9;
+        opacity: 0.7;
     }
 
     .container .box-container .box h3 {

@@ -2,8 +2,6 @@
 
 @section('title', '知識卡類別')
 
-@section('head', '綠野仙蹤')
-
 @section('style')
 <style>
     * {
@@ -169,18 +167,20 @@
             </div>
         </form>
     </div>
-
-    <div>
-        <h1>蠻金之國</h1>
-    </div>
-    <div class="box-container">
-        @foreach($card_types as $card_type)
-        <div class="box">
-            <h3>{{ $card_type -> card_type }}</h3>
-            <a href="{{ route('showallcards', ['card_type_id' => $card_type -> id]) }}" class="btn">GO</a>
+    @foreach ($card_types as $item)
+        <div>
+            <h1>{{ $item['countryname'] }}</h1>
+        </div>
+        <div class="box-container">
+            @foreach($item['cardTypeArray'] as $card_type_id => $card_type)
+            <div class="box">
+                <h3>{{ $card_type }}</h3>
+                <a href="{{ route('showallcards', ['card_type_id' => $card_type_id]) }}" class="btn">GO</a>
+            </div>
+            @endforeach
         </div>
         @endforeach
-    </div>
+
 </div>
 @endsection
 
