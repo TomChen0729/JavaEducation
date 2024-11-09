@@ -39,26 +39,44 @@
             position: relative; /* 使子元素可以基於此定位 */
         }
 
-        .userNeedCards{
+        .userNeedCards {
             background-color: white;
-            height: 200px;
-            width: 200px;
+            padding: 20px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 250px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background: none;
         }
 
     </style>
 </head>
 
 <body>
-    <div class="header">
+    <div class="header"></div>
 
-    </div>
     @if(session('notice'))
         <div class="userNeedCards" id="userNeedCards">
+            <button class="close-btn" onclick="closeNotice()">&times;</button>
             @foreach (session('notice')['userNeedToGetCards'] as $item)
                 <p>你缺少{{ $item }}知識卡</p>
             @endforeach
         </div>
     @endif
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -72,133 +90,128 @@
             </div>
         </div> 
     </div>
-</body>
-<script>
 
-document.addEventListener('DOMContentLoaded', function() {
-    var userNeedCards = document.getElementById('userNeedCards');
-    if (userNeedCards) {
-        setTimeout(function() {
-            userNeedCards.style.transition = 'opacity 0.5s';
-            userNeedCards.style.opacity = '0';
-            setTimeout(function() {
-                userNeedCards.style.display = 'none';  // 淡出完成後隱藏元素並移除空間
-            }, 500);  // 淡出時間需要和過渡時間一致
-        }, 1000);  // 1秒後淡出
-    }
-});
-
-// 獲取所有按鈕
-const buttons = document.querySelectorAll('.button');
-
-function setButtonPositions() {
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
-
-    buttons.forEach((button, index) => {
-        const status = button.getAttribute('data-status'); // 獲取 status
-        console.log(`Button ${index + 1}: status = ${status}`);
-        const img = button.querySelector('img'); // 獲取 img
-        img.style.position = 'absolute';
-        img.style.width = '20%'; 
-        img.style.height = 'auto';
-
-        // 根據螢幕大小調位置
-        switch (index) {
-            case 0:
-                img.style.top = `${screenHeight * 0.45}px`;
-                img.style.left = `${screenWidth * 0.39}px`;
-                break;
-            case 1:
-                img.style.top = `${screenHeight * 0.15}px`;
-                img.style.left = `${screenWidth * 0.68}px`;
-                break;
-            case 2:
-                img.style.top = `${screenHeight * 0.45}px`;
-                img.style.left = `${screenWidth * 0.10}px`;
-                break;
-            case 3:
-                img.style.top = `${screenHeight * 0.10}px`;
-                img.style.left = `${screenWidth * 0.38}px`;
-                break;
-            case 4:
-                img.style.top = `${screenHeight * 0.10}px`;
-                img.style.left = `${screenWidth * 0.05}px`;
-                break;
-            case 5:
-                img.style.top = `${screenHeight * 0.75}px`;
-                img.style.left = `${screenWidth * 0.39}px`;
-                break;
-            case 6:
-                img.style.top = `${screenHeight * 0.75}px`;
-                img.style.left = `${screenWidth * 0.10}px`;
-                break;
-            case 7:
-                img.style.top = `${screenHeight * 0.75}px`;
-                img.style.left = `${screenWidth * 0.75}px`;
-                break;
-            case 8:
-                img.style.top = `${screenHeight * 0.45}px`;
-                img.style.left = `${screenWidth * 0.70}px`;
-                break;
-            default:
-                break;
+    <script>
+        // 關閉彈窗
+        function closeNotice() {
+            var userNeedCards = document.getElementById('userNeedCards');
+            if (userNeedCards) {
+                userNeedCards.style.display = 'none';
+            }
         }
 
-        switch (status) {
-            case 'true':
-                
-                break;
-            case 'false':
-                img.style.opacity = '0.2';
-                
-                break;
-            case 'pass':
+        // 獲取所有按鈕
+        const buttons = document.querySelectorAll('.button');
+
+        function setButtonPositions() {
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+
+            buttons.forEach((button, index) => {
+                const status = button.getAttribute('data-status'); // 獲取 status
+                console.log(`Button ${index + 1}: status = ${status}`);
+                const img = button.querySelector('img'); // 獲取 img
+                img.style.position = 'absolute';
+                img.style.width = '20%'; 
+                img.style.height = 'auto';
+
+                // 根據螢幕大小調位置
                 switch (index) {
                     case 0:
-                        img.src = '/images/country2choose/CLEAR/clearopendoor.svg';
+                        img.style.top = `${screenHeight * 0.45}px`;
+                        img.style.left = `${screenWidth * 0.39}px`;
                         break;
                     case 1:
-                        img.src = '/images/country2choose/CLEAR/clearopenbox.svg';
+                        img.style.top = `${screenHeight * 0.15}px`;
+                        img.style.left = `${screenWidth * 0.68}px`;
                         break;
                     case 2:
-                        img.src = '/images/country2choose/CLEAR/clearidcard.svg';
+                        img.style.top = `${screenHeight * 0.45}px`;
+                        img.style.left = `${screenWidth * 0.10}px`;
                         break;
                     case 3:
-                        img.src = '/images/country2choose/CLEAR/cleargem.svg';
+                        img.style.top = `${screenHeight * 0.10}px`;
+                        img.style.left = `${screenWidth * 0.38}px`;
                         break;
                     case 4:
-                        img.src = '/images/country2choose/CLEAR/clearcave.svg';
+                        img.style.top = `${screenHeight * 0.10}px`;
+                        img.style.left = `${screenWidth * 0.05}px`;
                         break;
                     case 5:
-                        img.src = '/images/country2choose/CLEAR/clear3doors.svg';
+                        img.style.top = `${screenHeight * 0.75}px`;
+                        img.style.left = `${screenWidth * 0.39}px`;
                         break;
                     case 6:
-                        img.src = '/images/country2choose/CLEAR/clearsword.svg';
+                        img.style.top = `${screenHeight * 0.75}px`;
+                        img.style.left = `${screenWidth * 0.10}px`;
                         break;
                     case 7:
-                        img.src = '/images/country2choose/CLEAR/clearmonster.svg';
+                        img.style.top = `${screenHeight * 0.75}px`;
+                        img.style.left = `${screenWidth * 0.75}px`;
                         break;
                     case 8:
-                        img.src = '/images/country2choose/CLEAR/clearfire.svg';
+                        img.style.top = `${screenHeight * 0.45}px`;
+                        img.style.left = `${screenWidth * 0.70}px`;
                         break;
                     default:
                         break;
                 }
-                img.style.opacity = '1'; // 確保圖片全顯示
-                
-                break;
-            default:
-                break;
+
+                switch (status) {
+                    case 'true':
+                        
+                        break;
+                    case 'false':
+                        img.style.opacity = '0.2';
+                        
+                        break;
+                    case 'pass':
+                        switch (index) {
+                            case 0:
+                                img.src = '/images/country2choose/CLEAR/clearopendoor.svg';
+                                break;
+                            case 1:
+                                img.src = '/images/country2choose/CLEAR/clearopenbox.svg';
+                                break;
+                            case 2:
+                                img.src = '/images/country2choose/CLEAR/clearidcard.svg';
+                                break;
+                            case 3:
+                                img.src = '/images/country2choose/CLEAR/cleargem.svg';
+                                break;
+                            case 4:
+                                img.src = '/images/country2choose/CLEAR/clearcave.svg';
+                                break;
+                            case 5:
+                                img.src = '/images/country2choose/CLEAR/clear3doors.svg';
+                                break;
+                            case 6:
+                                img.src = '/images/country2choose/CLEAR/clearsword.svg';
+                                break;
+                            case 7:
+                                img.src = '/images/country2choose/CLEAR/clearmonster.svg';
+                                break;
+                            case 8:
+                                img.src = '/images/country2choose/CLEAR/clearfire.svg';
+                                break;
+                            default:
+                                break;
+                        }
+                        img.style.opacity = '1'; // 確保圖片全顯示
+                        
+                        break;
+                    default:
+                        break;
+                }
+            });
         }
-    });
-}
 
-// 在 DOM 加載完成後設置按鈕位置
-document.addEventListener('DOMContentLoaded', setButtonPositions);
+        // 在 DOM 加載完成後設置按鈕位置
+        document.addEventListener('DOMContentLoaded', setButtonPositions);
 
-// 當窗口大小改變時重新設置按鈕位置
-window.addEventListener('resize', setButtonPositions);
+        // 當窗口大小改變時重新設置按鈕位置
+        window.addEventListener('resize', setButtonPositions);
 
-</script>
+    </script>
+</body>
 </html>
