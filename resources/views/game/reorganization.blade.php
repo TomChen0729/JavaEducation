@@ -435,6 +435,13 @@
             align-items: center;
             justify-content: center;
         }
+        
+        #question-container pre {
+            color: #faf1e4;
+            padding: 20px;
+            margin-left: 20px;
+            text-align: left;
+        }
 
         /* 設定選項容器樣式 */
         #pieces {

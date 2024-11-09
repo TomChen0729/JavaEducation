@@ -40,26 +40,32 @@
         }
 
         .userNeedCards {
-            background-color: white;
-            padding: 20px;
+            font-size: 40px;
+            font-weight: bold;
+            background-color: #FFEEBC;
+            border: 5px solid #26422a;
+            color: #26422a;
+            padding: 50px;
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 250px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 50%;
+            border-radius: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
             z-index: 1000;
         }
 
         .close-btn {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 16px;
+            padding: 0 20px;
+            top: 20px;
+            right: 20px;
+            font-size: 40px;
+            color: #FFF;
             cursor: pointer;
-            border: none;
-            background: none;
+            border-radius: 50px;
+            background: #26422a;
         }
 
     </style>

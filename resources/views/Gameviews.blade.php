@@ -13,7 +13,7 @@
         }
 
         .containers{
-            margin-top: 30px;
+            margin-top: 5%;
             padding: 20px;
             background-color: #4D613C;
             border: 3px solid #455736;
@@ -70,6 +70,34 @@
         .TF:hover, .CH:hover, .MA:hover, .RE:hover {
             box-shadow: 0 0 10px rgb(100, 100, 100);
             transform: scale(1.03);
+        }
+
+        .btn {
+            width: 100%;
+            display: inline-block;
+            margin-top: 15px;
+            padding: 15px 25px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #04AA6D;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 9px #999;
+        }
+
+        .btn:hover {
+            background-color: #3e8e41
+        }
+
+        .btn:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
         }
 
         @media (max-width: 900px) {
@@ -146,6 +174,8 @@
             @endif
         @endforeach
     </div>
+
+    <button class="btn"><a href="{{ route('country.index', ['country_id' => $currentCountry]) }}">選擇遊戲難度</a></button>
 @endsection
 
 
