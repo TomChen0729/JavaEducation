@@ -201,7 +201,10 @@
             transform: translate(-50%, -50%) scale(1);
         }
 
-        
+        #popup-2 .content p {
+            padding: 15px;
+            text-align: left;
+        }
         .end .overlay {
             position: fixed;
             top: 0px;
@@ -582,25 +585,23 @@
             <div class="close-btn" onclick="togglePopup2()">&times;</div>
             <div class="pop">
                 @foreach ( $questions_cards as $item )
-                    <a href="#" onclick="togglePopup3()">{{ $item -> name }}</a>
+                    <a class="cardname" href="#" onclick="togglePopup3('{{ $item -> name }}')">{{ $item -> name }}</a>
                 @endforeach       
             </div>
         </div>
     </div>
 
     <!-- 知識卡資訊 -->
-    @foreach ( $questions_cards as $item)
     <div class="popup" id="popup-2">
         <div class="overlay"></div>
         <div class="content">
             <div class="close-btn" onclick="togglePopup3()">&times;</div>
             <div class="pop">
-                <h1>{{ $item -> name }}</h1>
-                <p>{{ $item -> content }}</p>
+                <h1></h1>
+                <p></p>
             </div>
         </div>
     </div>
-    @endforeach
 
     <!-- 答題正確 -->
     <div class="end" id="popup-3">
@@ -720,7 +721,37 @@
             document.getElementById("popup-1").classList.toggle("active");
         }
 
-        function togglePopup3() {
+        // 要放知識卡資料進去
+        function togglePopup3(cardName) {
+            console.log(cardName)
+            var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            fetch('/api/show-card-detail?cardname=' + encodeURIComponent(cardName), {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+
+                // data = JSON.parse(data)
+                console.log(data)
+                cardcontent = JSON.parse(data.cardcontent)
+                // 抓取 popup-2 底下的 h1 和 p 元素
+                const popup2 = document.getElementById('popup-2');
+                const popupTitle = popup2.querySelector('h1');
+                const popupContent = popup2.querySelector('p');
+                // 你可以設定或取得 h1 和 p 的內容，例如
+                popupTitle.textContent = cardcontent[0].name;
+                popupContent.innerHTML = cardcontent[0].description.replace(/\n/g, '<br>');
+
+                // 確認是否正確抓取到
+                console.log("標題內容:", popupTitle.textContent);
+                console.log("段落內容:", popupContent.textContent);
+
+            })
+
             document.getElementById("popup-2").classList.toggle("active");
         }
 
