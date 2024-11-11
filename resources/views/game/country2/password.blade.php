@@ -265,7 +265,7 @@
         }
 
         .move-right {
-            transform: translateX(-30%);
+            transform: translateX(-45%);
         }
 
         .code-container {
@@ -402,6 +402,82 @@
             padding-bottom: 3rem;
         }
 
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            max-width: 90%;
+            font-size: 30px;
+            font-weight: bold;
+            border-radius: 15px;
+            color: #556989;
+            background-color: #f8ede3;
+            border: 2px solid #2f2f2f;
+            padding: 20px 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: none; /* 初始隱藏 */
+            text-align: center;
+        }
+
+        .popup.show {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .popup .popup-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .popup .close-btn {
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            width: 30px;
+            height: 30px;
+            background-color: #D38E43;
+            color: #F8F0DC;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .popup .close-btn:hover {
+            background-color: #c2793c;
+        }
+
+        .popup .popup-content button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .popup .popup-content button:hover {
+            background-color: #45a049;
+        }
+
+
         @media (max-width: 768px) {
             body {
                 padding-top: 5%;
@@ -517,6 +593,14 @@
         </div>
     </div>
 
+    <div id="success-popup" class="popup hide">
+        <div class="close-btn" onclick="togglePopup2()">&times;</div>
+        <div class="popup-content">
+            <p>答題成功！</p>
+            <button onclick="history.back()">回到上一頁</button>
+        </div>
+    </div>
+
     <div class="header">
         <div class="row">
             <ul class="col-ms-8 breadcrumbs">
@@ -552,9 +636,9 @@
             <div class="col-md-12 images">
                 <img src="/images/password/closedoor.svg" id="close" alt="緊閉的大門">
             </div>
-            <div class="col-md-6 left-container">
+            <!-- <div class="col-md-6 left-container">
                 <button type="button" class="btn btn-success" id="OpenBtn">打開大門</button>
-            </div>
+            </div> -->
             <div class="col-md-6 right-container">
                 <button type="button" class="btn btn-info" id="codeLockBtn">程式密碼鎖</button>
             </div>
@@ -590,6 +674,11 @@
             document.getElementById("popup").classList.toggle("active");
         }
 
+        // 關閉彈窗
+        function togglePopup2() {
+            document.getElementById("success-popup").classList.toggle("show");
+        }
+
         // 平移動畫
         document.getElementById('codeLockBtn').addEventListener('click', function() {
             const container = document.querySelector('.containers');
@@ -609,13 +698,21 @@
         });
 
         // 大門動畫
-        document.getElementById('OpenBtn').addEventListener('click', function() {
-            const img = document.getElementById('close');
-            const question = document.getElementById('question');
+        // document.getElementById('OpenBtn').addEventListener('click', function() {
+        //     const img = document.getElementById('close');
+        //                 const question = document.getElementById('question');
+        //                 const popup = document.getElementById('success-popup');
+        //                 const closeButton = document.getElementById('popup-close');
 
-            img.src = "/images/password/opendoor.svg";
-            question.classList.add('hide');
-        });
+        //                 img.src = "/images/password/opendoor.svg";
+        //                 question.classList.add('hide');
+
+        //                 // 延遲出現答題成功彈窗
+        //                 setTimeout(() => {
+        //                     popup.classList.add('show');
+        //                 }, 100); 
+
+        // });
 
         // 點擊送出按鈕時讀取input中的值，並存放置陣列中
         var submitBtn = document.getElementById('send-code');
@@ -662,7 +759,17 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.message == 'correct') {
-                        alert('答對');
+                        const img = document.getElementById('close');
+                        const question = document.getElementById('question');
+                        const popup = document.getElementById('success-popup');
+
+                        img.src = "/images/password/opendoor.svg";
+                        question.classList.add('hide');
+
+                        // 延遲出現答題成功彈窗
+                        setTimeout(() => {
+                            popup.classList.add('show');  // 顯示彈窗
+                        }, 100); 
                     } else if (data.message == 'wrongAns') {
                         console.log(data.wrongIndex);
                     } else if (data.message == 'Null') {
