@@ -40,7 +40,6 @@ Route::middleware([
     Route::get('/knowledgecard/{card_id}', [KnowledgeCardController::class, 'showcardcontent'])->name('showcardcontent');
     // debug出題功能
     Route::get('/debug/{country_id}', [GameController::class, 'Debug'])->name('game.debugRD');
-    Route::get('/card/{card}', [KnowledgeCardController::class, 'showCurrentCard'])->name('showcurrentcard');
     // 國家二導向遊戲畫面的函式
     Route::get('/country/{country_id}/secGameID/{secGameID}', [SecCountryController::class, 'chooseGame'])->name('sec.GameChoose');
 });

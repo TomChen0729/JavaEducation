@@ -238,7 +238,12 @@ class GameController extends Controller
                             ->where('levels', $levels)->inRandomOrder()->take(4)->get();
                     }
                     Log::info('questions' . $questions);
-                    return view('game.match', ['questions' => $questions]);
+                    if(!empty($questions)){
+                        $qid = $questions->pluck('question_id')->toArray();
+                        $Q_cards = QuestionCard::whereIn('question_id', $qid)->pluck('knowledge_card_id')->toArray();
+                        $cards = KnowledgeCard::whereIn('id', $Q_cards)->get();
+                    }
+                    return view('game.match', ['questions' => $questions, 'questions_cards' => $cards]);
                 case '填空':
                     // 如果GameType_id == 填空
                     // 呼叫檢查使用者遊玩進度

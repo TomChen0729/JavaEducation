@@ -104,10 +104,17 @@ class KnowledgeCardController extends Controller
     }
 
     // 遊戲畫面中的知識卡功能
-    public function showCurrentCard(string $card)
+    public function showCurrentCard(Request $request)
     {
-        $cardcontent = KnowledgeCard::where('name', $card)->get();
-        return redirect()->back()->with('notice', ['cardcontent' => $cardcontent]);
+        if($request -> isMethod('get')){
+            $card = $request->input('cardname');
+            $cardcontent = KnowledgeCard::where('name', $card)->get()->toJson();
+            Log::info($cardcontent);
+            return response()->json(['message' => 'OK', 'cardcontent' => $cardcontent]);
+        }else{
+            return response()->json(['message' => 'http method error']);
+        }
+        
     }
     //搜尋功能
     public function search(Request $request)
