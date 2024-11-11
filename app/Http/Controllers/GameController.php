@@ -239,9 +239,10 @@ class GameController extends Controller
                     }
                     Log::info('questions' . $questions);
                     if(!empty($questions)){
-                        $qid = $questions->pluck('question_id')->toArray();
+                        $qid = $questions->pluck('id')->toArray();
                         $Q_cards = QuestionCard::whereIn('question_id', $qid)->pluck('knowledge_card_id')->toArray();
                         $cards = KnowledgeCard::whereIn('id', $Q_cards)->get();
+                        Log::info($cards);
                     }
                     return view('game.match', ['questions' => $questions, 'questions_cards' => $cards]);
                 case '填空':
