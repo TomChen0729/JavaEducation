@@ -363,9 +363,13 @@ class GameController extends Controller
             // 串表去找使用者玩過的類型
             // 先串表、找答對的問題，再去questions表找符合等級的資料，最後只抓取遊戲種類
             $current_uid = auth()->user()->id;
-            $PlayedGameType = UserRecord::with('questions')->where('user_id', $current_uid)->where('status', 1)->whereHas('question', function ($query) use ($levels) {
-                $query->where('levels', $levels);
-            })->pluck('question_id')->toArray();
+            $PlayedGameType = UserRecord::join('questions', 'questions.id', '=', 'user_records.question_id')
+            ->select('questions.gametype as gametype')
+            ->where('questions.country_id', $country_id)
+            ->where('user_records.user_id', $current_uid)
+            ->distinct()->get()->toArray();
+            $PlayedGameType = array_column($PlayedGameType, 'gametype');
+            Log::info($PlayedGameType);
             // 儲存當前所有的遊戲種類
             $typelist = ['是非', '選擇', '配對', '填空'];
             // 用來記錄沒玩過的遊戲種類
