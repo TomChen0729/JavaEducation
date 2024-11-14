@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.5, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1920 1080" style="enable-background:new 0 0 1920 1080;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#B8DAF4;}
+	.st1{fill:#DBDBDB;}
+	.st2{fill:#A0A09F;}
+	.st3{fill:#684511;}
+	.st4{fill:#C48026;}
+	.st5{fill:#424242;}
+	.st6{fill:#25E52E;}
+	.st7{fill:#7A7974;}
+	.st8{fill:#EDE4BC;}
+	.st9{fill:#FF0000;}
+	.st10{font-family:'FranklinGothic-Heavy';}
+	.st11{font-size:109.0134px;}
+	.st12{fill:none;stroke:#7A7974;stroke-width:3;stroke-miterlimit:10;}
+</style>
+<g id="圖層_1">
+	<rect x="0" y="1" class="st0" width="1920" height="877"/>
+	<rect y="878" class="st1" width="1920" height="202"/>
+</g>
+<g id="圖層_2">
+	<rect x="-0.25" y="561.73" class="st2" width="1167.25" height="57.57"/>
+	<rect x="64.37" y="619.3" class="st3" width="1038" height="370.7"/>
+	<rect x="64.17" y="740.51" class="st4" width="1038" height="104.04"/>
+	<g>
+		<rect x="210.28" y="349.61" class="st5" width="134.07" height="129.29"/>
+		<rect x="262.46" y="455.67" class="st5" width="21.68" height="51.51"/>
+		<rect x="103.51" y="507.19" class="st5" width="264.12" height="54.54"/>
+		<rect x="139.64" y="349.61" class="st5" width="16.86" height="157.57"/>
+		<rect x="73.81" y="288" class="st5" width="147.71" height="61.61"/>
+		<rect x="85.05" y="295.07" class="st6" width="126.84" height="44.44"/>
+	</g>
+	<g>
+		<circle class="st7" cx="747.5" cy="73.5" r="18.5"/>
+		<rect x="545.21" y="200.36" class="st8" width="422" height="133"/>
+		<text transform="matrix(0.881 0 0 1 612.0952 306.9302)" class="st9 st10 st11">OPEN!</text>
+		<line class="st12" x1="562" y1="200" x2="748" y2="92"/>
+		<line class="st12" x1="950" y1="200" x2="748" y2="92"/>
+	</g>
+</g>
+</svg>
