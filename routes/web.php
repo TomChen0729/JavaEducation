@@ -102,6 +102,9 @@ Route::get('fire', function () {
 Route::get('country3gameslayouts', function () {
     return view('test.country3gameslayouts');
 });
+Route::get('level3', function () {
+    return view('level3');
+});
 //搜尋卡片傳值進控制器
 Route::get('/search', [KnowledgeCardController::class, 'search'])->name('knowledge.search');
 Route::get('/knowledge/suggestions', [KnowledgeCardController::class, 'getSuggestions'])->name('knowledge.suggestions');

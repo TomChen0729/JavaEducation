@@ -155,7 +155,6 @@ class SecCountryController extends Controller
                 }
 
                 $variable = null;
-
                 switch ($secGameID) {
                         // 從記錄表撈玩過的，如果最近一次有玩的參數先導入(寫一個function)
                         // 如果沒玩過或是全對的話，隨便random
@@ -583,6 +582,22 @@ class SecCountryController extends Controller
                             $templateCode = str_replace('$variable', $variable, $templateCode);
                             return view('game.country2.fire', ['fireQuestion' => $fireQuestion, 'variable' => $variable, 'templateCode' => $templateCode]);
                         }
+                    case 10:
+                        $question = SecGame:: join('sec_parameters','sec_parameters.secGameID','=','sec_games.id')
+                        ->where('country_id', $country_id)
+                        ->where('sec_games.id',$secGameID)
+                        ->inRandomOrder()->first();
+                        Log::info($question);
+                        $answer = SecAnswer::select('ans_patterns')->where('secParameterID',$question->id)->inRandomOrder()->get();
+                        Log::info($answer);
+                        $question_data =[
+                            'country_id' => $country_id,
+                            'id' => $question->id,
+                            'options' => $answer,
+                            'question' => $question->template_code,
+                        ];
+                        Log::info($question_data);
+                        return view('game.country3.treasure',['question'=>$question,'question_data'=>$question_data]);
                     default:
                         //
                         return response('error');
