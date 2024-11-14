@@ -478,7 +478,7 @@
             padding: 20px;
             text-align: center;
             padding-top: 35%;
-            overflow: auto; 
+            overflow: auto;
         }
 
         #material-container {
@@ -507,13 +507,13 @@
 
         #question-container pre {
             font-size: 16px;
-            font-weight: bold;                                      
-            text-align: left;        
+            font-weight: bold;
+            text-align: left;
         }
 
         /* 設定選項容器樣式 */
         #pieces {
-            display: flex;
+            display: wrap;
             justify-content: center;
             gap: 10px;
             font-size: 16px;
@@ -659,7 +659,7 @@
         }
 
         @media (max-width: 500px) {
-            
+
             .first .pop h1 {
                 font-size: 18px;
             }
@@ -759,7 +759,7 @@
                 <!-- 顯示題目的容器 -->
                 <div id="question-container">
                     <!-- 預設顯示第一題 -->
-                    <div id="board"></div> 
+                    <div id="board"></div>
                 </div>
                 <!-- 提交按鈕 -->
                 <button id="submit-btn" onclick="checkAnswers()">Submit</button>
@@ -849,36 +849,33 @@
                 id: 120,
                 levels: 1,
                 options: [
-                    { option: "Arrays.sort" },
-                    { option: "Arrays.toString" },
-                    { option: "Arrays.binarySearch" }
+                    {option:"public class"},
+                    {option:"String[] args"},
+                    {option:"public static void main"},
+                    {option:""},
+
+
+
                 ],
                 question: `
 <pre>
-import java.util.Arrays;
-
-public class TreasureHunt1 {
-    public static void main(String[] args) {
-        int[] treasurePositions = {42, 10, 99, 7, 65};
-        ___(treasurePositions);  // 排序位置
+___ FlyerWordFilter {
+    ___(___) {
         
-        System.out.println("排序後的寶藏位置：");
-        System.out.println(___(treasurePositions));
+        //傳單內容
+        ___ flyer = "The beasts in the forest are safe.";
         
-        int searchKey = 65;
-        int index = ___(treasurePositions, searchKey);
+        //替換詞語 
+        flyer = flyer.___;
         
-        if (index >= 0) {
-            System.out.println("寶藏找到在索引：" + index);
-        } else {
-            System.out.println("未找到寶藏！");
-        }
+        
+        System.out.println(flyer);
     }
 }
 </pre>
         `
             };
-            
+
             // 顯示當前題目
             displayQuestion(questions);
 
@@ -902,8 +899,8 @@ public class TreasureHunt1 {
                 // 初始化所有可拖曳的元素
                 initializeDragAndDrop();
             }
-            
-            
+
+
             // 提交按鈕的點擊事件，即為觸發對答案的函數
             document.getElementById('submit-btn').onclick = function() {
                 checkAnswers();
@@ -1051,6 +1048,17 @@ public class TreasureHunt1 {
         function generateDropZone() {
             return `<div class="dropZone" draggable="true"></div>`;
         }
+        // 選取 #pieces 中的所有 div 元素
+        const pieces = document.querySelectorAll('optionBtn');
+
+        // 每四個 <div> 後插入一個換行
+        pieces.forEach((div, index) => {
+            if ((index + 1) % 4 === 0) {
+                const br = document.createElement('br');
+                div.after(br);
+            }
+        });
+
     </script>
 </body>
 

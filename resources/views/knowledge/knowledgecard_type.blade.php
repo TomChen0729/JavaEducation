@@ -168,6 +168,7 @@
         margin-top: 5px;
         max-height: 200px;
         overflow-y: auto;
+        display: none;
     }
 
     .suggestion-item {
@@ -241,7 +242,7 @@
                                 suggestionsBox.appendChild(suggestionItem);
                             });
                         } else {
-                            suggestionsBox.style.display = "none"; //沒有找到相關的知識卡時引王
+                            suggestionsBox.style.display = "none"; //沒有找到相關的知識卡時隱藏
                         }
                     })
                     .catch(error => {
