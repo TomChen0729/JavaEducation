@@ -660,7 +660,7 @@
         </ul>
 
         <ul class="navbar">
-            <li><a href="#" onclick="togglePopup2()"> 知識卡</a></li>
+            <!-- <li><a href="#" onclick="togglePopup2()"> 知識卡</a></li> -->
             <li onclick="history.go(-1)"><a href="#"> 回上一頁</a></li>
             <li class="time" id="timer">00:00:00</li>
         </ul>

@@ -140,7 +140,6 @@
         }
 
         .CodeMirror {
-            height: auto;
             width: 100%;
             text-align: left;
         }
@@ -181,7 +180,7 @@
                 <a href="{{ route('showallcardtypes') }}" class="breadcrumbs__link">知識卡</a>
             </li>
             <li class="breadcrumbs__item">
-                <a href="#" class="breadcrumbs__link">{{ $card_type -> card_type }}</a>
+                <a href="{{ route('showallcards', ['card_type_id' => $card_type -> id]) }}" class="breadcrumbs__link">{{ $card_type -> card_type }}</a>
             </li>
             <li class="breadcrumbs__item">
                 <a href="#" class="breadcrumbs__link__active">{{ $current_card -> name}}</a>
@@ -220,6 +219,7 @@
             theme: "monokai",
             // lineNumbers: true, // 顯示行號
         });
+        editor.setSize(null, "auto"); // 寬度自適應，高度隨內容調整
     });
 
     //複製code
@@ -230,6 +230,6 @@
             }, function(err) {
                 console.error("複製失敗: ", err);
             });
-        });
+    });
 </script>
 @endsection
