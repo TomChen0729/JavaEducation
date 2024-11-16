@@ -559,25 +559,30 @@
                     </div>
                     <div class="lines" id="lines">
                         <strong>解碼規則</strong>
+                        
                         <ul>
-                            <li>百位數字：
-                                <ul>
-                                    <li>如果百位數字是奇數，則將百位數*2</li>
-                                    <li>如果百位數字是偶數，則將百位數/2 </li>
-                                </ul>
-                            </li>
-                            <li>十位數字：
-                                <ul>
-                                    <li>如果十位數字是奇數，則將十位數/2</li>
-                                    <li>如果十位數字是偶數，則將十位數*3</li>
-                                </ul>
-                            </li>
-                            <li>個位數字：
-                                <ul>
-                                    <li>如果個位數字>=5，則將個位數-3</li>
-                                    <li>如果個位數 < 5將，則將個位數+3</li>
-                                </ul>
-                            </li>
+                            @if (($decryptQuestion->id) == 14)
+                                <li>個位數字：
+                                    <ul>
+                                        <li>如果個位數字>=5，則將個位數-3</li>
+                                        <li>如果個位數 < 5將，則將個位數+3</li>
+                                    </ul>
+                                </li>
+                            @elseif (($decryptQuestion->id) == 15)
+                                <li>十位數字：
+                                    <ul>
+                                        <li>如果十位數字是奇數，則將十位數/2</li>
+                                        <li>如果十位數字是偶數，則將十位數*3</li>
+                                    </ul>
+                                </li>
+                            @else
+                                <li>百位數字：
+                                    <ul>
+                                        <li>如果百位數字是奇數，則將百位數*2</li>
+                                        <li>如果百位數字是偶數，則將百位數/2 </li>
+                                    </ul>
+                                </li>
+                            @endif
                         </ul>
                     </div>
                     <div class="holes" id="holes">

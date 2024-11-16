@@ -688,8 +688,9 @@ class SecCountryController extends Controller
         ];
 
         UserKnowledgeCard::insert($data);
-
-        return $randGiveCard;
+        $cardName = KnowledgeCard::find($randGiveCard->knowledge_card_id)->name;
+        Log::info('cardName：'.$cardName);
+        return $cardName;
     }
     public function CorrectUserRecord(int $userid, int $parameterid, $useranswer)
     {
@@ -750,8 +751,8 @@ class SecCountryController extends Controller
                         return response()->json(['message' => 'wrongAns', 'wrongIndex' => $wrongIndexArray]);
                     } else {
                         $this->CorrectUserRecord($currentUser, $parameterID, $userAnswer);
-                        $this->giveUserCards($secgameid, $currentUser);
-                        return response()->json(['message' => 'correct']);
+                        $getCard = $this->giveUserCards($secgameid, $currentUser);
+                        return response()->json(['message' => 'correct', 'getCard' => $getCard]);
                     }
                 } else {
                     return response()->json(['message' => 'Error']);

@@ -599,7 +599,7 @@
             display: inline-block;
             width: 200px;
             height: 50px;
-            border: 5px dashed #faf1e4;
+            border: 5px solid #faf1e4;
             border-radius: 20px;
             margin-right: 10px;
             text-align: center;

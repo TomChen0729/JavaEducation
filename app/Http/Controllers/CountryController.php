@@ -239,7 +239,7 @@ class CountryController extends Controller
                 return view('level2', ['currentCountry' => $country_id, 'iconData' => $iconData]);
 
             case 3:
-                break;
+                return view('level3', ['currentCountry' => $country_id]);
         }
     }
 }

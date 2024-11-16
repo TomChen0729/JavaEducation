@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <title>開始遊戲</title>
     <style>
-        body{
+        body {
             background: url('/images/start/start.svg');
             background-repeat: no-repeat;
             background-position: top;
             background-attachment: fixed;
             background-size: cover;
         }
+
         .container {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 50vh; 
+            height: 50vh;
             margin-top: 250px;
         }
 
-        a{
+        a {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -29,15 +31,27 @@
             width: 250px;
         }
 
-        .img{
+        .img {
             margin-top: 30%;
+        }
+
+        .container a img {
+            transition: transform 0.3s ease;
+            /* 添加平滑過渡效果 */
+        }
+
+        .container a img:hover {
+            transform: scale(1.2);
+            /* 放大比例 */
         }
     </style>
 </head>
+
 <body>
-<div class="container">
-    <!-- <button><a href="{{ url('/welcome') }}">開始遊戲</a></button> -->
-    <a href="{{ url('/welcome') }}"><img class="img" src="/images/start/btn.svg" alt=""></a>
-</div>
+    <div class="container">
+        <!-- <button><a href="{{ url('/welcome') }}">開始遊戲</a></button> -->
+        <a href="{{ url('/welcome') }}"><img class="img" src="/images/start/btn.svg" alt=""></a>
+    </div>
 </body>
+
 </html>

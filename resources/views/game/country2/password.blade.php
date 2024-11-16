@@ -770,6 +770,14 @@
                         // 延遲出現答題成功彈窗
                         setTimeout(() => {
                             popup.classList.add('show');  // 顯示彈窗
+                            const getcard = popup.querySelector('.card');
+                            console.log(getcard);
+                            console.log(data.getCard);
+                            if(data.getCard){
+                                getcard.textContent = data.getCard;
+                            }else{
+                                getcard.textContent = '';
+                            }    
                         }, 100); 
                     } else if (data.message == 'wrongAns') {
                         console.log(data.wrongIndex);
