@@ -689,6 +689,7 @@ class SecCountryController extends Controller
 
         UserKnowledgeCard::insert($data);
         $cardName = KnowledgeCard::find($randGiveCard->knowledge_card_id)->name;
+        Log::info('cardName：'.$cardName);
         return $cardName;
     }
     public function CorrectUserRecord(int $userid, int $parameterid, $useranswer)
