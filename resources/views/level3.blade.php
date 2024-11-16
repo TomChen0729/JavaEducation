@@ -10,6 +10,7 @@
     <h1>選擇遊戲</h1>
     
     <a href="{{ route('sec.GameChoose', ['country_id' => 3, 'secGameID' => 10]) }}">10</a>
-
+    <a href="{{ route('sec.GameChoose', ['country_id' => 3, 'secGameID' => 11]) }}">11</a>
+    <a href="{{ route('sec.GameChoose', ['country_id' => 3, 'secGameID' => 12]) }}">12</a>
 </body>
 </html>

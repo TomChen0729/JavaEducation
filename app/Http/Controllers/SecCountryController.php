@@ -587,17 +587,41 @@ class SecCountryController extends Controller
                         ->where('country_id', $country_id)
                         ->where('sec_games.id',$secGameID)
                         ->inRandomOrder()->first();
-                        Log::info($question);
                         $answer = SecAnswer::select('ans_patterns')->where('secParameterID',$question->id)->inRandomOrder()->get();
-                        Log::info($answer);
                         $question_data =[
                             'country_id' => $country_id,
                             'id' => $question->id,
                             'options' => $answer,
                             'question' => $question->template_code,
                         ];
-                        Log::info($question_data);
                         return view('game.country3.treasure',['question'=>$question,'question_data'=>$question_data]);
+                    case 11:
+                        $question = SecGame:: join('sec_parameters','sec_parameters.secGameID','=','sec_games.id')
+                        ->where('country_id', $country_id)
+                        ->where('sec_games.id',$secGameID)
+                        ->inRandomOrder()->first();
+                        $answer = SecAnswer::select('ans_patterns')->where('secParameterID',$question->id)->inRandomOrder()->get();
+                        $question_data =[
+                            'country_id' => $country_id,
+                            'id' => $question->id,
+                            'options' => $answer,
+                            'question' => $question->template_code,
+                        ];
+                        return view('game.country3.food',['question'=>$question,'question_data'=>$question_data]);
+                    case 12:
+                        $question = SecGame:: join('sec_parameters','sec_parameters.secGameID','=','sec_games.id')
+                        ->where('country_id', $country_id)
+                        ->where('sec_games.id',$secGameID)
+                        ->inRandomOrder()->first();
+                        $answer = SecAnswer::select('ans_patterns')->where('secParameterID',$question->id)->inRandomOrder()->get();
+                        $question_data =[
+                            'country_id' => $country_id,
+                            'id' => $question->id,
+                            'options' => $answer,
+                            'question' => $question->template_code,
+                        ];
+                        return view('game.country3.treasure',['question'=>$question,'question_data'=>$question_data]);
+                    
                     default:
                         //
                         return response('error');
