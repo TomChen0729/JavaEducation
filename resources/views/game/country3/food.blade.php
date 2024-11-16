@@ -949,9 +949,10 @@
                         if (draggedElement.classList.contains('optionBtn') && e.target.classList.contains('dropZone') ) {
                             console.log('將選項放入作答區，並從素材區移除')
                             // 將選項放入作答區，並從素材區移除
-                            const temp = draggedElement.textContent
-                            e.target.textContent = temp; // 將選項文字放入
-                            draggedElement.remove(); // 從素材區刪除選項
+                            // if (!isDuplicateIndropZones(draggedElement.textContent)) {
+                                e.target.textContent = draggedElement.textContent; // 將選項文字放入
+                                draggedElement.remove(); // 從素材區刪除選項
+                            // }
                             
                         } else if (draggedElement.classList.contains('dropZone') && e.target.classList.contains('dropZone') && draggedElement !== e.target) {
                             console.log('交換兩個作答區的選項')
@@ -972,9 +973,9 @@
                             newoptionBtn.draggable = true; // 設定為可拖曳
 
                             // 確保素材區不會有重複的選項
-                            // if (!isoptionBtnDuplicate(newoptionBtn.textContent)) {
-                            //     document.getElementById('pieces').appendChild(newoptionBtn); // 添加回素材區
-                            // }
+                            if (!isoptionBtnDuplicate(newoptionBtn.textContent)) {
+                                document.getElementById('pieces').appendChild(newoptionBtn); // 添加回素材區
+                            }
 
                             // 從素材區刪除原來的選項
                             draggedElement.remove(); // 刪除被拖曳的選項
@@ -1002,6 +1003,16 @@
             return false; // 如果沒有重複選項，返回 false
         }
 
+        // 檢查作答區是否有重複選項
+        function isDuplicateIndropZones(optionBtnText) {
+            const dropZones = document.querySelectorAll('.dropZone');
+            for (let dropZone of dropZones) {
+                if (dropZone.textContent === optionBtnText) {
+                    return true; // 如果有重複選項，返回 true
+                }
+            }
+            return false; // 如果沒有重複選項，返回 false
+        }
 
         // 產生缺空處的函數
         function generateDropZone() {

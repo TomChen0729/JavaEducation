@@ -1002,16 +1002,16 @@
             return false; // 如果沒有重複選項，返回 false
         }
 
-        // // 檢查作答區是否有重複選項
-        // function isDuplicateIndropZones(optionBtnText) {
-        //     const dropZones = document.querySelectorAll('.dropZone');
-        //     for (let dropZone of dropZones) {
-        //         if (dropZone.textContent === optionBtnText) {
-        //             return true; // 如果有重複選項，返回 true
-        //         }
-        //     }
-        //     return false; // 如果沒有重複選項，返回 false
-        // }
+        // 檢查作答區是否有重複選項
+        function isDuplicateIndropZones(optionBtnText) {
+            const dropZones = document.querySelectorAll('.dropZone');
+            for (let dropZone of dropZones) {
+                if (dropZone.textContent === optionBtnText) {
+                    return true; // 如果有重複選項，返回 true
+                }
+            }
+            return false; // 如果沒有重複選項，返回 false
+        }
 
 
         // 產生缺空處的函數

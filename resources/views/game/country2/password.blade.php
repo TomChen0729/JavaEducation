@@ -597,7 +597,7 @@
         <div class="close-btn" onclick="togglePopup2()">&times;</div>
         <div class="popup-content">
             <p>答題成功！</p>
-            <button onclick="history.back()">回到上一頁</button>
+            <button><a href="{{ route('country.index', ['country_id' => $passwordGameQuestion->country_id]) }}">回到上一頁</a></button>
         </div>
     </div>
 
