@@ -31,6 +31,7 @@
         }
 
         body {
+            background-color: #c5d0c2;
             /* background: url('/images/learn/lv1-4.svg') no-repeat center center fixed;
             background-size: cover; */
             color: var(--text-color);
@@ -291,7 +292,7 @@
             justify-content: space-between;
             padding: 20px 2% 0;
             /* 透明背景 */
-            background: rgba(199, 168, 132, 0.8);
+            background: rgba(120,164,100, 0.8);
             transition: all 0.50s ease;
         }
 
@@ -334,6 +335,7 @@
 
         .breadcrumbs__link__active {
             text-decoration: none;
+            text-shadow: 1px 1px 2px black;
             color: #009578;
             font-weight: bold;
         }
@@ -408,7 +410,7 @@
         }
 
         .container-fluid {
-            margin-top: 7%;
+            margin-top: 3%;
             display: flex;
             width: 100%;
             height: 80vh;
@@ -440,8 +442,31 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 1px solid #999;
+            /* border: 1px solid #999; */
             background-color: #e3e3e3;
+
+            --b: 10px;  /* border thickness */
+            --s: 30px; /* size of the dashes */
+            --c1: #215A6D;
+            --c2: #92C7A3;
+
+            position: relative;
+        }
+
+        .left-container .description::before {
+            content:"";
+            position: absolute;
+            inset: 0;
+            padding: var(--b);
+            background: 
+                repeating-conic-gradient(var(--c1) 0 25%,var(--c2) 0 50%) 
+                0 0/var(--s) var(--s) round;
+            -webkit-mask:
+                linear-gradient(#000 0 0) content-box,
+                linear-gradient(#000 0 0);
+            -webkit-mask-composite: xor;
+                    mask-composite: exclude;
+            pointer-events: none;
         }
 
         .right-container {
@@ -474,7 +499,8 @@
         #code-container {
             background-color: #ddb759;
             color: #74461b;
-            border: 5px solid #442a0f;
+            /* border: 5px solid #442a0f; */
+            border-radius: 30px;
             padding: 20px;
             text-align: center;
             padding-top: 35%;
@@ -484,29 +510,55 @@
         #material-container {
             background-color: #b8d4b6;
             color: #476f45;
-            border: 5px solid #442a0f;
+            /* border: 5px solid #442a0f; */
+            border-radius: 30px;
             padding: 20px;
             text-align: center;
         }
 
         #game-container {
-            background-color: #f0cdca;
-            color: #d4807c;
-            border: 5px solid #442a0f;
-            padding: 20px;
-            text-align: center;
+            height: 70%;
+            width: 100%;
+            background: url('/images/treasure/treasurebg.svg') no-repeat center;
+            background-size: cover;
+            /* border: 5px solid #442a0f; */
+            border-radius: 30px;
+            position: relative;
+        }
+
+        .marker {
+            width: 60px;
+            height: 60px;
+            /* background-color: red; */
+            border-radius: 50%;
+            position: absolute;
+            cursor: pointer;
+        }
+
+        #marker-1 { top: 58%; left: 31%; }
+        #marker-2 { top: 58%; left: 15%; }
+        #marker-3 { top: 58%; left: 47%; }
+        #marker-4 { top: 58%; left: 63%; }
+        #marker-5 { top: 58%; left: 79%; }
+
+        #shovel, #treasure {
+            width: 80px;
+            position: absolute;
+            transition: all 0.5s ease-in-out;
         }
 
         #description-container {
+            font-size: 24px;
+            font-weight: bold;
             background-color: #b7d0f9;
             color: #4a71b0;
-            border: 5px solid #442a0f;
             padding: 20px;
             text-align: center;
         }
 
         #question-container pre {
-            font-size: 16px;
+            margin-top: 50%;
+            font-size: 20px;
             font-weight: bold;
             text-align: left;
         }
@@ -748,7 +800,15 @@
     <div class="container-fluid">
         <div class="left-container">
             <div class="game" id="game-container">
-                <h1>動畫區</h1>
+                <!-- 五個標記點 -->
+                <div class="marker" id="marker-1" data-position="10"></div>
+                <div class="marker" id="marker-2" data-position="7"></div>
+                <div class="marker" id="marker-3" data-position="42"></div>
+                <div class="marker" id="marker-4" data-position="65"></div>
+                <div class="marker" id="marker-5" data-position="99"></div>
+                <!-- 動畫素材 -->
+                <img id="shovel" src="/images/treasure/shovel.svg" style="display:none;">
+                <img id="treasure" src="/images/treasure/treasure.svg" style="display:none;">
             </div>
             <div class="description" id="description-container">
                 <p>{{ $question -> pre_story }}</p>
@@ -837,6 +897,39 @@
         function togglePopup4() {
             document.getElementById("popup-3").classList.toggle("active");
         }
+
+        //動畫
+        document.addEventListener('DOMContentLoaded', () => {
+            const markers = document.querySelectorAll('.marker');
+            const shovel = document.getElementById('shovel');
+            const treasure = document.getElementById('treasure');
+
+            const sortedPositions = [7, 10, 42, 65, 99]; // 排序後的座標
+            const targetPosition = 65; // 正確的寶藏位置
+
+            markers.forEach(marker => {
+                marker.addEventListener('click', function () {
+                    const position = parseInt(this.dataset.position);
+
+                    // 移動鏟子到該位置
+                    shovel.style.left = this.offsetLeft + 'px';
+                    shovel.style.top = this.offsetTop + 'px';
+                    shovel.style.display = 'block';
+
+                    // 檢查是否是正確的座標
+                    if (position === targetPosition) {
+                        setTimeout(() => {
+                            treasure.style.left = this.offsetLeft + 'px';
+                            treasure.style.top = this.offsetTop + 'px';
+                            treasure.style.display = 'block';
+                            alert('找到寶藏了！');
+                        }, 500); // 延遲顯示寶藏
+                    } else {
+                        alert('這裡沒有寶藏，請試試其他地方！');
+                    }
+                });
+            });
+        });
 
         // 題目
         // 初始化題目

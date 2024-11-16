@@ -10,28 +10,6 @@
                         {{ __('首頁') }}
                     </a>
                 </div>
-
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" style="margin-top: 20px;">
-                    <a href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        <!-- <x-application-mark class="block h-9 w-auto" /> -->
-                        {{ __('歷史答題記錄') }}
-                    </a>
-                </div>
-
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" style="margin-top: 20px;">
-                <a href="{{ route('welcome') }}">
-                        <!-- <x-application-mark class="block h-9 w-auto" /> -->
-                        {{ __('已獲得知識卡') }}
-                    </a>
-                </div>
-                
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" style="margin-top: 20px;">
-                    <a href="{{ route('welcome') }}">
-                        <!-- <x-application-mark class="block h-9 w-auto" /> -->
-                        {{ __('個人排行榜') }}
-                    </a>
-                </div>
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">
