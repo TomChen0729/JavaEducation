@@ -900,19 +900,24 @@
 
         //動畫
         document.addEventListener('DOMContentLoaded', () => {
+            // 標記
             const markers = document.querySelectorAll('.marker');
+            // 鏟子
             const shovel = document.getElementById('shovel');
+            // 寶箱
             const treasure = document.getElementById('treasure');
 
             const sortedPositions = [7, 10, 42, 65, 99]; // 排序後的座標
             const targetPosition = 65; // 正確的寶藏位置
 
+            // 遍歷標記
             markers.forEach(marker => {
                 marker.addEventListener('click', function () {
-                    const position = parseInt(this.dataset.position);
+                    // 獲取被標記的位置
+                    const position = parseInt(this.dataset.position); // 獲取65轉為整數
 
                     // 移動鏟子到該位置
-                    shovel.style.left = this.offsetLeft + 'px';
+                    shovel.style.left = this.offsetLeft + 'px'; // this觸發事件，offsetLeft讓東西飄移到該位置
                     shovel.style.top = this.offsetTop + 'px';
                     shovel.style.display = 'block';
 
