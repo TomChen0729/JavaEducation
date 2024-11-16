@@ -597,7 +597,8 @@
         <div class="close-btn" onclick="togglePopup2()">&times;</div>
         <div class="popup-content">
             <p>答題成功！</p>
-            <button><a href="{{ route('country.index', ['country_id' => $passwordGameQuestion->country_id]) }}">回到上一頁</a></button>
+            <div class="card"></div>
+            <button><a href="{{ route('country.index', ['country_id' => $passwordGameQuestion->country_id]) }}">選擇遊戲關卡</a></button>
         </div>
     </div>
 
@@ -636,9 +637,9 @@
             <div class="col-md-12 images">
                 <img src="/images/password/closedoor.svg" id="close" alt="緊閉的大門">
             </div>
-            <!-- <div class="col-md-6 left-container">
+            <div class="col-md-6 left-container">
                 <button type="button" class="btn btn-success" id="OpenBtn">打開大門</button>
-            </div> -->
+            </div>
             <div class="col-md-6 right-container">
                 <button type="button" class="btn btn-info" id="codeLockBtn">程式密碼鎖</button>
             </div>
@@ -698,21 +699,21 @@
         });
 
         // 大門動畫
-        // document.getElementById('OpenBtn').addEventListener('click', function() {
-        //     const img = document.getElementById('close');
-        //                 const question = document.getElementById('question');
-        //                 const popup = document.getElementById('success-popup');
-        //                 const closeButton = document.getElementById('popup-close');
+        document.getElementById('OpenBtn').addEventListener('click', function() {
+            const img = document.getElementById('close');
+                        const question = document.getElementById('question');
+                        const popup = document.getElementById('success-popup');
+                        const closeButton = document.getElementById('popup-close');
 
-        //                 img.src = "/images/password/opendoor.svg";
-        //                 question.classList.add('hide');
+                        img.src = "/images/password/opendoor.svg";
+                        question.classList.add('hide');
 
-        //                 // 延遲出現答題成功彈窗
-        //                 setTimeout(() => {
-        //                     popup.classList.add('show');
-        //                 }, 100); 
+                        // 延遲出現答題成功彈窗
+                        setTimeout(() => {
+                            popup.classList.add('show');
+                        }, 100); 
 
-        // });
+        });
 
         // 點擊送出按鈕時讀取input中的值，並存放置陣列中
         var submitBtn = document.getElementById('send-code');
