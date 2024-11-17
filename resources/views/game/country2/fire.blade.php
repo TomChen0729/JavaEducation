@@ -282,7 +282,36 @@
         }
 
         .fireman {
+            position: absolute;
             margin-bottom: -2%;
+        }
+
+        .water {
+            top: 55%;
+            left: -40%;
+            transform: scale(0.5) rotate(0deg); /* 調整 scale 大小 */
+            opacity: 0; /* 初始不可見 */
+            position: relative;
+        }
+
+        /* 武器動畫 */
+        @keyframes animate {
+            0% {
+                top: 55%;
+                left: -40%;
+                transform: scale(0.5) rotate(0deg); /* 保持縮放 */
+            }
+
+            100% {
+                top: -20%;
+                left: -10%;
+                transform: scale(0.5) rotate(45deg); /* 保持縮放 */
+            }
+        }
+
+        .water.show {
+            animation: animate 1s ease-in-out;
+            opacity: 1; /* 顯示水桶 */
         }
 
         .control-buttons {
@@ -322,7 +351,7 @@
 
         .code-container {
             width: 100%;
-            height: 35%;
+            height: 50%;
             background-color: #f4f4f4;
             padding: 15px;
             border-radius: 8px;
@@ -359,6 +388,88 @@
             font-size: 24px;
             border: none;
         }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            max-width: 90%;
+            font-size: 30px;
+            font-weight: bold;
+            border-radius: 15px;
+            color: #556989;
+            background-color: #f8ede3;
+            border: 2px solid #2f2f2f;
+            padding: 20px 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: none; /* 初始隱藏 */
+            text-align: center;
+        }
+
+        .popup.jump {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .popup .popup-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .popup .close-btn {
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            width: 30px;
+            height: 30px;
+            background-color: #D38E43;
+            color: #F8F0DC;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .popup .close-btn:hover {
+            background-color: #c2793c;
+        }
+
+        .popup .popup-content button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .popup .popup-content a {
+            color: #000;
+        }
+
+        .popup .popup-content a:hover {
+            color: #fff;
+        }
+
+        .popup .popup-content button:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 
@@ -381,6 +492,15 @@
         </div>
     </div>
 
+    <div id="success-popup" class="popup hide">
+        <div class="close-btn" onclick="togglePopup2()">&times;</div>
+        <div class="popup-content">
+            <p>答題成功！</p>
+            <div class="card"></div>
+            <button><a href="{{ route('country.index', ['country_id' => $fireQuestion->country_id]) }}">選擇遊戲關卡</a></button>
+        </div>
+    </div>
+
     <div class="header">
         <div class="row">
             <ul class="col-ms-8 breadcrumbs">
@@ -396,7 +516,6 @@
             </ul>
 
             <ul class="col-ms-6 navbar">
-                <li><a href="#" onclick="togglePopup2()"> 知識卡</a></li>
                 <li><a href="#" onclick="history.back()"> 回上一頁</a></li>
                 <li class="time" id="timer">00:00:00</li>
             </ul>
@@ -416,9 +535,10 @@
                 </div>
                 <div class="firebg">
                     <div class="fire"></div>
-                    <img class="fireman" src="/images/fire/fireman.svg" alt="">
+                    <img class="fireman" id="fire" src="/images/fire/fireman.svg" alt="">
+                    <img class="water" id="water" src="/images/fire/water.svg" alt="">
                 </div>
-                <button onclick="play()">測試按鈕</button>
+                <!-- <button onclick="play()">測試按鈕</button> -->
             </div>
             <div class="col-md-6 right-container">
                 <div class="excode-container" id="excode-container">
@@ -459,6 +579,11 @@ public class Main {
             document.getElementById("popup").classList.toggle("active");
         }
 
+        // 關閉彈窗
+        function togglePopup2() {
+            document.getElementById("success-popup").classList.toggle("jump");
+        }
+
         //input格子縮放
         function autoResize(input) {
             const newWidth = input.scrollWidth;
@@ -489,6 +614,20 @@ public class Main {
                 codeContainer.style.height = 'auto';
             }
         }
+
+        // 動畫
+        // function play() {
+        //     const firemanImg = document.getElementById('fire');
+        //     const waterElement = document.getElementById('water');
+            
+        //     waterElement.classList.add('show');
+
+        //     setTimeout(() => {
+        //         waterElement.classList.remove('show');
+        //         firemanImg.src = "/images/fire/man.svg";
+        //     }, 1000); // 1秒
+        // }
+
         // 點擊送出按鈕時讀取input中的值，並存放置陣列中
         var submitBtn = document.getElementById('send-code');
         submitBtn.addEventListener('click', function() {
@@ -534,7 +673,29 @@ public class Main {
                 .then(response => response.json())
                 .then(data => {
                     if (data.message == 'correct') {
-                        alert('答對');
+                        const firemanImg = document.getElementById('fire');
+                        const waterElement = document.getElementById('water');
+                        
+                        waterElement.classList.add('show');
+
+                        setTimeout(() => {
+                            waterElement.classList.remove('show');
+                            firemanImg.src = "/images/fire/man.svg";
+                        }, 1000); // 1秒
+                        
+                        const popup = document.getElementById('success-popup');
+                        // 延遲出現答題成功彈窗
+                        setTimeout(() => {
+                            popup.classList.add('jump');  // 顯示彈窗
+                            const getcard = popup.querySelector('.card');
+                            console.log(getcard);
+                            console.log("您獲得" + data.getCard + "知識卡");
+                            if(data.getCard){
+                                getcard.textContent = "您獲得" + data.getCard + "知識卡";
+                            }else{
+                                getcard.textContent = '';
+                            }    
+                        }, 100); 
                     } else if (data.message == 'wrongAns') {
                         console.log(data.wrongIndex);
                     } else if (data.message == 'Null') {
