@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>idcardgame</title>
+    <title>魔法門衛</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/base16-dark.min.css" rel="stylesheet">
@@ -417,6 +417,88 @@
             margin-top: 20px;
         }
 
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            max-width: 90%;
+            font-size: 30px;
+            font-weight: bold;
+            border-radius: 15px;
+            color: #556989;
+            background-color: #f8ede3;
+            border: 2px solid #2f2f2f;
+            padding: 20px 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: none; /* 初始隱藏 */
+            text-align: center;
+        }
+
+        .popup.jump {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .popup .popup-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .popup .close-btn {
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            width: 30px;
+            height: 30px;
+            background-color: #D38E43;
+            color: #F8F0DC;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .popup .close-btn:hover {
+            background-color: #c2793c;
+        }
+
+        .popup .popup-content button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .popup .popup-content a {
+            color: #000;
+        }
+
+        .popup .popup-content a:hover {
+            color: #fff;
+        }
+
+        .popup .popup-content button:hover {
+            background-color: #45a049;
+        }
+
         @media (max-width: 768px)and (max-width: 1024px) {
             .card {
                 flex: 1 1 45%;
@@ -451,6 +533,15 @@
         </div>
     </div>
 
+    <div id="success-popup" class="popup hide">
+        <div class="close-btn" onclick="togglePopup2()">&times;</div>
+        <div class="popup-content">
+            <p>答題成功！</p>
+            <div class="cardd"></div>
+            <button><a href="{{ route('country.index', ['country_id' => $idCardGameQuestion->country_id]) }}">選擇遊戲關卡</a></button>
+        </div>
+    </div>
+
     <div class="header">
         <div class="row">
             <ul class="col-ms-8 breadcrumbs">
@@ -466,7 +557,6 @@
             </ul>
 
             <ul class="col-ms-6 navbar">
-                <li><a href="#" onclick="togglePopup2()"> 知識卡</a></li>
                 <li><a href="#" onclick="history.back()"> 回上一頁</a></li>
                 <li class="time" id="timer">00:00:00</li>
             </ul>
@@ -533,6 +623,10 @@
             document.getElementById("popup").classList.toggle("active");
         }
 
+        // 關閉彈窗
+        function togglePopup2() {
+            document.getElementById("success-popup").classList.toggle("jump");
+        }
 
         function autoResize(input) {
             const newWidth = input.scrollWidth;
@@ -630,18 +724,21 @@
             const sealElement = document.getElementById(`seal-${index}`);
             const messageElement = document.getElementById(`message-${index}`);
 
+            // 如果找不到元素，直接返回
+            if (!sealElement || !messageElement) {
+                console.warn(`未找到印章或訊息元素，無法播放動畫 (seal-${index}, message-${index})`);
+                return;
+            }
+
             // 開始動畫
             sealElement.classList.add('show');
 
             // 完成動畫，新增文字，移除印章
             setTimeout(() => {
-
                 messageElement.classList.add('open');
                 sealElement.classList.remove('show');
-
             }, 500); // 預設動畫持續0.5秒
         }
-
 
         // 點擊送出按鈕時讀取input中的值，並存放置陣列中
         var submitBtn = document.getElementById('send-code');
@@ -688,7 +785,23 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.message == 'correct') {
-                        alert('答對');
+                        // 呼叫觸發蓋章動畫
+                        const correctAnswerIndex = data.index; // 假設後端回傳了正確答案的 index
+                        playStamp(correctAnswerIndex);  // 根據正確答案的 index 播放動畫
+
+                        const popup = document.getElementById('success-popup');
+                        // 延遲出現答題成功彈窗
+                        setTimeout(() => {
+                            popup.classList.add('jump');  // 顯示彈窗
+                            const getcard = popup.querySelector('.cardd');
+                            console.log(getcard);
+                            console.log("您獲得" + data.getCard + "知識卡");
+                            if(data.getCard){
+                                getcard.textContent = "您獲得" + data.getCard + "知識卡";
+                            }else{
+                                getcard.textContent = '';
+                            }    
+                        }, 100); 
                     } else if (data.message == 'wrongAns') {
                         console.log(data.wrongIndex);
                     } else if (data.message == 'Null') {

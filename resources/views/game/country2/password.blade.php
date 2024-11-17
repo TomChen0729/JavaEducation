@@ -407,7 +407,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 300px;
+            width: 600px;
             max-width: 90%;
             font-size: 30px;
             font-weight: bold;
@@ -422,7 +422,7 @@
             text-align: center;
         }
 
-        .popup.show {
+        .popup.jump {
             display: block;
             animation: fadeIn 0.3s ease-in-out;
         }
@@ -465,12 +465,19 @@
             margin-top: 15px;
             padding: 10px 20px;
             font-size: 16px;
-            color: #ffffff;
             background-color: #4CAF50;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
+        }
+        
+        .popup .popup-content a {
+            color: #000;
+        }
+
+        .popup .popup-content a:hover {
+            color: #fff;
         }
 
         .popup .popup-content button:hover {
@@ -617,7 +624,6 @@
             </ul>
 
             <ul class="col-ms-6 navbar">
-                <li><a href="#" onclick="togglePopup2()"> 知識卡</a></li>
                 <li><a href="#" onclick="history.back()"> 回上一頁</a></li>
                 <li class="time" id="timer">00:00:00</li>
             </ul>
@@ -637,9 +643,9 @@
             <div class="col-md-12 images">
                 <img src="/images/password/closedoor.svg" id="close" alt="緊閉的大門">
             </div>
-            <div class="col-md-6 left-container">
+            <!-- <div class="col-md-6 left-container">
                 <button type="button" class="btn btn-success" id="OpenBtn">打開大門</button>
-            </div>
+            </div> -->
             <div class="col-md-6 right-container">
                 <button type="button" class="btn btn-info" id="codeLockBtn">程式密碼鎖</button>
             </div>
@@ -677,7 +683,7 @@
 
         // 關閉彈窗
         function togglePopup2() {
-            document.getElementById("success-popup").classList.toggle("show");
+            document.getElementById("success-popup").classList.toggle("jump");
         }
 
         // 平移動畫
@@ -699,21 +705,21 @@
         });
 
         // 大門動畫
-        document.getElementById('OpenBtn').addEventListener('click', function() {
-            const img = document.getElementById('close');
-                        const question = document.getElementById('question');
-                        const popup = document.getElementById('success-popup');
-                        const closeButton = document.getElementById('popup-close');
+        // document.getElementById('OpenBtn').addEventListener('click', function() {
+        //     const img = document.getElementById('close');
+        //                 const question = document.getElementById('question');
+        //                 const popup = document.getElementById('success-popup');
+        //                 const closeButton = document.getElementById('popup-close');
 
-                        img.src = "/images/password/opendoor.svg";
-                        question.classList.add('hide');
+        //                 img.src = "/images/password/opendoor.svg";
+        //                 question.classList.add('hide');
 
-                        // 延遲出現答題成功彈窗
-                        setTimeout(() => {
-                            popup.classList.add('show');
-                        }, 100); 
+        //                 // 延遲出現答題成功彈窗
+        //                 setTimeout(() => {
+        //                     popup.classList.add('jump');
+        //                 }, 100); 
 
-        });
+        // });
 
         // 點擊送出按鈕時讀取input中的值，並存放置陣列中
         var submitBtn = document.getElementById('send-code');
@@ -769,12 +775,12 @@
 
                         // 延遲出現答題成功彈窗
                         setTimeout(() => {
-                            popup.classList.add('show');  // 顯示彈窗
+                            popup.classList.add('jump');  // 顯示彈窗
                             const getcard = popup.querySelector('.card');
                             console.log(getcard);
-                            console.log(data.getCard);
+                            console.log("您獲得" + data.getCard + "知識卡");
                             if(data.getCard){
-                                getcard.textContent = data.getCard;
+                                getcard.textContent = "您獲得" + data.getCard + "知識卡";
                             }else{
                                 getcard.textContent = '';
                             }    

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>boxgame</title>
+    <title>魔法寶箱</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/base16-dark.min.css" rel="stylesheet">
@@ -315,9 +315,9 @@
 
         #triangle {
             position: absolute;
-            left: 11%;
-            top: 32%;
-            width: 30%;
+            left: 15%;
+            top: 45%;
+            width: 25%;
             height: auto;
             margin-top: 15%;
             margin-left: 20%;
@@ -325,12 +325,13 @@
 
         #treasure-box.open {
             position: absolute;
-            left: 30%;
+            left: 15%;
             top: 35%;
+            margin-top: 10px;
+            width: 65%;
+            height: 65%;
             background: url('/images/boxes/openbox1.svg') no-repeat center;
-            width: 40%;
-            height: auto;
-            background-size: contain;
+            transition: background 0.5s;
         }
 
         .textarea-container {
@@ -370,6 +371,88 @@
             border: none;
             color: white;
             border-radius: 5px;
+        }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            max-width: 90%;
+            font-size: 30px;
+            font-weight: bold;
+            border-radius: 15px;
+            color: #556989;
+            background-color: #f8ede3;
+            border: 2px solid #2f2f2f;
+            padding: 20px 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: none; /* 初始隱藏 */
+            text-align: center;
+        }
+
+        .popup.jump {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .popup .popup-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .popup .close-btn {
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            width: 30px;
+            height: 30px;
+            background-color: #D38E43;
+            color: #F8F0DC;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .popup .close-btn:hover {
+            background-color: #c2793c;
+        }
+
+        .popup .popup-content button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .popup .popup-content a {
+            color: #000;
+        }
+
+        .popup .popup-content a:hover {
+            color: #fff;
+        }
+
+        .popup .popup-content button:hover {
+            background-color: #45a049;
         }
 
         @media (max-width: 1200px) {
@@ -462,6 +545,15 @@
         </div>
     </div>
 
+    <div id="success-popup" class="popup hide">
+        <div class="close-btn" onclick="togglePopup2()">&times;</div>
+        <div class="popup-content">
+            <p>答題成功！</p>
+            <div class="card"></div>
+            <button><a href="{{ route('country.index', ['country_id' => $boxGameQuestion->country_id]) }}">選擇遊戲關卡</a></button>
+        </div>
+    </div>
+
     <div class="header">
         <div class="row">
             <ul class="col-ms-8 breadcrumbs">
@@ -477,7 +569,6 @@
             </ul>
 
             <ul class="col-ms-6 navbar">
-                <li><a href="#" onclick="togglePopup2()"> 知識卡</a></li>
                 <li><a href="#" onclick="history.back()"> 回上一頁</a></li>
                 <li class="time" id="timer">00:00:00</li>
             </ul>
@@ -500,7 +591,7 @@
                     <!-- <img class="img" id="randomImg" src="/images/boxes/triangle.png" alt=""> -->
                     <img id="triangle" src="/images/boxes/arrange3.svg" alt="">
                 </div>
-                <button onclick="openBox()">打開寶箱</button>
+                <!-- <button onclick="openBox()">打開寶箱</button> -->
             </div>
             <div class="col-md-6 right-container">
                 <div class="code-container">
@@ -525,6 +616,10 @@
         console.log('parameterID:' + shape);
         console.log('variable:' + n);
 
+        // 關閉彈窗
+        function togglePopup2() {
+            document.getElementById("success-popup").classList.toggle("jump");
+        }
 
         // 倒序排列 arrange
         function triangle1(n) {
@@ -667,7 +762,35 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.message == 'correct') {
-                        alert('答對');
+                        const box = document.getElementById("treasure-box");
+                        box.classList.add("open");
+
+                        const img = document.getElementById("triangle");
+                        const light = img.src;
+                        // 用split分割成陣列，再用pop取出陣列中最後的元素，將.svg替換成空字串
+                        var fileName = light.split('/').pop().replace('.svg', '');
+                        if (fileName) {
+                            // 檔名加入light
+                            var newFileName = 'light' + fileName;
+                            // 更新圖片連結
+                            img.src = '/images/boxes/' + newFileName + '.svg';
+                        } else {
+                            console.log('無法解析圖片檔名');
+                        }
+
+                        const popup = document.getElementById('success-popup');
+                        // 延遲出現答題成功彈窗
+                        setTimeout(() => {
+                            popup.classList.add('jump');  // 顯示彈窗
+                            const getcard = popup.querySelector('.card');
+                            console.log(getcard);
+                            console.log("您獲得" + data.getCard + "知識卡");
+                            if(data.getCard){
+                                getcard.textContent = "您獲得" + data.getCard + "知識卡";
+                            }else{
+                                getcard.textContent = '';
+                            }    
+                        }, 100); 
                     } else if (data.message == 'wrongAns') {
                         console.log(data.wrongIndex);
                     } else if (data.message == 'Null') {
@@ -680,31 +803,23 @@
         });
 
         // 開啟寶箱動畫
-        function openBox() {
-            const box = document.getElementById("treasure-box");
-            box.classList.add("open");
+        // function openBox() {
+        //     const box = document.getElementById("treasure-box");
+        //     box.classList.add("open");
 
-            const img = document.getElementById("triangle");
-            const light = img.src;
-            // 用正規表達式，找出檔名位置
-            // var fileNameRegex = /\/images\/boxes\/(.+)\.svg/;
-            // 用split分割成陣列，再用pop取出陣列中最後的元素，將.svg替換成空字串
-            var fileName = light.split('/').pop().replace('.svg', '');
-            if (fileName) {
-                // 檔名加入light
-                var newFileName = 'light' + fileName;
-                // 更新圖片連結
-                img.src = '/images/boxes/' + newFileName + '.svg';
-            } else {
-                console.log('無法解析圖片檔名');
-            }
-
-            // const stars = document.getElementById("star");
-            // stars.classList.add("open");
-
-            // const imgElement = document.getElementById("randomImg");
-            // imgElement.style.display = 'none';
-        }
+        //     const img = document.getElementById("triangle");
+        //     const light = img.src;
+        //     // 用split分割成陣列，再用pop取出陣列中最後的元素，將.svg替換成空字串
+        //     var fileName = light.split('/').pop().replace('.svg', '');
+        //     if (fileName) {
+        //         // 檔名加入light
+        //         var newFileName = 'light' + fileName;
+        //         // 更新圖片連結
+        //         img.src = '/images/boxes/' + newFileName + '.svg';
+        //     } else {
+        //         console.log('無法解析圖片檔名');
+        //     }
+        // }
 
         function autoResize(input) {
             const newWidth = input.scrollWidth;

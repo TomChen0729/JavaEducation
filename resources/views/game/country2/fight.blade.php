@@ -401,6 +401,88 @@
             /* 直接顯示 */
         }
 
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            max-width: 90%;
+            font-size: 30px;
+            font-weight: bold;
+            border-radius: 15px;
+            color: #556989;
+            background-color: #f8ede3;
+            border: 2px solid #2f2f2f;
+            padding: 20px 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: none; /* 初始隱藏 */
+            text-align: center;
+        }
+
+        .popup.jump {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .popup .popup-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .popup .close-btn {
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            width: 30px;
+            height: 30px;
+            background-color: #D38E43;
+            color: #F8F0DC;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .popup .close-btn:hover {
+            background-color: #c2793c;
+        }
+
+        .popup .popup-content button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .popup .popup-content a {
+            color: #000;
+        }
+
+        .popup .popup-content a:hover {
+            color: #fff;
+        }
+
+        .popup .popup-content button:hover {
+            background-color: #45a049;
+        }
+
         @media (max-width: 768px) {
             body {
                 flex-direction: column;
@@ -501,6 +583,15 @@
         </div>
     </div>
 
+    <div id="success-popup" class="popup hide">
+        <div class="close-btn" onclick="togglePopup2()">&times;</div>
+        <div class="popup-content">
+            <p>答題成功！</p>
+            <div class="card"></div>
+            <button><a href="{{ route('country.index', ['country_id' => $fightQuestion->country_id]) }}">選擇遊戲關卡</a></button>
+        </div>
+    </div>
+
     <div class="header">
         <div class="row">
             <ul class="col-ms-8 breadcrumbs">
@@ -516,7 +607,6 @@
             </ul>
 
             <ul class="col-ms-6 navbar">
-                <li><a href="#" onclick="togglePopup2()"> 知識卡</a></li>
                 <li><a href="#" onclick="history.back()"> 回上一頁</a></li>
                 <li class="time" id="timer">00:00:00</li>
             </ul>
@@ -539,7 +629,7 @@
                     <img class="character" id="character" src="/images/fight/witch.svg" alt="">
                     <img class="weapon" id="weapon" src="/images/fight/sword.svg" alt="">
                 </div>
-                <button onclick="play()">測試按鈕</button>
+                <!-- <button onclick="play()">測試按鈕</button> -->
             </div>
             <div class="col-md-6 right-container">
                 <div class="excode-container" id="excode-container">
@@ -581,42 +671,52 @@ public class Main {
     <script>
         var parameter_id = parseInt('{{ $fightQuestion->id }}');
         console.log('parameter_id:' + parameter_id);
+
         // 畫面載入後顯示彈跳視窗
         function togglePopup1() {
             document.getElementById("popup").classList.toggle("active");
         }
 
-        // 等題目跟答案從資料庫提取出來再修正獲取的來源，跟寶箱遊戲一樣
-        function witch() {
-            const img = document.getElementById('character');
-            img.src = '/images/fight/witch.svg';
+        // 關閉彈窗
+        function togglePopup2() {
+            document.getElementById("success-popup").classList.toggle("jump");
         }
 
-        function giant() {
-            const img = document.getElementById('character');
-            img.src = '/images/fight/giant.svg';
-        }
-
-        function dragon() {
-            const img = document.getElementById('character');
-            img.src = '/images/fight/dragon.svg';
-        }
-
+        // 呼叫目前題目，等題目跟答案從資料庫提取出來再修正獲取的來源，跟寶箱遊戲一樣
         // 一開始進入時，呼叫需要攻擊的角色
-        // document.addEventListener('DOMContentLoaded', function{
+        document.addEventListener('DOMContentLoaded', function() {
+            const characterImg = document.getElementById('character'); // 獲取角色圖片
+            const weaponImg = document.getElementById('weapon'); // 獲取武器圖片
 
-        // });
+            // 根據 parameter_id 設置角色和武器圖片
+            switch (parameter_id) {
+                case 18: // 魔女
+                    characterImg.src = '/images/fight/witch.svg';
+                    weaponImg.src = '/images/fight/witch_weapon.svg';  // 根據需求設置魔女的武器
+                    break;
+                case 19: // 巨人
+                    characterImg.src = '/images/fight/giant.svg';
+                    weaponImg.src = '/images/fight/shield.svg';  // 根據需求設置巨人的武器
+                    break;
+                case 20: // 龍
+                    characterImg.src = '/images/fight/dragon.svg';
+                    weaponImg.src = '/images/fight/flag.svg';  // 根據需求設置龍的武器
+                    break;
+                default:
+                    break;
+            }
+        });
 
         // 按下按鈕後立即顯示武器並開始動畫
-        function play() {
-            const weaponElement = document.getElementById('weapon');
-            weaponElement.classList.add('show');
+        // function play() {
+        //     const weaponElement = document.getElementById('weapon');
+        //     weaponElement.classList.add('show');
 
-            // 重置動畫
-            setTimeout(() => {
-                weaponElement.classList.remove('show');
-            }, 1000); // 1秒後重置動畫
-        }
+        //     // 重置動畫
+        //     setTimeout(() => {
+        //         weaponElement.classList.remove('show');
+        //     }, 1000); // 1秒後重置動畫
+        // }
 
         //input格子縮放
         function autoResize(input) {
@@ -693,7 +793,22 @@ public class Main {
                 .then(response => response.json())
                 .then(data => {
                     if (data.message == 'correct') {
-                        alert('答對');
+                        const weaponElement = document.getElementById('weapon');
+                        weaponElement.classList.add('show');
+
+                        const popup = document.getElementById('success-popup');
+                        // 延遲出現答題成功彈窗
+                        setTimeout(() => {
+                            popup.classList.add('jump');  // 顯示彈窗
+                            const getcard = popup.querySelector('.card');
+                            console.log(getcard);
+                            console.log("您獲得" + data.getCard + "知識卡");
+                            if(data.getCard){
+                                getcard.textContent = "您獲得" + data.getCard + "知識卡";
+                            }else{
+                                getcard.textContent = '';
+                            }    
+                        }, 100); 
                     } else if (data.message == 'wrongAns') {
                         console.log(data.wrongIndex);
                     } else if (data.message == 'Null') {
