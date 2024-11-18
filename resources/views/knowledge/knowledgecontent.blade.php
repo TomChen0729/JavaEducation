@@ -21,22 +21,22 @@
         transition: .2s linear;
     }
 
-    .container {
+    .containers {
         margin-top: 100px;
         padding: 15px 9%;
         padding-bottom: 100px;
     }
 
-    .container .box-container {
-        /* 網格結構，組織子元素 */
+    .containers .box-container {
         display: grid;
-        /* 定義網格結構: 重複一組列定義(自動調整列數量，定義每列的最小和最大寬度) */
-        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-        /* 設置網格項之間的間距為 15 像素 */
-        gap: 15px;
+        /* 增加最小寬度，減少每列元素數量 */
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        /* 減少間距，讓內容更寬敞 */
+        gap: 10px;
     }
 
-    .container .box-container .box {
+
+    .containers .box-container .box {
         box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
         border-radius: 5%;
         background: #fff;
@@ -45,24 +45,27 @@
         padding: 30px 20px;
     }
 
-    .container .box-container .box h3 {
+    .containers .box-container .box h3 {
         color: #444;
-        font-size: 22px;
+        font-size: 40px;
         padding: 10px 0;
     }
 
-    .container .box-container .box p {
-        font-size: 15px;
+    .containers .box-container .box p {
+        font-size: 20px;
         line-height: 1.8;
+        color: black;
+        font-size: 20px;
+        font-weight: bolder
     }
 
-    .container .box-container .box img {
+    .containers .box-container .box img {
         padding: 10px;
         margin: 0 auto;
         display: block;
     }
 
-    .container .box-container .box .btn {
+    .containers .box-container .box .btn {
         margin-top: 10px;
         display: inline-block;
         background-color: #ffb6c1;
@@ -74,7 +77,7 @@
         font-weight: bolder;
     }
 
-    .container .box-container .box .btn:hover {
+    .containers .box-container .box .btn:hover {
         letter-spacing: 1px;
         background-color: #ea9999;
     }
@@ -161,9 +164,25 @@
             background-color: #ea9999;
         }
 
+        .context{
+            background: #d4b0a5;
+            border-radius: 5%;
+            padding: 30px;
+        }
+
         .context h3{
             text-align: center;
+            font-size: 40px;
+            color: #444;
+            align-items:center;
         }
+
+        .context pre{
+            color: black;
+            font-size: 28px;
+            font-weight: bolder;
+        }
+
     @media (max-width: 768px) {
         .container {
             padding: 20px;
@@ -173,7 +192,7 @@
 @endsection
 
 @section('content')
-<div class="container">
+<div class="containers">
     <div class="head">
         <ul class="breadcrumbs">
             <li class="breadcrumbs__item">
@@ -188,24 +207,24 @@
         </ul>
     </div>
 
-    <div class="box-container" style="display: wrap; width:100%">
+    <div class="box-container">
         @if ($current_card != null)
             <div class="box">
-                <h3 style="font-size: 40px">{{ $current_card -> name }}</h3>
+                <h3>{{ $current_card -> name }}</h3>
                 <!-- <p style="color: black; font-weight:900">{{ $current_card -> content }}</p> -->
-                <p style="color: black; font-size: 20px; font-weight: bolder">{{ $current_card -> summary }}</p>
+                <p>{{ $current_card -> summary }}</p>
                 <div class="editor-container">
                     <textarea class="code-editor" id="code-editor">{{ $current_card->code }}</textarea>
                 </div>
                 <button class="copy-button" id="copy-button">COPY</button>
             </div>
-            <div class="context" style="background: #d4b0a5; border-radius: 5%; padding: 30px;">
-                <h3 style="font-size: 40px; color: #444; align-items:center">Introduction</h3><br><br>
-                <p><pre style="color: black; font-size: 20px; font-weight: bolder">{{ $current_card -> description }}</pre></p>
+            <div class="context">
+                <h3>Introduction</h3><br><br>
+                <p><pre>{{ $current_card -> description }}</pre></p>
             </div>
         @endif
 
-    </di>
+    </div>
 </div>
 @endsection
 

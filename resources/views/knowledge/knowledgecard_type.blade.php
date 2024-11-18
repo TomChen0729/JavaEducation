@@ -16,7 +16,7 @@
 
     .container {
         margin-top: 100px;
-        padding: 15px 9%;
+        padding: 15px 0;
         padding-bottom: 100px;
     }
 
@@ -53,7 +53,7 @@
         /* 網格結構，組織子元素 */
         display: grid;
         /* 定義網格結構: 重複一組列定義(自動調整列數量，定義每列的最小和最大寬度) */
-        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         /* 設置網格項之間的間距為 15 像素 */
         gap: 15px;
     }
