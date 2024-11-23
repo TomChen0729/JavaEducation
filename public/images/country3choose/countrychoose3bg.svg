@@ -9,20 +9,20 @@
 	.st3{fill:#393F44;}
 	.st4{fill:#475259;}
 </style>
-<radialGradient id="SVGID_1_" cx="961" cy="540" r="1201.6798" fx="962.1398" fy="474.8598" gradientUnits="userSpaceOnUse">
+<radialGradient id="SVGID_1_" cx="961" cy="540" r="1201.6798" fx="962.1398" fy="474.8598" gradientTransform="matrix(1 0 0 -1 0 1080)" gradientUnits="userSpaceOnUse">
 	<stop  offset="0" style="stop-color:#84907D"/>
 	<stop  offset="0.6542" style="stop-color:#747E6F"/>
 	<stop  offset="1" style="stop-color:#3C4441"/>
 </radialGradient>
-<rect x="1" y="0" class="st0" width="1920" height="1080"/>
-<rect y="699" class="st1" width="1059" height="49"/>
-<rect x="1013" y="338" class="st1" width="910" height="54"/>
-<rect y="264" class="st1" width="1059" height="49"/>
-<rect x="1017" y="773" class="st1" width="514" height="49"/>
+<rect x="1" class="st0" width="1920" height="1080"/>
+<rect x="0" y="699.5" class="st1" width="1059" height="49"/>
+<rect x="1011" y="366.16" class="st1" width="910" height="54"/>
+<rect x="0" y="391.83" class="st1" width="1059" height="49"/>
+<rect x="1011" y="657.5" class="st1" width="514" height="49"/>
 <rect x="1522" y="724" class="st1" width="399" height="49"/>
-<rect x="497.5" y="517.5" transform="matrix(-1.836970e-16 1 -1 -1.836970e-16 1577.5 -493.5)" class="st1" width="1076" height="49"/>
-<rect x="974.5" y="517.5" transform="matrix(-1.836970e-16 1 -1 -1.836970e-16 2054.5 -970.5)" class="st1" width="1076" height="49"/>
-<rect x="-60.5" y="515.5" transform="matrix(-1.836970e-16 1 -1 -1.836970e-16 1017.5 62.5)" class="st1" width="1076" height="49"/>
+<rect x="1011" y="4" class="st1" width="49" height="1076"/>
+<rect x="1488" y="4" class="st1" width="49" height="1076"/>
+<rect x="453" y="2" class="st1" width="49" height="1076"/>
 <g>
 	<rect x="1866.87" y="269.35" class="st2" width="21.27" height="51.65"/>
 	<path class="st3" d="M1905.28,253.3c4.74,0.04,9.49,0.07,14.23,0.11c-6.52-6.07-13.04-12.14-19.56-18.21
