@@ -309,7 +309,7 @@
     <div class="content">
         <div class="close-btn" onclick="togglePopup()">&times;</div>
         <div class="pop">
-            <h1>遊戲說明</h1>
+            <h1>規則說明</h1>
             <p class="cen">歡迎來到《綠野仙蹤》遊戲，在這個遊戲中，你將會經歷兩個大關卡：學習區和闖關區。</p>
             <p><strong>學習區</strong><br>
                 在學習區，你將會遇到四種不同的關卡類型：是非、選擇、重組和配對。</p>
