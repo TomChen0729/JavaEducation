@@ -192,14 +192,14 @@
                 <a href="#" class="breadcrumbs__link__active">{{ $card_type -> card_type }}</a>
             </li>
         </ul>
-        <form action="{{ route('knowledge.search') }}" method="GET" style="display: flex; align-items: center;">
+        {{-- <form action="{{ route('knowledge.search') }}" method="GET" style="display: flex; align-items: center;">
             <div class="boxes">
                 <input type="text" name="keyword" placeholder="Search..." required>
                 <button type="submit">
                     <i class="fas fa-search"></i>
                 </button>
             </div>
-        </form>
+        </form> --}}
     </div>
 
     <div class="box-container">
