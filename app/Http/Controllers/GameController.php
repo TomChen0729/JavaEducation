@@ -45,6 +45,8 @@ class GameController extends Controller
     // 送至前端的東西：通關所需知識卡，題目資訊，
     public function ChooseGame(Request $request, string $GameType, int $country_id, int $levels)
     {
+        //呼叫更新使用者紀錄
+        $this->gameService->updateUserRecord();
         $cards = [];
         //
         if ($request->isMethod('get')) {
@@ -357,6 +359,8 @@ class GameController extends Controller
     // 送至前端的東西：通關所需知識卡，題目資訊
     public function randomChooseGame(Request $request, int $country_id, int $levels)
     {
+        //呼叫更新使用者紀錄
+        $this->gameService->updateUserRecord();
         $cards = [];
         //
         if ($request->isMethod('get')) {
@@ -366,6 +370,7 @@ class GameController extends Controller
             $PlayedGameType = UserRecord::join('questions', 'questions.id', '=', 'user_records.question_id')
             ->select('questions.gametype as gametype')
             ->where('questions.country_id', $country_id)
+            ->where('questions.levels', $levels)
             ->where('user_records.user_id', $current_uid)
             ->distinct()->get()->toArray();
             $PlayedGameType = array_column($PlayedGameType, 'gametype');
