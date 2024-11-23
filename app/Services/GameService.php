@@ -10,6 +10,7 @@ use App\Models\KnowledgeCard;
 use App\Models\Question;
 use App\Models\User;
 use App\Models\UserKnowledgeCard;
+use Illuminate\Support\Facades\Log;
 
 class GameService
 {
@@ -53,6 +54,8 @@ class GameService
                     ->where('status', 1)
                     ->distinct()->pluck('questions.gametype');
 
+                Log::info('3'.$gametype_set);
+                Log::info('4'.$user_gametype_set);
                 $countryMaxLV = CardType::where('country_id', $current_user->country_id)->max('levels');
                 // 查看他自己的遊玩進度是不是最大的
                 // 如果不是的話，才進行等級晉升動作
@@ -115,6 +118,8 @@ class GameService
                             ->where('user_records.status', 1)
                             ->distinct()
                             ->pluck('questions.gametype');
+                            Log::info('1'.$gametype_set_MAX);
+                            Log::info('2'.$user_gametype_set_MAX);
                         // 比較兩個集合大小
                         if (count($gametype_set_MAX) == count($user_gametype_set_MAX)) {
                             // 找出最高等級的所有cardtype

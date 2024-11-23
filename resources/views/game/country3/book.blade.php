@@ -724,7 +724,7 @@
                 <a href="{{ route('welcome') }}" class="breadcrumbs__link">綠野仙蹤</a>
             </li>
             <li class="breadcrumbs__item">
-                <a href="#" class="breadcrumbs__link">選擇遊戲</a>
+                <a href="{{ route('country.index', ['country_id' => $question_data['country_id']]) }}" class="breadcrumbs__link">選擇遊戲</a>
             </li>
             <li class="breadcrumbs__item">
                 <a href="#" class="breadcrumbs__link__active">{{ $question->gamename }}</a>

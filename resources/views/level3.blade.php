@@ -68,18 +68,13 @@
 <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <a href="{{ route('sec.GameChoose', ['country_id' => 3, 'secGameID' => 10]) }}" class="button"><img src="/images/country3choose/treasure.svg"></a>
-                <a href="{{ route('sec.GameChoose', ['country_id' => 3, 'secGameID' => 11]) }}" class="button"><img src="/images/country3choose/food.svg"></a>
-                <a href="{{ route('sec.GameChoose', ['country_id' => 3, 'secGameID' => 12]) }}" class="button"><img src="/images/country3choose/check.svg"></a>
-                <a href="{{ route('sec.GameChoose', ['country_id' => 3, 'secGameID' => 13]) }}" class="button"><img src="/images/country3choose/member.svg"></a>
-                <a href="{{ route('sec.GameChoose', ['country_id' => 3, 'secGameID' => 14]) }}" class="button"><img src="/images/country3choose/spy.svg"></a>
-                <a href="{{ route('sec.GameChoose', ['country_id' => 3, 'secGameID' => 15]) }}" class="button"><img src="/images/country3choose/clean.svg"></a>
-                <a href="{{ route('sec.GameChoose', ['country_id' => 3, 'secGameID' => 16]) }}" class="button"><img src="/images/country3choose/award.svg"></a>
-                <a href="{{ route('sec.GameChoose', ['country_id' => 3, 'secGameID' => 17]) }}" class="button"><img src="/images/country3choose/spell.svg"></a>
-                <a href="{{ route('sec.GameChoose', ['country_id' => 3, 'secGameID' => 18]) }}" class="button"><img src="/images/country3choose/paper.svg"></a>
-                <a href="{{ route('sec.GameChoose', ['country_id' => 3, 'secGameID' => 19]) }}" class="button"><img src="/images/country3choose/book.svg"></a>
-                <a href="{{ route('sec.GameChoose', ['country_id' => 3, 'secGameID' => 20]) }}" class="button"><img src="/images/country3choose/shop.svg"></a>
-                <a href="{{ route('sec.GameChoose', ['country_id' => 3, 'secGameID' => 21]) }}" class="button"><img src="/images/country3choose/flyers.svg"></a>
+                @foreach ($iconData as $item)
+                    <div class="button" data-index="{{ $loop->index }}" data-secgameid="{{ $item['secGameID'] }}" data-status="{{ $item['status'] }}">
+                        <a href="{{ route('sec.GameChoose', ['country_id' => $currentCountry, 'secGameID' => $item['secGameID']]) }}">
+                            <img src="/images/country3choose/{{ $item['imgPath'] }}" alt="Button">
+                        </a>
+                    </div>
+                @endforeach
             </div>
         </div> 
     </div>

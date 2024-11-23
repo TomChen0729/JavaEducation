@@ -239,12 +239,12 @@ class GameController extends Controller
                             ->where('country_id', $country_id)
                             ->where('levels', $levels)->inRandomOrder()->take(4)->get();
                     }
-                    Log::info('questions' . $questions);
+                    // Log::info('questions' . $questions);
                     if(!empty($questions)){
                         $qid = $questions->pluck('id')->toArray();
                         $Q_cards = QuestionCard::whereIn('question_id', $qid)->pluck('knowledge_card_id')->toArray();
                         $cards = KnowledgeCard::whereIn('id', $Q_cards)->get();
-                        Log::info($cards);
+                        // Log::info($cards);
                     }
                     return view('game.match', ['questions' => $questions, 'questions_cards' => $cards]);
                 case '填空':
@@ -587,11 +587,12 @@ class GameController extends Controller
                             ->where('country_id', $country_id)
                             ->where('levels', $levels)->inRandomOrder()->take(4)->get();
                     }
-                    Log::info('questions' . $questions);if(!empty($questions)){
+                    // Log::info('questions' . $questions);
+                    if(!empty($questions)){
                         $qid = $questions->pluck('id')->toArray();
                         $Q_cards = QuestionCard::whereIn('question_id', $qid)->pluck('knowledge_card_id')->toArray();
                         $cards = KnowledgeCard::whereIn('id', $Q_cards)->get();
-                        Log::info($cards);
+                        // Log::info($cards);
                     }
                     return view('game.match', ['questions' => $questions, 'questions_cards' => $cards]);
                 case '填空':

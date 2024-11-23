@@ -87,7 +87,7 @@
         <div class="row">
             <div class="col-md-12">
                 @foreach ($iconData as $item)
-                <div class="button" data-index="{{ $loop->index }}" data-secgameid="{{ $item['secGameID'] }}" data-status="{{ $item['status'] }}">
+                    <div class="button" data-index="{{ $loop->index }}" data-secgameid="{{ $item['secGameID'] }}" data-status="{{ $item['status'] }}">
                         <a href="{{ route('sec.GameChoose', ['country_id' => $currentCountry, 'secGameID' => $item['secGameID']]) }}">
                             <img src="/images/country2choose/{{ $item['imgPath'] }}" alt="Button">
                         </a>
