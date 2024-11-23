@@ -19,7 +19,7 @@
             list-style: none;
         }
 
-        a:hover{
+        a:hover {
             color: white;
             text-decoration: none;
         }
@@ -292,7 +292,7 @@
             justify-content: space-between;
             padding: 20px 2% 0;
             /* 透明背景 */
-            background: rgba(120,164,100, 0.8);
+            background: rgba(120, 164, 100, 0.8);
             transition: all 0.50s ease;
         }
 
@@ -424,7 +424,7 @@
             flex-direction: column;
         }
 
-        .left-container .game{
+        .left-container .game {
             margin-bottom: 2%;
         }
 
@@ -445,8 +445,10 @@
             /* border: 1px solid #999; */
             background-color: #e3e3e3;
 
-            --b: 10px;  /* border thickness */
-            --s: 30px; /* size of the dashes */
+            --b: 10px;
+            /* border thickness */
+            --s: 30px;
+            /* size of the dashes */
             --c1: #215A6D;
             --c2: #92C7A3;
 
@@ -454,18 +456,17 @@
         }
 
         .left-container .description::before {
-            content:"";
+            content: "";
             position: absolute;
             inset: 0;
             padding: var(--b);
-            background: 
-                repeating-conic-gradient(var(--c1) 0 25%,var(--c2) 0 50%) 
-                0 0/var(--s) var(--s) round;
+            background:
+                repeating-conic-gradient(var(--c1) 0 25%, var(--c2) 0 50%) 0 0/var(--s) var(--s) round;
             -webkit-mask:
                 linear-gradient(#000 0 0) content-box,
                 linear-gradient(#000 0 0);
             -webkit-mask-composite: xor;
-                    mask-composite: exclude;
+            mask-composite: exclude;
             pointer-events: none;
         }
 
@@ -535,13 +536,33 @@
             cursor: pointer;
         }
 
-        #marker-1 { top: 58%; left: 31%; }
-        #marker-2 { top: 58%; left: 15%; }
-        #marker-3 { top: 58%; left: 47%; }
-        #marker-4 { top: 58%; left: 63%; }
-        #marker-5 { top: 58%; left: 79%; }
+        #marker-1 {
+            top: 58%;
+            left: 31%;
+        }
 
-        #shovel, #treasure {
+        #marker-2 {
+            top: 58%;
+            left: 15%;
+        }
+
+        #marker-3 {
+            top: 58%;
+            left: 47%;
+        }
+
+        #marker-4 {
+            top: 58%;
+            left: 63%;
+        }
+
+        #marker-5 {
+            top: 58%;
+            left: 79%;
+        }
+
+        #shovel,
+        #treasure {
             width: 80px;
             position: absolute;
             transition: all 0.5s ease-in-out;
@@ -590,7 +611,8 @@
             border-radius: 20px;
             cursor: pointer;
             text-align: center;
-            line-height: 40px; /* 垂直置中 */
+            line-height: 40px;
+            /* 垂直置中 */
         }
 
 
@@ -603,7 +625,8 @@
             border-radius: 20px;
             margin-right: 10px;
             text-align: center;
-            line-height: 40px; /* 垂直置中 */
+            line-height: 40px;
+            /* 垂直置中 */
             text-align: center;
         }
 
@@ -627,6 +650,7 @@
         }
 
         @media (max-width: 1200px) {
+
             #board,
             #pieces {
                 width: auto;
@@ -781,7 +805,7 @@
                 <a href="#" class="breadcrumbs__link">選擇遊戲</a>
             </li>
             <li class="breadcrumbs__item">
-                <a href="#" class="breadcrumbs__link__active">{{ $question -> gamename }}</a>
+                <a href="#" class="breadcrumbs__link__active">{{ $question->gamename }}</a>
             </li>
         </ul>
 
@@ -811,7 +835,7 @@
                 <img id="treasure" src="/images/treasure/treasure.svg" style="display:none;">
             </div>
             <div class="description" id="description-container">
-                <p>{{ $question -> pre_story }}</p>
+                <p>{{ $question->pre_story }}</p>
             </div>
         </div>
         <div class="right-container">
@@ -836,7 +860,7 @@
         // 漢堡
         let menu = document.querySelector('#menu-icon');
         let navbar = document.querySelector('.navbar');
-
+        var shape = parseInt('{{ $question->id }}');
         menu.onclick = () => {
             menu.classList.toggle('bx-x');
             navbar.classList.toggle('open');
@@ -912,7 +936,7 @@
 
             // 遍歷標記
             markers.forEach(marker => {
-                marker.addEventListener('click', function () {
+                marker.addEventListener('click', function() {
                     // 獲取被標記的位置
                     const position = parseInt(this.dataset.position); // 獲取65轉為整數
 
@@ -981,47 +1005,51 @@
                 // 獲取玩家已填入缺空處的值
                 const dropZone = document.querySelectorAll('.dropZone');
                 console.log(dropZone.length);
-                dropZone.forEach(function(item, index){
-                    if(item.textContent.trim() === ''){
+                dropZone.forEach(function(item, index) {
+                    if (item.textContent.trim() === '') {
                         allFilled = false;
                     }
-                    userAnswer.push({order:index+1, ans_patterns:item.textContent});
+                    userAnswer.push({
+                        order: index + 1,
+                        ans_patterns: item.textContent
+                    });
                 });
                 console.log(userAnswer);
-                if(!allFilled){
+                if (!allFilled) {
                     alert('你還有空格未填入答案');
                     return;
                 }
                 var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
                 url = '/api/checkUserAnswer';
-                fetch(url,{
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrfToken
-                    },
-                    body: JSON.stringify({
-                        userAnswer: userAnswer,
-                        parameter_id: shape,
-                        currentUser: parseInt('')
+                fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken
+                        },
+                        body: JSON.stringify({
+                            userAnswer: userAnswer,
+                            parameter_id: shape,
+                            currentUser: parseInt('{{ auth()->user()->id }}')
+                        })
                     })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if(data.message == ''){
-                        alert();
-                    }else if (data.message == ''){
-                        alert();
-                    }else{
-                        alert();
-                    }
-                });
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.message == 'correct') {
+                        } else if (data.message == 'wrongAns') {
+                            console.log(data.wrongIndex);
+                        } else if (data.message == 'Null') {
+                            alert('請填入答案');
+                        } else {
+                            alert('答錯');
+                        }
+                    });
             };
         };
 
         let draggedElement = null; // 用於追蹤正在拖曳的元素
 
-        function initializeDragAndDrop(){
+        function initializeDragAndDrop() {
             // 初始化所有可拖曳的元素
             document.querySelectorAll('.optionBtn, .dropZone').forEach(el => {
                 // 當開始拖曳時，儲存被拖曳元素的參考
@@ -1044,20 +1072,23 @@
                 el.addEventListener('drop', (e) => {
                     e.preventDefault();
                     if (draggedElement) {
-                        if (draggedElement.classList.contains('optionBtn') && e.target.classList.contains('dropZone') && e.target.textContent == '') {
+                        if (draggedElement.classList.contains('optionBtn') && e.target.classList.contains(
+                                'dropZone') && e.target.textContent == '') {
                             console.log('將選項放入作答區，並從素材區移除')
                             // 將選項放入作答區，並從素材區移除
                             // if (!isDuplicateIndropZones(draggedElement.textContent)) {
-                                e.target.textContent = draggedElement.textContent; // 將選項文字放入
-                                draggedElement.remove(); // 從素材區刪除選項
+                            e.target.textContent = draggedElement.textContent; // 將選項文字放入
+                            draggedElement.remove(); // 從素材區刪除選項
                             // }
-                        } else if (draggedElement.classList.contains('dropZone') && e.target.classList.contains('dropZone') && draggedElement !== e.target) {
+                        } else if (draggedElement.classList.contains('dropZone') && e.target.classList
+                            .contains('dropZone') && draggedElement !== e.target) {
                             console.log('交換兩個作答區的選項')
                             // 交換兩個作答區的選項
                             const temp = draggedElement.textContent;
                             draggedElement.textContent = e.target.textContent;
                             e.target.textContent = temp;
-                        } else if (draggedElement.classList.contains('optionBtn') && e.target.classList.contains('dropZone') && e.target.textContent !== '') {
+                        } else if (draggedElement.classList.contains('optionBtn') && e.target.classList
+                            .contains('dropZone') && e.target.textContent !== '') {
                             console.log('當將素材區的選項拖到已經有值的格子時，原有值移回素材區');
                             // 當將素材區的選項拖到已經有值的格子時，原有值移回素材區
                             const originalValue = e.target.textContent; // 獲取原有值
@@ -1126,7 +1157,6 @@
                 div.after(br);
             }
         });
-
     </script>
 </body>
 

@@ -615,8 +615,20 @@ class SecCountryController extends Controller
 
                     case 11:
                         if ($userRecords->isEmpty()) {
-
-                        } else {
+                            $question = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
+                                ->where('country_id', $country_id)
+                                ->where('sec_games.id', $secGameID)
+                                ->inRandomOrder()->first();
+                            $answer = SecAnswer::select('ans_patterns')->where('secParameterID', $question->id)->inRandomOrder()->get();
+                            $question_data = [
+                                'country_id' => $country_id,
+                                'id' => $question->id,
+                                'options' => $answer,
+                                'question' => $question->template_code,
+                            ];
+                            $this->recordWatchedParameter($question->id, []);
+                            return view('game.country3.food', ['question' => $question, 'question_data' => $question_data]);}
+                            else {
                             $secParameterID = $userRecords->first()->secParameterID;
                             $question = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
                                 ->where('sec_parameters.id', $secParameterID)
@@ -628,7 +640,7 @@ class SecCountryController extends Controller
                                 'options' => $answer,
                                 'question' => $question->template_code,
                             ];
-                            return view('game.country3.treasure', ['question' => $question, 'question_data' => $question_data]);
+                            return view('game.country3.food', ['question' => $question, 'question_data' => $question_data]);
                         }
                     case 12:
                         if ($userRecords->isEmpty()) {
@@ -644,7 +656,7 @@ class SecCountryController extends Controller
                                 'question' => $question->template_code,
                             ];
                             $this->recordWatchedParameter($question->id, []);
-                            return view('game.country3.treasure', ['question' => $question, 'question_data' => $question_data]);
+                            return view('game.country3.check', ['question' => $question, 'question_data' => $question_data]);
                         } else {
                             $secParameterID = $userRecords->first()->secParameterID;
                             $question = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
@@ -657,7 +669,7 @@ class SecCountryController extends Controller
                                 'options' => $answer,
                                 'question' => $question->template_code,
                             ];
-                            return view('game.country3.treasure', ['question' => $question, 'question_data' => $question_data]);
+                            return view('game.country3.check', ['question' => $question, 'question_data' => $question_data]);
                         }
                     case 13:
                         if ($userRecords->isEmpty()) {
@@ -673,7 +685,7 @@ class SecCountryController extends Controller
                                 'question' => $question->template_code,
                             ];
                             $this->recordWatchedParameter($question->id, []);
-                            return view('game.country3.treasure', ['question' => $question, 'question_data' => $question_data]);
+                            return view('game.country3.member', ['question' => $question, 'question_data' => $question_data]);
                         } else {
                             $secParameterID = $userRecords->first()->secParameterID;
                             $question = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
@@ -686,7 +698,7 @@ class SecCountryController extends Controller
                                 'options' => $answer,
                                 'question' => $question->template_code,
                             ];
-                            return view('game.country3.treasure', ['question' => $question, 'question_data' => $question_data]);
+                            return view('game.country3.member', ['question' => $question, 'question_data' => $question_data]);
                         }
                     case 14:
                         if ($userRecords->isEmpty()) {
@@ -702,7 +714,7 @@ class SecCountryController extends Controller
                                 'question' => $question->template_code,
                             ];
                             $this->recordWatchedParameter($question->id, []);
-                            return view('game.country3.treasure', ['question' => $question, 'question_data' => $question_data]);
+                            return view('game.country3.spy', ['question' => $question, 'question_data' => $question_data]);
                         } else {
                             $secParameterID = $userRecords->first()->secParameterID;
                             $question = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
@@ -715,7 +727,7 @@ class SecCountryController extends Controller
                                 'options' => $answer,
                                 'question' => $question->template_code,
                             ];
-                            return view('game.country3.treasure', ['question' => $question, 'question_data' => $question_data]);
+                            return view('game.country3.spy', ['question' => $question, 'question_data' => $question_data]);
                         }
                     case 15:
                         if ($userRecords->isEmpty()) {
@@ -731,7 +743,7 @@ class SecCountryController extends Controller
                                 'question' => $question->template_code,
                             ];
                             $this->recordWatchedParameter($question->id, []);
-                            return view('game.country3.treasure', ['question' => $question, 'question_data' => $question_data]);
+                            return view('game.country3.clean', ['question' => $question, 'question_data' => $question_data]);
                         } else {
                             $secParameterID = $userRecords->first()->secParameterID;
                             $question = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
@@ -744,7 +756,7 @@ class SecCountryController extends Controller
                                 'options' => $answer,
                                 'question' => $question->template_code,
                             ];
-                            return view('game.country3.treasure', ['question' => $question, 'question_data' => $question_data]);
+                            return view('game.country3.clean', ['question' => $question, 'question_data' => $question_data]);
                         }
                     case 16:
                         if ($userRecords->isEmpty()) {
@@ -760,7 +772,7 @@ class SecCountryController extends Controller
                                 'question' => $question->template_code,
                             ];
                             $this->recordWatchedParameter($question->id, []);
-                            return view('game.country3.treasure', ['question' => $question, 'question_data' => $question_data]);
+                            return view('game.country3.awards', ['question' => $question, 'question_data' => $question_data]);
                         } else {
                             $secParameterID = $userRecords->first()->secParameterID;
                             $question = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
@@ -773,7 +785,7 @@ class SecCountryController extends Controller
                                 'options' => $answer,
                                 'question' => $question->template_code,
                             ];
-                            return view('game.country3.treasure', ['question' => $question, 'question_data' => $question_data]);
+                            return view('game.country3.awards', ['question' => $question, 'question_data' => $question_data]);
                         }
                     case 17:
                         if ($userRecords->isEmpty()) {
@@ -789,7 +801,7 @@ class SecCountryController extends Controller
                                 'question' => $question->template_code,
                             ];
                             $this->recordWatchedParameter($question->id, []);
-                            return view('game.country3.treasure', ['question' => $question, 'question_data' => $question_data]);
+                            return view('game.country3.spell', ['question' => $question, 'question_data' => $question_data]);
                         } else {
                             $secParameterID = $userRecords->first()->secParameterID;
                             $question = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
@@ -802,7 +814,7 @@ class SecCountryController extends Controller
                                 'options' => $answer,
                                 'question' => $question->template_code,
                             ];
-                            return view('game.country3.treasure', ['question' => $question, 'question_data' => $question_data]);
+                            return view('game.country3.spell', ['question' => $question, 'question_data' => $question_data]);
                         }
                     case 18:
                         if ($userRecords->isEmpty()) {
@@ -818,7 +830,7 @@ class SecCountryController extends Controller
                                 'question' => $question->template_code,
                             ];
                             $this->recordWatchedParameter($question->id, []);
-                            return view('game.country3.treasure', ['question' => $question, 'question_data' => $question_data]);
+                            return view('game.country3.paper', ['question' => $question, 'question_data' => $question_data]);
                         } else {
                             $secParameterID = $userRecords->first()->secParameterID;
                             $question = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
@@ -831,7 +843,7 @@ class SecCountryController extends Controller
                                 'options' => $answer,
                                 'question' => $question->template_code,
                             ];
-                            return view('game.country3.treasure', ['question' => $question, 'question_data' => $question_data]);
+                            return view('game.country3.paper', ['question' => $question, 'question_data' => $question_data]);
                         }
                     case 19:
                         if ($userRecords->isEmpty()) {
@@ -847,7 +859,7 @@ class SecCountryController extends Controller
                                 'question' => $question->template_code,
                             ];
                             $this->recordWatchedParameter($question->id, []);
-                            return view('game.country3.treasure', ['question' => $question, 'question_data' => $question_data]);
+                            return view('game.country3.book', ['question' => $question, 'question_data' => $question_data]);
                         } else {
                             $secParameterID = $userRecords->first()->secParameterID;
                             $question = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
@@ -860,7 +872,7 @@ class SecCountryController extends Controller
                                 'options' => $answer,
                                 'question' => $question->template_code,
                             ];
-                            return view('game.country3.treasure', ['question' => $question, 'question_data' => $question_data]);
+                            return view('game.country3.book', ['question' => $question, 'question_data' => $question_data]);
                         }
                     case 20:
                         if ($userRecords->isEmpty()) {
@@ -876,7 +888,7 @@ class SecCountryController extends Controller
                                 'question' => $question->template_code,
                             ];
                             $this->recordWatchedParameter($question->id, []);
-                            return view('game.country3.treasure', ['question' => $question, 'question_data' => $question_data]);
+                            return view('game.country3.shop', ['question' => $question, 'question_data' => $question_data]);
                         } else {
                             $secParameterID = $userRecords->first()->secParameterID;
                             $question = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
@@ -889,7 +901,7 @@ class SecCountryController extends Controller
                                 'options' => $answer,
                                 'question' => $question->template_code,
                             ];
-                            return view('game.country3.treasure', ['question' => $question, 'question_data' => $question_data]);
+                            return view('game.country3.shop', ['question' => $question, 'question_data' => $question_data]);
                         }
                     case 21:
                         if ($userRecords->isEmpty()) {
@@ -905,7 +917,7 @@ class SecCountryController extends Controller
                                 'question' => $question->template_code,
                             ];
                             $this->recordWatchedParameter($question->id, []);
-                            return view('game.country3.treasure', ['question' => $question, 'question_data' => $question_data]);
+                            return view('game.country3.flyers', ['question' => $question, 'question_data' => $question_data]);
                         } else {
                             $secParameterID = $userRecords->first()->secParameterID;
                             $question = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
@@ -918,7 +930,7 @@ class SecCountryController extends Controller
                                 'options' => $answer,
                                 'question' => $question->template_code,
                             ];
-                            return view('game.country3.treasure', ['question' => $question, 'question_data' => $question_data]);
+                            return view('game.country3.flyers', ['question' => $question, 'question_data' => $question_data]);
                         }
                     default:
                         //
@@ -1025,14 +1037,17 @@ class SecCountryController extends Controller
                 $parameterID = $request->input('parameter_id');
                 Log::info($parameterID);
                 $secgameid = SecParameter::where('id', $parameterID)->pluck('secGameID')->first();
+                $countryid = SecGame::where('id', $secgameid)->pluck('country_id')->first();
                 Log::info($secgameid);
+                Log::info($countryid);
                 // 抓答案出來
                 $answerData = $this->pluckAnswer($parameterID, $currentUser);
+                Log::info('User Answer: ' . print_r($userAnswer, true));
                 // 答案與玩家輸入的答案長度若一致
                 if (count($answerData) == count($userAnswer)) {
                     foreach ($answerData as $ansData) {
                         foreach ($userAnswer as $userAns) {
-                            if ($userAns['order'] == $ansData['order']) {
+                            if ($userAns['order'] == $ansData['order'] && $countryid == 2) {
                                 if (preg_match('/' . str_replace('\\\\', '\\', $ansData['ans_patterns']) . '/', $userAns['userAnswer'])) {
                                     // 匹配成功就跳出內層迴圈繼續對下一個使用者的答案
                                     break;
@@ -1040,6 +1055,14 @@ class SecCountryController extends Controller
                                     array_push($wrongIndexArray, $userAns['order']);
                                 }
                             }
+                            else if($userAns['order'] == $ansData['order'] && $countryid == 3){
+                                if($ansData['ans_patterns'] == $userAns['ans_patterns']){
+                                    break;
+                                }else{
+                                    array_push($wrongIndexArray, $userAns['order']);
+                                }
+                            }
+                                
                         }
                     }
                     if (!empty($wrongIndexArray)) {
@@ -1048,8 +1071,9 @@ class SecCountryController extends Controller
                         return response()->json(['message' => 'wrongAns', 'wrongIndex' => $wrongIndexArray]);
                     } else {
                         $this->CorrectUserRecord($currentUser, $parameterID, $userAnswer);
-                        $getCard = $this->giveUserCards($secgameid, $currentUser);
-                        return response()->json(['message' => 'correct', 'getCard' => $getCard]);
+                        // $getCard = $this->giveUserCards($secgameid, $currentUser);
+                        // return response()->json(['message' => 'correct', 'getCard' => $getCard]);
+                        return response()->json(['message' => 'correct']);
                     }
                 } else {
                     return response()->json(['message' => 'Error']);
