@@ -1096,9 +1096,9 @@ class SecCountryController extends Controller
                         return response()->json(['message' => 'wrongAns', 'wrongIndex' => $wrongIndexArray]);
                     } else {
                         $this->CorrectUserRecord($currentUser, $parameterID, $userAnswer);
-                        // $getCard = $this->giveUserCards($secgameid, $currentUser);
-                        // return response()->json(['message' => 'correct', 'getCard' => $getCard]);
-                        return response()->json(['message' => 'correct']);
+                        $getCard = $this->giveUserCards($secgameid, $currentUser);
+                        return response()->json(['message' => 'correct', 'getCard' => $getCard]);
+                        // return response()->json(['message' => 'correct']);
                     }
                 } else {
                     return response()->json(['message' => 'Error']);

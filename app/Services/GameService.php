@@ -152,7 +152,7 @@ class GameService
             case 2:
                 // 檢查他在南國有沒有持有卡片，沒有的話讓他等級歸零
                 $allCardsInCurrentLv = KnowledgeCard::where('country_id', $currentUserCountry)->pluck('id')->toArray();
-                $owned_knowledge_card_id = UserKnowledgeCard::join('knowledge_cards', 'knowledge_cards.id', '=', 'user_knowledge_cards.id')
+                $owned_knowledge_card_id = UserKnowledgeCard::join('knowledge_cards', 'knowledge_cards.id', '=', 'user_knowledge_cards.knowledge_card_id')
                                             ->where('user_id', $current_user->id)
                                             ->where('country_id', $currentUserCountry)
                                             ->pluck('knowledge_card_id')->toArray();
