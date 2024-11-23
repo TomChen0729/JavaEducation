@@ -8,7 +8,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
-    <title>森林遊戲版面測試</title>
+    <title>建立探險隊</title>
     <style>
         * {
             box-sizing: border-box;
@@ -19,7 +19,7 @@
             list-style: none;
         }
 
-        a:hover{
+        a:hover {
             color: white;
             text-decoration: none;
         }
@@ -115,172 +115,6 @@
             transform: translate(-50%, -50%) scale(1);
         }
 
-        .popup .overlay {
-            position: fixed;
-            top: 0px;
-            left: 0px;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1;
-            display: none;
-        }
-
-        .popup .content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            background: #303a40;
-            border-radius: 50px;
-            width: 40%;
-            height: 50%;
-            z-index: 2;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        .popup .pop {
-            color: #efefef;
-            height: 80%;
-            margin: 30px;
-            padding: 30px 0;
-            border-radius: 50px;
-            border: 5px solid #7aa5d1;
-        }
-
-        .popup .pop h1 {
-            font-size: 20px;
-            font-weight: bolder;
-            margin-bottom: 30px;
-        }
-
-        .popup .pop p {
-            font-size: 16px;
-        }
-
-        .popup .pop a {
-            font-size: 20px;
-            font-weight: bold;
-            background-color: #7aa5d1;
-            color: #efefef;
-            border-radius: 10px;
-            padding: 10px;
-            margin: 10px;
-            margin-top: 30px;
-        }
-
-        .popup .pop a:hover {
-            color: #efefef;
-            background-color: #303a40;
-        }
-
-        .popup .close-btn {
-            cursor: pointer;
-            position: absolute;
-            right: 20px;
-            top: 20px;
-            width: 30px;
-            height: 30px;
-            background-color: #876E51;
-            color: #F7E9DC;
-            font-size: 25px;
-            font-weight: 600;
-            line-height: 30px;
-            text-align: center;
-            border-radius: 50%;
-        }
-
-        .popup.active .overlay {
-            display: block;
-        }
-
-        .popup.active .content {
-            transition: all 300ms ease-in-out;
-            transform: translate(-50%, -50%) scale(1);
-        }
-
-        .end .overlay {
-            position: fixed;
-            top: 0px;
-            left: 0px;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1;
-            display: none;
-        }
-
-        .end .content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            background: #452E34;
-            border-radius: 30px;
-            width: 40%;
-            z-index: 2;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        .end .pop {
-            color: #E7E9DC;
-            margin: 30px;
-            padding: 30px 0;
-            border-radius: 50px;
-            border: 5px solid #876E51;
-            height: 50%;
-        }
-
-        .end .pop h1 {
-            font-size: 30px;
-            font-weight: bolder;
-            margin-bottom: 30px;
-        }
-
-        .end .pop a {
-            font-size: 20px;
-            font-weight: bold;
-            background-color: #876E51;
-            border-radius: 10px;
-            padding: 10px;
-            margin: 10px;
-            margin-top: 30px;
-        }
-
-        .end .pop a:hover {
-            color: #876E51;
-            background-color: #F7E9DC;
-        }
-
-        .end .close-btn {
-            cursor: pointer;
-            position: absolute;
-            right: 20px;
-            top: 20px;
-            width: 30px;
-            height: 30px;
-            background-color: #876E51;
-            color: #F7E9DC;
-            font-size: 25px;
-            font-weight: 600;
-            line-height: 30px;
-            text-align: center;
-            border-radius: 50%;
-        }
-
-        .end.active .overlay {
-            display: block;
-        }
-
-        .end.active .content {
-            transition: all 300ms ease-in-out;
-            transform: translate(-50%, -50%) scale(1);
-        }
-
         header {
             position: fixed;
             width: 100%;
@@ -292,7 +126,7 @@
             justify-content: space-between;
             padding: 20px 2% 0;
             /* 透明背景 */
-            background: rgba(120,164,100, 0.8);
+            background: rgba(120, 164, 100, 0.8);
             transition: all 0.50s ease;
         }
 
@@ -335,8 +169,7 @@
 
         .breadcrumbs__link__active {
             text-decoration: none;
-            text-shadow: 1px 1px 2px black;
-            color: #009578;
+            color: #00493A;
             font-weight: bold;
         }
 
@@ -424,7 +257,7 @@
             flex-direction: column;
         }
 
-        .left-container .game{
+        .left-container .game {
             margin-bottom: 2%;
         }
 
@@ -445,8 +278,10 @@
             /* border: 1px solid #999; */
             background-color: #e3e3e3;
 
-            --b: 10px;  /* border thickness */
-            --s: 30px; /* size of the dashes */
+            --b: 10px;
+            /* border thickness */
+            --s: 30px;
+            /* size of the dashes */
             --c1: #215A6D;
             --c2: #92C7A3;
 
@@ -454,18 +289,17 @@
         }
 
         .left-container .description::before {
-            content:"";
+            content: "";
             position: absolute;
             inset: 0;
             padding: var(--b);
-            background: 
-                repeating-conic-gradient(var(--c1) 0 25%,var(--c2) 0 50%) 
-                0 0/var(--s) var(--s) round;
+            background:
+                repeating-conic-gradient(var(--c1) 0 25%, var(--c2) 0 50%) 0 0/var(--s) var(--s) round;
             -webkit-mask:
                 linear-gradient(#000 0 0) content-box,
                 linear-gradient(#000 0 0);
             -webkit-mask-composite: xor;
-                    mask-composite: exclude;
+            mask-composite: exclude;
             pointer-events: none;
         }
 
@@ -535,20 +369,56 @@
             cursor: pointer;
         }
 
-        #marker-1 { top: 58%; left: 31%; }
-        #marker-2 { top: 58%; left: 15%; }
-        #marker-3 { top: 58%; left: 47%; }
-        #marker-4 { top: 58%; left: 63%; }
-        #marker-5 { top: 58%; left: 79%; }
+        #marker-1 {
+            top: 55%;
+            left: 9%;
+        }
 
-        #shovel, #treasure {
-            width: 80px;
+        #marker-2 {
+            top: 55%;
+            left: 25%;
+        }
+
+        #marker-3 {
+            top: 55%;
+            left: 40%;
+        }
+
+        #marker-4 {
+            top: 55%;
+            left: 56%;
+        }
+
+        #marker-5 {
+            top: 55%;
+            left: 72%;
+        }
+
+        #shovel,#treasure {
+            width: 200px;
             position: absolute;
-            transition: all 0.5s ease-in-out;
+            transition: all 1s ease-in-out;
+        }
+
+        #shovel {
+            transform-origin: bottom center; /* 旋轉基點設為底部中央，模擬手柄 */
+            animation: dig 2s ease-in-out; /* 挖掘動作*/
+        }
+
+        @keyframes dig {
+            0% {
+                transform: rotate(0deg) translateY(0);
+            }
+            25% {
+                transform: rotate(-30deg) translateY(-10px); /* 向下挖掘 */
+            }
+            75% {
+                transform: rotate(30deg) translateY(10px); /* 模擬揚起動作 */
+            }
         }
 
         #description-container {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: bold;
             background-color: #b7d0f9;
             color: #4a71b0;
@@ -557,7 +427,7 @@
         }
 
         #question-container pre {
-            margin-top: 50%;
+            margin-top: 30%;
             font-size: 20px;
             font-weight: bold;
             text-align: left;
@@ -590,20 +460,22 @@
             border-radius: 20px;
             cursor: pointer;
             text-align: center;
-            line-height: 40px; /* 垂直置中 */
+            line-height: 40px;
+            /* 垂直置中 */
         }
 
 
         /* 設定拖放區域的樣式 */
         .dropZone {
             display: inline-block;
-            width: 200px;
+            min-width: 200px; /*設定最小長度，太長可以動態調整寬度*/
             height: 50px;
-            border: 5px dashed #faf1e4;
+            border: 5px solid #faf1e4;
             border-radius: 20px;
             margin-right: 10px;
             text-align: center;
-            line-height: 40px; /* 垂直置中 */
+            line-height: 40px;
+            /* 垂直置中 */
             text-align: center;
         }
 
@@ -619,7 +491,95 @@
             background-color: #d4807c;
         }
 
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            max-width: 90%;
+            font-size: 30px;
+            font-weight: bold;
+            border-radius: 15px;
+            color: #556989;
+            background-color: #f8ede3;
+            border: 2px solid #2f2f2f;
+            padding: 20px 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: none; /* 初始隱藏 */
+            text-align: center;
+        }
+
+        .popup.jump {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .popup .popup-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .popup .close-btn {
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            width: 30px;
+            height: 30px;
+            background-color: #D38E43;
+            color: #F8F0DC;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .popup .close-btn:hover {
+            background-color: #c2793c;
+        }
+
+        .popup .popup-content button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .popup .popup-content a {
+            color: #000;
+        }
+
+        .popup .popup-content a:hover {
+            color: #fff;
+        }
+
+        .popup .popup-content button:hover {
+            background-color: #45a049;
+        }
+
         /* RWD */
+        @media (max-width: 1900px) {
+            #question-container pre {
+                margin-top: 40%;
+            }
+        }
+
         @media (max-width: 1300px) {
             .first .content {
                 top: 60%;
@@ -627,6 +587,7 @@
         }
 
         @media (max-width: 1200px) {
+
             #board,
             #pieces {
                 width: auto;
@@ -748,27 +709,12 @@
         </div>
     </div>
 
-    <!-- 知識卡選擇 -->
-    <div class="popup" id="popup-1">
-        <div class="overlay"></div>
-        <div class="content">
-            <div class="close-btn" onclick="togglePopup2()">&times;</div>
-            <div class="pop">
-                <a href="#" onclick="togglePopup3()">知識卡</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- 答題正確 -->
-    <div class="end" id="popup-3">
-        <div class="overlay"></div>
-        <div class="content">
-            <div class="close-btn" onclick="togglePopup4()">&times;</div>
-            <div class="pop">
-                <h1>答案正確</h1>
-                <a href="#">遊戲種類</a>
-                <a href="#">繼續答題</a>
-            </div>
+    <div id="success-popup" class="popup hide">
+        <div class="close-btn" onclick="togglePopup2()">&times;</div>
+        <div class="popup-content">
+            <p>答題成功！</p>
+            <div class="card"></div>
+            <button><a href="{{ $question->gamename }}">選擇遊戲關卡</a></button>
         </div>
     </div>
 
@@ -781,12 +727,11 @@
                 <a href="#" class="breadcrumbs__link">選擇遊戲</a>
             </li>
             <li class="breadcrumbs__item">
-                <a href="#" class="breadcrumbs__link__active">{{ $question -> gamename }}</a>
+                <a href="#" class="breadcrumbs__link__active">{{ $question->gamename }}</a>
             </li>
         </ul>
 
         <ul class="navbar">
-            <li><a href="#" onclick="togglePopup()"> 知識卡</a></li>
             <li onclick="history.go(-1)"><a href="#"> 回上一頁</a></li>
             <li class="time" id="timer">00:00</li>
         </ul>
@@ -810,8 +755,9 @@
                 <img id="shovel" src="/images/treasure/shovel.svg" style="display:none;">
                 <img id="treasure" src="/images/treasure/treasure.svg" style="display:none;">
             </div>
+            <button onclick="play()">測試按鈕</button>
             <div class="description" id="description-container">
-                <p>{{ $question -> pre_story }}</p>
+                <p>{{ $question->pre_story }}</p>
             </div>
         </div>
         <div class="right-container">
@@ -836,7 +782,7 @@
         // 漢堡
         let menu = document.querySelector('#menu-icon');
         let navbar = document.querySelector('.navbar');
-
+        var shape = parseInt('{{ $question->id }}');
         menu.onclick = () => {
             menu.classList.toggle('bx-x');
             navbar.classList.toggle('open');
@@ -876,30 +822,18 @@
 
         window.onload = startTimer();
 
-        // 知識卡
         // 畫面載入後顯示彈跳視窗
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById("popup").classList.add("active");
-        });
-
         function togglePopup1() {
             document.getElementById("popup").classList.toggle("active");
         }
 
+        // 關閉彈窗
         function togglePopup2() {
-            document.getElementById("popup-1").classList.toggle("active");
+            document.getElementById("success-popup").classList.toggle("jump");
         }
 
-        function togglePopup3() {
-            document.getElementById("popup-2").classList.toggle("active");
-        }
-
-        function togglePopup4() {
-            document.getElementById("popup-3").classList.toggle("active");
-        }
-
-        //動畫
-        document.addEventListener('DOMContentLoaded', () => {
+        // 動畫
+        function play() {
             // 標記
             const markers = document.querySelectorAll('.marker');
             // 鏟子
@@ -907,34 +841,25 @@
             // 寶箱
             const treasure = document.getElementById('treasure');
 
-            const sortedPositions = [7, 10, 42, 65, 99]; // 排序後的座標
-            const targetPosition = 65; // 正確的寶藏位置
+            const sortedPositions = [7, 10, 42, 65, 99]; // 排序後的座標(五個點)
+            const randomIndex = Math.floor(Math.random() * sortedPositions.length); // 隨機選擇一個座標
+            const targetMarker = markers[randomIndex]; // 選取對應的 marker
 
-            // 遍歷標記
-            markers.forEach(marker => {
-                marker.addEventListener('click', function () {
-                    // 獲取被標記的位置
-                    const position = parseInt(this.dataset.position); // 獲取65轉為整數
+            console.log('寶藏座標：', sortedPositions[randomIndex]);
 
-                    // 移動鏟子到該位置
-                    shovel.style.left = this.offsetLeft + 'px'; // this觸發事件，offsetLeft讓東西飄移到該位置
-                    shovel.style.top = this.offsetTop + 'px';
-                    shovel.style.display = 'block';
+            // 移動鏟子到隨機座標
+            shovel.style.left = targetMarker.offsetLeft + 'px';
+            shovel.style.top = targetMarker.offsetTop + 'px';
+            shovel.style.display = 'block';
 
-                    // 檢查是否是正確的座標
-                    if (position === targetPosition) {
-                        setTimeout(() => {
-                            treasure.style.left = this.offsetLeft + 'px';
-                            treasure.style.top = this.offsetTop + 'px';
-                            treasure.style.display = 'block';
-                            alert('找到寶藏了！');
-                        }, 500); // 延遲顯示寶藏
-                    } else {
-                        alert('這裡沒有寶藏，請試試其他地方！');
-                    }
-                });
-            });
-        });
+            // 顯示寶藏
+            setTimeout(() => {
+                shovel.style.display = 'none';
+                treasure.style.left = targetMarker.offsetLeft + 'px';
+                treasure.style.top = targetMarker.offsetTop + 'px';
+                treasure.style.display = 'block';
+            }, 2000); // 延遲顯示寶藏，增加視覺效果
+        }
 
         // 題目
         // 初始化題目
@@ -978,50 +903,97 @@
             function checkAnswers() {
                 let allFilled = true;
                 var userAnswer = [];
+                
                 // 獲取玩家已填入缺空處的值
                 const dropZone = document.querySelectorAll('.dropZone');
                 console.log(dropZone.length);
-                dropZone.forEach(function(item, index){
-                    if(item.textContent.trim() === ''){
+                dropZone.forEach(function(item, index) {
+                    if (item.textContent.trim() === '') {
                         allFilled = false;
                     }
-                    userAnswer.push({order:index+1, ans_patterns:item.textContent});
+                    userAnswer.push({
+                        order: index + 1,
+                        ans_patterns: item.textContent
+                    });
                 });
+
                 console.log(userAnswer);
-                if(!allFilled){
+
+                if (!allFilled) {
                     alert('你還有空格未填入答案');
                     return;
                 }
+
                 var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
                 url = '/api/checkUserAnswer';
-                fetch(url,{
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrfToken
-                    },
-                    body: JSON.stringify({
-                        userAnswer: userAnswer,
-                        parameter_id: shape,
-                        currentUser: parseInt('')
+
+                fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken
+                        },
+                        body: JSON.stringify({
+                            userAnswer: userAnswer,
+                            parameter_id: shape,
+                            currentUser: parseInt('{{ auth()->user()->id }}')
+                        })
                     })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if(data.message == ''){
-                        alert();
-                    }else if (data.message == ''){
-                        alert();
-                    }else{
-                        alert();
-                    }
-                });
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.message == 'correct') {
+                            // 標記
+                            const markers = document.querySelectorAll('.marker');
+                            // 鏟子
+                            const shovel = document.getElementById('shovel');
+                            // 寶箱
+                            const treasure = document.getElementById('treasure');
+
+                            const sortedPositions = [7, 10, 42, 65, 99]; // 排序後的座標(五個點)
+                            const randomIndex = Math.floor(Math.random() * sortedPositions.length); // 隨機選擇一個座標
+                            const targetMarker = markers[randomIndex]; // 選取對應的 marker
+
+                            console.log('寶藏座標：', sortedPositions[randomIndex]);
+
+                            // 移動鏟子到隨機座標
+                            shovel.style.left = targetMarker.offsetLeft + 'px';
+                            shovel.style.top = targetMarker.offsetTop + 'px';
+                            shovel.style.display = 'block';
+
+                            // 顯示寶藏
+                            setTimeout(() => {
+                                treasure.style.left = targetMarker.offsetLeft + 'px';
+                                treasure.style.top = targetMarker.offsetTop + 'px';
+                                treasure.style.display = 'block';
+                            }, 2000); // 延遲顯示寶藏，增加視覺效果
+
+                            // 延遲出現答題成功彈窗
+                            setTimeout(() => {
+                                popup.classList.add('jump');  // 顯示彈窗
+                                const getcard = popup.querySelector('.card');
+                                console.log(getcard);
+                                console.log("您獲得" + data.getCard + "知識卡");
+                                if(data.getCard){
+                                    getcard.textContent = "您獲得" + data.getCard + "知識卡";
+                                }else{
+                                    getcard.textContent = '';
+                                }    
+                            }, 100);
+
+                        } else if (data.message == 'wrongAns') {
+                            console.log(data.wrongIndex);
+                        } else if (data.message == 'Null') {
+                            alert('請填入答案');
+                        } else {
+                            alert('答錯');
+                        }
+                    });
             };
         };
 
         let draggedElement = null; // 用於追蹤正在拖曳的元素
 
-        function initializeDragAndDrop(){
+        function initializeDragAndDrop() {
             // 初始化所有可拖曳的元素
             document.querySelectorAll('.optionBtn, .dropZone').forEach(el => {
                 // 當開始拖曳時，儲存被拖曳元素的參考
@@ -1044,20 +1016,23 @@
                 el.addEventListener('drop', (e) => {
                     e.preventDefault();
                     if (draggedElement) {
-                        if (draggedElement.classList.contains('optionBtn') && e.target.classList.contains('dropZone') && e.target.textContent == '') {
+                        if (draggedElement.classList.contains('optionBtn') && e.target.classList.contains(
+                                'dropZone') && e.target.textContent == '') {
                             console.log('將選項放入作答區，並從素材區移除')
                             // 將選項放入作答區，並從素材區移除
                             // if (!isDuplicateIndropZones(draggedElement.textContent)) {
-                                e.target.textContent = draggedElement.textContent; // 將選項文字放入
-                                draggedElement.remove(); // 從素材區刪除選項
+                            e.target.textContent = draggedElement.textContent; // 將選項文字放入
+                            draggedElement.remove(); // 從素材區刪除選項
                             // }
-                        } else if (draggedElement.classList.contains('dropZone') && e.target.classList.contains('dropZone') && draggedElement !== e.target) {
+                        } else if (draggedElement.classList.contains('dropZone') && e.target.classList
+                            .contains('dropZone') && draggedElement !== e.target) {
                             console.log('交換兩個作答區的選項')
                             // 交換兩個作答區的選項
                             const temp = draggedElement.textContent;
                             draggedElement.textContent = e.target.textContent;
                             e.target.textContent = temp;
-                        } else if (draggedElement.classList.contains('optionBtn') && e.target.classList.contains('dropZone') && e.target.textContent !== '') {
+                        } else if (draggedElement.classList.contains('optionBtn') && e.target.classList
+                            .contains('dropZone') && e.target.textContent !== '') {
                             console.log('當將素材區的選項拖到已經有值的格子時，原有值移回素材區');
                             // 當將素材區的選項拖到已經有值的格子時，原有值移回素材區
                             const originalValue = e.target.textContent; // 獲取原有值
@@ -1126,7 +1101,6 @@
                 div.after(br);
             }
         });
-
     </script>
 </body>
 
