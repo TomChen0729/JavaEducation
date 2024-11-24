@@ -8,7 +8,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
-    <title>寶藏位置排序</title>
+    <title>反轉咒語</title>
     <style>
         * {
             box-sizing: border-box;
@@ -31,7 +31,7 @@
         }
 
         body {
-            background-color: #c5d0c2;
+            background-color: #d9d2e9;
             /* background: url('/images/learn/lv1-4.svg') no-repeat center center fixed;
             background-size: cover; */
             color: var(--text-color);
@@ -126,7 +126,7 @@
             justify-content: space-between;
             padding: 20px 2% 0;
             /* 透明背景 */
-            background: rgba(120, 164, 100, 0.8);
+            background: rgba(106,50,159, 0.8);
             transition: all 0.50s ease;
         }
 
@@ -169,7 +169,7 @@
 
         .breadcrumbs__link__active {
             text-decoration: none;
-            color: #00493A;
+            color: #d9d2e9;
             font-weight: bold;
         }
 
@@ -376,68 +376,19 @@
         #game-container {
             height: 70%;
             width: 100%;
-            background: url('/images/treasure/treasurebg.svg') no-repeat center;
+            background: url('/images/book/bookbg.svg') no-repeat center;
             background-size: cover;
             /* border: 5px solid #442a0f; */
             border-radius: 30px;
             position: relative;
         }
 
-        .marker {
-            width: 60px;
-            height: 60px;
-            /* background-color: red; */
-            border-radius: 50%;
+        #book{
             position: absolute;
-            cursor: pointer;
-        }
-
-        #marker-1 {
-            top: 55%;
-            left: 9%;
-        }
-
-        #marker-2 {
-            top: 55%;
-            left: 25%;
-        }
-
-        #marker-3 {
-            top: 55%;
-            left: 40%;
-        }
-
-        #marker-4 {
-            top: 55%;
-            left: 56%;
-        }
-
-        #marker-5 {
-            top: 55%;
-            left: 72%;
-        }
-
-        #shovel,#treasure {
-            width: 200px;
-            position: absolute;
-            transition: all 1s ease-in-out;
-        }
-
-        #shovel {
-            transform-origin: bottom center; /* 旋轉基點設為底部中央，模擬手柄 */
-            animation: dig 2s ease-in-out; /* 挖掘動作*/
-        }
-
-        @keyframes dig {
-            0% {
-                transform: rotate(0deg) translateY(0);
-            }
-            25% {
-                transform: rotate(-30deg) translateY(-10px); /* 向下挖掘 */
-            }
-            75% {
-                transform: rotate(30deg) translateY(10px); /* 模擬揚起動作 */
-            }
+            top: 10%;
+            left: 32%;
+            width: 40%;
+            height: auto;
         }
 
         #description-container {
@@ -469,7 +420,7 @@
         /* 設定選項按鈕的樣式 */
         .optionBtn {
             display: inline-block;
-            width: 200px;
+            min-width: 200px;
             height: 50px;
             margin: 5px;
             border: 5px solid #faf1e4;
@@ -749,15 +700,8 @@
     <div class="container-fluid">
         <div class="left-container">
             <div class="game" id="game-container">
-                <!-- 五個標記點 -->
-                <div class="marker" id="marker-1" data-position="10"></div>
-                <div class="marker" id="marker-2" data-position="7"></div>
-                <div class="marker" id="marker-3" data-position="42"></div>
-                <div class="marker" id="marker-4" data-position="65"></div>
-                <div class="marker" id="marker-5" data-position="99"></div>
                 <!-- 動畫素材 -->
-                <img id="shovel" src="/images/treasure/shovel.svg" style="display:none;">
-                <img id="treasure" src="/images/treasure/treasure.svg" style="display:none;">
+                <img id="book" src="/images/book/wrongbook.svg">
             </div>
             <button onclick="play()">測試按鈕</button>
             <div class="description" id="description-container">
@@ -838,31 +782,8 @@
 
         // 動畫
         function play() {
-            // 標記
-            const markers = document.querySelectorAll('.marker');
-            // 鏟子
-            const shovel = document.getElementById('shovel');
-            // 寶箱
-            const treasure = document.getElementById('treasure');
-
-            const sortedPositions = [7, 10, 42, 65, 99]; // 排序後的座標(五個點)
-            const randomIndex = Math.floor(Math.random() * sortedPositions.length); // 隨機選擇一個座標
-            const targetMarker = markers[randomIndex]; // 選取對應的 marker
-
-            console.log('寶藏座標：', sortedPositions[randomIndex]);
-
-            // 移動鏟子到隨機座標
-            shovel.style.left = targetMarker.offsetLeft + 'px';
-            shovel.style.top = targetMarker.offsetTop + 'px';
-            shovel.style.display = 'block';
-
-            // 顯示寶藏
-            setTimeout(() => {
-                shovel.style.display = 'none';
-                treasure.style.left = targetMarker.offsetLeft + 'px';
-                treasure.style.top = targetMarker.offsetTop + 'px';
-                treasure.style.display = 'block';
-            }, 2000); // 延遲顯示寶藏，增加視覺效果
+            const book = document.getElementById('book');
+            book.src = "/images/book/rightbook.svg";
         }
 
         // 題目
@@ -946,31 +867,9 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.message == 'correct') {
-                            // 標記
-                            const markers = document.querySelectorAll('.marker');
-                            // 鏟子
-                            const shovel = document.getElementById('shovel');
-                            // 寶箱
-                            const treasure = document.getElementById('treasure');
-
-                            const sortedPositions = [7, 10, 42, 65, 99]; // 排序後的座標(五個點)
-                            const randomIndex = Math.floor(Math.random() * sortedPositions.length); // 隨機選擇一個座標
-                            const targetMarker = markers[randomIndex]; // 選取對應的 marker
-
-                            console.log('寶藏座標：', sortedPositions[randomIndex]);
-
-                            // 移動鏟子到隨機座標
-                            shovel.style.left = targetMarker.offsetLeft + 'px';
-                            shovel.style.top = targetMarker.offsetTop + 'px';
-                            shovel.style.display = 'block';
-
-                            // 顯示寶藏
-                            setTimeout(() => {
-                                treasure.style.left = targetMarker.offsetLeft + 'px';
-                                treasure.style.top = targetMarker.offsetTop + 'px';
-                                treasure.style.display = 'block';
-                            }, 2000); // 延遲顯示寶藏，增加視覺效果
-
+                            const book = document.getElementById('book');
+                            book.src = "/images/book/rightbook.svg";
+                            
                             // 延遲出現答題成功彈窗
                             setTimeout(() => {
                                 popup.classList.add('jump');  // 顯示彈窗

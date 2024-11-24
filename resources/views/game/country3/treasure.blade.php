@@ -469,7 +469,7 @@
         /* 設定選項按鈕的樣式 */
         .optionBtn {
             display: inline-block;
-            width: 200px;
+            min-width: 200px;
             height: 50px;
             margin: 5px;
             border: 5px solid #faf1e4;
