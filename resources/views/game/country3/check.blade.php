@@ -959,7 +959,7 @@
                             shovel.style.left = targetMarker.offsetLeft + 'px';
                             shovel.style.top = targetMarker.offsetTop + 'px';
                             shovel.style.display = 'block';
-
+                            const popup = document.getElementById('success-popup');
                             // 顯示寶藏
                             setTimeout(() => {
                                 treasure.style.left = targetMarker.offsetLeft + 'px';

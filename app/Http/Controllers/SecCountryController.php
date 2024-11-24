@@ -677,7 +677,10 @@ class SecCountryController extends Controller
                                 ->where('country_id', $country_id)
                                 ->where('sec_games.id', $secGameID)
                                 ->inRandomOrder()->first();
+                                $testStr = SecAnswer::where('id', 159)->get();
+                            Log::info($testStr);
                             $answer = SecAnswer::select('ans_patterns')->where('secParameterID', $question->id)->inRandomOrder()->get();
+                            Log::info($answer->count());
                             $question_data = [
                                 'country_id' => $country_id,
                                 'id' => $question->id,
@@ -687,11 +690,14 @@ class SecCountryController extends Controller
                             $this->recordWatchedParameter($question->id, []);
                             return view('game.country3.member', ['question' => $question, 'question_data' => $question_data]);
                         } else {
+                            $testStr = SecAnswer::where('id', 159)->get();
+                            Log::info($testStr);
                             $secParameterID = $userRecords->first()->secParameterID;
                             $question = SecGame::join('sec_parameters', 'sec_parameters.secGameID', '=', 'sec_games.id')
                                 ->where('sec_parameters.id', $secParameterID)
                                 ->first();
                             $answer = SecAnswer::select('ans_patterns')->where('secParameterID', $question->id)->inRandomOrder()->get();
+                            Log::info($answer->count());
                             $question_data = [
                                 'country_id' => $country_id,
                                 'id' => $question->id,
@@ -985,6 +991,7 @@ class SecCountryController extends Controller
     {
         $currentUsersOwnedCards = UserKnowledgeCard::where('user_id', $currentUID)->pluck('knowledge_card_id')->toArray();
         if($secGameID <= 9 ){
+            Log::info('南國');
             // 先找出玩家已經有的卡片，以防重複插入   
             $randGiveCard = PassCourseGetCard::where('secGameID', $secGameID)
                 ->whereNotIn('knowledge_card_id', $currentUsersOwnedCards)
@@ -1003,28 +1010,57 @@ class SecCountryController extends Controller
             Log::info('cardName：' . $cardName);
             return $cardName;
         }else{
+            Log::info('森林');
+            Log::info($secGameID);
             // 可拿的卡，已排除擁有的
             $canGetCards = PassCourseGetCard::where('secGameID', $secGameID)
                 ->whereNotIn('knowledge_card_id', $currentUsersOwnedCards)
                 ->inRandomOrder()->get();
-            // 拿的時候要小於這個筆數
-            $randGiveCard = PassCourseGetCard::where('secGameID', $secGameID)
-                ->whereNotIn('knowledge_card_id', $currentUsersOwnedCards)
-                ->take(rand(1, $canGetCards->count()))
-                ->inRandomOrder()->get();
-            Log::info('card:' . $randGiveCard);
-            $data = [
-                'user_id' => $currentUID,
-                'knowledge_card_id' => $randGiveCard->knowledge_card_id,
-                'watchtime' => '00:00:00',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ];
+            if($canGetCards->count() < 2){
+                if($canGetCards->count() == 1){
+                    $data = [
+                        'user_id' => $currentUID,
+                        'knowledge_card_id' => $canGetCards->knowledge_card_id,
+                        'watchtime' => '00:00:00',
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
+                    UserKnowledgeCard::insert($data);
+                    $cardName = KnowledgeCard::find($canGetCards->knowledge_card_id)->name;
+                    Log::info('插一筆資料');
+                    return $cardName;
+                }else{
+                    Log::info('全部都拿到了');
+                    $cardName = '';
+                    return $cardName;
+                }
+            }else{
+                $canGetCards = PassCourseGetCard::where('secGameID', $secGameID)
+                    ->whereNotIn('knowledge_card_id', $currentUsersOwnedCards)
+                    ->inRandomOrder()
+                    ->take(rand(1, 3))
+                    ->get();
+                    Log::info('插了'.$canGetCards->count().'筆資料');
+                $data = $canGetCards ->map(function($item) use($currentUID){
+                    return [
+                        'user_id' => $currentUID,
+                        'knowledge_card_id' => $item->knowledge_card_id,
+                        'watchtime' => '00:00:00',
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
+                })->toArray();
+                UserKnowledgeCard::insert($data);
+                // 提取所有 knowledge_card_id
+                $knowledgeCardIds = array_column($data, 'knowledge_card_id');
 
-            UserKnowledgeCard::insert($data);
-            $cardName = KnowledgeCard::find($randGiveCard->knowledge_card_id)->name;
-            Log::info('cardName：' . $cardName);
-            return $cardName;
+                // 使用這些 ID 查詢對應的卡片名稱
+                $cardName = KnowledgeCard::whereIn('id', $knowledgeCardIds)
+                                ->pluck('name')
+                                ->toArray();
+                return $cardName;
+
+            }
         } 
     }
     public function CorrectUserRecord(int $userid, int $parameterid, $useranswer)

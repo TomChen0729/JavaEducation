@@ -966,7 +966,7 @@
                                 treasure.style.top = targetMarker.offsetTop + 'px';
                                 treasure.style.display = 'block';
                             }, 2000); // 延遲顯示寶藏，增加視覺效果
-
+                            const popup = document.getElementById('success-popup');
                             // 延遲出現答題成功彈窗
                             setTimeout(() => {
                                 popup.classList.add('jump');  // 顯示彈窗

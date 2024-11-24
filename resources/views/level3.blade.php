@@ -64,8 +64,18 @@
     </style>
 </head>
 <body>
+    <div class="header"></div>
 
-<div class="container-fluid">
+    @if(session('notice'))
+        <div class="userNeedCards" id="userNeedCards">
+            <button class="close-btn" onclick="closeNotice()">&times;</button>
+            @foreach (session('notice')['userNeedToGetCards'] as $item)
+                <p>你缺少{{ $item }}知識卡</p>
+            @endforeach
+        </div>
+    @endif
+
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 @foreach ($iconData as $item)
@@ -80,6 +90,13 @@
     </div>
 
     <script>
+        // 關閉彈窗
+        function closeNotice() {
+            var userNeedCards = document.getElementById('userNeedCards');
+            if (userNeedCards) {
+                userNeedCards.style.display = 'none';
+            }
+        }
         // 獲取所有按鈕
         const buttons = document.querySelectorAll('.button');
 
@@ -163,37 +180,37 @@
                                 img.src = '/images/country3choose/clear/treasure.svg';
                                 break;
                             case 1:
-                                img.src = '/images/country2choose/clear/food.svg';
+                                img.src = '/images/country3choose/clear/food.svg';
                                 break;
                             case 2:
-                                img.src = '/images/country2choose/clear/check.svg';
+                                img.src = '/images/country3choose/clear/check.svg';
                                 break;
                             case 3:
-                                img.src = '/images/country2choose/clear/member.svg';
+                                img.src = '/images/country3choose/clear/member.svg';
                                 break;
                             case 4:
-                                img.src = '/images/country2choose/clear/spy.svg';
+                                img.src = '/images/country3choose/clear/spy.svg';
                                 break;
                             case 5:
-                                img.src = '/images/country2choose/clear/clean.svg';
+                                img.src = '/images/country3choose/clear/clean.svg';
                                 break;
                             case 6:
-                                img.src = '/images/country2choose/clear/award.svg';
+                                img.src = '/images/country3choose/clear/award.svg';
                                 break;
                             case 7:
-                                img.src = '/images/country2choose/clear/spell.svg';
+                                img.src = '/images/country3choose/clear/spell.svg';
                                 break;
                             case 8:
-                                img.src = '/images/country2choose/clear/paper.svg';
+                                img.src = '/images/country3choose/clear/paper.svg';
                                 break;
                             case 9:
-                                img.src = '/images/country2choose/clear/book.svg';
+                                img.src = '/images/country3choose/clear/book.svg';
                                 break;
                             case 10:
-                                img.src = '/images/country2choose/clear/shop.svg';
+                                img.src = '/images/country3choose/clear/shop.svg';
                                 break;
                             case 11:
-                                img.src = '/images/country2choose/clear/flyers.svg';
+                                img.src = '/images/country3choose/clear/flyers.svg';
                                 break;
                             default:
                                 break;
