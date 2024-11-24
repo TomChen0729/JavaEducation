@@ -767,16 +767,19 @@
 
                         const img = document.getElementById("triangle");
                         const light = img.src;
-                        // 用split分割成陣列，再用pop取出陣列中最後的元素，將.svg替換成空字串
-                        var fileName = light.split('/').pop().replace('.svg', '');
-                        if (fileName) {
-                            // 檔名加入light
-                            var newFileName = 'light' + fileName;
-                            // 更新圖片連結
-                            img.src = '/images/boxes/' + newFileName + '.svg';
-                        } else {
-                            console.log('無法解析圖片檔名');
-                        }
+
+                        setTimeout(() => {
+                            // 用 split 分割成陣列，再用 pop 取出陣列中最後的元素，將 .svg 替換成空字串
+                            var fileName = light.split('/').pop().replace('.svg', '');
+                            if (fileName) {
+                                // 檔名加入 light
+                                var newFileName = 'light' + fileName;
+                                // 更新圖片連結
+                                img.src = '/images/boxes/' + newFileName + '.svg';
+                            } else {
+                                console.log('無法解析圖片檔名');
+                            }
+                        }, 1000);
 
                         const popup = document.getElementById('success-popup');
                         // 延遲出現答題成功彈窗
@@ -790,7 +793,7 @@
                             }else{
                                 getcard.textContent = '';
                             }    
-                        }, 100); 
+                        }, 2000); 
                     } else if (data.message == 'wrongAns') {
                         console.log(data.wrongIndex);
                     } else if (data.message == 'Null') {
