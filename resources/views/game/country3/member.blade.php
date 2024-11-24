@@ -691,7 +691,7 @@
         <div class="popup-content">
             <p>答題成功！</p>
             <div class="card"></div>
-            <button><a href="{{ $question->gamename }}">選擇遊戲關卡</a></button>
+            <button><a href="{{ route('country.index', ['country_id' => $question_data['country_id']]) }}">選擇遊戲關卡</a></button>
         </div>
     </div>
 
@@ -822,8 +822,7 @@
             // 定義題目和答案的數組
             // const questions = $question_data;
             // console.log(questions);
-            const questions = {!! json_encode($question_data) !!};
-
+            const questions = @json($question_data);
             // 顯示當前題目
             displayQuestion(questions);
 
@@ -841,8 +840,11 @@
                 const piecesElement = document.getElementById('pieces');
                 // 設定選項按鈕，透過map函數遍歷整個options陣列，將每個值讀出來，然後動態生成選項
                 piecesElement.innerHTML = questions.options.map(options => {
-                    return `<div class="optionBtn" draggable="true">${options.ans_patterns}</div>`;
+                    console.log(options.ans_patterns);
+                    const escapedPattern = options.ans_patterns.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                        return `<div class="optionBtn" draggable="true">${escapedPattern}</div>`;
                 }).join('');
+
 
                 // 初始化所有可拖曳的元素
                 initializeDragAndDrop();

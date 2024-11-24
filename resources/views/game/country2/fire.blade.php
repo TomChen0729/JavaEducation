@@ -310,7 +310,7 @@
         }
 
         .water.show {
-            animation: animate 1s ease-in-out;
+            animation: animate 5s ease-in-out;
             opacity: 1; /* 顯示水桶 */
         }
 
@@ -681,7 +681,7 @@ public class Main {
                         setTimeout(() => {
                             waterElement.classList.remove('show');
                             firemanImg.src = "/images/fire/man.svg";
-                        }, 1000); // 1秒
+                        }, 5000); // 1秒
                         
                         const popup = document.getElementById('success-popup');
                         // 延遲出現答題成功彈窗
@@ -695,7 +695,7 @@ public class Main {
                             }else{
                                 getcard.textContent = '';
                             }    
-                        }, 100); 
+                        }, 5000); 
                     } else if (data.message == 'wrongAns') {
                         console.log(data.wrongIndex);
                     } else if (data.message == 'Null') {

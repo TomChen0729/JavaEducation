@@ -396,7 +396,7 @@
         }
 
         .weapon.show {
-            animation: animate 1s ease-in-out;
+            animation: animate 5s ease-in-out;
             opacity: 1;
             /* 直接顯示 */
         }
@@ -808,7 +808,7 @@ public class Main {
                             }else{
                                 getcard.textContent = '';
                             }    
-                        }, 100); 
+                        }, 5000); 
                     } else if (data.message == 'wrongAns') {
                         console.log(data.wrongIndex);
                     } else if (data.message == 'Null') {
