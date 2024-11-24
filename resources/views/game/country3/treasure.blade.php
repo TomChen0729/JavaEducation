@@ -331,14 +331,37 @@
 
         /* 設定容器樣式 */
         #code-container {
+            position: relative;
             background-color: #ddb759;
             color: #74461b;
             /* border: 5px solid #442a0f; */
             border-radius: 30px;
             padding: 20px;
             text-align: center;
-            padding-top: 35%;
             overflow: auto;
+        }
+
+        #question-container pre {
+            position: absolute;
+            top: 10%;
+            left: 5%;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        #submit-btn {
+            position: absolute;
+            top: 200%;
+            background-color: #f0cdca;
+            border: 3px solid #442a0f;
+            border-radius: 10px;
+            color: #442a0f;
+            padding: 5px;
+        }
+
+        #submit-btn:hover {
+            background-color: #d4807c;
         }
 
         #material-container {
@@ -426,13 +449,6 @@
             text-align: center;
         }
 
-        #question-container pre {
-            margin-top: 30%;
-            font-size: 20px;
-            font-weight: bold;
-            text-align: left;
-        }
-
         /* 設定選項容器樣式 */
         #pieces {
             display: wrap;
@@ -477,18 +493,6 @@
             line-height: 40px;
             /* 垂直置中 */
             text-align: center;
-        }
-
-        #submit-btn {
-            background-color: #f0cdca;
-            border: 3px solid #442a0f;
-            border-radius: 10px;
-            color: #442a0f;
-            padding: 5px;
-        }
-
-        #submit-btn:hover {
-            background-color: #d4807c;
         }
 
         .popup {
