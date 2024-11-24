@@ -692,7 +692,7 @@ public class Main {
             switch (parameter_id) {
                 case 18: // 魔女
                     characterImg.src = '/images/fight/witch.svg';
-                    weaponImg.src = '/images/fight/witch_weapon.svg';  // 根據需求設置魔女的武器
+                    weaponImg.src = '/images/fight/sword.svg';  // 根據需求設置魔女的武器
                     break;
                 case 19: // 巨人
                     characterImg.src = '/images/fight/giant.svg';
