@@ -770,8 +770,10 @@
                         const question = document.getElementById('question');
                         const popup = document.getElementById('success-popup');
 
-                        img.src = "/images/password/opendoor.svg";
-                        question.classList.add('hide');
+                        setTimeout(() => {
+                            img.src = "/images/password/opendoor.svg";
+                            question.classList.add('hide');
+                        }, 1000);
 
                         // 延遲出現答題成功彈窗
                         setTimeout(() => {
@@ -784,7 +786,7 @@
                             }else{
                                 getcard.textContent = '';
                             }    
-                        }, 100); 
+                        }, 2000); 
                     } else if (data.message == 'wrongAns') {
                         console.log(data.wrongIndex);
                     } else if (data.message == 'Null') {

@@ -680,7 +680,9 @@
                 .then(data => {
                     if (data.message == 'correct') {
                         const apple = document.getElementById('img-container');
-                        apple.classList.add('open');
+                        setTimeout(() => {
+                            apple.classList.add('open');
+                        }, 1000);
 
                         const popup = document.getElementById('success-popup');
                         // 延遲出現答題成功彈窗
@@ -694,7 +696,7 @@
                             }else{
                                 getcard.textContent = '';
                             }    
-                        }, 100); 
+                        }, 2000); 
                     } else if (data.message == 'wrongAns') {
                         console.log(data.wrongIndex);
                     } else if (data.message == 'Null') {

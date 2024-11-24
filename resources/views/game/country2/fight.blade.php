@@ -396,7 +396,7 @@
         }
 
         .weapon.show {
-            animation: animate 1s ease-in-out;
+            animation: animate 5s ease-in-out;
             opacity: 1;
             /* 直接顯示 */
         }
@@ -692,7 +692,7 @@ public class Main {
             switch (parameter_id) {
                 case 18: // 魔女
                     characterImg.src = '/images/fight/witch.svg';
-                    weaponImg.src = '/images/fight/witch_weapon.svg';  // 根據需求設置魔女的武器
+                    weaponImg.src = '/images/fight/sword.svg';  // 根據需求設置魔女的武器
                     break;
                 case 19: // 巨人
                     characterImg.src = '/images/fight/giant.svg';
@@ -808,7 +808,7 @@ public class Main {
                             }else{
                                 getcard.textContent = '';
                             }    
-                        }, 100); 
+                        }, 5000); 
                     } else if (data.message == 'wrongAns') {
                         console.log(data.wrongIndex);
                     } else if (data.message == 'Null') {

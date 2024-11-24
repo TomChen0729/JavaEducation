@@ -420,7 +420,7 @@
             right: 30%;
             opacity: 0;
             /* top從-100px => 50px，opacity透明(0) => 不透明(1)，動畫持續2秒，速度曲線 => ease-in-out */
-            transition: top 2s ease-in-out, opacity 3s ease-in-out;
+            transition: top 5s ease-in-out, opacity 3s ease-in-out;
             height: 15%;
             position: absolute;
             z-index: 10;
@@ -743,7 +743,7 @@
                             }else{
                                 getcard.textContent = '';
                             }    
-                        }, 100); 
+                        }, 5000); 
                     } else if (data.message == 'wrongAns') {
                         console.log(data.wrongIndex);
                     } else if (data.message == 'Null') {

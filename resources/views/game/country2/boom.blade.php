@@ -360,7 +360,7 @@
             width: 100%;
             background: url('/images/boom/boom.svg') no-repeat center;
             background-size: contain;
-            transition: background 0.5s;
+            transition: background 5s;
             position: relative;
             z-index: 1;
         }
@@ -380,7 +380,7 @@
             transform: translateX(-50%);
             background: url('/images/boom/star.svg') no-repeat center;
             background-size: contain;
-            animation: bounce 1.5s ease-in-out forwards;
+            animation: bounce 10s ease-in-out forwards;
         }
 
         @keyframes bounce {
@@ -824,7 +824,7 @@
                             }else{
                                 getcard.textContent = '';
                             }    
-                        }, 100); 
+                        }, 5000); 
                     } else if (data.message == 'wrongAns') {
                         console.log(data.wrongIndex);
                     } else if (data.message == 'Null') {
