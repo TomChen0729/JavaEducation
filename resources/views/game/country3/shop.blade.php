@@ -126,7 +126,7 @@
             justify-content: space-between;
             padding: 20px 2% 0;
             /* 透明背景 */
-            background: rgba(22,83,126, 0.8);
+            background: rgba(22, 83, 126, 0.8);
             transition: all 0.50s ease;
         }
 
@@ -383,7 +383,7 @@
             position: relative;
         }
 
-        #potion{
+        #potion {
             position: absolute;
             top: 10%;
             left: 45%;
@@ -435,7 +435,8 @@
         /* 設定拖放區域的樣式 */
         .dropZone {
             display: inline-block;
-            min-width: 200px; /*設定最小長度，太長可以動態調整寬度*/
+            min-width: 200px;
+            /*設定最小長度，太長可以動態調整寬度*/
             height: 50px;
             border: 5px solid #faf1e4;
             border-radius: 20px;
@@ -462,7 +463,8 @@
             padding: 20px 30px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             z-index: 1000;
-            display: none; /* 初始隱藏 */
+            display: none;
+            /* 初始隱藏 */
             text-align: center;
         }
 
@@ -472,8 +474,13 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         .popup .popup-content {
@@ -515,7 +522,7 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
-        
+
         .popup .popup-content a {
             color: #000;
         }
@@ -669,7 +676,8 @@
         <div class="popup-content">
             <p>答題成功！</p>
             <div class="card"></div>
-            <button><a href="{{ route('country.index', ['country_id' => $question_data['country_id']]) }}">選擇遊戲關卡</a></button>
+            <button><a
+                    href="{{ route('country.index', ['country_id' => $question_data['country_id']]) }}">選擇遊戲關卡</a></button>
         </div>
     </div>
 
@@ -679,7 +687,8 @@
                 <a href="{{ route('welcome') }}" class="breadcrumbs__link">綠野仙蹤</a>
             </li>
             <li class="breadcrumbs__item">
-                <a href="{{ route('country.index', ['country_id' => $question_data['country_id']]) }}" class="breadcrumbs__link">選擇遊戲</a>
+                <a href="{{ route('country.index', ['country_id' => $question_data['country_id']]) }}"
+                    class="breadcrumbs__link">選擇遊戲</a>
             </li>
             <li class="breadcrumbs__item">
                 <a href="#" class="breadcrumbs__link__active">{{ $question->gamename }}</a>
@@ -789,6 +798,11 @@
         // 題目
         // 初始化題目
         window.onload = function() {
+            var userAnswersandOrder = <?php echo json_encode(!empty($userAnswers) ? $userAnswers : []); ?>;
+            var userAnswers = userAnswersandOrder.map(function(answer) {
+                return answer.userAnswer;
+            });
+            console.log('正確答案：', userAnswers);
             // 定義題目和答案的數組
             // const questions = $question_data;
             // console.log(questions);
@@ -799,23 +813,60 @@
 
             // 顯示整個作答區
             function displayQuestion(questions) {
-                // 獲取題目的div
+                // 獲取題目的 div
                 const questionElement = document.getElementById('question-container');
 
-                // 將題目中的 '___' 替換為缺空處
-                let formattedQuestion = questions.question.replace(/___/g, generateDropZone());
-                questionElement.innerHTML = `<p>${formattedQuestion}</p>`;
+                // 確保題目是字符串或數組，並進行正確處理
+                let questionText = Array.isArray(questions.question) ? questions.question : [questions.question];
 
+                if (userAnswers.length > 0) {
+                    // 創建一個字典對象，按順序查找用戶答案
+                    let answersOrder = {};
+                    userAnswersandOrder.forEach(answer => {
+                        answersOrder[answer.order] = answer.userAnswer;
+                    });
 
-                // 獲取放置選項的div
-                const piecesElement = document.getElementById('pieces');
-                // 設定選項按鈕，透過map函數遍歷整個options陣列，將每個值讀出來，然後動態生成選項
-                piecesElement.innerHTML = questions.options.map(options => {
-                    return `<div class="optionBtn" draggable="true">${options.ans_patterns}</div>`;
-                }).join('');
+                    let formattedQuestion = questionText.map((question, index) => {
+                        let order = index + 1; // 題目順序從1開始
+                        let userAnswer = answersOrder[order] || '___'; // 預設填充'___'，如果沒有答案
 
-                // 初始化所有可拖曳的元素
-                initializeDragAndDrop();
+                        // 獲取題目中所有的 '___' 匹配項
+                        let matches = question.match(/___/g);
+                        if (matches) {
+                            // 確保每個 '___' 被替換為對應的答案
+                            matches.forEach((match, matchIndex) => {
+                                // 使用當前的用戶答案替換每個 '___'
+                                userAnswer = answersOrder[order + matchIndex] ||
+                                    '___'; // 根據匹配的順序來選擇對應的答案
+                                question = question.replace('___', userAnswer); // 替換第一個 '___' 為對應的答案
+                            });
+                        }
+
+                        return question;
+                    }).join('<br>'); // 合併所有題目
+
+                    // 更新顯示題目的 div
+                    questionElement.innerHTML = `<p>${formattedQuestion}</p>`;
+
+                    // 隱藏提交按鈕
+                    const submitBtn = document.getElementById('submit-btn');
+                    if (submitBtn) submitBtn.style.display = 'none'; // 隱藏按鈕
+
+                } else {
+                    // 如果沒有用戶答案，則使用拖曳填空模式
+                    let formattedQuestion = questions.question.replace(/___/g, generateDropZone());
+                    questionElement.innerHTML = `<p>${formattedQuestion}</p>`;
+
+                    // 獲取放置選項的 div
+                    const piecesElement = document.getElementById('pieces');
+                    piecesElement.innerHTML = questions.options.map(options => {
+                        return `<div class="optionBtn" draggable="true">${options.ans_patterns}</div>`;
+                    }).join('');
+
+                    // 初始化所有可拖曳的元素
+                    initializeDragAndDrop();
+                }
+
             }
 
 
@@ -828,7 +879,7 @@
             function checkAnswers() {
                 let allFilled = true;
                 var userAnswer = [];
-                
+
                 // 獲取玩家已填入缺空處的值
                 const dropZone = document.querySelectorAll('.dropZone');
                 console.log(dropZone.length);
@@ -838,7 +889,7 @@
                     }
                     userAnswer.push({
                         order: index + 1,
-                        ans_patterns: item.textContent
+                        userAnswer: item.textContent
                     });
                 });
 
@@ -872,15 +923,15 @@
 
                             // 延遲出現答題成功彈窗
                             setTimeout(() => {
-                                popup.classList.add('jump');  // 顯示彈窗
+                                popup.classList.add('jump'); // 顯示彈窗
                                 const getcard = popup.querySelector('.card');
                                 console.log(getcard);
                                 console.log("您獲得" + data.getCard + "知識卡");
-                                if(data.getCard){
+                                if (data.getCard) {
                                     getcard.textContent = "您獲得" + data.getCard + "知識卡";
-                                }else{
+                                } else {
                                     getcard.textContent = '';
-                                }    
+                                }
                             }, 100);
 
                         } else if (data.message == 'wrongAns') {
