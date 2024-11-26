@@ -345,7 +345,7 @@
                 <div class="card">
                     <div class="card-content">
                         <div class="icon">{{ html_entity_decode($card -> img) }}</div>
-                        <h3>LV.{{ $card->levels }}</h3>
+                        <h3>第{{ $card->levels }}章</h3>
                         <p>{{ $card->card_type }}</p>
                         <a href="#" onclick="alert('尚未解鎖')" class="btn">開始遊戲</a>
                     </div>
