@@ -186,6 +186,14 @@
             object-fit: fill;
         }
 
+        .countryIcon img {
+            transition: transform 0.3s ease-in-out; /* 添加平滑過渡效果 */
+        }
+
+        .countryIcon img:hover {
+            transform: scale(1.2); /* 鼠標懸停時將圖片放大 1.2 倍 */
+        }
+
         @media screen and (max-width: 1400px) {
             #menu-icon {
                 display: block;
@@ -288,9 +296,9 @@
             <!-- $country是國家圖檔名，$status是他的可點選狀態 -->
             @foreach ($countries as $country => $status)
                 @if ($status == 1)
-                    <button><a href="{{ route('country.drama', ['country_id' => $loop->index + 1]) }}"><img src="/images/country/{{ $country}}" alt=""></a></button>
+                    <button class="countryIcon"><a href="{{ route('country.drama', ['country_id' => $loop->index + 1]) }}"><img src="/images/country/{{ $country}}" alt=""></a></button>
                 @else
-                    <button onclick="alert('尚未解鎖')"><img src="/images/country/{{ $country }}" style="opacity:0.2" disabled></button>
+                    <button class="countryIcon" onclick="alert('尚未解鎖')"><img src="/images/country/{{ $country }}" style="opacity:0.3" disabled></button>
                 @endif
             @endforeach
         </div>
