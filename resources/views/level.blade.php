@@ -325,8 +325,8 @@
 
 <div class="container">
     <div class="headers">
-        <h1>選擇你的學習區遊戲難度</h1>
-        <p>挑戰不同的關卡，提升你的程式技能！</p>
+        <h1>依序學習JAVA基礎知識</h1>
+        <p>遊玩不同的關卡，提升你的程式基本素養！</p>
     </div>
 
     <div class="card-container">
@@ -336,7 +336,7 @@
                 <div class="card">
                     <div class="card-content">
                         <div class="icon">{{ html_entity_decode($card -> img) }}</div>
-                        <h3>LV.{{ $card->levels }}</h3>
+                        <h3>第{{ $card->levels }}章</h3>
                         <p>{{ $card->card_type }}</p>
                         <a href="{{ route('game.index', ['levels' => $card->levels, 'country_id' => $card->country_id]) }}" class="btn">開始遊戲</a>
                     </div>
