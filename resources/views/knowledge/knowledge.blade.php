@@ -10,7 +10,6 @@
         outline: none;
         border: none;
         text-decoration: none;
-        text-transform: capitalize;
         transition: .2s linear;
     }
 
@@ -208,7 +207,7 @@
         $owned = $user_cards_id->contains($all_card->id);
         @endphp
         <div class="box {{ $owned ? 'owned-card' : 'unowned-card' }}">
-            <h3>{{ $all_card -> name }}</h3>
+            <h3><strong>{{ $all_card -> name }}</strong></h3>
             <a href="{{ route('showcardcontent', ['card_id' => $all_card -> id]) }}" class="btn">Read More</a>
         </div>
         @endforeach
