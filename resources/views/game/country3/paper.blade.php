@@ -1011,7 +1011,7 @@
                                 pen.style.opacity = 0;
                                 paper.src = "/images/paper/rightpaper.svg";
                             }, 6000);
-
+                            const popup = document.getElementById('success-popup');
                             // 延遲出現答題成功彈窗
                             setTimeout(() => {
                                 popup.classList.add('jump'); // 顯示彈窗

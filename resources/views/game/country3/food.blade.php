@@ -675,7 +675,7 @@
         <div class="popup-content">
             <p>答題成功！</p>
             <div class="card"></div>
-            <button><a href="{{ $question->gamename }}">選擇遊戲關卡</a></button>
+            <button><a href="{{ route('country.index', ['country_id' => $question_data['country_id']]) }}">選擇遊戲關卡</a></button>
         </div>
     </div>
 
@@ -685,7 +685,7 @@
                 <a href="{{ route('welcome') }}" class="breadcrumbs__link">綠野仙蹤</a>
             </li>
             <li class="breadcrumbs__item">
-                <a href="#" class="breadcrumbs__link">選擇遊戲</a>
+                <a href="{{ route('country.index', ['country_id' => $question_data['country_id']]) }}" class="breadcrumbs__link">選擇遊戲</a>
             </li>
             <li class="breadcrumbs__item">
                 <a href="#" class="breadcrumbs__link__active">{{ $question->gamename }}</a>
@@ -917,7 +917,7 @@
                         if (data.message == 'correct') {
                             const box = document.getElementById('box');
                             box.src = "/images/food/fullbox.svg";
-
+                            const popup = document.getElementById('success-popup');
                             // 延遲出現答題成功彈窗
                             setTimeout(() => {
                                 popup.classList.add('jump'); // 顯示彈窗

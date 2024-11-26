@@ -909,7 +909,11 @@
                     // 獲取放置選項的 div
                     const piecesElement = document.getElementById('pieces');
                     piecesElement.innerHTML = questions.options.map(options => {
-                        return `<div class="optionBtn" draggable="true">${options.ans_patterns}</div>`;
+                        console.log(options.ans_patterns);
+                        const unescapedPattern = options.ans_patterns
+                            .replace(/</g, "&lt;")
+                            .replace(/>/g, "&gt;");
+                        return `<div class="optionBtn" draggable="true">${unescapedPattern}</div>`;
                     }).join('');
 
                     // 初始化所有可拖曳的元素
@@ -977,7 +981,7 @@
                             setTimeout(() => {
                                 spy.src = "/images/spy/jail.svg";
                             }, 700); // 延遲，增加視覺效果
-
+                            const popup = document.getElementById('success-popup');
                             // 延遲出現答題成功彈窗
                             setTimeout(() => {
                                 popup.classList.add('jump'); // 顯示彈窗

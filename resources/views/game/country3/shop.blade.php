@@ -920,7 +920,7 @@
                         if (data.message == 'correct') {
                             const potion = document.getElementById('potion');
                             potion.src = "/images/shop/rightpotion.svg";
-
+                            const popup = document.getElementById('success-popup');
                             // 延遲出現答題成功彈窗
                             setTimeout(() => {
                                 popup.classList.add('jump'); // 顯示彈窗

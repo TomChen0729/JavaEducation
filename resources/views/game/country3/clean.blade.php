@@ -699,7 +699,7 @@
         <div class="popup-content">
             <p>答題成功！</p>
             <div class="card"></div>
-            <button><a href="{{ $question->gamename }}">選擇遊戲關卡</a></button>
+            <button><a href="{{ route('country.index', ['country_id' => $question_data['country_id']]) }}">選擇遊戲關卡</a></button>
         </div>
     </div>
 
@@ -959,7 +959,7 @@
                             armor2.src = "/images/clean/shelf.svg";
                             armor3.src = "/images/clean/shelf.svg";
                             armor4.src = "/images/clean/shelf.svg";
-
+                            const popup = document.getElementById('success-popup');
                             // 延遲出現答題成功彈窗
                             setTimeout(() => {
                                 popup.classList.add('jump'); // 顯示彈窗

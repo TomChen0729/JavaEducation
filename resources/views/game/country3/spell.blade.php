@@ -922,7 +922,7 @@
                             setTimeout(() => {
                                 spell.src = "/images/spell/rightspell.svg";
                             }, 500);
-
+                            const popup = document.getElementById('success-popup');
                             // 延遲出現答題成功彈窗
                             setTimeout(() => {
                                 popup.classList.add('jump'); // 顯示彈窗

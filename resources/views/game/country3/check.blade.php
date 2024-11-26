@@ -8,7 +8,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
-    <title>逐個檢查物資</title>
+    <title>物資尋找</title>
     <style>
         * {
             box-sizing: border-box;
@@ -705,7 +705,7 @@
         <div class="popup-content">
             <p>答題成功！</p>
             <div class="card"></div>
-            <button><a href="{{ $question->gamename }}">選擇遊戲關卡</a></button>
+            <button><a href="{{ route('country.index', ['country_id' => $question_data['country_id']]) }}">選擇遊戲關卡</a></button>
         </div>
     </div>
 
@@ -969,7 +969,7 @@
                             ax.classList.add('show');
                             fire.classList.add('show');
                             rope.classList.add('show');
-
+                            const popup = document.getElementById('success-popup');
                             // 延遲出現答題成功彈窗
                             setTimeout(() => {
                                 popup.classList.add('jump'); // 顯示彈窗
