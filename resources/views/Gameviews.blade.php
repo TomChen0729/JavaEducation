@@ -175,7 +175,7 @@
         @endforeach
     </div>
 
-    <button class="btn"><a href="{{ route('country.index', ['country_id' => $currentCountry]) }}">選擇遊戲難度</a></button>
+    <button class="btn"><a href="{{ route('country.index', ['country_id' => $currentCountry]) }}">選擇遊戲章節</a></button>
 @endsection
 
 
