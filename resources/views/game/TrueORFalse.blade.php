@@ -151,6 +151,11 @@
             padding: 30px 0;
             border-radius: 50px;
             border: 5px solid #736356;
+            overflow-y: auto;
+        }
+
+        .popup .pop::-webkit-scrollbar {
+            display: none; /* 隱藏滾動條 */
         }
 
         .popup .pop h1 {
