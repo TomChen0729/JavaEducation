@@ -681,7 +681,7 @@ public class Main {
                         setTimeout(() => {
                             waterElement.classList.remove('show');
                             firemanImg.src = "/images/fire/man.svg";
-                        }, 5000); // 1秒
+                        }, 2000); // 1秒
                         
                         const popup = document.getElementById('success-popup');
                         // 延遲出現答題成功彈窗
@@ -695,7 +695,7 @@ public class Main {
                             }else{
                                 getcard.textContent = '';
                             }    
-                        }, 5000); 
+                        }, 2000); 
                     } else if (data.message == 'wrongAns') {
                         console.log(data.wrongIndex);
                     } else if (data.message == 'Null') {

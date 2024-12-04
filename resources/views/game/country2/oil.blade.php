@@ -826,13 +826,13 @@
                         // 更新血量狀態文字
                         healthStatus.textContent = `HP: ${healthPercentage}%`;
                         // 5秒動畫
-                        healthBar.style.transition = 'width 5s ease, background-color 5s ease';
+                        healthBar.style.transition = 'width 2s ease, background-color 2s ease';
 
                         // 換臉
                         const man = document.getElementById('man');
                         setTimeout(() => {
                             man.src = '/images/oil/happyman.svg';
-                        }, 5000);
+                        }, 2000);
 
                         // 油罐飛出
                         const oilElement = document.getElementById('oil');
@@ -850,7 +850,7 @@
                             }else{
                                 getcard.textContent = '';
                             }    
-                        }, 5000); 
+                        }, 2000); 
                     } else if (data.message == 'wrongAns') {
                         console.log(data.wrongIndex);
                     } else if (data.message == 'Null') {

@@ -380,7 +380,7 @@
             transform: translateX(-50%);
             background: url('/images/boom/star.svg') no-repeat center;
             background-size: contain;
-            animation: bounce 10s ease-in-out forwards;
+            animation: bounce 2s ease-in-out forwards;
         }
 
         @keyframes bounce {
@@ -824,7 +824,7 @@
                             }else{
                                 getcard.textContent = '';
                             }    
-                        }, 5000); 
+                        }, 2000); 
                     } else if (data.message == 'wrongAns') {
                         console.log(data.wrongIndex);
                     } else if (data.message == 'Null') {
