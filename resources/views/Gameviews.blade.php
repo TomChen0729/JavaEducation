@@ -4,7 +4,7 @@
 
 @section('style')
     <style>
-        body{
+        body {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -12,7 +12,7 @@
             margin: 0;
         }
 
-        .containers{
+        .containers {
             margin-top: 5%;
             padding: 20px;
             background-color: #4D613C;
@@ -21,7 +21,7 @@
             text-align: center;
         }
 
-        h2{
+        h2 {
             font-size: 60px;
             font-weight: bold;
             margin: 10px;
@@ -29,13 +29,16 @@
             text-shadow: -1px -1px 0 #F6B654, 1px -1px 0 #F6B654, -1px 1px 0 #F6B654, 1px 1px 0 #F6B654;
         }
 
-        p{
+        p {
             margin: 20px 30px;
             text-align: left;
             color: #F8F2ED;
         }
 
-        .TF, .CH, .MA, .RE {
+        .TF,
+        .CH,
+        .MA,
+        .RE {
             font-size: 28px;
             font-weight: bold;
             margin: 30px;
@@ -47,27 +50,30 @@
             text-decoration: none;
         }
 
-        .TF{
+        .TF {
             background-color: #f1c232;
         }
 
-        .CH{
+        .CH {
             background-color: #bcdf49;
         }
 
-        .MA{
+        .MA {
             background-color: #e06666;
         }
 
-        .RE{
+        .RE {
             background-color: #76a5af;
         }
 
-        a:hover{
+        a:hover {
             color: white;
         }
 
-        .TF:hover, .CH:hover, .MA:hover, .RE:hover {
+        .TF:hover,
+        .CH:hover,
+        .MA:hover,
+        .RE:hover {
             box-shadow: 0 0 10px rgb(100, 100, 100);
             transform: scale(1.03);
         }
@@ -153,29 +159,40 @@
     <div class="containers">
         <h2>學習區</h2>
         <p><strong>是非關卡</strong><br>
-        玩法說明：判斷題目所述內容的正確性，選擇正確答案是True還是False。</p>
+            玩法說明：判斷題目所述內容的正確性，選擇正確答案是True還是False。</p>
         <p><strong>選擇關卡</strong><br>
-        玩法說明：從多個選項中選擇一個最符合題意的答案。</p>
+            玩法說明：從多個選項中選擇一個最符合題意的答案。</p>
         <p><strong>配對關卡</strong><br>
-        玩法說明：根據題目與正確的描述或應用進行配對。</p>
+            玩法說明：根據題目與正確的描述或應用進行配對。</p>
         <p><strong>填空關卡</strong><br>
-        玩法說明：根據提示內容，在下方選擇適合答案拉上去使程式碼完整。</p>
+            玩法說明：根據提示內容，在下方選擇適合答案拉上去使程式碼完整。</p>
         <!-- <p><strong>Debug關卡</strong><br>
-        玩法說明：在這個關卡中，你會得到一段有錯誤的程式碼。你的任務是找出並修正這些錯誤。</p> -->
-        @foreach($Question_list as $item)
-            @if($item -> gametype == '是非')
-                <button class="TF"><a href="{{ route('game.gameTypeChoose', ['GameType' => $item -> gametype, 'country_id' => $item -> country_id, 'levels' => $item -> levels]) }}">{{ $item -> gametype }}</a></button>
-            @elseif($item -> gametype == '選擇')
-                <button class="CH"><a href="{{ route('game.gameTypeChoose', ['GameType' => $item -> gametype, 'country_id' => $item -> country_id, 'levels' => $item -> levels]) }}">{{ $item -> gametype }}</a></button>
-            @elseif($item -> gametype == '配對')
-                <button class="MA"><a href="{{ route('game.gameTypeChoose', ['GameType' => $item -> gametype, 'country_id' => $item -> country_id, 'levels' => $item -> levels]) }}">{{ $item -> gametype }}</a></button>
+                                        玩法說明：在這個關卡中，你會得到一段有錯誤的程式碼。你的任務是找出並修正這些錯誤。</p> -->
+        @foreach ($Question_list as $item)
+            @if ($item->gametype == '是非')
+                <button class="TF"><a
+                        href="{{ route('game.gameTypeChoose', ['GameType' => $item->gametype, 'country_id' => $item->country_id, 'levels' => $item->levels]) }}">{{ $item->gametype }}</a></button>
+            @elseif($item->gametype == '選擇')
+                <button class="CH"><a
+                        href="{{ route('game.gameTypeChoose', ['GameType' => $item->gametype, 'country_id' => $item->country_id, 'levels' => $item->levels]) }}">{{ $item->gametype }}</a></button>
+            @elseif($item->gametype == '配對')
+                <button class="MA"><a
+                        href="{{ route('game.gameTypeChoose', ['GameType' => $item->gametype, 'country_id' => $item->country_id, 'levels' => $item->levels]) }}">{{ $item->gametype }}</a></button>
             @else
-                <button class="RE"><a href="{{ route('game.gameTypeChoose', ['GameType' => $item -> gametype, 'country_id' => $item -> country_id, 'levels' => $item -> levels]) }}">{{ $item -> gametype }}</a></button>
+                <button class="RE"><a
+                        href="{{ route('game.gameTypeChoose', ['GameType' => $item->gametype, 'country_id' => $item->country_id, 'levels' => $item->levels]) }}">{{ $item->gametype }}</a></button>
             @endif
         @endforeach
     </div>
 
     <button class="btn"><a href="{{ route('country.index', ['country_id' => $currentCountry]) }}">選擇遊戲章節</a></button>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const message = @json(session('message')); // 使用 Blade 模板語法來傳遞變數
+            console.log('Message:', message);
+            if (message === 'nextlevel') {
+                alert('你已經解鎖下一章!');
+            }
+        });
+    </script>
 @endsection
-
-

@@ -37,8 +37,18 @@ class GameController extends Controller
             ->groupBy('gametype', 'country_id', 'levels')
             ->orderBy('id')
             ->get();
-
-        return view('Gameviews', ['Question_list' => $Question_list, 'currentCountry' => $country_id]);
+        $current_uid = auth()->user()->id;
+        $user_level = User::where('id', $current_uid)->pluck('levels')->first();
+        $max_level = $Question_list->max('levels');
+        log::info('userlevel'.$user_level);
+        log::info('maxlevel'.$max_level);
+        if($user_level>$max_level){
+            session()->flash('message', 'nextlevel');
+            return view('Gameviews', ['Question_list' => $Question_list, 'currentCountry' => $country_id] );
+        }else{
+            return view('Gameviews', ['Question_list' => $Question_list, 'currentCountry' => $country_id]);
+        }
+        
     }
 
     // 依照遊戲類別 選擇導向遊戲畫面
@@ -240,7 +250,7 @@ class GameController extends Controller
                             ->where('levels', $levels)->inRandomOrder()->take(4)->get();
                     }
                     // Log::info('questions' . $questions);
-                    if(!empty($questions)){
+                    if (!empty($questions)) {
                         $qid = $questions->pluck('id')->toArray();
                         $Q_cards = QuestionCard::whereIn('question_id', $qid)->pluck('knowledge_card_id')->toArray();
                         $cards = KnowledgeCard::whereIn('id', $Q_cards)->get();
@@ -368,11 +378,11 @@ class GameController extends Controller
             // 先串表、找答對的問題，再去questions表找符合等級的資料，最後只抓取遊戲種類
             $current_uid = auth()->user()->id;
             $PlayedGameType = UserRecord::join('questions', 'questions.id', '=', 'user_records.question_id')
-            ->select('questions.gametype as gametype')
-            ->where('questions.country_id', $country_id)
-            ->where('questions.levels', $levels)
-            ->where('user_records.user_id', $current_uid)
-            ->distinct()->get()->toArray();
+                ->select('questions.gametype as gametype')
+                ->where('questions.country_id', $country_id)
+                ->where('questions.levels', $levels)
+                ->where('user_records.user_id', $current_uid)
+                ->distinct()->get()->toArray();
             $PlayedGameType = array_column($PlayedGameType, 'gametype');
             Log::info($PlayedGameType);
             // 儲存當前所有的遊戲種類
@@ -588,7 +598,7 @@ class GameController extends Controller
                             ->where('levels', $levels)->inRandomOrder()->take(4)->get();
                     }
                     // Log::info('questions' . $questions);
-                    if(!empty($questions)){
+                    if (!empty($questions)) {
                         $qid = $questions->pluck('id')->toArray();
                         $Q_cards = QuestionCard::whereIn('question_id', $qid)->pluck('knowledge_card_id')->toArray();
                         $cards = KnowledgeCard::whereIn('id', $Q_cards)->get();
@@ -926,4 +936,5 @@ class GameController extends Controller
             return response()->json(['message' => 'http method must be get!']);
         }
     }
+
 }
