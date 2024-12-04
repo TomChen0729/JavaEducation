@@ -707,7 +707,6 @@ class GameController extends Controller
     // 對答案API
     public function correctANS(Request $request)
     {
-        $this->gameService->updateUserRecord();
         if ($request->isMethod('GET')) {
             $user_ANS = $request->query('user_answer');
             $q_id = $request->query('question_id');
