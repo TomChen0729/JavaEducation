@@ -134,28 +134,75 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0);
-            background: #434B5C;
-            border-radius: 50px;
-            width: 40%;
-            height: 50%;
+            background: linear-gradient(145deg, #4F5A73, #3A4256);
+            border-radius: 20px;
+            width: auto;
+            height: auto;
             z-index: 2;
             text-align: center;
-            padding: 20px;
+            padding: 10px;
             box-sizing: border-box;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); /* 陰影效果 */
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .popup .pop a.cardname {
+            display: inline-block;
+            margin: 10px;
+            padding: 20px 25px;
+            text-align: center;
+            background: #736356;
+            color: #FFFFFF;
+            font-size: 1.1em;
+            border-radius: 15px;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .popup .pop a.cardname:hover {
+            transform: translateY(-5px);
+            background: #5C4B45;
+        }
+
+        .popup .pop a.cardname::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: skewX(-45deg);
+            transition: left 0.5s ease;
+        }
+
+        .popup .pop a.cardname:hover::before {
+            left: 100%;
         }
 
         .popup .pop {
             color: #EBE2D1;
             height: 80%;
-            margin: 30px;
-            padding: 30px 0;
+            margin: 60px;
+            padding: 60px 80px;
             border-radius: 50px;
-            border: 5px solid #736356;
+            border: 8px solid #736356;
             overflow-y: auto;
         }
 
         .popup .pop::-webkit-scrollbar {
             display: none; /* 隱藏滾動條 */
+        }
+
+        .title{
+            color:#FFF5D7;
+            font-size:32px;
+            font-weight:800;
+            margin: 0;
+            padding: 0;
+            text-align: center;
         }
 
         .popup .pop h1 {
@@ -197,6 +244,12 @@
             line-height: 30px;
             text-align: center;
             border-radius: 50%;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .popup .close-btn:hover {
+            transform: scale(1.2);
+            color: #FF6B6B;
         }
 
         .popup.active .overlay {
@@ -209,9 +262,9 @@
         }
     
         #popup-2 .content p {
-            padding: 15px;
             text-align: left;
         }
+        
         .end .overlay {
             position: fixed;
             top: 0px;
@@ -592,6 +645,7 @@
         <div class="content">
             <div class="close-btn" onclick="togglePopup2()">&times;</div>
             <div class="pop">
+            <div class="title">知識卡資訊</div>
                 @foreach ( $questions_cards as $item )
                     <a class="cardname" href="#" onclick="togglePopup3('{{ $item -> name }}')">{{ $item -> name }}</a>
                 @endforeach       
