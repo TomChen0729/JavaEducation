@@ -753,7 +753,7 @@
 
                 <img id="gun" src="/images/spy/gun.svg">
             </div>
-            <button onclick="play()">測試按鈕</button>
+            {{-- <button onclick="play()">測試按鈕</button> --}}
             <div class="description" id="description-container">
                 <p>{{ $question->pre_story }}</p>
             </div>
